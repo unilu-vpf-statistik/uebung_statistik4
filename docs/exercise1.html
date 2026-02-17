@@ -369,7 +369,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Schreiben Sie hier ihren Code um die Aufgaben zu lösen\n\n# Laden Sie zunächst das here-Paket\nlibrary(here)\n\n# Überprüfen Sie das aktuelle Arbeitsverzeichnis\nhere()\n\n# Experimentieren Sie mit relativen Pfaden\nhere(\"daten\", \"WM_Fragebögen.csv\")","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Schreiben Sie hier Ihren Code um die Aufgaben zu lösen\n\n# 1. Zeigen Sie das aktuelle Arbeitsverzeichnis an\ngetwd()\n\n# 2. Warum ist folgender Code problematisch?\n#    pfad <- \"C:/Users/Max/Dokumente/Analyse/WM_Fragebögen.csv\"\n#    Überlegen Sie: Was passiert, wenn Sie dieses Skript auf einem\n#    anderen Computer oder in einem anderen Ordner ausführen?\n\n# 3. Dokumentieren Sie Ihre Überlegung als Kommentar:\n# Antwort: ...\n\n# Hinweis: Die technische Lösung (relative Pfade mit dem here-Paket)\n# wird in Übung 2 behandelt.","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2117,7 +2117,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Eine reproduzierbare Analyse zeichnet sich durch folgende Merkmale aus:</p>
 <ol type="1">
 <li><strong>Klare Projektstruktur</strong>: Alle Dateien sind sinnvoll in Ordnern organisiert</li>
-<li><strong>Relative Pfade</strong>: Keine absoluten Pfade (<code>C:/Users/...</code>), sondern relative Pfade mit <code>here()</code></li>
+<li><strong>Relative Pfade</strong>: Keine absoluten Pfade (<code>C:/Users/...</code>), die von einem bestimmten Rechner abhängen</li>
 <li><strong>Dokumentierter Code</strong>: Skripte sind kommentiert und erklären was jeder Schritt macht</li>
 <li><strong>Versionskontrolle</strong>: Änderungen am Code werden nachverfolgt (z. B. mit Git)</li>
 <li><strong>Abhängigkeiten dokumentiert</strong>: Verwendete Pakete und ihre Versionen sind festgehalten</li>
@@ -2132,9 +2132,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen <strong>reproduzierbare Analysen</strong>?</p>
+<div id="webex-d56967cb20bc64fb2407482693b9fb6c" class="webex-checkboxgroup" data-answer="PwQaCBoHT1Jv">
+<label><input type="checkbox" autocomplete="off" name="d56967cb20bc64fb2407482693b9fb6c"><span>Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben.</span></label><label><input type="checkbox" autocomplete="off" name="d56967cb20bc64fb2407482693b9fb6c"><span>Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in <strong>separaten Unterordnern</strong> gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="d56967cb20bc64fb2407482693b9fb6c"><span>Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="d56967cb20bc64fb2407482693b9fb6c"><span>Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind Option 1 und Option 3. Separate Unterordner (Option 1) ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden (Option 3), weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur (Option 2) wird schnell unübersichtlich. Desktop-Speicherung (Option 4) führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen beschreiben korrekte Merkmale einer <strong>reproduzierbaren</strong> Datenanalyse?</p>
-<div id="webex-2fb87ca83a3f09bb2f101c53bf7a512b" class="webex-checkboxgroup" data-answer="aVZOCRtTTQlu">
-<label><input type="checkbox" autocomplete="off" name="2fb87ca83a3f09bb2f101c53bf7a512b"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="2fb87ca83a3f09bb2f101c53bf7a512b"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label><label><input type="checkbox" autocomplete="off" name="2fb87ca83a3f09bb2f101c53bf7a512b"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="2fb87ca83a3f09bb2f101c53bf7a512b"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label>
+<div id="webex-b3b587ebf15025eaa2179d7c26f5cf41" class="webex-checkboxgroup" data-answer="OQJOBBQHSVI7">
+<label><input type="checkbox" autocomplete="off" name="b3b587ebf15025eaa2179d7c26f5cf41"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label><label><input type="checkbox" autocomplete="off" name="b3b587ebf15025eaa2179d7c26f5cf41"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="b3b587ebf15025eaa2179d7c26f5cf41"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="b3b587ebf15025eaa2179d7c26f5cf41"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2143,24 +2154,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie beginnen ein neues Analyseprojekt. Welche der folgenden Ordnerstrukturen entspricht den <strong>Best Practices</strong> für reproduzierbare Analysen in R?</p>
-<div id="webex-3a91f42038d57a982d627befb5b4ad75" class="webex-checkboxgroup" data-answer="aFEVAEoFHgBu">
-<label><input type="checkbox" autocomplete="off" name="3a91f42038d57a982d627befb5b4ad75"><span>Alle Skripte und Daten auf dem Desktop gespeichert, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="3a91f42038d57a982d627befb5b4ad75"><span>Separate Unterordner für Rohdaten, verarbeitete Daten, Skripte, Abbildungen und Tabellen.</span></label><label><input type="checkbox" autocomplete="off" name="3a91f42038d57a982d627befb5b4ad75"><span>Ein Projektordner mit Unterordnern und einer <code>.Rproj</code>-Datei im Hauptordner.</span></label><label><input type="checkbox" autocomplete="off" name="3a91f42038d57a982d627befb5b4ad75"><span>Ein einziger Ordner mit allen Dateien (Daten, Skripte, Ergebnisse) ohne Unterordner.</span></label>
+<p>Eine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript <strong>reproduzierbar</strong> ist?</p>
+<div id="webex-c9cc590c5920f7ffc1621bd39df117a9" class="webex-checkboxgroup" data-answer="OAhPUhkJHFNo">
+<label><input type="checkbox" autocomplete="off" name="c9cc590c5920f7ffc1621bd39df117a9"><span>Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.</span></label><label><input type="checkbox" autocomplete="off" name="c9cc590c5920f7ffc1621bd39df117a9"><span>Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> geladen.</span></label><label><input type="checkbox" autocomplete="off" name="c9cc590c5920f7ffc1621bd39df117a9"><span>Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.</span></label><label><input type="checkbox" autocomplete="off" name="c9cc590c5920f7ffc1621bd39df117a9"><span>Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Die korrekte Antwort ist Option 2 und Option 4 (beide korrekt). Eine gute Projektstruktur hat separate Unterordner für verschiedene Dateitypen (Option 2) und ein R-Projekt mit <code>.Rproj</code>-Datei im Hauptordner (Option 4). Ein einziger Ordner ohne Struktur (Option 1) wird schnell unübersichtlich. Desktop-Speicherung (Option 3) führt zu Pfadproblemen auf anderen Computern.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie arbeiten in einem R-Projekt. Ihr Projektordner liegt unter <code>/Users/anna/Projekte/WM_Studie/</code>. Sie möchten die Datei <code>daten.csv</code> im Unterordner <code>Daten_Roh/</code> einlesen. Welcher Code ist der <strong>beste Ansatz</strong>?</p>
-<div id="webex-09645e468001d7772faa4f302376b4fd" class="webex-radiogroup" data-answer="awkaBBlVGAdl">
-<label><input type="radio" autocomplete="off" name="09645e468001d7772faa4f302376b4fd"><span><code>read.csv("/Users/anna/Projekte/WM_Studie/Daten_Roh/daten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="09645e468001d7772faa4f302376b4fd"><span><code>read.csv("C:/Users/anna/Projekte/WM_Studie/Daten_Roh/daten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="09645e468001d7772faa4f302376b4fd"><span><code>setwd("/Users/anna/Projekte/WM_Studie/"); read.csv("Daten_Roh/daten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="09645e468001d7772faa4f302376b4fd"><span><code>library(here); read.csv(here("Daten_Roh", "daten.csv"))</code></span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Die beste Lösung ist Option 3: Das <code>here</code>-Paket baut automatisch einen Pfad relativ zum R-Projektordner. Dieser Code funktioniert auf jedem Computer, solange das Projekt mit seiner Ordnerstruktur übertragen wird. Option 1 und 4 verwenden absolute Pfade, die auf anderen Computern nicht funktionieren. Option 2 setzt das Arbeitsverzeichnis mit <code>setwd()</code>, was ebenfalls einen absoluten Pfad enthält und nicht portabel ist.</p>
+<p>Korrekt sind Option 1 und Option 3. Wenn alle Pakete explizit geladen werden (Option 1), ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft (Option 3), kann von anderen exakt reproduziert werden. Fehlende Kommentare (Option 2) erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel (Option 4) unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

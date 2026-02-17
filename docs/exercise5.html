@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gidon Frischkorn">
 
-<title>Übung 5 - Datenaufbereitung II: Tidy Data – Übungen - VL: Statistik IV</title>
+<title>Übung 5 - Datenaufbereitung II: Fehlende Werte &amp; Ausreisser – Übungen - VL: Statistik IV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -404,7 +369,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(tidyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nhead(wm_daten)\n\n# Beispiel: Erstellen eines breiten Datensatzes (simuliert mehrere Messzeitpunkte)\n# In diesem Beispiel erstellen wir einen künstlich breiten Datensatz\nwm_breit <- wm_daten |>\n  select(id, wm_score, sleep_hours) |>\n  rename(score_t1 = wm_score, schlaf_t1 = sleep_hours)\n\nhead(wm_breit)\n\n# Ihre Aufgaben:\n# 1. Konvertieren Sie wm_breit mit pivot_longer() ins lange Format\n#    (Tipp: cols = c(score_t1, schlaf_t1))\n# 2. Schauen Sie sich die fehlenden Werte im Originaldatensatz an:\n#    Analysieren Sie ob wm_score und stress_rating nach MCAR, MAR oder MNAR fehlen","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\n\n# --- Aufgabe 1: Fehlende Werte ---\n# Anzahl fehlender Werte pro Spalte:\ncolSums(is.na(wm_daten))\n\n# Welche Zeilen haben fehlende Werte?\n# which(!complete.cases(wm_daten))\n\n# Überlegen Sie: Fehlen die Werte in wm_score oder stress_rating eher\n# nach MCAR, MAR oder MNAR? Notieren Sie Ihre Begründung als Kommentar.\n\n# --- Aufgabe 2: Ausreisser erkennen ---\n# IQR-Regel für wm_score:\nx <- wm_daten$wm_score\nQ1 <- quantile(x, 0.25, na.rm = TRUE)\nQ3 <- quantile(x, 0.75, na.rm = TRUE)\nIQR_val <- IQR(x, na.rm = TRUE)\nuntere_grenze <- Q1 - 1.5 * IQR_val\nobere_grenze  <- Q3 + 1.5 * IQR_val\ncat(\"Ausreisser-Grenzen (IQR):\", untere_grenze, \"bis\", obere_grenze, \"\\n\")\nsum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)\n\n# z-Score-Kriterium:\nz_scores <- scale(x)\nsum(abs(z_scores) > 3, na.rm = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1820,10 +1785,9 @@ globalThis.qwebrExecuteCode = async function (
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#wiederholung-vertiefung-tidy-data" id="toc-wiederholung-vertiefung-tidy-data" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-tidy-data">Wiederholung &amp; Vertiefung: Tidy Data</a></li>
-  <li><a href="#daten-für-diese-übung" id="toc-daten-für-diese-übung" class="nav-link" data-scroll-target="#daten-für-diese-übung">Daten für diese Übung</a></li>
-  <li><a href="#tidy-data-prinzipien" id="toc-tidy-data-prinzipien" class="nav-link" data-scroll-target="#tidy-data-prinzipien">Tidy Data Prinzipien</a></li>
+  <li><a href="#wiederholung-vertiefung-fehlende-werte-ausreisser" id="toc-wiederholung-vertiefung-fehlende-werte-ausreisser" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-fehlende-werte-ausreisser">Wiederholung &amp; Vertiefung: Fehlende Werte &amp; Ausreisser</a></li>
   <li><a href="#mechanismen-fehlender-werte" id="toc-mechanismen-fehlender-werte" class="nav-link" data-scroll-target="#mechanismen-fehlender-werte">Mechanismen fehlender Werte</a></li>
+  <li><a href="#ausreisser-erkennen" id="toc-ausreisser-erkennen" class="nav-link" data-scroll-target="#ausreisser-erkennen">Ausreisser erkennen</a></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
   </ul>
 </nav>
@@ -2117,7 +2081,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Übung 5 - Datenaufbereitung II: Tidy Data</h1>
+<h1 class="title">Übung 5 - Datenaufbereitung II: Fehlende Werte &amp; Ausreisser</h1>
 <p class="subtitle lead">FS 2026</p>
 </div>
 
@@ -2141,40 +2105,18 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="wiederholung-vertiefung-tidy-data" class="level2">
-<h2 class="anchored" data-anchor-id="wiederholung-vertiefung-tidy-data">Wiederholung &amp; Vertiefung: Tidy Data</h2>
-<p>In dieser Übung lernen Sie das Konzept von <strong>Tidy Data</strong> und wie Sie Datensätze zwischen dem breiten und langen Format umstrukturieren. Ausserdem üben Sie, wie Sie fehlende Werte nach ihrem Mechanismus (MCAR, MAR, MNAR) unterscheiden.</p>
+<section id="wiederholung-vertiefung-fehlende-werte-ausreisser" class="level2">
+<h2 class="anchored" data-anchor-id="wiederholung-vertiefung-fehlende-werte-ausreisser">Wiederholung &amp; Vertiefung: Fehlende Werte &amp; Ausreisser</h2>
+<p>In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: <strong>fehlenden Werten</strong> und <strong>Ausreissern</strong>. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.</p>
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=1ELALQlO-yM">Tidy Data and tidyr Explained</a></li>
-<li><a href="https://www.youtube.com/watch?v=D48JHU4llkk">pivot_longer and pivot_wider in R (tidyr)</a></li>
-</ul>
-</section>
-<section id="daten-für-diese-übung" class="level2">
-<h2 class="anchored" data-anchor-id="daten-für-diese-übung">Daten für diese Übung</h2>
-<p>In dieser Übung arbeiten Sie weiterhin mit dem WM-Fragebogen-Datensatz:</p>
-<ul>
-<li><a href="daten/WM_Fragebögen.csv">WM_Fragebögen.csv</a> — Fragebogen- und Arbeitsspeicherdaten</li>
-</ul>
-<p>Die webR-Konsole unten lädt den Datensatz automatisch für Sie herunter.</p>
-</section>
-<section id="tidy-data-prinzipien" class="level2">
-<h2 class="anchored" data-anchor-id="tidy-data-prinzipien">Tidy Data Prinzipien</h2>
-<p>Ein Datensatz ist <strong>tidy</strong> wenn:</p>
-<ol type="1">
-<li><strong>Jede Variable ist eine Spalte</strong></li>
-<li><strong>Jede Beobachtung ist eine Zeile</strong></li>
-<li><strong>Jede Beobachtungseinheit ist eine Tabelle</strong></li>
-</ol>
-<p>Häufige Verletzungen dieser Prinzipien:</p>
-<ul>
-<li>Spaltenköpfe sind Werte, keine Variablennamen (z. B. <code>score_t1</code>, <code>score_t2</code>, <code>score_t3</code>)</li>
-<li>Mehrere Variablen in einer Spalte (z. B. <code>"KG_m"</code> für Gruppe und Geschlecht)</li>
-<li>Gleiche Beobachtungseinheit in mehreren Tabellen ohne gemeinsamen Schlüssel</li>
+<li><a href="https://www.youtube.com/watch?v=GXHFM1vVGq8">Missing Data in R — Types and How to Handle Them</a></li>
+<li><a href="https://www.youtube.com/watch?v=TFwVOOZ-k6I">Outlier Detection in R</a></li>
 </ul>
 </section>
 <section id="mechanismen-fehlender-werte" class="level2">
 <h2 class="anchored" data-anchor-id="mechanismen-fehlender-werte">Mechanismen fehlender Werte</h2>
+<p>Nicht alle fehlenden Werte sind gleich. Der <strong>Mechanismus</strong> des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 43%">
@@ -2184,104 +2126,85 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <thead>
 <tr class="header">
 <th>Mechanismus</th>
-<th>Beschreibung</th>
+<th>Bedeutung</th>
 <th>Beispiel</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>MCAR</strong> (Missing Completely At Random)</td>
-<td>Fehlend zufällig, unabhängig von allen Variablen</td>
-<td>Technischer Ausfall</td>
+<td>Fehlen ist unabhängig von allen Variablen</td>
+<td>Technischer Ausfall beim Speichern</td>
 </tr>
 <tr class="even">
 <td><strong>MAR</strong> (Missing At Random)</td>
-<td>Fehlend abhängig von bekannten Variablen</td>
-<td>Weniger Schlaf → fehlende Schlafstunden</td>
+<td>Fehlen hängt von anderen bekannten Variablen ab</td>
+<td>Schlafmangel → fehlende Konzentrationswerte</td>
 </tr>
 <tr class="odd">
 <td><strong>MNAR</strong> (Missing Not At Random)</td>
-<td>Fehlend abhängig von dem fehlenden Wert selbst</td>
-<td>Hoher Stress → keine Stressbewertung</td>
+<td>Fehlen hängt vom fehlenden Wert selbst ab</td>
+<td>Hoher Stress → keine Stressbewertung abgegeben</td>
 </tr>
 </tbody>
 </table>
+<p>Nur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).</p>
+</section>
+<section id="ausreisser-erkennen" class="level2">
+<h2 class="anchored" data-anchor-id="ausreisser-erkennen">Ausreisser erkennen</h2>
+<p>Ausreisser sind Werte, die ungewöhnlich weit vom Zentrum der Verteilung abweichen. Zwei gängige Kriterien:</p>
+<p><strong>IQR-Regel:</strong></p>
+<ul>
+<li>Untere Grenze: Q1 − 1,5 × IQR</li>
+<li>Obere Grenze: Q3 + 1,5 × IQR</li>
+<li>In R: <code>Q1 &lt;- quantile(x, 0.25); Q3 &lt;- quantile(x, 0.75); IQR_val &lt;- IQR(x)</code></li>
+</ul>
+<p><strong>z-Score-Kriterium:</strong></p>
+<ul>
+<li>z = (x − Mittelwert) / Standardabweichung</li>
+<li>Ausreisser: |z| &gt; 3</li>
+<li>In R: <code>z_scores &lt;- scale(x); which(abs(z_scores) &gt; 3)</code></li>
+</ul>
+<p>Ausreisser müssen nicht zwingend entfernt werden. Stattdessen sollten Sie prüfen: Ist der Wert ein Messfehler? Oder ein echter extremer Wert? Die Entscheidung muss begründet und dokumentiert werden.</p>
 </section>
 <section id="übungen" class="level2">
 <h2 class="anchored" data-anchor-id="übungen">Übungen</h2>
-<p>Beantworten Sie die folgenden Fragen zu Tidy Data und fehlenden Werten.</p>
+<p>Beantworten Sie die folgenden Fragen zu fehlenden Werten und Ausreissern.</p>
 <p>Wie in den Übungen finden Sie unter den Übungsfragen die <code>webr</code> Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass <code>webr</code> langsam wird.</p>
 <blockquote class="blockquote">
 <p>Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder <code>Run Code</code>, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.</p>
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie haben folgenden breiten Datensatz und wollen ihn mit <code>pivot_longer()</code> ins lange Format bringen:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>daten_breit <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_vor =</span> <span class="fu">c</span>(<span class="fl">5.2</span>, <span class="fl">4.8</span>, <span class="fl">6.1</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_nach =</span> <span class="fu">c</span>(<span class="fl">7.0</span>, <span class="fl">6.3</span>, <span class="fl">8.2</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Welcher Code produziert das korrekte lange Format mit den Spalten <code>id</code>, <code>zeitpunkt</code> und <code>score</code>?</p>
-<div id="webex-b08cd9701aac91c900e4ecf73da4c6a3" class="webex-checkboxgroup" data-answer="OQEUUkgJGwFs">
-<label><input type="checkbox" autocomplete="off" name="b08cd9701aac91c900e4ecf73da4c6a3"><span><code>pivot_longer(daten_breit, cols = starts_with("score"), names_to = "zeitpunkt", values_to = "score")</code></span></label><label><input type="checkbox" autocomplete="off" name="b08cd9701aac91c900e4ecf73da4c6a3"><span><code>pivot_longer(daten_breit, cols = -id, names_to = "zeitpunkt", values_to = "score")</code></span></label><label><input type="checkbox" autocomplete="off" name="b08cd9701aac91c900e4ecf73da4c6a3"><span><code>pivot_wider(daten_breit, names_from = zeitpunkt, values_from = score)</code></span></label><label><input type="checkbox" autocomplete="off" name="b08cd9701aac91c900e4ecf73da4c6a3"><span><code>pivot_longer(daten_breit, cols = c(score_vor, score_nach), names_to = "zeitpunkt", values_to = "score")</code></span></label>
+<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
+<div id="webex-b94b7dee20b0ac2e58862013ad057c95" class="webex-checkboxgroup" data-answer="OQkYUxtVSVVv">
+<label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1, 3 und 4 sind alle korrekte Wege, denselben <code>pivot_longer()</code>-Aufruf zu schreiben: explizite Spaltennamen (Option 1), Negation der id-Spalte (Option 3), und <code>starts_with()</code>-Hilfsfunktion (Option 4). Option 2 verwendet <code>pivot_wider()</code>, das genau das Gegenteil macht — es transformiert langes ins breites Format.</p>
+<p>Korrekt sind Option 1 und Option 2. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel (Option 1). Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener (Option 2). MAR bedeutet nicht vollständige Zufälligkeit (Option 3): Das Fehlen hängt von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. MNAR ist gerade deshalb problematisch (Option 4), weil das Fehlen systematisch und nicht zufällig ist — Analysen können dadurch verzerrt sein.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Betrachten Sie folgenden Datensatz:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>id</th>
-<th>score_t1</th>
-<th>score_t2</th>
-<th>score_t3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>5.2</td>
-<td>6.1</td>
-<td>7.0</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>4.8</td>
-<td>5.5</td>
-<td>6.3</td>
-</tr>
-</tbody>
-</table>
-<p>Welche Aussagen über diesen Datensatz sind <strong>korrekt</strong>?</p>
-<div id="webex-736bc976a219f6894a0825448dfa8454" class="webex-checkboxgroup" data-answer="bAMaU08IGwc8">
-<label><input type="checkbox" autocomplete="off" name="736bc976a219f6894a0825448dfa8454"><span>Der Datensatz ist tidy, weil jede Zeile eine Versuchsperson repräsentiert.</span></label><label><input type="checkbox" autocomplete="off" name="736bc976a219f6894a0825448dfa8454"><span>Im Tidy-Format sollte dieser Datensatz die Spalten <code>id</code>, <code>zeitpunkt</code> und <code>score</code> haben.</span></label><label><input type="checkbox" autocomplete="off" name="736bc976a219f6894a0825448dfa8454"><span>Um diesen Datensatz ins Tidy-Format zu bringen, verwendet man <code>pivot_longer()</code>.</span></label><label><input type="checkbox" autocomplete="off" name="736bc976a219f6894a0825448dfa8454"><span>Der Datensatz verletzt das Tidy-Data-Prinzip: Die Spaltenköpfe <code>score_t1</code>, <code>score_t2</code>, <code>score_t3</code> sind Werte der Variable “Zeitpunkt”, keine eigenständigen Variablen.</span></label>
+<p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
+<div id="webex-8332a89222ff6d5f88c115e5cad9fbf7" class="webex-radiogroup" data-answer="YwMfAk0IFQNv">
+<label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1 ist korrekt: Das Tidy-Prinzip wird verletzt, weil <code>score_t1</code>, <code>score_t2</code>, <code>score_t3</code> eigentlich Werte einer Variable “Zeitpunkt” sind. Option 3 ist korrekt: Im Tidy-Format gibt es Spalten <code>id</code>, <code>zeitpunkt</code> und <code>score</code>. Option 4 ist korrekt: <code>pivot_longer()</code> transformiert das breite ins lange (tidy) Format. Option 2 ist falsch: Der Datensatz hat keine tidy Struktur — obwohl jede Zeile eine Person zeigt, sind die Messwerte auf mehrere Spalten verteilt statt in einer Variable mit einem Zeitpunkt-Indikator.</p>
+<p>Korrekt ist Option 1. <code>colSums(is.na(daten))</code> kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> (Option 2) gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> (Option 3) und <code>complete.cases()</code> (Option 4) identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>In einer Studie zu Stress und Wohlbefinden fehlen bei der Variable <code>stress_rating</code> auffällig viele Werte bei Personen mit sehr hohem Stress — diese Personen gaben häufig keine Antwort auf die Stressfrage. Um welchen Mechanismus fehlender Werte handelt es sich?</p>
-<div id="webex-e7a26fd037d4a6fc73473b11485024b4" class="webex-radiogroup" data-answer="PgdNAhpXSABu">
-<label><input type="radio" autocomplete="off" name="e7a26fd037d4a6fc73473b11485024b4"><span>MCAR (Missing Completely At Random) — die fehlenden Werte sind zufällig und unabhängig von allen anderen Variablen.</span></label><label><input type="radio" autocomplete="off" name="e7a26fd037d4a6fc73473b11485024b4"><span>Das Muster fehlender Werte lässt sich aus dem beschriebenen Szenario nicht bestimmen.</span></label><label><input type="radio" autocomplete="off" name="e7a26fd037d4a6fc73473b11485024b4"><span>MNAR (Missing Not At Random) — die Wahrscheinlichkeit des Fehlens hängt vom Wert der fehlenden Variable selbst ab.</span></label><label><input type="radio" autocomplete="off" name="e7a26fd037d4a6fc73473b11485024b4"><span>MAR (Missing At Random) — die fehlenden Werte hängen von einer anderen beobachteten Variable ab.</span></label>
+<p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
+<div id="webex-96ebbc10112b7ce9509da92136ff55bb" class="webex-checkboxgroup" data-answer="YgdJUk5SHQBs">
+<label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Die korrekte Antwort ist Option 3: MNAR (Missing Not At Random). Personen mit sehr hohem Stress lassen die Stressfrage unbeantwortet — die Wahrscheinlichkeit dass <code>stress_rating</code> fehlt, hängt direkt vom Stresswert selbst ab, also von der fehlenden Information. Dies ist das schwierigste Muster, da es nicht einfach durch andere Variablen erklärt werden kann. MCAR (Option 1) würde bedeuten, dass das Fehlen völlig zufällig ist. MAR (Option 2) würde bedeuten, dass das Fehlen von einer anderen beobachteten Variable abhängt.</p>
+<p>Korrekt sind Option 1 und Option 2. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 (Option 1) — in R: <code>Q1 - 1.5 * IQR(x)</code> und <code>Q3 + 1.5 * IQR(x)</code>. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser (Option 2). Ausreisser müssen nicht zwingend entfernt werden (Option 3): Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen (Option 4): Da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs.&nbsp;Mittelwert/SD), können sie bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

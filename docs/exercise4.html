@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gidon Frischkorn">
 
-<title>Übung 4 - Datenaufbereitung I – Übungen - VL: Statistik IV</title>
+<title>Übung 4 - Datenaufbereitung I: Tidy Data &amp; Umkodierung – Übungen - VL: Statistik IV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -404,7 +369,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\n# Fehlende Werte prüfen\ncolSums(is.na(wm_daten))\n\n# Duplikate prüfen\nsum(duplicated(wm_daten))\nsum(duplicated(lab_daten))\n\n# Häufigkeiten kategorischer Variablen\ntable(lab_daten$group_raw)\n\n# Ihre Aufgaben:\n# 1. Identifizieren Sie inkonsistente Kodierungen in group_raw\n# 2. Rekodieren Sie die Variable mit case_when() zu einheitlichen Kategorien\n# 3. Überprüfen Sie ob alle IDs in beiden Datensätzen vorkommen","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(tidyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\n# --- Aufgabe 1: Tidy Data ---\n# Der Datensatz wm_daten enthält mehrere Fragebogen-Items in separaten Spalten.\n# Schauen Sie sich die Spalten an:\nhead(wm_daten)\n\n# Identifizieren Sie Spalten, die Werte eines Messzeitpunkts oder einer Skala\n# repräsentieren. Konvertieren Sie diese mit pivot_longer() ins lange Format.\n# Beispiel (passen Sie die Spaltennamen an):\n# wm_lang <- wm_daten |>\n#   pivot_longer(cols = c(spalte1, spalte2),\n#                names_to = \"variable\",\n#                values_to = \"wert\")\n\n# --- Aufgabe 2: Umkodierung ---\n# Prüfen Sie die Kodierungen der Gruppe-Variable in lab_daten:\ntable(lab_daten$group_raw)\n\n# Kodieren Sie inkonsistente Werte mit case_when() um:\n# lab_daten <- lab_daten |>\n#   mutate(gruppe = case_when(\n#     group_raw %in% c(\"KG\", \"Kontrolle\", \"control\") ~ \"Kontrolle\",\n#     group_raw %in% c(\"EG\", \"Experimental\") ~ \"Experimental\",\n#     TRUE ~ NA_character_\n#   ))","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1820,9 +1785,9 @@ globalThis.qwebrExecuteCode = async function (
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#wiederholung-vertiefung-datenaufbereitung-i" id="toc-wiederholung-vertiefung-datenaufbereitung-i" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-datenaufbereitung-i">Wiederholung &amp; Vertiefung: Datenaufbereitung I</a></li>
-  <li><a href="#daten-für-diese-übung" id="toc-daten-für-diese-übung" class="nav-link" data-scroll-target="#daten-für-diese-übung">Daten für diese Übung</a></li>
-  <li><a href="#typische-datenqualitätsprobleme" id="toc-typische-datenqualitätsprobleme" class="nav-link" data-scroll-target="#typische-datenqualitätsprobleme">Typische Datenqualitätsprobleme</a></li>
+  <li><a href="#wiederholung-vertiefung-tidy-data-umkodierung" id="toc-wiederholung-vertiefung-tidy-data-umkodierung" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-tidy-data-umkodierung">Wiederholung &amp; Vertiefung: Tidy Data &amp; Umkodierung</a></li>
+  <li><a href="#tidy-data-prinzipien" id="toc-tidy-data-prinzipien" class="nav-link" data-scroll-target="#tidy-data-prinzipien">Tidy Data Prinzipien</a></li>
+  <li><a href="#umkodierung" id="toc-umkodierung" class="nav-link" data-scroll-target="#umkodierung">Umkodierung</a></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
   </ul>
 </nav>
@@ -2116,7 +2081,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Übung 4 - Datenaufbereitung I</h1>
+<h1 class="title">Übung 4 - Datenaufbereitung I: Tidy Data &amp; Umkodierung</h1>
 <p class="subtitle lead">FS 2026</p>
 </div>
 
@@ -2140,77 +2105,99 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="wiederholung-vertiefung-datenaufbereitung-i" class="level2">
-<h2 class="anchored" data-anchor-id="wiederholung-vertiefung-datenaufbereitung-i">Wiederholung &amp; Vertiefung: Datenaufbereitung I</h2>
-<p>In dieser Übung lernen Sie, wie Sie nach dem Einlesen der Daten systematisch Datenqualitätsprobleme identifizieren und beheben. Dazu gehören fehlende Werte, inkonsistente Kodierungen, Duplikate und falsche Datentypen.</p>
+<section id="wiederholung-vertiefung-tidy-data-umkodierung" class="level2">
+<h2 class="anchored" data-anchor-id="wiederholung-vertiefung-tidy-data-umkodierung">Wiederholung &amp; Vertiefung: Tidy Data &amp; Umkodierung</h2>
+<p>In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem <strong>Tidy-Data-Prinzip</strong> und der <strong>Umkodierung</strong> von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.</p>
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=sV5lwAJ7vnQ">Data Cleaning in R - Full Tutorial</a></li>
-<li><a href="https://www.youtube.com/watch?v=GXHFM1vVGq8">Handling Missing Data in R</a></li>
+<li><a href="https://www.youtube.com/watch?v=1ELALQlO-yM">Tidy Data and tidyr Explained</a></li>
+<li><a href="https://www.youtube.com/watch?v=D48JHU4llkk">pivot_longer and pivot_wider in R (tidyr)</a></li>
 </ul>
 </section>
-<section id="daten-für-diese-übung" class="level2">
-<h2 class="anchored" data-anchor-id="daten-für-diese-übung">Daten für diese Übung</h2>
-<p>In dieser Übung arbeiten Sie mit den gleichen Datensätzen wie in Übung 3:</p>
+<section id="tidy-data-prinzipien" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data-prinzipien">Tidy Data Prinzipien</h2>
+<p>Ein Datensatz ist <strong>tidy</strong> wenn:</p>
+<ol type="1">
+<li><strong>Jede Variable ist eine Spalte</strong> — eine Variable, eine Spalte, keine Ausnahmen</li>
+<li><strong>Jede Beobachtung ist eine Zeile</strong> — ein Messzeitpunkt oder eine Person, eine Zeile</li>
+<li><strong>Jede Beobachtungseinheit ist eine eigene Tabelle</strong> — verschiedene Einheiten (z. B. Personen und Schulen) werden nicht gemischt</li>
+</ol>
+<p>Häufige Verletzungen:</p>
 <ul>
-<li><a href="daten/WM_Fragebögen.csv">WM_Fragebögen.csv</a> — Fragebogen- und Arbeitsspeicherdaten</li>
-<li><a href="daten/Lab_Kodierung.dat">Lab_Kodierung.dat</a> — Laborkodierungsdaten</li>
+<li>Spaltennamen sind Werte statt Variablennamen (z. B. <code>score_t1</code>, <code>score_t2</code>, <code>score_t3</code>)</li>
+<li>Mehrere Variablen in einer Spalte (z. B. <code>"KG_m"</code> für Gruppe und Geschlecht)</li>
 </ul>
-<p>Die webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ziel</th>
+<th>Funktion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Breites → langes Format</td>
+<td><code>pivot_longer()</code></td>
+</tr>
+<tr class="even">
+<td>Langes → breites Format</td>
+<td><code>pivot_wider()</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="typische-datenqualitätsprobleme" class="level2">
-<h2 class="anchored" data-anchor-id="typische-datenqualitätsprobleme">Typische Datenqualitätsprobleme</h2>
-<p>In der Praxis begegnen Ihnen häufig folgende Probleme:</p>
+<section id="umkodierung" class="level2">
+<h2 class="anchored" data-anchor-id="umkodierung">Umkodierung</h2>
+<p>Auch wenn die Struktur stimmt, können die <strong>Werte</strong> inhaltlich problematisch sein. Typische Situationen:</p>
 <ul>
-<li><strong>Fehlende Werte</strong>: Explizit (<code>NA</code>) oder versteckt (z. B. <code>"999"</code>, <code>"-"</code>, <code>"k.A."</code>)</li>
-<li><strong>Falsche Datentypen</strong>: Zahlen als Text gespeichert, Faktoren als Zahlen</li>
-<li><strong>Inkonsistente Kodierungen</strong>: Gleiche Kategorie unterschiedlich geschrieben (z. B. <code>"KG"</code> vs.&nbsp;<code>"Kontrolle"</code>)</li>
-<li><strong>Duplikate</strong>: Doppelt eingetragene Zeilen oder IDs</li>
-<li><strong>Werte ausserhalb des plausiblen Bereichs</strong>: z. B. Alter = 999 oder negative Reaktionszeiten</li>
+<li><strong>Inkonsistente Kodierungen</strong>: <code>"KG"</code>, <code>"Kontrolle"</code> und <code>"control"</code> meinen dasselbe — R sieht drei verschiedene Gruppen</li>
+<li><strong>Implizite fehlende Werte</strong>: <code>"999"</code> oder <code>"-"</code> statt <code>NA</code></li>
+<li><strong>Falsche Skalenrichtung</strong>: Eine Item-Skala ist umgekehrt gepolt</li>
 </ul>
+<p>Die Funktion <code>case_when()</code> aus dem <code>dplyr</code>-Paket ist das Hauptwerkzeug für Umkodierungen.</p>
 </section>
 <section id="übungen" class="level2">
 <h2 class="anchored" data-anchor-id="übungen">Übungen</h2>
-<p>Beantworten Sie die folgenden Fragen zur Datenaufbereitung und Datenqualitätsprüfung.</p>
+<p>Beantworten Sie die folgenden Fragen zu Tidy Data und Umkodierung.</p>
 <p>Wie in den Übungen finden Sie unter den Übungsfragen die <code>webr</code> Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass <code>webr</code> langsam wird.</p>
 <blockquote class="blockquote">
 <p>Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder <code>Run Code</code>, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.</p>
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Mit welchem R-Code können Sie feststellen, ob ein Datensatz <code>daten</code> <strong>duplizierte Zeilen</strong> enthält?</p>
-<div id="webex-8ec1c57cab521379f3b2ea4d94aba6e8" class="webex-checkboxgroup" data-answer="Y1RPAE8EG1M8">
-<label><input type="checkbox" autocomplete="off" name="8ec1c57cab521379f3b2ea4d94aba6e8"><span><code>duplicated(daten)</code> — gibt einen logischen Vektor zurück: <code>TRUE</code> für duplizierte Zeilen.</span></label><label><input type="checkbox" autocomplete="off" name="8ec1c57cab521379f3b2ea4d94aba6e8"><span><code>nrow(daten) - nrow(unique(daten))</code> — gibt die Anzahl der Duplikate zurück.</span></label><label><input type="checkbox" autocomplete="off" name="8ec1c57cab521379f3b2ea4d94aba6e8"><span><code>sum(duplicated(daten))</code> — gibt die Anzahl der duplizierten Zeilen zurück.</span></label><label><input type="checkbox" autocomplete="off" name="8ec1c57cab521379f3b2ea4d94aba6e8"><span><code>unique(daten)</code> — gibt alle eindeutigen Zeilen zurück.</span></label>
+<p>Sie haben einen Datensatz mit den Spalten <code>id</code>, <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code>. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem <code>tidyr</code>-Paket bringt diesen Datensatz in das Tidy-Data-Format?</p>
+<div id="webex-76624659120c93d93d0b54d94b2a52df" class="webex-radiogroup" data-answer="bAYaAxgGGQls">
+<label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>select()</code> — weil die unnötigen Spalten entfernt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>pivot_longer()</code> — weil die Spaltennamen (<code>score_t1</code> etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>full_join()</code> — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>pivot_wider()</code> — weil die Daten von lang nach breit umstrukturiert werden müssen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 2, 3 und 4 sind alle korrekte Wege um Duplikate zu prüfen. <code>sum(duplicated(daten))</code> (Option 2) gibt direkt die Anzahl der Duplikate als Zahl zurück — am einfachsten zu interpretieren. <code>duplicated()</code> (Option 3) zeigt für jede Zeile, ob sie ein Duplikat ist. Option 4 ist ein indirekter Weg über den Vergleich der Zeilenanzahl. Option 1 (<code>unique()</code>) entfernt Duplikate, gibt aber keine Information darüber, wie viele es waren.</p>
+<p>Korrekt ist Option 1. Die Spalten <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code> verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. <code>pivot_longer()</code> löst dieses Problem: Es erzeugt eine neue Variable <code>zeitpunkt</code> und eine neue Variable <code>score</code>, sodass jede Zeile genau eine Messung enthält. <code>pivot_wider()</code> (Option 2) macht das Gegenteil: es wandelt langes in breites Format um. <code>full_join()</code> (Option 3) führt zwei Datensätze zusammen. <code>select()</code> (Option 4) wählt Spalten aus und ändert die Struktur nicht.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie analysieren einen Datensatz und führen folgenden Code aus:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(daten))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    id  wm_score  sleep_hours  stress_rating  alter  geschlecht</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     0        12           8              25      0           0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-7b12d5f69baac4dd1c11372c2c2ec489" class="webex-checkboxgroup" data-answer="bFMdAkgESgdk">
-<label><input type="checkbox" autocomplete="off" name="7b12d5f69baac4dd1c11372c2c2ec489"><span>Die Variable <code>stress_rating</code> hat die meisten fehlenden Werte mit 25.</span></label><label><input type="checkbox" autocomplete="off" name="7b12d5f69baac4dd1c11372c2c2ec489"><span>Der Datensatz hat insgesamt keine fehlenden Werte.</span></label><label><input type="checkbox" autocomplete="off" name="7b12d5f69baac4dd1c11372c2c2ec489"><span>Die Variable <code>wm_score</code> hat 12 fehlende Werte.</span></label><label><input type="checkbox" autocomplete="off" name="7b12d5f69baac4dd1c11372c2c2ec489"><span>Die Variable <code>id</code> hat keine fehlenden Werte.</span></label>
+<p>Welche der folgenden Aussagen beschreiben das <strong>Tidy-Data-Prinzip</strong> korrekt?</p>
+<div id="webex-2168f3130e4a4d35666045bf6fc858f8" class="webex-checkboxgroup" data-answer="aQEaCEoCHQJt">
+<label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Jede Variable entspricht einer eigenen Spalte im Datensatz.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1 ist korrekt: <code>wm_score</code> hat 12 fehlende Werte. Option 2 ist korrekt: <code>id</code> hat 0 fehlende Werte. Option 3 ist korrekt: <code>stress_rating</code> hat die meisten fehlenden Werte (25). Option 4 ist falsch: Der Datensatz hat insgesamt 45 fehlende Werte (12 + 8 + 25).</p>
+<p>Korrekt sind Option 1 und Option 2. Tidy Data definiert eine klare Struktur: Eine Variable = eine Spalte (Option 1), eine Beobachtung = eine Zeile (Option 2). Fehlende Werte werden durch Tidy Data nicht automatisch entfernt (Option 3) — sie bleiben als <code>NA</code> erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp (Option 4): Spalten können numerisch, kategorisch oder als Text vorliegen.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie prüfen einen Datensatz mit <code>str(daten)</code> und sehen: <code>$ alter : chr "22" "25" "NA" "31"</code>. Was ist das Problem und wie lösen Sie es?</p>
-<div id="webex-042bb8c5a7e12cb5ae765edb0f14e33f" class="webex-checkboxgroup" data-answer="awQeUk4JTwQ8">
-<label><input type="checkbox" autocomplete="off" name="042bb8c5a7e12cb5ae765edb0f14e33f"><span>Das Problem ist ein fehlerhafter Import. Lösung: Die Datei erneut mit <code>read.csv()</code> einlesen.</span></label><label><input type="checkbox" autocomplete="off" name="042bb8c5a7e12cb5ae765edb0f14e33f"><span>Es gibt kein Problem, R kann automatisch mit Zahlen als Text rechnen.</span></label><label><input type="checkbox" autocomplete="off" name="042bb8c5a7e12cb5ae765edb0f14e33f"><span>Das Problem ist, dass ein fehlender Wert als Text <code>"NA"</code> statt als echtes <code>NA</code> vorliegt. Lösung: <code>na_if(daten$alter, "NA")</code> vor der Konvertierung anwenden.</span></label><label><input type="checkbox" autocomplete="off" name="042bb8c5a7e12cb5ae765edb0f14e33f"><span>Das Problem ist, dass <code>alter</code> als Text (<code>chr</code>) gespeichert ist statt als Zahl. Lösung: <code>daten$alter &lt;- as.numeric(daten$alter)</code>.</span></label>
+<p>In Ihrem Datensatz enthält die Variable <code>gruppe</code> die Werte <code>"KG"</code>, <code>"Kontrolle"</code> und <code>"control"</code> — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?</p>
+<div id="webex-b88a76e8e1aad961b1647d11ce9d2edf" class="webex-checkboxgroup" data-answer="OQkUURsHSQk4">
+<label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Das Problem lässt sich durch <code>pivot_longer()</code> beheben, da die Werte in verschiedene Spalten aufgeteilt werden.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Mit <code>case_when()</code> können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1 und Option 2 sind korrekt. Das Hauptproblem ist, dass <code>alter</code> als Text (<code>chr</code>) gespeichert ist — R kann damit keine statistischen Berechnungen durchführen. Ausserdem ist der Wert <code>"NA"</code> ein Text-String, kein echter fehlender Wert. Deshalb sollte zuerst <code>na_if(daten$alter, "NA")</code> angewendet werden, um den String in ein echtes <code>NA</code> umzuwandeln, und dann <code>as.numeric()</code> um den Datentyp zu konvertieren. Option 3 ist falsch — R kann nicht automatisch mit Text-Zahlen rechnen. Option 4 ist keine sinnvolle Lösung, da das Problem bei der Kodierung in der Originaldatei liegt.</p>
+<p>Korrekt sind Option 1, Option 2 und Option 4. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (<code>"KG"</code>, <code>"Kontrolle"</code>, <code>"control"</code>), spricht man von einer inkonsistenten Kodierung (Option 1). R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppen-Vergleiche und alle darauf aufbauenden Analysen (Option 4). Mit <code>case_when()</code> lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen (Option 2). <code>pivot_longer()</code> (Option 3) verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
