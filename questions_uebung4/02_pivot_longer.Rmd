@@ -1,0 +1,21 @@
+Question
+========
+Sie haben einen Datensatz mit den Spalten `id`, `score_t1`, `score_t2` und `score_t3`. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem `tidyr`-Paket bringt diesen Datensatz in das Tidy-Data-Format?
+
+Answerlist
+----------
+* `pivot_longer()` — weil die Spaltennamen (`score_t1` etc.) Werte der Variable „Zeitpunkt" sind, keine eigenständigen Variablen.
+* `pivot_wider()` — weil die Daten von lang nach breit umstrukturiert werden müssen.
+* `full_join()` — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.
+* `select()` — weil die unnötigen Spalten entfernt werden müssen.
+
+Solution
+========
+Korrekt ist Option 1. Die Spalten `score_t1`, `score_t2` und `score_t3` verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. `pivot_longer()` löst dieses Problem: Es erzeugt eine neue Variable `zeitpunkt` und eine neue Variable `score`, sodass jede Zeile genau eine Messung enthält. `pivot_wider()` (Option 2) macht das Gegenteil: es wandelt langes in breites Format um. `full_join()` (Option 3) führt zwei Datensätze zusammen. `select()` (Option 4) wählt Spalten aus und ändert die Struktur nicht.
+
+Meta-information
+================
+exname: pivot_longer
+extype: schoice
+exsolution: 1000
+exshuffle: TRUE

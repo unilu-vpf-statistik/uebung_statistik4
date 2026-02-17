@@ -1,0 +1,21 @@
+Question
+========
+In Ihrem Datensatz enthält die Variable `gruppe` die Werte `"KG"`, `"Kontrolle"` und `"control"` — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?
+
+Answerlist
+----------
+* Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.
+* Mit `case_when()` können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.
+* Das Problem lässt sich durch `pivot_longer()` beheben, da die Werte in verschiedene Spalten aufgeteilt werden.
+* Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.
+
+Solution
+========
+Korrekt sind Option 1, Option 2 und Option 4. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (`"KG"`, `"Kontrolle"`, `"control"`), spricht man von einer inkonsistenten Kodierung (Option 1). R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppen-Vergleiche und alle darauf aufbauenden Analysen (Option 4). Mit `case_when()` lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen (Option 2). `pivot_longer()` (Option 3) verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.
+
+Meta-information
+================
+exname: umkodierung_case_when
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

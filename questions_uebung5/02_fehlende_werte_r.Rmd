@@ -1,0 +1,21 @@
+Question
+========
+Welche R-Funktion gibt Ihnen für **jede Spalte** eines Data Frames an, wie viele fehlende Werte (`NA`) enthalten sind?
+
+Answerlist
+----------
+* `colSums(is.na(daten))` — berechnet pro Spalte die Anzahl fehlender Werte.
+* `sum(is.na(daten))` — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.
+* `na.omit(daten)` — entfernt alle Zeilen mit mindestens einem fehlenden Wert.
+* `complete.cases(daten)` — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.
+
+Solution
+========
+Korrekt ist Option 1. `colSums(is.na(daten))` kombiniert `is.na()` (das für jeden Wert `TRUE` zurückgibt, wenn er `NA` ist) mit `colSums()` (das die Anzahl der `TRUE`-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. `sum(is.na(daten))` (Option 2) gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. `na.omit()` (Option 3) und `complete.cases()` (Option 4) identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.
+
+Meta-information
+================
+exname: fehlende_werte_r
+extype: schoice
+exsolution: 1000
+exshuffle: TRUE

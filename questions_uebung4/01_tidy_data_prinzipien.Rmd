@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen beschreiben das **Tidy-Data-Prinzip** korrekt?
+
+Answerlist
+----------
+* Jede Variable entspricht einer eigenen Spalte im Datensatz.
+* Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.
+* Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.
+* Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.
+
+Solution
+========
+Korrekt sind Option 1 und Option 2. Tidy Data definiert eine klare Struktur: Eine Variable = eine Spalte (Option 1), eine Beobachtung = eine Zeile (Option 2). Fehlende Werte werden durch Tidy Data nicht automatisch entfernt (Option 3) — sie bleiben als `NA` erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp (Option 4): Spalten können numerisch, kategorisch oder als Text vorliegen.
+
+Meta-information
+================
+exname: tidy_data_prinzipien
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE

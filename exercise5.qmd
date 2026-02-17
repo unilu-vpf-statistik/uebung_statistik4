@@ -1,5 +1,5 @@
 ---
-title: "Übung 5 - Datenaufbereitung II: Tidy Data"
+title: "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 format:
@@ -21,48 +21,48 @@ exam_files <- list.files(here("questions_uebung5"), pattern = "*.Rmd", full.name
 shuffled_questions <- sample(exam_files)
 ```
 
-## Wiederholung & Vertiefung: Tidy Data
+## Wiederholung & Vertiefung: Fehlende Werte & Ausreisser
 
-In dieser Übung lernen Sie das Konzept von **Tidy Data** und wie Sie Datensätze zwischen dem breiten und langen Format umstrukturieren. Ausserdem üben Sie, wie Sie fehlende Werte nach ihrem Mechanismus (MCAR, MAR, MNAR) unterscheiden.
+In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: **fehlenden Werten** und **Ausreissern**. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.
 
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
-- [Tidy Data and tidyr Explained](https://www.youtube.com/watch?v=1ELALQlO-yM)
-- [pivot_longer and pivot_wider in R (tidyr)](https://www.youtube.com/watch?v=D48JHU4llkk)
-
-## Daten für diese Übung
-
-In dieser Übung arbeiten Sie weiterhin mit dem WM-Fragebogen-Datensatz:
-
-- [WM_Fragebögen.csv](daten/WM_Fragebögen.csv) — Fragebogen- und Arbeitsspeicherdaten
-
-Die webR-Konsole unten lädt den Datensatz automatisch für Sie herunter.
-
-## Tidy Data Prinzipien
-
-Ein Datensatz ist **tidy** wenn:
-
-1. **Jede Variable ist eine Spalte**
-2. **Jede Beobachtung ist eine Zeile**
-3. **Jede Beobachtungseinheit ist eine Tabelle**
-
-Häufige Verletzungen dieser Prinzipien:
-
-- Spaltenköpfe sind Werte, keine Variablennamen (z. B. `score_t1`, `score_t2`, `score_t3`)
-- Mehrere Variablen in einer Spalte (z. B. `"KG_m"` für Gruppe und Geschlecht)
-- Gleiche Beobachtungseinheit in mehreren Tabellen ohne gemeinsamen Schlüssel
+- [Missing Data in R — Types and How to Handle Them](https://www.youtube.com/watch?v=GXHFM1vVGq8)
+- [Outlier Detection in R](https://www.youtube.com/watch?v=TFwVOOZ-k6I)
 
 ## Mechanismen fehlender Werte
 
-| Mechanismus | Beschreibung | Beispiel |
+Nicht alle fehlenden Werte sind gleich. Der **Mechanismus** des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:
+
+| Mechanismus | Bedeutung | Beispiel |
 |---|---|---|
-| **MCAR** (Missing Completely At Random) | Fehlend zufällig, unabhängig von allen Variablen | Technischer Ausfall |
-| **MAR** (Missing At Random) | Fehlend abhängig von bekannten Variablen | Weniger Schlaf → fehlende Schlafstunden |
-| **MNAR** (Missing Not At Random) | Fehlend abhängig von dem fehlenden Wert selbst | Hoher Stress → keine Stressbewertung |
+| **MCAR** (Missing Completely At Random) | Fehlen ist unabhängig von allen Variablen | Technischer Ausfall beim Speichern |
+| **MAR** (Missing At Random) | Fehlen hängt von anderen bekannten Variablen ab | Schlafmangel → fehlende Konzentrationswerte |
+| **MNAR** (Missing Not At Random) | Fehlen hängt vom fehlenden Wert selbst ab | Hoher Stress → keine Stressbewertung abgegeben |
+
+Nur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).
+
+## Ausreisser erkennen
+
+Ausreisser sind Werte, die ungewöhnlich weit vom Zentrum der Verteilung abweichen. Zwei gängige Kriterien:
+
+**IQR-Regel:**
+
+- Untere Grenze: Q1 − 1,5 × IQR
+- Obere Grenze: Q3 + 1,5 × IQR
+- In R: `Q1 <- quantile(x, 0.25); Q3 <- quantile(x, 0.75); IQR_val <- IQR(x)`
+
+**z-Score-Kriterium:**
+
+- z = (x − Mittelwert) / Standardabweichung
+- Ausreisser: |z| > 3
+- In R: `z_scores <- scale(x); which(abs(z_scores) > 3)`
+
+Ausreisser müssen nicht zwingend entfernt werden. Stattdessen sollten Sie prüfen: Ist der Wert ein Messfehler? Oder ein echter extremer Wert? Die Entscheidung muss begründet und dokumentiert werden.
 
 ## Übungen
 
-Beantworten Sie die folgenden Fragen zu Tidy Data und fehlenden Werten.
+Beantworten Sie die folgenden Fragen zu fehlenden Werten und Ausreissern.
 
 Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
 
@@ -82,26 +82,34 @@ download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
 
 # Laden der benötigten Pakete
 library(dplyr)
-library(tidyr)
 
 # Daten einlesen
 wm_daten <- read.csv2("WM_Fragebögen.csv")
-head(wm_daten)
 
-# Beispiel: Erstellen eines breiten Datensatzes (simuliert mehrere Messzeitpunkte)
-# In diesem Beispiel erstellen wir einen künstlich breiten Datensatz
-wm_breit <- wm_daten |>
-  select(id, wm_score, sleep_hours) |>
-  rename(score_t1 = wm_score, schlaf_t1 = sleep_hours)
+# --- Aufgabe 1: Fehlende Werte ---
+# Anzahl fehlender Werte pro Spalte:
+colSums(is.na(wm_daten))
 
-head(wm_breit)
+# Welche Zeilen haben fehlende Werte?
+# which(!complete.cases(wm_daten))
 
-# Ihre Aufgaben:
-# 1. Konvertieren Sie wm_breit mit pivot_longer() ins lange Format
-#    (Tipp: cols = c(score_t1, schlaf_t1))
-# 2. Schauen Sie sich die fehlenden Werte im Originaldatensatz an:
-#    Analysieren Sie ob wm_score und stress_rating nach MCAR, MAR oder MNAR fehlen
+# Überlegen Sie: Fehlen die Werte in wm_score oder stress_rating eher
+# nach MCAR, MAR oder MNAR? Notieren Sie Ihre Begründung als Kommentar.
 
+# --- Aufgabe 2: Ausreisser erkennen ---
+# IQR-Regel für wm_score:
+x <- wm_daten$wm_score
+Q1 <- quantile(x, 0.25, na.rm = TRUE)
+Q3 <- quantile(x, 0.75, na.rm = TRUE)
+IQR_val <- IQR(x, na.rm = TRUE)
+untere_grenze <- Q1 - 1.5 * IQR_val
+obere_grenze  <- Q3 + 1.5 * IQR_val
+cat("Ausreisser-Grenzen (IQR):", untere_grenze, "bis", obere_grenze, "\n")
+sum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)
+
+# z-Score-Kriterium:
+z_scores <- scale(x)
+sum(abs(z_scores) > 3, na.rm = TRUE)
 ```
 
 > Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.

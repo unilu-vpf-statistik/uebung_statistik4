@@ -51,7 +51,7 @@ Only the last 2 substantive sessions cover statistical procedures (ANOVA, regres
 | 1 | Reproduzierbare Datenanalysen | exercise1.qmd |
 | 2 | R-Projekte & Dateiorganisation | exercise2.qmd |
 | 3 | Daten importieren & prüfen | exercise3.qmd |
-| 4 | Datenaufbereitung I: Tidy Data | exercise4.qmd |
+| 4 | Datenaufbereitung I: Tidy Data & Umkodierung | exercise4.qmd |
 | 5 | Datenaufbereitung II: Fehlende Werte & Ausreisser | exercise5.qmd |
 | 6 | Grundlagen: Programmieren mit R (eigene Funktionen) | exercise6.qmd |
 | 7 | Deskriptive Statistik berechnen | exercise7.qmd |

@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen zu **Ausreissern** und ihrer Identifikation sind korrekt?
+
+Answerlist
+----------
+* Nach der **IQR-Regel** gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.
+* Nach dem **z-Score-Kriterium** werden Werte mit einem z-Score von |z| > 3 als Ausreisser betrachtet.
+* Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.
+* Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.
+
+Solution
+========
+Korrekt sind Option 1 und Option 2. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 (Option 1) — in R: `Q1 - 1.5 * IQR(x)` und `Q3 + 1.5 * IQR(x)`. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser (Option 2). Ausreisser müssen nicht zwingend entfernt werden (Option 3): Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen (Option 4): Da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs. Mittelwert/SD), können sie bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren.
+
+Meta-information
+================
+exname: ausreisser
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE

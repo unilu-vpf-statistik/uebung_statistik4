@@ -1,5 +1,5 @@
 ---
-title: "Übung 4 - Datenaufbereitung I"
+title: "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 format:
@@ -21,37 +21,46 @@ exam_files <- list.files(here("questions_uebung4"), pattern = "*.Rmd", full.name
 shuffled_questions <- sample(exam_files)
 ```
 
-## Wiederholung & Vertiefung: Datenaufbereitung I
+## Wiederholung & Vertiefung: Tidy Data & Umkodierung
 
-In dieser Übung lernen Sie, wie Sie nach dem Einlesen der Daten systematisch Datenqualitätsprobleme identifizieren und beheben. Dazu gehören fehlende Werte, inkonsistente Kodierungen, Duplikate und falsche Datentypen.
+In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem **Tidy-Data-Prinzip** und der **Umkodierung** von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.
 
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
-- [Data Cleaning in R - Full Tutorial](https://www.youtube.com/watch?v=sV5lwAJ7vnQ)
-- [Handling Missing Data in R](https://www.youtube.com/watch?v=GXHFM1vVGq8)
+- [Tidy Data and tidyr Explained](https://www.youtube.com/watch?v=1ELALQlO-yM)
+- [pivot_longer and pivot_wider in R (tidyr)](https://www.youtube.com/watch?v=D48JHU4llkk)
 
-## Daten für diese Übung
+## Tidy Data Prinzipien
 
-In dieser Übung arbeiten Sie mit den gleichen Datensätzen wie in Übung 3:
+Ein Datensatz ist **tidy** wenn:
 
-- [WM_Fragebögen.csv](daten/WM_Fragebögen.csv) — Fragebogen- und Arbeitsspeicherdaten
-- [Lab_Kodierung.dat](daten/Lab_Kodierung.dat) — Laborkodierungsdaten
+1. **Jede Variable ist eine Spalte** — eine Variable, eine Spalte, keine Ausnahmen
+2. **Jede Beobachtung ist eine Zeile** — ein Messzeitpunkt oder eine Person, eine Zeile
+3. **Jede Beobachtungseinheit ist eine eigene Tabelle** — verschiedene Einheiten (z. B. Personen und Schulen) werden nicht gemischt
 
-Die webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.
+Häufige Verletzungen:
 
-## Typische Datenqualitätsprobleme
+- Spaltennamen sind Werte statt Variablennamen (z. B. `score_t1`, `score_t2`, `score_t3`)
+- Mehrere Variablen in einer Spalte (z. B. `"KG_m"` für Gruppe und Geschlecht)
 
-In der Praxis begegnen Ihnen häufig folgende Probleme:
+| Ziel | Funktion |
+|---|---|
+| Breites → langes Format | `pivot_longer()` |
+| Langes → breites Format | `pivot_wider()` |
 
-- **Fehlende Werte**: Explizit (`NA`) oder versteckt (z. B. `"999"`, `"-"`, `"k.A."`)
-- **Falsche Datentypen**: Zahlen als Text gespeichert, Faktoren als Zahlen
-- **Inkonsistente Kodierungen**: Gleiche Kategorie unterschiedlich geschrieben (z. B. `"KG"` vs. `"Kontrolle"`)
-- **Duplikate**: Doppelt eingetragene Zeilen oder IDs
-- **Werte ausserhalb des plausiblen Bereichs**: z. B. Alter = 999 oder negative Reaktionszeiten
+## Umkodierung
+
+Auch wenn die Struktur stimmt, können die **Werte** inhaltlich problematisch sein. Typische Situationen:
+
+- **Inkonsistente Kodierungen**: `"KG"`, `"Kontrolle"` und `"control"` meinen dasselbe — R sieht drei verschiedene Gruppen
+- **Implizite fehlende Werte**: `"999"` oder `"-"` statt `NA`
+- **Falsche Skalenrichtung**: Eine Item-Skala ist umgekehrt gepolt
+
+Die Funktion `case_when()` aus dem `dplyr`-Paket ist das Hauptwerkzeug für Umkodierungen.
 
 ## Übungen
 
-Beantworten Sie die folgenden Fragen zur Datenaufbereitung und Datenqualitätsprüfung.
+Beantworten Sie die folgenden Fragen zu Tidy Data und Umkodierung.
 
 Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
 
@@ -65,33 +74,43 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Herunterladen der Datensätze
+# Herunterladen des Datensatzes
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
 download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
 download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
 
 # Laden der benötigten Pakete
 library(dplyr)
+library(tidyr)
 
 # Daten einlesen
 wm_daten <- read.csv2("WM_Fragebögen.csv")
 lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
 
-# Fehlende Werte prüfen
-colSums(is.na(wm_daten))
+# --- Aufgabe 1: Tidy Data ---
+# Der Datensatz wm_daten enthält mehrere Fragebogen-Items in separaten Spalten.
+# Schauen Sie sich die Spalten an:
+head(wm_daten)
 
-# Duplikate prüfen
-sum(duplicated(wm_daten))
-sum(duplicated(lab_daten))
+# Identifizieren Sie Spalten, die Werte eines Messzeitpunkts oder einer Skala
+# repräsentieren. Konvertieren Sie diese mit pivot_longer() ins lange Format.
+# Beispiel (passen Sie die Spaltennamen an):
+# wm_lang <- wm_daten |>
+#   pivot_longer(cols = c(spalte1, spalte2),
+#                names_to = "variable",
+#                values_to = "wert")
 
-# Häufigkeiten kategorischer Variablen
+# --- Aufgabe 2: Umkodierung ---
+# Prüfen Sie die Kodierungen der Gruppe-Variable in lab_daten:
 table(lab_daten$group_raw)
 
-# Ihre Aufgaben:
-# 1. Identifizieren Sie inkonsistente Kodierungen in group_raw
-# 2. Rekodieren Sie die Variable mit case_when() zu einheitlichen Kategorien
-# 3. Überprüfen Sie ob alle IDs in beiden Datensätzen vorkommen
-
+# Kodieren Sie inkonsistente Werte mit case_when() um:
+# lab_daten <- lab_daten |>
+#   mutate(gruppe = case_when(
+#     group_raw %in% c("KG", "Kontrolle", "control") ~ "Kontrolle",
+#     group_raw %in% c("EG", "Experimental") ~ "Experimental",
+#     TRUE ~ NA_character_
+#   ))
 ```
 
 > Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.

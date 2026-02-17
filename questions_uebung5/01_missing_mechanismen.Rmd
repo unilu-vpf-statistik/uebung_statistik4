@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen zu den **Mechanismen fehlender Werte** (MCAR, MAR, MNAR) sind korrekt?
+
+Answerlist
+----------
+* Bei **MCAR** (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.
+* Bei **MNAR** (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.
+* Bei **MAR** (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.
+* MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.
+
+Solution
+========
+Korrekt sind Option 1 und Option 2. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel (Option 1). Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener (Option 2). MAR bedeutet nicht vollständige Zufälligkeit (Option 3): Das Fehlen hängt von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. MNAR ist gerade deshalb problematisch (Option 4), weil das Fehlen systematisch und nicht zufällig ist — Analysen können dadurch verzerrt sein.
+
+Meta-information
+================
+exname: missing_mechanismen
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE
