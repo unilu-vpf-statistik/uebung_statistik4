@@ -29,7 +29,8 @@ Thumbs.db
 *.utf8.md
 *.knit.md
 
-# Local files
+# Local files (OneDrive symlink — not portable)
+/local
 /local/
 
 # Output files
