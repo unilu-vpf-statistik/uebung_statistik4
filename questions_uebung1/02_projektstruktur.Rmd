@@ -1,21 +1,21 @@
 Question
 ========
-Sie beginnen ein neues Analyseprojekt. Welche der folgenden Ordnerstrukturen entspricht den **Best Practices** für reproduzierbare Analysen in R?
+Sie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen **reproduzierbare Analysen**?
 
 Answerlist
 ----------
-* Ein einziger Ordner mit allen Dateien (Daten, Skripte, Ergebnisse) ohne Unterordner.
-* Separate Unterordner für Rohdaten, verarbeitete Daten, Skripte, Abbildungen und Tabellen.
-* Alle Skripte und Daten auf dem Desktop gespeichert, damit sie leicht zugänglich sind.
-* Ein Projektordner mit Unterordnern und einer `.Rproj`-Datei im Hauptordner.
+* Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in **separaten Unterordnern** gespeichert.
+* Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.
+* Die Rohdaten werden **niemals** direkt verändert oder überschrieben.
+* Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.
 
 Solution
 ========
-Die korrekte Antwort ist Option 2 und Option 4 (beide korrekt). Eine gute Projektstruktur hat separate Unterordner für verschiedene Dateitypen (Option 2) und ein R-Projekt mit `.Rproj`-Datei im Hauptordner (Option 4). Ein einziger Ordner ohne Struktur (Option 1) wird schnell unübersichtlich. Desktop-Speicherung (Option 3) führt zu Pfadproblemen auf anderen Computern.
+Korrekt sind Option 1 und Option 3. Separate Unterordner (Option 1) ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden (Option 3), weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur (Option 2) wird schnell unübersichtlich. Desktop-Speicherung (Option 4) führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.
 
 Meta-information
 ================
 exname: projektstruktur
 extype: mchoice
-exsolution: 0101
+exsolution: 1010
 exshuffle: TRUE

@@ -33,7 +33,7 @@ Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen 
 Eine reproduzierbare Analyse zeichnet sich durch folgende Merkmale aus:
 
 1. **Klare Projektstruktur**: Alle Dateien sind sinnvoll in Ordnern organisiert
-2. **Relative Pfade**: Keine absoluten Pfade (`C:/Users/...`), sondern relative Pfade mit `here()`
+2. **Relative Pfade**: Keine absoluten Pfade (`C:/Users/...`), die von einem bestimmten Rechner abhängen
 3. **Dokumentierter Code**: Skripte sind kommentiert und erklären was jeder Schritt macht
 4. **Versionskontrolle**: Änderungen am Code werden nachverfolgt (z. B. mit Git)
 5. **Abhängigkeiten dokumentiert**: Verwendete Pakete und ihre Versionen sind festgehalten
@@ -54,17 +54,21 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Schreiben Sie hier ihren Code um die Aufgaben zu lösen
+# Schreiben Sie hier Ihren Code um die Aufgaben zu lösen
 
-# Laden Sie zunächst das here-Paket
-library(here)
+# 1. Zeigen Sie das aktuelle Arbeitsverzeichnis an
+getwd()
 
-# Überprüfen Sie das aktuelle Arbeitsverzeichnis
-here()
+# 2. Warum ist folgender Code problematisch?
+#    pfad <- "C:/Users/Max/Dokumente/Analyse/WM_Fragebögen.csv"
+#    Überlegen Sie: Was passiert, wenn Sie dieses Skript auf einem
+#    anderen Computer oder in einem anderen Ordner ausführen?
 
-# Experimentieren Sie mit relativen Pfaden
-here("daten", "WM_Fragebögen.csv")
+# 3. Dokumentieren Sie Ihre Überlegung als Kommentar:
+# Antwort: ...
 
+# Hinweis: Die technische Lösung (relative Pfade mit dem here-Paket)
+# wird in Übung 2 behandelt.
 ```
 
 > Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
