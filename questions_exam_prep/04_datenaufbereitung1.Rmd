@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen zur **3-Ebenen-Validierung** von Datensätzen sind korrekt?
+
+Answerlist
+----------
+* Ebene 1 (Struktur) prüft Dimensionen, Variablennamen und Datentypen mit Funktionen wie `dim()`, `names()` und `str()`.
+* Ebene 2 (Werte) prüft Wertebereich, fehlende Werte und Häufigkeiten mit `summary()`, `colSums(is.na())` und `table()`.
+* Ebene 3 (Konsistenz) prüft Duplikate und ID-Übereinstimmungen zwischen Datensätzen mit `duplicated()` und `intersect()`.
+* Die Validierungsreihenfolge ist beliebig — man kann mit jeder Ebene beginnen.
+
+Solution
+========
+Option 1, 2 und 3 beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Option 4 ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.
+
+Meta-information
+================
+exname: exam_datenaufbereitung1
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

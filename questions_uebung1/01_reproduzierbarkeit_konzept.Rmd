@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen beschreiben korrekte Merkmale einer **reproduzierbaren** Datenanalyse?
+
+Answerlist
+----------
+* Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.
+* Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.
+* Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.
+* Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit `setwd()` fest definiert.
+
+Solution
+========
+Eine reproduzierbare Analyse dokumentiert alle Schritte in Skripten (Option 1) und verwendet relative Pfade statt absoluter Pfade (Option 3), damit das Projekt auf anderen Computern ausgeführt werden kann. Excel-Screenshots (Option 2) sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. `setwd()` (Option 4) setzt absolute Pfade, die auf anderen Computern nicht funktionieren.
+
+Meta-information
+================
+exname: reproduzierbarkeit_konzept
+extype: mchoice
+exsolution: 1010
+exshuffle: TRUE

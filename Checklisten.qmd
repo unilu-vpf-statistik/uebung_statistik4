@@ -1,0 +1,140 @@
+---
+title: "Checklisten"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+---
+
+# Checklisten: Reproduzierbare Datenanalyse
+
+Diese Seite enthält Checklisten für die wichtigsten Schritte einer reproduzierbaren Datenanalyse in R. Die Checklisten helfen Ihnen sicherzustellen, dass Sie alle notwendigen Schritte durchgeführt haben.
+
+---
+
+## Checkliste 1: Neues R-Projekt anlegen
+
+Bevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.
+
+- [ ] **R-Projekt erstellen**: In RStudio: *File → New Project → New Directory*
+- [ ] **Sinnvollen Projektnamen wählen**: Keine Leerzeichen, keine Sonderzeichen (z. B. `WM_Studie_2026`)
+- [ ] **Ordnerstruktur anlegen**:
+  ```
+  Mein_Projekt/
+  ├── Daten_Roh/          # Originaldaten — NIE verändern!
+  ├── Daten_Verarbeitet/  # Aufbereitete Daten
+  ├── R_Skripte/          # Analyseskripte
+  ├── Abbildungen/        # Grafiken
+  ├── Tabellen/           # Ergebnistabellen
+  └── Dokumentation/      # Notizen, README
+  ```
+- [ ] **`here`-Paket laden**: `library(here)` am Anfang jedes Skripts
+- [ ] **Rohdaten in `Daten_Roh/` ablegen**: Originaldateien nie überschreiben
+- [ ] **README.txt erstellen**: Kurze Beschreibung des Projekts, der Datensätze und der Skripte
+
+---
+
+## Checkliste 2: Dateiformat identifizieren
+
+Bevor Sie Daten einlesen, prüfen Sie das Dateiformat.
+
+- [ ] **Dateiendung notieren**: `.csv`, `.dat`, `.txt`, `.xlsx`, `.sav`
+- [ ] **Rohe Datei anschauen**: `readLines("datei.csv", n = 5)`
+- [ ] **Trennzeichen identifizieren**: Komma (`,`), Semikolon (`;`), Tab (`\t`), Leerzeichen
+- [ ] **Dezimaltrennzeichen prüfen**: Punkt (`.` = englisch) oder Komma (`,` = deutsch)
+- [ ] **Fehlende Werte kodiert als**: `NA`, `""`, `"999"`, `"-99"`, `"k.A."`, `"."` ?
+- [ ] **Kopfzeile vorhanden?**: Erste Zeile mit Variablennamen (`header = TRUE/FALSE`)
+- [ ] **Kodierung prüfen**: UTF-8 oder Latin-1 (relevant bei Umlauten)
+
+**Entscheidungsbaum: Welche Funktion?**
+
+| Dateiformat | Funktion |
+|---|---|
+| CSV, Komma, englisch | `read.csv()` oder `readr::read_csv()` |
+| CSV, Semikolon, deutsch | `read.csv2()` oder `readr::read_csv2()` |
+| Tab-getrennt | `read.delim()` oder `readr::read_tsv()` |
+| Beliebiges Trennzeichen | `read.table(sep = "...")` |
+| Excel `.xlsx` | `readxl::read_excel()` |
+| SPSS `.sav` | `haven::read_sav()` |
+
+---
+
+## Checkliste 3: Daten Validieren (3 Ebenen)
+
+Nach dem Einlesen immer systematisch validieren.
+
+### Ebene 1: Struktur
+
+- [ ] **Dimensionen prüfen**: `dim(daten)` — Stimmt die Anzahl der Zeilen und Spalten?
+- [ ] **Spaltennamen prüfen**: `names(daten)` — Alle erwarteten Variablen vorhanden?
+- [ ] **Datentypen prüfen**: `str(daten)` oder `sapply(daten, class)` — Stimmen die Typen?
+- [ ] **Erste und letzte Zeilen anschauen**: `head(daten)` und `tail(daten)`
+
+### Ebene 2: Werte
+
+- [ ] **Deskriptive Statistiken**: `summary(daten)` — Plausible Min/Max-Werte?
+- [ ] **Fehlende Werte zählen**: `colSums(is.na(daten))` — Wo fehlen Daten?
+- [ ] **Häufigkeiten kategorischer Variablen**: `table(daten$gruppe)` — Erwartete Kategorien?
+- [ ] **Wertebereiche prüfen**: `range(daten$alter, na.rm = TRUE)` — Plausible Werte?
+- [ ] **Versteckte fehlende Werte prüfen**: `unique(daten$var)` — Codes wie `"999"` oder `"-"`?
+
+### Ebene 3: Konsistenz
+
+- [ ] **Duplikate prüfen**: `sum(duplicated(daten))` — Keine doppelten Zeilen?
+- [ ] **ID-Konsistenz**: Gibt es in beiden Datensätzen die gleichen IDs? `intersect(d1$id, d2$id)`
+- [ ] **Fehlende IDs**: IDs in einem Datensatz, die im anderen fehlen? `setdiff(d1$id, d2$id)`
+- [ ] **Inkonsistente Kodierung**: Gleiche Kategorie unterschiedlich kodiert? (z. B. `"KG"` vs. `"Kontrolle"`)
+
+---
+
+## Checkliste 4: Daten Aufbereiten
+
+Systematische Datenbereinigung nach der Validierung.
+
+- [ ] **Skript dokumentieren**: Kommentare für jeden Bereinigungsschritt
+- [ ] **Rohdaten nicht verändern**: Immer mit einer Kopie arbeiten
+- [ ] **Spaltennamen bereinigen**: `janitor::clean_names(daten)` — Einheitliche Kleinschreibung
+- [ ] **Datentypen korrigieren**: `as.numeric()`, `as.character()`, `as.factor()`
+- [ ] **Versteckte fehlende Werte ersetzen**: `na_if(daten$var, "999")`
+- [ ] **Inkonsistente Kategorien rekodieren**: `case_when()` für systematische Umkodierung
+- [ ] **Variablen umbenennen**: `rename(daten, neuer_name = alter_name)`
+- [ ] **Neue Variablen berechnen**: `mutate(daten, z_score = scale(rohwert))`
+- [ ] **Ergebnis validieren**: Nach jeder Bereinigung `str()` und `summary()` aufrufen
+- [ ] **Aufbereitete Daten speichern**: `write.csv(daten_clean, here("Daten_Verarbeitet", "daten_clean.csv"))`
+
+---
+
+## Checkliste 5: Tidy Data
+
+Prüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchführen.
+
+**Tidy Data Prinzipien:**
+
+1. Jede Variable ist eine Spalte
+2. Jede Beobachtung ist eine Zeile
+3. Jede Beobachtungseinheit ist eine Tabelle
+
+- [ ] **Tidy-Format identifizieren**: Ist jede Variable eine eigene Spalte?
+- [ ] **Breites Format erkennen**: Mehrere Spalten für dieselbe Variable (z. B. `messung_t1`, `messung_t2`)?
+- [ ] **`pivot_longer()` anwenden**: Breites → langes Format
+  ```r
+  daten_lang <- daten |>
+    pivot_longer(cols = starts_with("messung"),
+                 names_to = "zeitpunkt",
+                 values_to = "wert")
+  ```
+- [ ] **`pivot_wider()` anwenden**: Langes → breites Format (wenn für Analyse nötig)
+- [ ] **Datensätze verbinden**: `left_join()` / `full_join()` mit korrekt definiertem `by`-Argument
+
+---
+
+## Checkliste 6: Reproduzierbare Analyse
+
+Abschluss-Checkliste für die vollständige Reproduzierbarkeit.
+
+- [ ] **Alle Pakete laden**: `library()`-Befehle am Anfang des Skripts — kein `library()` mitten im Code
+- [ ] **`set.seed()` verwenden**: Bei allen Zufallsprozessen am Anfang des Skripts
+- [ ] **Relative Pfade**: Nur `here()` verwenden, kein `setwd()`, keine absoluten Pfade
+- [ ] **Skript-Reihenfolge**: Skripte nummerieren (z. B. `01_einlesen.R`, `02_bereinigung.R`)
+- [ ] **Sauberes Environment**: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)
+- [ ] **Session-Informationen dokumentieren**: `sessionInfo()` am Ende des Skripts oder in einem separaten Log
+- [ ] **Kommentare**: Jeder nicht-triviale Schritt ist mit `#` kommentiert
+- [ ] **Versionierung**: Änderungen mit Git tracken (optional aber empfohlen)

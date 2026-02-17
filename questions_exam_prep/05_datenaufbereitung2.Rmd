@@ -1,0 +1,21 @@
+Question
+========
+Ein Datensatz enthält Stresswerte (`stress`), die für Personen mit sehr hohem Stress systematisch fehlen — weil diese Personen die Frage aus Überforderung nicht beantwortet haben. Gleichzeitig hat die Variable `schlaf` bei Personen mit wenig Schlaf häufiger fehlende Werte. Welche Zuordnung ist **korrekt**?
+
+Answerlist
+----------
+* `stress` fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.
+* `schlaf` fehlt nach MAR, wenn das Fehlen durch eine andere beobachtete Variable (z. B. Schlafqualität) erklärt werden kann.
+* `stress` fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.
+* `schlaf` fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.
+
+Solution
+========
+Option 1 ist korrekt: `stress` fehlt nach MNAR — der hohe Stress selbst ist die Ursache, nicht beobachtbare andere Variablen. Option 2 ist korrekt für das beschriebene Szenario von `schlaf`: wenn das Fehlen durch beobachtete Variablen erklärt werden kann, ist es MAR. Option 3 ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig ist, unabhängig vom Stressniveau. Option 4 beschreibt zwar ein systematisches Muster, aber ob es MNAR ist, hängt davon ab, ob die fehlenden Schlafwerte vom Schlafwert selbst abhängen — das Szenario beschreibt eher MAR.
+
+Meta-information
+================
+exname: exam_datenaufbereitung2
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE

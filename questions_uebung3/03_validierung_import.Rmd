@@ -1,0 +1,21 @@
+Question
+========
+Nach dem Einlesen eines Datensatzes mit `daten <- read.csv2("daten.csv")` möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine **erste Validierung** geeignet?
+
+Answerlist
+----------
+* `dim(daten)` — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.
+* `plot(daten)` — erstellt automatisch Grafiken für alle Variablen.
+* `str(daten)` — zeigt die Struktur mit Variablennamen und Datentypen.
+* `names(daten)` — prüft ob alle erwarteten Variablennamen vorhanden sind.
+
+Solution
+========
+Für die erste Validierung nach dem Einlesen sind `dim()` (Option 1), `str()` (Option 3) und `names()` (Option 4) geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. `plot(daten)` (Option 2) ist kein Validierungswerkzeug für die Importqualität.
+
+Meta-information
+================
+exname: validierung_import
+extype: mchoice
+exsolution: 1011
+exshuffle: TRUE

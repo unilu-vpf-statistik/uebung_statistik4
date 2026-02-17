@@ -1,0 +1,111 @@
+---
+title: "Übung 5 - Datenaufbereitung II: Tidy Data"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+
+exam_files <- list.files(here("questions_uebung5"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Tidy Data
+
+In dieser Übung lernen Sie das Konzept von **Tidy Data** und wie Sie Datensätze zwischen dem breiten und langen Format umstrukturieren. Ausserdem üben Sie, wie Sie fehlende Werte nach ihrem Mechanismus (MCAR, MAR, MNAR) unterscheiden.
+
+Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
+
+- [Tidy Data and tidyr Explained](https://www.youtube.com/watch?v=1ELALQlO-yM)
+- [pivot_longer and pivot_wider in R (tidyr)](https://www.youtube.com/watch?v=D48JHU4llkk)
+
+## Daten für diese Übung
+
+In dieser Übung arbeiten Sie weiterhin mit dem WM-Fragebogen-Datensatz:
+
+- [WM_Fragebögen.csv](daten/WM_Fragebögen.csv) — Fragebogen- und Arbeitsspeicherdaten
+
+Die webR-Konsole unten lädt den Datensatz automatisch für Sie herunter.
+
+## Tidy Data Prinzipien
+
+Ein Datensatz ist **tidy** wenn:
+
+1. **Jede Variable ist eine Spalte**
+2. **Jede Beobachtung ist eine Zeile**
+3. **Jede Beobachtungseinheit ist eine Tabelle**
+
+Häufige Verletzungen dieser Prinzipien:
+
+- Spaltenköpfe sind Werte, keine Variablennamen (z. B. `score_t1`, `score_t2`, `score_t3`)
+- Mehrere Variablen in einer Spalte (z. B. `"KG_m"` für Gruppe und Geschlecht)
+- Gleiche Beobachtungseinheit in mehreren Tabellen ohne gemeinsamen Schlüssel
+
+## Mechanismen fehlender Werte
+
+| Mechanismus | Beschreibung | Beispiel |
+|---|---|---|
+| **MCAR** (Missing Completely At Random) | Fehlend zufällig, unabhängig von allen Variablen | Technischer Ausfall |
+| **MAR** (Missing At Random) | Fehlend abhängig von bekannten Variablen | Weniger Schlaf → fehlende Schlafstunden |
+| **MNAR** (Missing Not At Random) | Fehlend abhängig von dem fehlenden Wert selbst | Hoher Stress → keine Stressbewertung |
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu Tidy Data und fehlenden Werten.
+
+Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
+
+> Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder `Run Code`, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+library(tidyr)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+head(wm_daten)
+
+# Beispiel: Erstellen eines breiten Datensatzes (simuliert mehrere Messzeitpunkte)
+# In diesem Beispiel erstellen wir einen künstlich breiten Datensatz
+wm_breit <- wm_daten |>
+  select(id, wm_score, sleep_hours) |>
+  rename(score_t1 = wm_score, schlaf_t1 = sleep_hours)
+
+head(wm_breit)
+
+# Ihre Aufgaben:
+# 1. Konvertieren Sie wm_breit mit pivot_longer() ins lange Format
+#    (Tipp: cols = c(score_t1, schlaf_t1))
+# 2. Schauen Sie sich die fehlenden Werte im Originaldatensatz an:
+#    Analysieren Sie ob wm_score und stress_rating nach MCAR, MAR oder MNAR fehlen
+
+```
+
+> Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

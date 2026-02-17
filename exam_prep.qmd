@@ -1,0 +1,100 @@
+---
+title: "Übungsfragen: Klausurvorbereitung"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+```
+
+## Übungsfragen: Klausur
+
+Auf dieser Übungsseite finden Sie weitere Übungsfragen zur Vorbereitung auf die Klausur. Die Fragen werden alle entweder Single-Choice oder K-Prim Fragen mit je 4 Antwortoptionen sein. Die Formatierung der Fragen ist nicht identisch mit der Klausur, das Frageformat ist jedoch identisch. Die Lösungen erklären die korrekten Antworten kurz, wiederholen aber nicht alle Details der jeweiligen Inhalte.
+
+**Wichtig**: Die Inhalte der Fragen sind nicht repräsentativ für die Inhalte die eventuell in der Prüfung abgefragt werden. Die Fragen sollen Ihnen ermöglichen einen guten Eindruck zu bekommen wie unterschiedliche Inhalte der Vorlesung in der Prüfung abgefragt werden.
+
+### Reproduzierbare Analysen
+
+```{r print_questions_01}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_01 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^01_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_01 <- sample(exam_files_01)
+exams2forms(shuffled_questions_01, mathjax = TRUE)
+```
+
+### R-Projekte & relative Pfade
+
+```{r print_questions_02}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_02 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^02_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_02 <- sample(exam_files_02)
+exams2forms(shuffled_questions_02, mathjax = TRUE)
+```
+
+### Daten Einlesen & Validieren
+
+```{r print_questions_03}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_03 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^03_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_03 <- sample(exam_files_03)
+exams2forms(shuffled_questions_03, mathjax = TRUE)
+```
+
+### Datenaufbereitung I
+
+```{r print_questions_04}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_04 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^04_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_04 <- sample(exam_files_04)
+exams2forms(shuffled_questions_04, mathjax = TRUE)
+```
+
+### Datenaufbereitung II: Tidy Data
+
+```{r print_questions_05}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_05 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^05_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_05 <- sample(exam_files_05)
+exams2forms(shuffled_questions_05, mathjax = TRUE)
+```

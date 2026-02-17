@@ -1,0 +1,13 @@
+---
+title: "Übung 8 - Folgt"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+---
+
+## Übung 8
+
+Diese Übung wird im Laufe des Semesters ergänzt.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

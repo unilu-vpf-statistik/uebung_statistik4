@@ -1,0 +1,74 @@
+---
+title: "Übung 1 - Reproduzierbare Analysen"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+
+exam_files <- list.files(here("questions_uebung1"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Reproduzierbare Analysen
+
+In dieser Übung beschäftigen wir uns mit den Grundprinzipien reproduzierbarer Datenanalysen. Reproduzierbarkeit bedeutet, dass eine Analyse von anderen Personen — oder von Ihnen selbst zu einem späteren Zeitpunkt — mit denselben Daten und demselben Code zu identischen Ergebnissen führt.
+
+Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgendes Video:
+
+- [What is Reproducible Research?](https://www.youtube.com/watch?v=NGFO0kdbZmk)
+
+## Was macht eine Analyse reproduzierbar?
+
+Eine reproduzierbare Analyse zeichnet sich durch folgende Merkmale aus:
+
+1. **Klare Projektstruktur**: Alle Dateien sind sinnvoll in Ordnern organisiert
+2. **Relative Pfade**: Keine absoluten Pfade (`C:/Users/...`), sondern relative Pfade mit `here()`
+3. **Dokumentierter Code**: Skripte sind kommentiert und erklären was jeder Schritt macht
+4. **Versionskontrolle**: Änderungen am Code werden nachverfolgt (z. B. mit Git)
+5. **Abhängigkeiten dokumentiert**: Verwendete Pakete und ihre Versionen sind festgehalten
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu den Grundkonzepten reproduzierbarer Analysen. Die Fragen können Sie direkt auf dieser Seite beantworten.
+
+Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
+
+> Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder `Run Code`, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Schreiben Sie hier ihren Code um die Aufgaben zu lösen
+
+# Laden Sie zunächst das here-Paket
+library(here)
+
+# Überprüfen Sie das aktuelle Arbeitsverzeichnis
+here()
+
+# Experimentieren Sie mit relativen Pfaden
+here("daten", "WM_Fragebögen.csv")
+
+```
+
+> Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

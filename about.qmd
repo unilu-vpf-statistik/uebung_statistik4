@@ -1,0 +1,53 @@
+---
+title: "Hilfe & Kontakt"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+---
+
+Falls Sie **Probleme mit der Installation von R und R-Studio** haben, dann schauen Sie sich dieses YouTube Video an, das zeigt wie sie R und RStudio auf Ihrem Rechner installieren können: <https://www.youtube.com/watch?v=X_Mxya2Fis0>
+
+Falls Sie **Probleme mit den Übungen** für die Vorlesung "Statistik IV" haben, folgen Sie den folgenden Schritten:
+
+1.  Versuchen Sie selbst nach einer Lösung mit Hilfe der unten stehenden Tools zu suchen
+2.  Fragen Sie Ihre Mitstudierenden um Hilfe & klären Sie ob auch andere Studierende ähnliche Probleme haben
+3.  Diskutieren Sie das Problem im Q&A Forum auf OLAT
+
+Sollten Sie nach all diesen Schritten gemeinsam keine Lösung finden und mehrere Studierende ein Problem mit den Online implementierten Übungen haben, dann können Sie sich per Mail an mich wenden: [gidon.frischkorn\@unilu.ch](mailto:gidon.frischkorn@unilu.ch)
+
+## Tipps um Hilfe mit R & RStudio zu finden
+
+Das Internet bietet viele verschiedene Möglichkeiten um Hilfe bei der Arbeit mit R & RStudio zu bekommen. Hier finden Sie einige Vorschläge wie sie Probleme mit R und RStudio mit Hilfe aus dem Internet lösen können.
+
+### Suchmaschinen
+
+Der einfachste Weg um Hilfe mit R oder RStudio zu bekommen ist ihr Problem in einer Suchmaschine einzugeben. Fügen Sie dabei hinzu, dass sie das Problem in R lösen wollen. Wenn Sie zum Beispiel eine Fehlermeldung bekommen, dann kopieren sie die Nachricht der Fehlermeldung in die Suchzeile ein und fügen "in R" hinzu, damit die Suche Lösungen für R findet.
+
+**Tipp:** Suchen Sie auf Englisch nach einer Lösung für Ihr Problem, dann werden Sie mehr Ergebnisse bekommen und finden leichter eine Lösung die Sie nachvollziehen und für sich nutzen können.
+
+```{r}
+# Beispiel Code der eine Warnung erzeugt
+data <- c(1, 4, 3, 2, "hallo")
+mean(data)
+```
+
+### YouTube
+
+Neben der Nutzung von Suchmaschinen finden Sie auf YouTube eine Vielzahl an Erklärvideos zur Nutzung von R und spezifischen Analysen beziehungsweise Programmieraufgaben. Ich empfehle Ihnen dabei vor allem nach Englischen Videos zu suchen, da sie damit eine grössere Chance haben ein Video zu finden, dass Ihnen für Ihr konkretes Problem weiter hilft.
+
+Einige Kanäle die eine breite Menge an Themen abdecken sind:
+
+-   [R Programming 101](https://www.youtube.com/channel/UCfJyQ3P2k_SuqfxVdqIEQNw) (über 180 Videos zu verschiedenen R Themen)
+
+-   [DataDaft](https://www.youtube.com/@DataDaft) (nicht nur Videos für R)
+
+-   [Statistik am PC](https://www.youtube.com/@StatistikamPC_BjoernWalther) (Videos auf Deutsch, nicht nur für R)
+
+### LLM Chats
+
+Im Laufe der letzten Jahre sind vermehrt Chats mit Large Language Modellen (LLMs) — wie zum Beispiel [ChatGPT](https://chatgpt.com/), [Claude](https://www.anthropic.com/claude) oder [Gemini](https://gemini.google.com/?hl=de) — als weitere Möglichkeit zur Problemlösung von Programmierfragen genutzt worden. Viele LLMs können direkt Code vorschlagen, mit dem Sie gezielt bestimmte Probleme lösen können.
+
+Seien Sie sich jedoch bewusst, dass der Output der LLMs nicht immer korrekt sein muss, so dass Sie die Ergebnisse immer selbst überprüfen müssen. Grundsätzlich werden Sie das Programmieren und Analysieren von Daten mit R und RStudio schneller und nachhaltiger lernen, wenn Sie Code selbst schreiben, Fehlermeldungen nachvollziehen, und eigenständig nach Lösungen im Internet suchen und diese selbst für Ihren Code anpassen.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

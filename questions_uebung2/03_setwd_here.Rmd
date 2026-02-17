@@ -1,0 +1,21 @@
+Question
+========
+Warum sollte `setwd()` in Analyseskripten **nicht** verwendet werden?
+
+Answerlist
+----------
+* `setwd()` ist langsamer als `here()` bei der Pfadauflösung.
+* Der mit `setwd()` gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.
+* `setwd()` kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.
+* Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt `setwd()` mit einem Fehler fehl, da der Pfad nicht existiert.
+
+Solution
+========
+Die Kernprobleme mit `setwd()` sind Option 2 und Option 4: Der absolute Pfad ist systemspezifisch und führt auf anderen Computern zu Fehlern. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. `here()` löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut.
+
+Meta-information
+================
+exname: setwd_here
+extype: mchoice
+exsolution: 0101
+exshuffle: TRUE

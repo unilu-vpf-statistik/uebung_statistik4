@@ -1,0 +1,93 @@
+---
+title: "Übung 2 - R-Projekte & relative Pfade"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+
+exam_files <- list.files(here("questions_uebung2"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: R-Projekte & relative Pfade
+
+In dieser Übung lernen Sie, wie Sie R-Projekte anlegen und mit dem `here`-Paket reproduzierbare relative Pfade erstellen. R-Projekte und relative Pfade sind die Grundlage dafür, dass Ihre Analysen auf verschiedenen Computern und zu verschiedenen Zeitpunkten ausführbar bleiben.
+
+Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
+
+- [R Projects - How to set up your projects in R](https://www.youtube.com/watch?v=kfcX5DEMAp4)
+- [here package tutorial - Manage file paths in R](https://www.youtube.com/watch?v=ULwFjNzWfKM)
+
+## Warum R-Projekte?
+
+R-Projekte (`.Rproj`-Dateien) bieten folgende Vorteile:
+
+- Das **Arbeitsverzeichnis** wird automatisch auf den Projektordner gesetzt
+- Kein `setwd()` nötig — und `setwd()` sollten Sie grundsätzlich **nicht verwenden**
+- RStudio merkt sich Ihre offenen Skripte und Einstellungen pro Projekt
+- Projekte können einfach auf andere Rechner übertragen werden
+
+## Das `here`-Paket
+
+Das `here`-Paket baut automatisch Pfade relativ zum Projektordner:
+
+```r
+library(here)
+
+# Gibt den Projektordner zurück
+here()
+
+# Baut einen Pfad zur Datei "daten.csv" im Ordner "Daten_Roh"
+here("Daten_Roh", "daten.csv")
+```
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu R-Projekten und relativen Pfaden.
+
+Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
+
+> Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder `Run Code`, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Schreiben Sie hier ihren Code um die Aufgaben zu lösen
+
+# Laden Sie das here-Paket
+library(here)
+
+# Was gibt here() zurück?
+here()
+
+# Bauen Sie Pfade mit here() zu verschiedenen Ordnern
+# Beispiel:
+here("Daten_Roh", "WM_Fragebögen.csv")
+here("R_Skripte", "01_einlesen.R")
+
+# Was ist der Unterschied zu:
+# "/Users/maxmuster/Projekte/Mein_Projekt/Daten_Roh/WM_Fragebögen.csv"
+
+```
+
+> Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

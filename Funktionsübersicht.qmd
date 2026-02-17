@@ -1,0 +1,209 @@
+---
+title: "Funktionsübersicht"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+---
+
+# Funktionsübersicht: Statistik IV
+
+Diese Seite bietet eine kompakte Übersicht der wichtigsten R-Funktionen, die Sie in der Vorlesung und den Übungen verwenden. Die Funktionen sind nach Workflow-Schritten geordnet.
+
+## Projektstruktur & Pfade
+
+### `here` Paket
+
+Das `here`-Paket ermöglicht reproduzierbare relative Pfade, die unabhängig vom Arbeitssystem funktionieren.
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `here()` | Gibt den Projektordner zurück | `here()` |
+| `here("ordner", "datei.csv")` | Baut einen relativen Pfad | `here("daten", "rohdaten.csv")` |
+
+### Basis R — Dateioperationen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `list.files(path)` | Listet Dateien in einem Ordner | `list.files(here("daten"))` |
+| `file.exists(path)` | Prüft ob eine Datei existiert | `file.exists(here("daten", "data.csv"))` |
+| `file.copy(from, to)` | Kopiert eine Datei | `file.copy("quelle.csv", "ziel.csv")` |
+| `dir.create(path)` | Erstellt einen neuen Ordner | `dir.create(here("output"))` |
+
+---
+
+## Daten Einlesen
+
+### Basis R — Textdateien
+
+| Funktion | Beschreibung | Typische Argumente |
+|---|---|---|
+| `readLines(con, n)` | Liest rohe Textzeilen (zur Format-Inspektion) | `n = 5` für die ersten 5 Zeilen |
+| `read.csv(file)` | Liest CSV mit Komma-Trennung (englisch) | `header = TRUE`, `stringsAsFactors = FALSE` |
+| `read.csv2(file)` | Liest CSV mit Semikolon-Trennung (deutsch) | `header = TRUE`, `dec = ","` |
+| `read.table(file)` | Flexibles Einlesen mit wählbarem Trennzeichen | `sep = "\t"`, `header = TRUE`, `na.strings = c("NA", "")` |
+| `read.delim(file)` | Liest Tab-getrennte Dateien | `header = TRUE` |
+
+### `readr` Paket (tidyverse)
+
+| Funktion | Beschreibung |
+|---|---|
+| `read_csv(file)` | Liest CSV mit Komma-Trennung |
+| `read_csv2(file)` | Liest CSV mit Semikolon-Trennung |
+| `read_tsv(file)` | Liest Tab-getrennte Dateien |
+| `read_delim(file, delim)` | Liest mit beliebigem Trennzeichen |
+
+### `haven` Paket (SPSS, Stata, SAS)
+
+| Funktion | Beschreibung |
+|---|---|
+| `read_sav(file)` | Liest SPSS `.sav`-Dateien |
+| `read_dta(file)` | Liest Stata `.dta`-Dateien |
+| `read_sas(file)` | Liest SAS `.sas7bdat`-Dateien |
+
+### `readxl` Paket (Excel)
+
+| Funktion | Beschreibung |
+|---|---|
+| `read_excel(file)` | Liest Excel `.xlsx`/`.xls`-Dateien |
+| `excel_sheets(file)` | Listet alle Tabellenblätter |
+| `read_excel(file, sheet = "Name")` | Liest ein bestimmtes Tabellenblatt |
+
+---
+
+## Daten Validieren
+
+### Struktur prüfen
+
+| Funktion | Beschreibung | Ausgabe |
+|---|---|---|
+| `dim(df)` | Zeilen- und Spaltenanzahl | `c(Zeilen, Spalten)` |
+| `nrow(df)` / `ncol(df)` | Zeilen- bzw. Spaltenanzahl | Einzelner Wert |
+| `names(df)` | Spaltennamen | Charaktervektor |
+| `str(df)` | Struktur mit Datentypen | Übersicht im Konsole |
+| `class(df)` | Datentyp eines Objekts | z. B. `"data.frame"` |
+| `sapply(df, class)` | Datentyp jeder Spalte | Benannter Vektor |
+
+### Werte prüfen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `summary(df)` | Deskriptive Statistiken je Spalte | `summary(daten)` |
+| `table(df$var)` | Häufigkeitstabelle einer Variable | `table(daten$geschlecht)` |
+| `is.na(x)` | Prüft auf fehlende Werte | `is.na(daten$wm_score)` |
+| `colSums(is.na(df))` | Anzahl fehlender Werte je Spalte | `colSums(is.na(daten))` |
+| `sum(is.na(x))` | Gesamtanzahl fehlender Werte | `sum(is.na(daten$alter))` |
+| `range(x, na.rm = TRUE)` | Minimum und Maximum | `range(daten$alter, na.rm = TRUE)` |
+
+### Konsistenz prüfen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `duplicated(df)` | Identifiziert duplizierte Zeilen | `sum(duplicated(daten))` |
+| `unique(x)` | Eindeutige Werte | `unique(daten$gruppe)` |
+| `intersect(x, y)` | Gemeinsame Elemente zweier Vektoren | `intersect(daten1$id, daten2$id)` |
+| `setdiff(x, y)` | Elemente in x aber nicht in y | `setdiff(daten1$id, daten2$id)` |
+
+---
+
+## Daten Aufbereiten (`dplyr`)
+
+### Zeilen und Spalten
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `filter(df, cond)` | Filtert Zeilen nach Bedingung | `filter(daten, alter > 18)` |
+| `select(df, vars)` | Wählt Spalten aus | `select(daten, id, alter, geschlecht)` |
+| `rename(df, neu = alt)` | Benennt Spalten um | `rename(daten, age = alter)` |
+| `arrange(df, var)` | Sortiert nach einer Variable | `arrange(daten, alter)` |
+| `distinct(df)` | Entfernt duplizierte Zeilen | `distinct(daten)` |
+
+### Variablen verändern
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `mutate(df, neu = ausdruck)` | Erstellt oder verändert Spalten | `mutate(daten, alter_z = scale(alter))` |
+| `case_when(...)` | Mehrfach-If-Else für Rekodierung | Siehe unten |
+| `if_else(cond, ja, nein)` | Einfaches If-Else | `if_else(daten$alter >= 18, "adult", "minor")` |
+| `na_if(x, val)` | Ersetzt Wert durch `NA` | `na_if(daten$gender, "k.A.")` |
+| `replace_na(x, val)` | Ersetzt `NA` durch Wert | `replace_na(daten$score, 0)` |
+| `coalesce(x, y)` | Nimmt ersten nicht-NA Wert | `coalesce(daten$v1, daten$v2)` |
+
+```r
+# Beispiel: case_when für Rekodierung
+daten <- daten |>
+  mutate(
+    gruppe = case_when(
+      gruppe_raw %in% c("KG", "Kontrolle", "control") ~ "Kontrolle",
+      gruppe_raw %in% c("EG", "Experimental", "exp")  ~ "Experimental",
+      TRUE ~ NA_character_
+    )
+  )
+```
+
+### Zusammenfassen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `group_by(df, var)` | Gruppiert nach Variable | `group_by(daten, geschlecht)` |
+| `summarise(df, stat = fun)` | Berechnet Zusammenfassungen | `summarise(daten, m = mean(score))` |
+| `count(df, var)` | Zählt Vorkommen je Wert | `count(daten, gruppe)` |
+
+---
+
+## Tidy Data (`tidyr`)
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `pivot_longer(df, cols, ...)` | Von breitem zu langem Format | Siehe unten |
+| `pivot_wider(df, ...)` | Von langem zu breitem Format | Siehe unten |
+| `separate(df, col, into, sep)` | Teilt eine Spalte auf | `separate(df, datum, c("tag","monat","jahr"), sep = ".")` |
+| `unite(df, col, ..., sep)` | Verbindet Spalten | `unite(df, name_voll, vorname, nachname, sep = " ")` |
+| `drop_na(df, cols)` | Entfernt Zeilen mit fehlenden Werten | `drop_na(daten, wm_score)` |
+
+```r
+# pivot_longer: von breit nach lang
+daten_lang <- daten_breit |>
+  pivot_longer(
+    cols = starts_with("messung"),
+    names_to = "zeitpunkt",
+    values_to = "wert"
+  )
+
+# pivot_wider: von lang nach breit
+daten_breit <- daten_lang |>
+  pivot_wider(
+    names_from = zeitpunkt,
+    values_from = wert
+  )
+```
+
+---
+
+## Datensätze zusammenführen (`dplyr`)
+
+| Funktion | Beschreibung |
+|---|---|
+| `left_join(x, y, by)` | Alle Zeilen von x, passende von y |
+| `right_join(x, y, by)` | Alle Zeilen von y, passende von x |
+| `full_join(x, y, by)` | Alle Zeilen von x und y |
+| `inner_join(x, y, by)` | Nur Zeilen mit Übereinstimmung in beiden |
+| `anti_join(x, y, by)` | Zeilen in x ohne Übereinstimmung in y |
+
+```r
+# Beispiel: Zwei Datensätze über ID verbinden
+daten_komplett <- left_join(fragebogen, lab_daten, by = "id")
+```
+
+---
+
+## Nützliche Hilfsfunktionen
+
+| Funktion | Beschreibung |
+|---|---|
+| `sessionInfo()` | Zeigt R-Version und geladene Pakete |
+| `Sys.time()` | Aktuelles Datum und Uhrzeit |
+| `set.seed(n)` | Reproduzierbare Zufallszahlen |
+| `glimpse(df)` | Kompakte Übersicht eines Data Frames (dplyr) |
+| `head(df, n)` / `tail(df, n)` | Erste/letzte n Zeilen |
+| `View(df)` | Öffnet Data Frame im Viewer |
+| `janitor::clean_names(df)` | Bereinigt Spaltennamen (janitor-Paket) |
+| `janitor::tabyl(df, var)` | Häufigkeitstabelle mit Prozentanteilen |

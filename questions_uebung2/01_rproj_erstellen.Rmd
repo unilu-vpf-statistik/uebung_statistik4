@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen beschreiben **Vorteile** von R-Projekten (`.Rproj`-Dateien)?
+
+Answerlist
+----------
+* Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.
+* RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.
+* R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.
+* Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.
+
+Solution
+========
+R-Projekte setzen das Arbeitsverzeichnis automatisch (Option 1), merken sich offene Skripte (Option 2), und ermöglichen portables Übertragen des Projekts (Option 4). Die Rechengeschwindigkeit (Option 3) wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von `.Rproj`-Dateien.
+
+Meta-information
+================
+exname: rproj_erstellen
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

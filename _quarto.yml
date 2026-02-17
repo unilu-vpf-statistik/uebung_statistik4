@@ -1,0 +1,63 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+
+website:
+  title: "Übungen - VL: Statistik IV"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Übungen
+      - href: Funktionsübersicht.qmd
+        text: Funktionsübersicht
+      - href: Checklisten.qmd
+        text: Checklisten
+      - href: about.qmd
+        text: Hilfe & Kontakt
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Übung 1"
+        href: exercise1.qmd
+      - text: "Übung 2"
+        href: exercise2.qmd
+      - text: "Übung 3"
+        href: exercise3.qmd
+      - text: "Übung 4"
+        href: exercise4.qmd
+      - text: "Übung 5"
+        href: exercise5.qmd
+      - text: "Übung 6"
+        href: exercise6.qmd
+      - text: "Übung 7"
+        href: exercise7.qmd
+      - text: "Übung 8"
+        href: exercise8.qmd
+      - text: "Übung 9"
+        href: exercise9.qmd
+      - text: "Übung 10"
+        href: exercise10.qmd
+      - text: "Übung 11"
+        href: exercise11.qmd
+      - text: "Übung 12"
+        href: exercise12.qmd
+      - text: "Übung: Klausur"
+        href: exam_prep.qmd
+  page-footer:
+    left: "Copyright 2026, Gidon Frischkorn | Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
+    right:
+      - icon: github
+        href: https://github.com/GidonFrischkorn
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+editor: source

@@ -1,0 +1,44 @@
+---
+title: "Übungen - VL: Statistik IV"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+---
+
+## Willkommen
+
+Auf dieser Website finden Sie die Übungen zur Vorlesung **Statistik IV** im Frühlingssemester 2026. Die Übungen begleiten die Vorlesung und helfen Ihnen dabei, den gesamten Datenanalyseprozess mit R reproduzierbar umzusetzen.
+
+## Ziel der Übungen
+
+In dieser Vorlesung lernen Sie, wie Sie statistische Analysen **vollständig reproduzierbar** mit R durchführen können. Die Übungen decken den gesamten Workflow ab:
+
+1. **Reproduzierbare Analysen** — Projektstruktur und Dokumentation
+2. **R-Projekte & relative Pfade** — Arbeiten mit `.Rproj`-Dateien und dem `here`-Paket
+3. **Daten Einlesen** — Import verschiedener Dateiformate
+4. **Datenaufbereitung I** — Validierung und Bereinigung
+5. **Datenaufbereitung II** — Tidy Data und Umstrukturierung
+
+## R und RStudio
+
+Falls Sie R und RStudio noch nicht installiert haben, können Sie diese hier herunterladen:
+
+- [R herunterladen (CRAN)](https://cran.r-project.org/)
+- [RStudio herunterladen (Posit)](https://posit.co/download/rstudio-desktop/)
+
+## Pakete installieren
+
+Für die Übungen benötigen Sie folgende R-Pakete. Sie können diese mit den folgenden Befehlen installieren:
+
+```r
+install.packages(c("tidyverse", "here", "haven", "readxl", "janitor"))
+```
+
+Für die interaktiven Übungsfragen auf dieser Website werden zusätzlich folgende Pakete benötigt:
+
+```r
+install.packages(c("exams", "exams2forms"))
+```
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

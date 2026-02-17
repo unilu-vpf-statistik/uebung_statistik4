@@ -1,0 +1,21 @@
+Question
+========
+Welche Aussage beschreibt am besten den **Hauptvorteil** des `here`-Pakets gegenüber `setwd()`?
+
+Answerlist
+----------
+* `here()` ist schneller als `setwd()` beim Lesen grosser Dateien.
+* `here()` baut Pfade relativ zum R-Projektordner, sodass Skripte auf verschiedenen Computern ohne Änderungen funktionieren.
+* `here()` kann automatisch fehlende Dateien herunterladen.
+* `here()` funktioniert auch ohne eine `.Rproj`-Datei.
+
+Solution
+========
+Option 2 ist der Hauptvorteil von `here()`: Pfade werden relativ zum Projektordner aufgebaut. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu `setwd()`, das einen absoluten Pfad setzt. `here()` ist nicht schneller beim Lesen (Option 1 falsch) und kann keine Dateien herunterladen (Option 3 falsch). Option 4 ist teilweise wahr — `here()` kann auch ohne `.Rproj` arbeiten, aber R-Projekte sind die empfohlene Grundlage.
+
+Meta-information
+================
+exname: exam_rprojekte
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

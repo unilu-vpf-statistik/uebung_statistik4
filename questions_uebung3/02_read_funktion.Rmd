@@ -1,0 +1,21 @@
+Question
+========
+Welche Funktion liest eine CSV-Datei mit **Semikolon als Trennzeichen** und **Komma als Dezimaltrennzeichen** (deutsches Format) korrekt ein?
+
+Answerlist
+----------
+* `read.csv("daten.csv")`
+* `read.csv2("daten.csv")`
+* `read.table("daten.csv", sep = ";", dec = ",")`
+* `read.delim("daten.csv")`
+
+Solution
+========
+Sowohl Option 2 als auch Option 3 sind korrekt. `read.csv2()` ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). `read.table()` mit den entsprechenden Argumenten (Option 3) erreicht dasselbe Ergebnis. `read.csv()` (Option 1) verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format). `read.delim()` (Option 4) liest Tab-getrennte Dateien ein.
+
+Meta-information
+================
+exname: read_funktion
+extype: mchoice
+exsolution: 0110
+exshuffle: TRUE

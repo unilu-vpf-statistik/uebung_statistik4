@@ -1,0 +1,21 @@
+Question
+========
+Sie erhalten eine unbekannte Datendatei `messdaten.dat`. Welche der folgenden Vorgehensweisen ist der **empfohlene erste Schritt** zum Einlesen dieser Datei?
+
+Answerlist
+----------
+* Sofort `read.csv("messdaten.dat")` ausführen und das Ergebnis inspizieren.
+* `readLines("messdaten.dat", n = 5)` ausführen, um das Dateiformat zu identifizieren.
+* Die Datei in Excel öffnen, um sie zu inspizieren.
+* `read.table("messdaten.dat")` mit Standardeinstellungen ausführen.
+
+Solution
+========
+Option 2 ist der empfohlene erste Schritt: `readLines()` liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. Option 1 und 4 können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel (Option 3) kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.
+
+Meta-information
+================
+exname: exam_daten_einlesen
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

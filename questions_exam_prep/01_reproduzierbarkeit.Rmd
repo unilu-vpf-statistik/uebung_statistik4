@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Praktiken sind **notwendig** für eine vollständig reproduzierbare Datenanalyse?
+
+Answerlist
+----------
+* Alle Analyseschritte werden in R-Skripten dokumentiert statt manuell in Tabellenprogrammen durchgeführt.
+* Relative Pfade mit `here()` werden verwendet, sodass das Projekt auf anderen Computern ausführbar ist.
+* Die Analyse wird auf einem schnellen Computer durchgeführt, damit die Ergebnisse schnell berechnet werden.
+* `set.seed()` wird bei allen Zufallsprozessen verwendet, um identische Ergebnisse zu gewährleisten.
+
+Solution
+========
+Reproduzierbare Analysen erfordern dokumentierte Skripte (Option 1), relative Pfade (Option 2) und kontrollierten Zufall durch `set.seed()` (Option 4). Die Geschwindigkeit des Computers (Option 3) hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.
+
+Meta-information
+================
+exname: exam_reproduzierbarkeit
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

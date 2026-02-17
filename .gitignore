@@ -1,0 +1,42 @@
+# Quarto
+/.quarto/
+/_site/
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# RStudio
+.Rproj.user
+
+# Temporary files
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# R package development
+*.tar.gz
+*.Rcheck/
+
+# knitr and R markdown
+*_cache/
+*_files/
+*.utf8.md
+*.knit.md
+
+# Local files
+/local/
+
+# Output files
+*.pdf
+*.docx
+*.xlsx
+
+# Environment variables
+.Renviron
+.env

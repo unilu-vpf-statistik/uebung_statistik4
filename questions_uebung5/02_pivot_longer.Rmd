@@ -1,0 +1,31 @@
+Question
+========
+Sie haben folgenden breiten Datensatz und wollen ihn mit `pivot_longer()` ins lange Format bringen:
+
+```r
+daten_breit <- data.frame(
+  id = c(1, 2, 3),
+  score_vor = c(5.2, 4.8, 6.1),
+  score_nach = c(7.0, 6.3, 8.2)
+)
+```
+
+Welcher Code produziert das korrekte lange Format mit den Spalten `id`, `zeitpunkt` und `score`?
+
+Answerlist
+----------
+* `pivot_longer(daten_breit, cols = c(score_vor, score_nach), names_to = "zeitpunkt", values_to = "score")`
+* `pivot_wider(daten_breit, names_from = zeitpunkt, values_from = score)`
+* `pivot_longer(daten_breit, cols = -id, names_to = "zeitpunkt", values_to = "score")`
+* `pivot_longer(daten_breit, cols = starts_with("score"), names_to = "zeitpunkt", values_to = "score")`
+
+Solution
+========
+Option 1, 3 und 4 sind alle korrekte Wege, denselben `pivot_longer()`-Aufruf zu schreiben: explizite Spaltennamen (Option 1), Negation der id-Spalte (Option 3), und `starts_with()`-Hilfsfunktion (Option 4). Option 2 verwendet `pivot_wider()`, das genau das Gegenteil macht — es transformiert langes ins breites Format.
+
+Meta-information
+================
+exname: pivot_longer
+extype: mchoice
+exsolution: 1011
+exshuffle: TRUE

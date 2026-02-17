@@ -1,0 +1,21 @@
+Question
+========
+Ihr R-Projekt liegt im Ordner `/Users/tom/Analysen/Studie_2026/`. Welcher der folgenden Ausdrücke erstellt mit dem `here`-Paket den **korrekten relativen Pfad** zur Datei `/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv`?
+
+Answerlist
+----------
+* `here("rohdaten.csv")`
+* `here("Daten_Roh/rohdaten.csv")`
+* `here("Daten_Roh", "rohdaten.csv")`
+* `here("/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv")`
+
+Solution
+========
+Option 3 ist korrekt: `here("Daten_Roh", "rohdaten.csv")` — Das `here`-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Option 2 würde auch funktionieren (mit Schrägstrich), ist aber weniger portabel. Option 1 würde nur im Projektordner suchen (falsch). Option 4 verwendet einen absoluten Pfad, was dem Sinn von `here()` widerspricht.
+
+Meta-information
+================
+exname: relative_pfade
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE

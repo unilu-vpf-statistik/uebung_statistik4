@@ -1,0 +1,29 @@
+Question
+========
+Sie analysieren einen Datensatz und führen folgenden Code aus:
+
+```r
+colSums(is.na(daten))
+#    id  wm_score  sleep_hours  stress_rating  alter  geschlecht
+#     0        12           8              25      0           0
+```
+
+Welche Aussagen sind **korrekt**?
+
+Answerlist
+----------
+* Die Variable `wm_score` hat 12 fehlende Werte.
+* Die Variable `id` hat keine fehlenden Werte.
+* Die Variable `stress_rating` hat die meisten fehlenden Werte mit 25.
+* Der Datensatz hat insgesamt keine fehlenden Werte.
+
+Solution
+========
+Option 1 ist korrekt: `wm_score` hat 12 fehlende Werte. Option 2 ist korrekt: `id` hat 0 fehlende Werte. Option 3 ist korrekt: `stress_rating` hat die meisten fehlenden Werte (25). Option 4 ist falsch: Der Datensatz hat insgesamt 45 fehlende Werte (12 + 8 + 25).
+
+Meta-information
+================
+exname: fehlende_werte
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

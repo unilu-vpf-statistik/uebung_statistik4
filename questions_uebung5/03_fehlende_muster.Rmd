@@ -1,0 +1,21 @@
+Question
+========
+In einer Studie zu Stress und Wohlbefinden fehlen bei der Variable `stress_rating` auffällig viele Werte bei Personen mit sehr hohem Stress — diese Personen gaben häufig keine Antwort auf die Stressfrage. Um welchen Mechanismus fehlender Werte handelt es sich?
+
+Answerlist
+----------
+* MCAR (Missing Completely At Random) — die fehlenden Werte sind zufällig und unabhängig von allen anderen Variablen.
+* MAR (Missing At Random) — die fehlenden Werte hängen von einer anderen beobachteten Variable ab.
+* MNAR (Missing Not At Random) — die Wahrscheinlichkeit des Fehlens hängt vom Wert der fehlenden Variable selbst ab.
+* Das Muster fehlender Werte lässt sich aus dem beschriebenen Szenario nicht bestimmen.
+
+Solution
+========
+Die korrekte Antwort ist Option 3: MNAR (Missing Not At Random). Personen mit sehr hohem Stress lassen die Stressfrage unbeantwortet — die Wahrscheinlichkeit dass `stress_rating` fehlt, hängt direkt vom Stresswert selbst ab, also von der fehlenden Information. Dies ist das schwierigste Muster, da es nicht einfach durch andere Variablen erklärt werden kann. MCAR (Option 1) würde bedeuten, dass das Fehlen völlig zufällig ist. MAR (Option 2) würde bedeuten, dass das Fehlen von einer anderen beobachteten Variable abhängt.
+
+Meta-information
+================
+exname: fehlende_muster
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE

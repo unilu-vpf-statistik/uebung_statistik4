@@ -1,0 +1,101 @@
+---
+title: "Übung 4 - Datenaufbereitung I"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+
+exam_files <- list.files(here("questions_uebung4"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Datenaufbereitung I
+
+In dieser Übung lernen Sie, wie Sie nach dem Einlesen der Daten systematisch Datenqualitätsprobleme identifizieren und beheben. Dazu gehören fehlende Werte, inkonsistente Kodierungen, Duplikate und falsche Datentypen.
+
+Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
+
+- [Data Cleaning in R - Full Tutorial](https://www.youtube.com/watch?v=sV5lwAJ7vnQ)
+- [Handling Missing Data in R](https://www.youtube.com/watch?v=GXHFM1vVGq8)
+
+## Daten für diese Übung
+
+In dieser Übung arbeiten Sie mit den gleichen Datensätzen wie in Übung 3:
+
+- [WM_Fragebögen.csv](daten/WM_Fragebögen.csv) — Fragebogen- und Arbeitsspeicherdaten
+- [Lab_Kodierung.dat](daten/Lab_Kodierung.dat) — Laborkodierungsdaten
+
+Die webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.
+
+## Typische Datenqualitätsprobleme
+
+In der Praxis begegnen Ihnen häufig folgende Probleme:
+
+- **Fehlende Werte**: Explizit (`NA`) oder versteckt (z. B. `"999"`, `"-"`, `"k.A."`)
+- **Falsche Datentypen**: Zahlen als Text gespeichert, Faktoren als Zahlen
+- **Inkonsistente Kodierungen**: Gleiche Kategorie unterschiedlich geschrieben (z. B. `"KG"` vs. `"Kontrolle"`)
+- **Duplikate**: Doppelt eingetragene Zeilen oder IDs
+- **Werte ausserhalb des plausiblen Bereichs**: z. B. Alter = 999 oder negative Reaktionszeiten
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zur Datenaufbereitung und Datenqualitätsprüfung.
+
+Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
+
+> Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder `Run Code`, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen der Datensätze
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
+
+# Laden der benötigten Pakete
+library(dplyr)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
+
+# Fehlende Werte prüfen
+colSums(is.na(wm_daten))
+
+# Duplikate prüfen
+sum(duplicated(wm_daten))
+sum(duplicated(lab_daten))
+
+# Häufigkeiten kategorischer Variablen
+table(lab_daten$group_raw)
+
+# Ihre Aufgaben:
+# 1. Identifizieren Sie inkonsistente Kodierungen in group_raw
+# 2. Rekodieren Sie die Variable mit case_when() zu einheitlichen Kategorien
+# 3. Überprüfen Sie ob alle IDs in beiden Datensätzen vorkommen
+
+```
+
+> Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

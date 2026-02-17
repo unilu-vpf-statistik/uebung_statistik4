@@ -1,0 +1,94 @@
+---
+title: "Übung 3 - Daten Einlesen & Validieren"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
+---
+
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
+
+exam_files <- list.files(here("questions_uebung3"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Daten Einlesen & Validieren
+
+In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das richtige Einlese-Format identifizieren, und nach dem Import systematisch validieren, ob die Daten korrekt eingelesen wurden.
+
+Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
+
+- [Importing Data in R](https://www.youtube.com/watch?v=qPk0YEKhqB8)
+- [read.csv and read.table in R](https://www.youtube.com/watch?v=pG3gHqSUlJw)
+
+## Daten für diese Übung
+
+In dieser Übung arbeiten Sie mit zwei Datensätzen, die Sie auch auf dieser Website herunterladen können:
+
+- [WM_Fragebögen.csv](daten/WM_Fragebögen.csv) — Fragebogen- und Arbeitsspeicherdaten (CSV, Semikolon-getrennt, deutsche Dezimalzeichen)
+- [Lab_Kodierung.dat](daten/Lab_Kodierung.dat) — Laborkodierungsdaten (Tab-getrennt)
+
+Die webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.
+
+## Vorgehen beim Einlesen unbekannter Dateien
+
+1. **Dateiformat identifizieren**: Endung, `readLines()` für die ersten Zeilen
+2. **Passende Funktion wählen**: `read.csv()`, `read.csv2()`, `read.table()`, etc.
+3. **Einlesen und Struktur prüfen**: `str()`, `dim()`, `names()`
+4. **Werte validieren**: `summary()`, `table()`, `colSums(is.na())`
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zum Einlesen und Validieren von Daten.
+
+Wie in den Übungen finden Sie unter den Übungsfragen die `webr` Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass `webr` langsam wird.
+
+> Um den Code den Sie geschrieben haben auszuführen drücken Sie entweder `Run Code`, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie <kbd>CTRL</kbd>+<kbd>Enter</kbd> (Windows) oder <kbd>CMD</kbd>+<kbd>Enter</kbd> (Mac) drücken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen der Datensätze
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
+
+# Schritt 1: Rohe Datei inspizieren
+readLines("WM_Fragebögen.csv", n = 5)
+
+# Schritt 2: Korrekt einlesen (Semikolon-Trennung, deutsche Dezimalzeichen)
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# Schritt 3: Struktur prüfen
+str(wm_daten)
+dim(wm_daten)
+names(wm_daten)
+
+# Schritt 4: Werte validieren
+summary(wm_daten)
+colSums(is.na(wm_daten))
+
+# Wiederholen Sie die Schritte für Lab_Kodierung.dat
+# Hinweis: Verwenden Sie readLines() um das Format zu identifizieren
+
+```
+
+> Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
+
+------------------------------------------------------------------------
+
+[![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

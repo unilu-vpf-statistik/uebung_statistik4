@@ -1,0 +1,21 @@
+Question
+========
+Sie beginnen ein neues Analyseprojekt. Welche der folgenden Ordnerstrukturen entspricht den **Best Practices** für reproduzierbare Analysen in R?
+
+Answerlist
+----------
+* Ein einziger Ordner mit allen Dateien (Daten, Skripte, Ergebnisse) ohne Unterordner.
+* Separate Unterordner für Rohdaten, verarbeitete Daten, Skripte, Abbildungen und Tabellen.
+* Alle Skripte und Daten auf dem Desktop gespeichert, damit sie leicht zugänglich sind.
+* Ein Projektordner mit Unterordnern und einer `.Rproj`-Datei im Hauptordner.
+
+Solution
+========
+Die korrekte Antwort ist Option 2 und Option 4 (beide korrekt). Eine gute Projektstruktur hat separate Unterordner für verschiedene Dateitypen (Option 2) und ein R-Projekt mit `.Rproj`-Datei im Hauptordner (Option 4). Ein einziger Ordner ohne Struktur (Option 1) wird schnell unübersichtlich. Desktop-Speicherung (Option 3) führt zu Pfadproblemen auf anderen Computern.
+
+Meta-information
+================
+exname: projektstruktur
+extype: mchoice
+exsolution: 0101
+exshuffle: TRUE
