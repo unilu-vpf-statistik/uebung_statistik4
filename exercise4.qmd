@@ -25,6 +25,8 @@ shuffled_questions <- sample(exam_files)
 
 In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem **Tidy-Data-Prinzip** und der **Umkodierung** von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.
 
+In Übung 3 haben Sie die beiden Datensätze `WM_Fragebögen.csv` und `Lab_Kodierung.dat` importiert und auf Plausibilität geprüft. In dieser Übung greifen wir darauf zurück und bringen die Daten in eine analysefähige Struktur.
+
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
 - [Tidy Data and tidyr Explained](https://www.youtube.com/watch?v=1ELALQlO-yM)
@@ -53,10 +55,34 @@ Häufige Verletzungen:
 Auch wenn die Struktur stimmt, können die **Werte** inhaltlich problematisch sein. Typische Situationen:
 
 - **Inkonsistente Kodierungen**: `"KG"`, `"Kontrolle"` und `"control"` meinen dasselbe — R sieht drei verschiedene Gruppen
-- **Implizite fehlende Werte**: `"999"` oder `"-"` statt `NA`
+- **Implizite fehlende Werte**: `"fehlend"`, `"k.A."` oder `"keine Angabe"` statt `NA`
 - **Falsche Skalenrichtung**: Eine Item-Skala ist umgekehrt gepolt
 
-Die Funktion `case_when()` aus dem `dplyr`-Paket ist das Hauptwerkzeug für Umkodierungen.
+**Diagnostik vor der Umkodierung:** Bevor man umkodiert, muss man wissen, was überhaupt vorhanden ist. Dafür eignen sich:
+
+```r
+table(datensatz$variable)    # zählt alle Ausprägungen
+unique(datensatz$variable)   # listet einmalige Werte auf
+```
+
+**Umkodierungsfunktionen** aus dem `dplyr`-Paket:
+
+- `mutate()` — erzeugt eine neue oder veränderte Spalte (Grundfunktion für alle Transformationen)
+- `case_when()` — weist verschiedenen Bedingungen unterschiedliche Werte zu (flexibel, auch für viele Kategorien)
+- `recode()` — direkte 1:1-Umbenennung von Werten (einfacher, aber weniger flexibel)
+
+Beispiel mit `case_when()`:
+
+```r
+datensatz <- datensatz |>
+  mutate(gruppe_clean = case_when(
+    gruppe_raw %in% c("KG", "Kontrolle", "control") ~ "KG",
+    gruppe_raw == "EG"                               ~ "EG",
+    .default = NA_character_
+  ))
+```
+
+**Tipp:** Mit `stringr`-Funktionen lassen sich auch Zeichenketten transformieren, z. B. wenn eine Variable einen Wert wie `"1/4"` enthält und nur die Zahl `1` gebraucht wird.
 
 ## Übungen
 
@@ -74,7 +100,7 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Herunterladen des Datensatzes
+# Herunterladen der Datensätze
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
 download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
 download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
@@ -83,34 +109,73 @@ download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
 library(dplyr)
 library(tidyr)
 
-# Daten einlesen
+# Daten einlesen (wie in Übung 3 erarbeitet)
 wm_daten <- read.csv2("WM_Fragebögen.csv")
 lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
 
-# --- Aufgabe 1: Tidy Data ---
-# Der Datensatz wm_daten enthält mehrere Fragebogen-Items in separaten Spalten.
-# Schauen Sie sich die Spalten an:
+# ===========================================================
+# Aufgabe 1: Tidy Data — pivot_longer()
+# ===========================================================
+# Der wm_daten Datensatz hat drei Ergebnisvariablen in separaten Spalten:
+# wm_score, sleep_hours, stress_rating
 head(wm_daten)
 
-# Identifizieren Sie Spalten, die Werte eines Messzeitpunkts oder einer Skala
-# repräsentieren. Konvertieren Sie diese mit pivot_longer() ins lange Format.
-# Beispiel (passen Sie die Spaltennamen an):
-# wm_lang <- wm_daten |>
-#   pivot_longer(cols = c(spalte1, spalte2),
-#                names_to = "variable",
-#                values_to = "wert")
+# Problem: Wenn wir alle drei Maße gemeinsam visualisieren oder auswerten
+# wollen (z. B. mit ggplot2), brauchen wir sie in EINER Spalte.
+# Lösung: pivot_longer() bringt die drei Spalten ins lange Format.
 
-# --- Aufgabe 2: Umkodierung ---
-# Prüfen Sie die Kodierungen der Gruppe-Variable in lab_daten:
+wm_lang <- wm_daten |>
+  pivot_longer(
+    cols      = c(wm_score, sleep_hours, stress_rating),
+    names_to  = "measure",
+    values_to = "wert"
+  )
+
+head(wm_lang)
+
+# Vergleichen Sie die Zeilenzahl:
+nrow(wm_daten)   # 188 Zeilen (eine pro Person × Sitzung)
+nrow(wm_lang)    # 188 × 3 = 564 Zeilen (eine pro Person × Sitzung × Maß)
+
+# ===========================================================
+# Aufgabe 2: Umkodierung — mutate() + case_when()
+# ===========================================================
+# Schritt 1: Alle Ausprägungen von group_raw sichten
 table(lab_daten$group_raw)
+# → Sie sehen viele verschiedene Schreibweisen für dieselben Gruppen:
+#   "Kontrollgruppe", "Kontrolle", "CON", "control", "ctrl"  → alle = KG
+#   "Stress"                                                 → Experimentalgruppe
+#   "fehlend", "k.A.", "keine Angabe", ...                   → eigentlich NA
 
-# Kodieren Sie inkonsistente Werte mit case_when() um:
-# lab_daten <- lab_daten |>
-#   mutate(gruppe = case_when(
-#     group_raw %in% c("KG", "Kontrolle", "control") ~ "Kontrolle",
-#     group_raw %in% c("EG", "Experimental") ~ "Experimental",
-#     TRUE ~ NA_character_
-#   ))
+# Schritt 2: Einheitlich umkodieren mit mutate() + case_when()
+lab_daten <- lab_daten |>
+  mutate(gruppe = case_when(
+    group_raw %in% c("Kontrollgruppe", "Kontrolle", "CON", "control", "ctrl") ~ "KG",
+    group_raw == "Stress"                                                       ~ "Stress",
+    .default = NA_character_
+  ))
+
+# Schritt 3: Ergebnis prüfen
+table(lab_daten$gruppe, useNA = "always")
+
+# ===========================================================
+# Aufgabe 3 (Bonus): Stringr — session_code bereinigen
+# ===========================================================
+library(stringr)
+
+# session_code hat das Format "X/4" — wir wollen nur die Sitzungsnummer
+head(wm_daten$session_code)   # z. B. "1/4", "2/4", ...
+
+wm_daten <- wm_daten |>
+  mutate(session = as.integer(str_extract(session_code, "^\\d+")))
+
+table(wm_daten$session)
+
+# ===========================================================
+# Reflexionsfrage
+# ===========================================================
+# Welche Analyse ist mit wm_lang nun möglich, die mit wm_daten schwieriger wäre?
+# Tipp: Denken Sie an ggplot2 — was käme in aes(x = ..., color = ...)?
 ```
 
 > Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
