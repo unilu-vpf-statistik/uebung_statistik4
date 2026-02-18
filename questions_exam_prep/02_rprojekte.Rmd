@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Option 2 ist der Hauptvorteil von `here()`: Pfade werden relativ zum Projektordner aufgebaut. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu `setwd()`, das einen absoluten Pfad setzt. `here()` ist nicht schneller beim Lesen (Option 1 falsch) und kann keine Dateien herunterladen (Option 3 falsch). Option 4 ist teilweise wahr — `here()` kann auch ohne `.Rproj` arbeiten, aber R-Projekte sind die empfohlene Grundlage.
+Der Hauptvorteil von `here()` ist, dass Pfade relativ zum Projektordner aufgebaut werden. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu `setwd()`, das einen absoluten Pfad setzt. `here()` ist nicht schneller beim Lesen und kann keine Dateien herunterladen. `here()` funktioniert zwar technisch auch ohne `.Rproj`-Datei, dies entspricht aber nicht guter Coding-Praxis: Ohne R-Projekt fehlt die klare Verankerung des Arbeitsverzeichnisses, und die Reproduzierbarkeit des Skripts ist nicht mehr gewährleistet.
 
 Meta-information
 ================

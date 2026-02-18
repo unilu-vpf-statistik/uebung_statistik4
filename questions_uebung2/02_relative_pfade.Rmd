@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Option 3 ist korrekt: `here("Daten_Roh", "rohdaten.csv")` — Das `here`-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Option 2 würde auch funktionieren (mit Schrägstrich), ist aber weniger portabel. Option 1 würde nur im Projektordner suchen (falsch). Option 4 verwendet einen absoluten Pfad, was dem Sinn von `here()` widerspricht.
+Korrekt ist `here("Daten_Roh", "rohdaten.csv")` — das `here`-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Die Variante mit Schrägstrich (`here("Daten_Roh/rohdaten.csv")`) würde zwar ohne Fehler funktionieren, entspricht aber nicht guter Coding-Praxis: Pfadbestandteile sollten als separate Argumente übergeben werden, damit `here()` die plattformspezifischen Trennzeichen korrekt setzen kann. `here("rohdaten.csv")` würde nur im Projektordner suchen und die Datei nicht finden. Die Variante mit absolutem Pfad widerspricht dem Sinn von `here()`.
 
 Meta-information
 ================

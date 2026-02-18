@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1 und Option 2. Tidy Data definiert eine klare Struktur: Eine Variable = eine Spalte (Option 1), eine Beobachtung = eine Zeile (Option 2). Fehlende Werte werden durch Tidy Data nicht automatisch entfernt (Option 3) — sie bleiben als `NA` erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp (Option 4): Spalten können numerisch, kategorisch oder als Text vorliegen.
+Korrekt sind die Aussagen zu Variablen als Spalten und Beobachtungen als Zeilen. Tidy Data definiert eine klare Struktur: eine Variable = eine Spalte, eine Beobachtung = eine Zeile. Fehlende Werte werden durch Tidy Data nicht automatisch entfernt — sie bleiben als `NA` erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp: Spalten können numerisch, kategorisch oder als Text vorliegen.
 
 Meta-information
 ================

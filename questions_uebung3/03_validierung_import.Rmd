@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Für die erste Validierung nach dem Einlesen sind `dim()` (Option 1), `str()` (Option 3) und `names()` (Option 4) geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. `plot(daten)` (Option 2) ist kein Validierungswerkzeug für die Importqualität.
+Für die erste Validierung nach dem Einlesen sind `dim()`, `str()` und `names()` geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. `plot(daten)` ist kein Validierungswerkzeug für die Importqualität — es erstellt zwar Grafiken, zeigt aber nicht, ob der Import korrekt war.
 
 Meta-information
 ================

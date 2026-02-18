@@ -15,8 +15,8 @@ In dieser Vorlesung lernen Sie, wie Sie statistische Analysen **vollständig rep
 1. **Reproduzierbare Analysen** — Projektstruktur und Dokumentation
 2. **R-Projekte & relative Pfade** — Arbeiten mit `.Rproj`-Dateien und dem `here`-Paket
 3. **Daten Einlesen** — Import verschiedener Dateiformate
-4. **Datenaufbereitung I** — Validierung und Bereinigung
-5. **Datenaufbereitung II** — Tidy Data und Umstrukturierung
+4. **Datenaufbereitung I** — Tidy Data und Umkodierung
+5. **Datenaufbereitung II** — Fehlende Werte und Ausreisser
 
 ## R und RStudio
 

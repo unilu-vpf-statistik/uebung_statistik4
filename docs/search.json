@@ -18,7 +18,7 @@
     "href": "index.html#ziel-der-übungen",
     "title": "Übungen - VL: Statistik IV",
     "section": "Ziel der Übungen",
-    "text": "Ziel der Übungen\nIn dieser Vorlesung lernen Sie, wie Sie statistische Analysen vollständig reproduzierbar mit R durchführen können. Die Übungen decken den gesamten Workflow ab:\n\nReproduzierbare Analysen — Projektstruktur und Dokumentation\nR-Projekte & relative Pfade — Arbeiten mit .Rproj-Dateien und dem here-Paket\nDaten Einlesen — Import verschiedener Dateiformate\nDatenaufbereitung I — Validierung und Bereinigung\nDatenaufbereitung II — Tidy Data und Umstrukturierung"
+    "text": "Ziel der Übungen\nIn dieser Vorlesung lernen Sie, wie Sie statistische Analysen vollständig reproduzierbar mit R durchführen können. Die Übungen decken den gesamten Workflow ab:\n\nReproduzierbare Analysen — Projektstruktur und Dokumentation\nR-Projekte & relative Pfade — Arbeiten mit .Rproj-Dateien und dem here-Paket\nDaten Einlesen — Import verschiedener Dateiformate\nDatenaufbereitung I — Tidy Data und Umkodierung\nDatenaufbereitung II — Fehlende Werte und Ausreisser"
   },
   {
     "objectID": "index.html#r-und-rstudio",
@@ -35,278 +35,102 @@
     "text": "Pakete installieren\nFür die Übungen benötigen Sie folgende R-Pakete. Sie können diese mit den folgenden Befehlen installieren:\ninstall.packages(c(\"tidyverse\", \"here\", \"haven\", \"readxl\", \"janitor\"))\nFür die interaktiven Übungsfragen auf dieser Website werden zusätzlich folgende Pakete benötigt:\ninstall.packages(c(\"exams\", \"exams2forms\"))"
   },
   {
-    "objectID": "exercise9.html",
-    "href": "exercise9.html",
-    "title": "Übung 9 - Folgt",
+    "objectID": "exercise8.html",
+    "href": "exercise8.html",
+    "title": "Übung 8 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 9"
+      "Übung 8"
     ]
   },
   {
-    "objectID": "exercise9.html#übung-9",
-    "href": "exercise9.html#übung-9",
-    "title": "Übung 9 - Folgt",
+    "objectID": "exercise8.html#übung-8",
+    "href": "exercise8.html#übung-8",
+    "title": "Übung 8 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 9"
+      "Übung 8"
     ]
   },
   {
-    "objectID": "exercise7.html",
-    "href": "exercise7.html",
-    "title": "Übung 7 - Folgt",
+    "objectID": "exercise6.html",
+    "href": "exercise6.html",
+    "title": "Übung 6 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 7"
+      "Übung 6"
     ]
   },
   {
-    "objectID": "exercise7.html#übung-7",
-    "href": "exercise7.html#übung-7",
-    "title": "Übung 7 - Folgt",
+    "objectID": "exercise6.html#übung-6",
+    "href": "exercise6.html#übung-6",
+    "title": "Übung 6 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 7"
+      "Übung 6"
     ]
   },
   {
-    "objectID": "exercise5.html",
-    "href": "exercise5.html",
-    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
+    "objectID": "exercise4.html",
+    "href": "exercise4.html",
+    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
     "section": "",
-    "text": "In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: fehlenden Werten und Ausreissern. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nMissing Data in R — Types and How to Handle Them\nOutlier Detection in R",
+    "text": "In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem Tidy-Data-Prinzip und der Umkodierung von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.\nIn Übung 3 haben Sie die beiden Datensätze WM_Fragebögen.csv und Lab_Kodierung.dat importiert und auf Plausibilität geprüft. In dieser Übung greifen wir darauf zurück und bringen die Daten in eine analysefähige Struktur.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nTidy Data and tidyr Explained\npivot_longer and pivot_wider in R (tidyr)",
     "crumbs": [
       "Übungen",
-      "Übung 5"
+      "Übung 4"
     ]
   },
   {
-    "objectID": "exercise5.html#wiederholung-vertiefung-tidy-data",
-    "href": "exercise5.html#wiederholung-vertiefung-tidy-data",
-    "title": "Übung 5 - Datenaufbereitung II: Tidy Data",
+    "objectID": "exercise4.html#wiederholung-vertiefung-tidy-data-umkodierung",
+    "href": "exercise4.html#wiederholung-vertiefung-tidy-data-umkodierung",
+    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
     "section": "",
-    "text": "In dieser Übung lernen Sie das Konzept von Tidy Data und wie Sie Datensätze zwischen dem breiten und langen Format umstrukturieren. Ausserdem üben Sie, wie Sie fehlende Werte nach ihrem Mechanismus (MCAR, MAR, MNAR) unterscheiden.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nTidy Data and tidyr Explained\npivot_longer and pivot_wider in R (tidyr)",
+    "text": "In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem Tidy-Data-Prinzip und der Umkodierung von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.\nIn Übung 3 haben Sie die beiden Datensätze WM_Fragebögen.csv und Lab_Kodierung.dat importiert und auf Plausibilität geprüft. In dieser Übung greifen wir darauf zurück und bringen die Daten in eine analysefähige Struktur.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nTidy Data and tidyr Explained\npivot_longer and pivot_wider in R (tidyr)",
     "crumbs": [
       "Übungen",
-      "Übung 5"
+      "Übung 4"
     ]
   },
   {
-    "objectID": "exercise5.html#daten-für-diese-übung",
-    "href": "exercise5.html#daten-für-diese-übung",
-    "title": "Übung 5 - Datenaufbereitung II: Tidy Data",
-    "section": "Daten für diese Übung",
-    "text": "Daten für diese Übung\nIn dieser Übung arbeiten Sie weiterhin mit dem WM-Fragebogen-Datensatz:\n\nWM_Fragebögen.csv — Fragebogen- und Arbeitsspeicherdaten\n\nDie webR-Konsole unten lädt den Datensatz automatisch für Sie herunter.",
-    "crumbs": [
-      "Übungen",
-      "Übung 5"
-    ]
-  },
-  {
-    "objectID": "exercise5.html#tidy-data-prinzipien",
-    "href": "exercise5.html#tidy-data-prinzipien",
-    "title": "Übung 5 - Datenaufbereitung II: Tidy Data",
+    "objectID": "exercise4.html#tidy-data-prinzipien",
+    "href": "exercise4.html#tidy-data-prinzipien",
+    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
     "section": "Tidy Data Prinzipien",
-    "text": "Tidy Data Prinzipien\nEin Datensatz ist tidy wenn:\n\nJede Variable ist eine Spalte\nJede Beobachtung ist eine Zeile\nJede Beobachtungseinheit ist eine Tabelle\n\nHäufige Verletzungen dieser Prinzipien:\n\nSpaltenköpfe sind Werte, keine Variablennamen (z. B. score_t1, score_t2, score_t3)\nMehrere Variablen in einer Spalte (z. B. \"KG_m\" für Gruppe und Geschlecht)\nGleiche Beobachtungseinheit in mehreren Tabellen ohne gemeinsamen Schlüssel",
+    "text": "Tidy Data Prinzipien\nEin Datensatz ist tidy wenn:\n\nJede Variable ist eine Spalte — eine Variable, eine Spalte, keine Ausnahmen\nJede Beobachtung ist eine Zeile — ein Messzeitpunkt oder eine Person, eine Zeile\nJede Beobachtungseinheit ist eine eigene Tabelle — verschiedene Einheiten (z. B. Personen und Schulen) werden nicht gemischt\n\nHäufige Verletzungen:\n\nSpaltennamen sind Werte statt Variablennamen (z. B. score_t1, score_t2, score_t3)\nMehrere Variablen in einer Spalte (z. B. \"KG_m\" für Gruppe und Geschlecht)\n\n\n\n\n\n\n\n\nZiel\nFunktion\n\n\n\n\nBreites → langes Format\npivot_longer()\n\n\nLanges → breites Format\npivot_wider()",
     "crumbs": [
       "Übungen",
-      "Übung 5"
+      "Übung 4"
     ]
   },
   {
-    "objectID": "exercise5.html#mechanismen-fehlender-werte",
-    "href": "exercise5.html#mechanismen-fehlender-werte",
-    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
-    "section": "Mechanismen fehlender Werte",
-    "text": "Mechanismen fehlender Werte\nNicht alle fehlenden Werte sind gleich. Der Mechanismus des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:\n\n\n\n\n\n\n\n\nMechanismus\nBedeutung\nBeispiel\n\n\n\n\nMCAR (Missing Completely At Random)\nFehlen ist unabhängig von allen Variablen\nTechnischer Ausfall beim Speichern\n\n\nMAR (Missing At Random)\nFehlen hängt von anderen bekannten Variablen ab\nSchlafmangel → fehlende Konzentrationswerte\n\n\nMNAR (Missing Not At Random)\nFehlen hängt vom fehlenden Wert selbst ab\nHoher Stress → keine Stressbewertung abgegeben\n\n\n\nNur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).",
+    "objectID": "exercise4.html#umkodierung",
+    "href": "exercise4.html#umkodierung",
+    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
+    "section": "Umkodierung",
+    "text": "Umkodierung\nAuch wenn die Struktur stimmt, können die Werte inhaltlich problematisch sein. Typische Situationen:\n\nInkonsistente Kodierungen: \"KG\", \"Kontrolle\" und \"control\" meinen dasselbe — R sieht drei verschiedene Gruppen\nImplizite fehlende Werte: \"fehlend\", \"k.A.\" oder \"keine Angabe\" statt NA\nFalsche Skalenrichtung: Eine Item-Skala ist umgekehrt gepolt\n\nDiagnostik vor der Umkodierung: Bevor man umkodiert, muss man wissen, was überhaupt vorhanden ist. Dafür eignen sich:\ntable(datensatz$variable)    # zählt alle Ausprägungen\nunique(datensatz$variable)   # listet einmalige Werte auf\nUmkodierungsfunktionen aus dem dplyr-Paket:\n\nmutate() — erzeugt eine neue oder veränderte Spalte (Grundfunktion für alle Transformationen)\ncase_when() — weist verschiedenen Bedingungen unterschiedliche Werte zu (flexibel, auch für viele Kategorien)\nrecode() — direkte 1:1-Umbenennung von Werten (einfacher, aber weniger flexibel)\n\nBeispiel mit case_when():\ndatensatz &lt;- datensatz |&gt;\n  mutate(gruppe_clean = case_when(\n    gruppe_raw %in% c(\"KG\", \"Kontrolle\", \"control\") ~ \"KG\",\n    gruppe_raw == \"EG\"                               ~ \"EG\",\n    .default = NA_character_\n  ))\nTipp: Mit stringr-Funktionen lassen sich auch Zeichenketten transformieren, z. B. wenn eine Variable einen Wert wie \"1/4\" enthält und nur die Zahl 1 gebraucht wird.",
     "crumbs": [
       "Übungen",
-      "Übung 5"
+      "Übung 4"
     ]
   },
   {
-    "objectID": "exercise5.html#übungen",
-    "href": "exercise5.html#übungen",
-    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
+    "objectID": "exercise4.html#übungen",
+    "href": "exercise4.html#übungen",
+    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
     "section": "Übungen",
-    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu fehlenden Werten und Ausreissern.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nWelche der folgenden Aussagen zu den Mechanismen fehlender Werte (MCAR, MAR, MNAR) sind korrekt?\n\nMNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.Bei MNAR (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.Bei MCAR (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.Bei MAR (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.\n\n\n\nKorrekt sind Option 1 und Option 2. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel (Option 1). Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener (Option 2). MAR bedeutet nicht vollständige Zufälligkeit (Option 3): Das Fehlen hängt von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. MNAR ist gerade deshalb problematisch (Option 4), weil das Fehlen systematisch und nicht zufällig ist — Analysen können dadurch verzerrt sein.\n\n\n\n\nWelche R-Funktion gibt Ihnen für jede Spalte eines Data Frames an, wie viele fehlende Werte (NA) enthalten sind?\n\nna.omit(daten) — entfernt alle Zeilen mit mindestens einem fehlenden Wert.sum(is.na(daten)) — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.complete.cases(daten) — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.colSums(is.na(daten)) — berechnet pro Spalte die Anzahl fehlender Werte.\n\n\n\nKorrekt ist Option 1. colSums(is.na(daten)) kombiniert is.na() (das für jeden Wert TRUE zurückgibt, wenn er NA ist) mit colSums() (das die Anzahl der TRUE-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. sum(is.na(daten)) (Option 2) gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. na.omit() (Option 3) und complete.cases() (Option 4) identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.\n\n\n\n\nWelche der folgenden Aussagen zu Ausreissern und ihrer Identifikation sind korrekt?\n\nNach der IQR-Regel gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.Nach dem z-Score-Kriterium werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.\n\n\n\nKorrekt sind Option 1 und Option 2. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 (Option 1) — in R: Q1 - 1.5 * IQR(x) und Q3 + 1.5 * IQR(x). Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser (Option 2). Ausreisser müssen nicht zwingend entfernt werden (Option 3): Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen (Option 4): Da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs. Mittelwert/SD), können sie bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
+    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu Tidy Data und Umkodierung.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nSie haben einen Datensatz mit den Spalten id, score_t1, score_t2 und score_t3. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem tidyr-Paket bringt diesen Datensatz in das Tidy-Data-Format?\n\npivot_longer() — weil die Spaltennamen (score_t1 etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.select() — weil die unnötigen Spalten entfernt werden müssen.pivot_wider() — weil die Daten von lang nach breit umstrukturiert werden müssen.full_join() — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.\n\n\n\nKorrekt ist pivot_longer(). Die Spalten score_t1, score_t2 und score_t3 verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. pivot_longer() löst dieses Problem: Es erzeugt eine neue Variable zeitpunkt und eine neue Variable score, sodass jede Zeile genau eine Messung enthält. pivot_wider() macht das Gegenteil: es wandelt langes in breites Format um. full_join() führt zwei Datensätze zusammen. select() wählt Spalten aus und ändert die Struktur nicht.\n\n\n\n\nIn Ihrem Datensatz enthält die Variable gruppe die Werte \"KG\", \"Kontrolle\" und \"control\" — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?\n\nInkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.Das Problem lässt sich durch pivot_longer() beheben, da die Werte in verschiedene Spalten aufgeteilt werden.Mit case_when() können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.\n\n\n\nKorrekt sind die Aussagen zur inkonsistenten Kodierung, zu case_when() als Lösung, und zur Verzerrung von Analysen. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (\"KG\", \"Kontrolle\", \"control\"), spricht man von einer inkonsistenten Kodierung. R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppenvergleiche und alle darauf aufbauenden Analysen. Mit case_when() lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen. pivot_longer() verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.\n\n\n\n\nWelche der folgenden Aussagen beschreiben das Tidy-Data-Prinzip korrekt?\n\nFehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.Jede Variable entspricht einer eigenen Spalte im Datensatz.Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.\n\n\n\nKorrekt sind die Aussagen zu Variablen als Spalten und Beobachtungen als Zeilen. Tidy Data definiert eine klare Struktur: eine Variable = eine Spalte, eine Beobachtung = eine Zeile. Fehlende Werte werden durch Tidy Data nicht automatisch entfernt — sie bleiben als NA erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp: Spalten können numerisch, kategorisch oder als Text vorliegen.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
     "crumbs": [
       "Übungen",
-      "Übung 5"
-    ]
-  },
-  {
-    "objectID": "exercise3.html",
-    "href": "exercise3.html",
-    "title": "Übung 3 - Daten Einlesen & Validieren",
-    "section": "",
-    "text": "In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das richtige Einlese-Format identifizieren, und nach dem Import systematisch validieren, ob die Daten korrekt eingelesen wurden.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nImporting Data in R\nread.csv and read.table in R",
-    "crumbs": [
-      "Übungen",
-      "Übung 3"
-    ]
-  },
-  {
-    "objectID": "exercise3.html#wiederholung-vertiefung-daten-einlesen-validieren",
-    "href": "exercise3.html#wiederholung-vertiefung-daten-einlesen-validieren",
-    "title": "Übung 3 - Daten Einlesen & Validieren",
-    "section": "",
-    "text": "In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das richtige Einlese-Format identifizieren, und nach dem Import systematisch validieren, ob die Daten korrekt eingelesen wurden.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nImporting Data in R\nread.csv and read.table in R",
-    "crumbs": [
-      "Übungen",
-      "Übung 3"
-    ]
-  },
-  {
-    "objectID": "exercise3.html#daten-für-diese-übung",
-    "href": "exercise3.html#daten-für-diese-übung",
-    "title": "Übung 3 - Daten Einlesen & Validieren",
-    "section": "Daten für diese Übung",
-    "text": "Daten für diese Übung\nIn dieser Übung arbeiten Sie mit zwei Datensätzen, die Sie auch auf dieser Website herunterladen können:\n\nWM_Fragebögen.csv — Fragebogen- und Arbeitsspeicherdaten (CSV, Semikolon-getrennt, deutsche Dezimalzeichen)\nLab_Kodierung.dat — Laborkodierungsdaten (Tab-getrennt)\n\nDie webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.",
-    "crumbs": [
-      "Übungen",
-      "Übung 3"
-    ]
-  },
-  {
-    "objectID": "exercise3.html#vorgehen-beim-einlesen-unbekannter-dateien",
-    "href": "exercise3.html#vorgehen-beim-einlesen-unbekannter-dateien",
-    "title": "Übung 3 - Daten Einlesen & Validieren",
-    "section": "Vorgehen beim Einlesen unbekannter Dateien",
-    "text": "Vorgehen beim Einlesen unbekannter Dateien\n\nDateiformat identifizieren: Endung, readLines() für die ersten Zeilen\nPassende Funktion wählen: read.csv(), read.csv2(), read.table(), etc.\nEinlesen und Struktur prüfen: str(), dim(), names()\nWerte validieren: summary(), table(), colSums(is.na())",
-    "crumbs": [
-      "Übungen",
-      "Übung 3"
-    ]
-  },
-  {
-    "objectID": "exercise3.html#übungen",
-    "href": "exercise3.html#übungen",
-    "title": "Übung 3 - Daten Einlesen & Validieren",
-    "section": "Übungen",
-    "text": "Übungen\nBeantworten Sie die folgenden Fragen zum Einlesen und Validieren von Daten.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nNach dem Einlesen eines Datensatzes mit daten &lt;- read.csv2(\"daten.csv\") möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine erste Validierung geeignet?\n\nstr(daten) — zeigt die Struktur mit Variablennamen und Datentypen.dim(daten) — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.plot(daten) — erstellt automatisch Grafiken für alle Variablen.names(daten) — prüft ob alle erwarteten Variablennamen vorhanden sind.\n\n\n\nFür die erste Validierung nach dem Einlesen sind dim() (Option 1), str() (Option 3) und names() (Option 4) geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. plot(daten) (Option 2) ist kein Validierungswerkzeug für die Importqualität.\n\n\n\n\nWelche Funktion liest eine CSV-Datei mit Semikolon als Trennzeichen und Komma als Dezimaltrennzeichen (deutsches Format) korrekt ein?\n\nread.csv(\"daten.csv\")read.table(\"daten.csv\", sep = \";\", dec = \",\")read.delim(\"daten.csv\")read.csv2(\"daten.csv\")\n\n\n\nSowohl Option 2 als auch Option 3 sind korrekt. read.csv2() ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). read.table() mit den entsprechenden Argumenten (Option 3) erreicht dasselbe Ergebnis. read.csv() (Option 1) verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format). read.delim() (Option 4) liest Tab-getrennte Dateien ein.\n\n\n\n\nSie führen folgenden Code aus und erhalten die Ausgabe:\nreadLines(\"daten.csv\", n = 3)\n# [1] \"id;wm_score;alter;geschlecht\"\n# [2] \"VP01;7,5;22;weiblich\"\n# [3] \"VP02;6,3;25;männlich\"\nWelche Aussagen über diese Datei sind korrekt?\n\nDas Trennzeichen ist ein Semikolon (;).Das Dezimaltrennzeichen ist ein Komma (,), wie im deutschen Format üblich.Die erste Zeile enthält Variablennamen (Header).Das Trennzeichen ist ein Komma (,).\n\n\n\nAus der Ausgabe von readLines() erkennt man: Das Trennzeichen ist ein Semikolon (Option 1 korrekt, Option 4 falsch), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich (Option 2 korrekt), und die erste Zeile enthält Spaltennamen (Option 3 korrekt). Für dieses Format verwendet man read.csv2() oder read.table(sep = \";\", dec = \",\").\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
-    "crumbs": [
-      "Übungen",
-      "Übung 3"
-    ]
-  },
-  {
-    "objectID": "exercise12.html",
-    "href": "exercise12.html",
-    "title": "Übung 12 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 12"
-    ]
-  },
-  {
-    "objectID": "exercise12.html#übung-12",
-    "href": "exercise12.html#übung-12",
-    "title": "Übung 12 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 12"
-    ]
-  },
-  {
-    "objectID": "exercise10.html",
-    "href": "exercise10.html",
-    "title": "Übung 10 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 10"
-    ]
-  },
-  {
-    "objectID": "exercise10.html#übung-10",
-    "href": "exercise10.html#übung-10",
-    "title": "Übung 10 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 10"
-    ]
-  },
-  {
-    "objectID": "exercise1.html",
-    "href": "exercise1.html",
-    "title": "Übung 1 - Reproduzierbare Analysen",
-    "section": "",
-    "text": "In dieser Übung beschäftigen wir uns mit den Grundprinzipien reproduzierbarer Datenanalysen. Reproduzierbarkeit bedeutet, dass eine Analyse von anderen Personen — oder von Ihnen selbst zu einem späteren Zeitpunkt — mit denselben Daten und demselben Code zu identischen Ergebnissen führt.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgendes Video:\n\nWhat is Reproducible Research?",
-    "crumbs": [
-      "Übungen",
-      "Übung 1"
-    ]
-  },
-  {
-    "objectID": "exercise1.html#wiederholung-vertiefung-reproduzierbare-analysen",
-    "href": "exercise1.html#wiederholung-vertiefung-reproduzierbare-analysen",
-    "title": "Übung 1 - Reproduzierbare Analysen",
-    "section": "",
-    "text": "In dieser Übung beschäftigen wir uns mit den Grundprinzipien reproduzierbarer Datenanalysen. Reproduzierbarkeit bedeutet, dass eine Analyse von anderen Personen — oder von Ihnen selbst zu einem späteren Zeitpunkt — mit denselben Daten und demselben Code zu identischen Ergebnissen führt.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgendes Video:\n\nWhat is Reproducible Research?",
-    "crumbs": [
-      "Übungen",
-      "Übung 1"
-    ]
-  },
-  {
-    "objectID": "exercise1.html#was-macht-eine-analyse-reproduzierbar",
-    "href": "exercise1.html#was-macht-eine-analyse-reproduzierbar",
-    "title": "Übung 1 - Reproduzierbare Analysen",
-    "section": "Was macht eine Analyse reproduzierbar?",
-    "text": "Was macht eine Analyse reproduzierbar?\nEine reproduzierbare Analyse zeichnet sich durch folgende Merkmale aus:\n\nKlare Projektstruktur: Alle Dateien sind sinnvoll in Ordnern organisiert\nRelative Pfade: Keine absoluten Pfade (C:/Users/...), die von einem bestimmten Rechner abhängen\nDokumentierter Code: Skripte sind kommentiert und erklären was jeder Schritt macht\nVersionskontrolle: Änderungen am Code werden nachverfolgt (z. B. mit Git)\nAbhängigkeiten dokumentiert: Verwendete Pakete und ihre Versionen sind festgehalten",
-    "crumbs": [
-      "Übungen",
-      "Übung 1"
-    ]
-  },
-  {
-    "objectID": "exercise1.html#übungen",
-    "href": "exercise1.html#übungen",
-    "title": "Übung 1 - Reproduzierbare Analysen",
-    "section": "Übungen",
-    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu den Grundkonzepten reproduzierbarer Analysen. Die Fragen können Sie direkt auf dieser Seite beantworten.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nSie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen reproduzierbare Analysen?\n\nDie Rohdaten werden niemals direkt verändert oder überschrieben.Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in separaten Unterordnern gespeichert.Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.\n\n\n\nKorrekt sind Option 1 und Option 3. Separate Unterordner (Option 1) ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden (Option 3), weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur (Option 2) wird schnell unübersichtlich. Desktop-Speicherung (Option 4) führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.\n\n\n\n\nWelche der folgenden Aussagen beschreiben korrekte Merkmale einer reproduzierbaren Datenanalyse?\n\nAlle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit setwd() fest definiert.Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.\n\n\n\nEine reproduzierbare Analyse dokumentiert alle Schritte in Skripten (Option 1) und verwendet relative Pfade statt absoluter Pfade (Option 3), damit das Projekt auf anderen Computern ausgeführt werden kann. Excel-Screenshots (Option 2) sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. setwd() (Option 4) setzt absolute Pfade, die auf anderen Computern nicht funktionieren.\n\n\n\n\nEine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript reproduzierbar ist?\n\nDas Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.Alle verwendeten Pakete werden am Anfang des Skripts mit library() geladen.Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.\n\n\n\nKorrekt sind Option 1 und Option 3. Wenn alle Pakete explizit geladen werden (Option 1), ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft (Option 3), kann von anderen exakt reproduziert werden. Fehlende Kommentare (Option 2) erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel (Option 4) unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
-    "crumbs": [
-      "Übungen",
-      "Übung 1"
-    ]
-  },
-  {
-    "objectID": "exercise11.html",
-    "href": "exercise11.html",
-    "title": "Übung 11 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 11"
-    ]
-  },
-  {
-    "objectID": "exercise11.html#übung-11",
-    "href": "exercise11.html#übung-11",
-    "title": "Übung 11 - Folgt",
-    "section": "",
-    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
-    "crumbs": [
-      "Übungen",
-      "Übung 11"
+      "Übung 4"
     ]
   },
   {
@@ -358,109 +182,327 @@
     "href": "exercise2.html#übungen",
     "title": "Übung 2 - R-Projekte & relative Pfade",
     "section": "Übungen",
-    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu R-Projekten und relativen Pfaden.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nIhr R-Projekt liegt im Ordner /Users/tom/Analysen/Studie_2026/. Welcher der folgenden Ausdrücke erstellt mit dem here-Paket den korrekten relativen Pfad zur Datei /Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv?\n\nhere(\"Daten_Roh/rohdaten.csv\")here(\"rohdaten.csv\")here(\"Daten_Roh\", \"rohdaten.csv\")here(\"/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv\")\n\n\n\nOption 3 ist korrekt: here(\"Daten_Roh\", \"rohdaten.csv\") — Das here-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Option 2 würde auch funktionieren (mit Schrägstrich), ist aber weniger portabel. Option 1 würde nur im Projektordner suchen (falsch). Option 4 verwendet einen absoluten Pfad, was dem Sinn von here() widerspricht.\n\n\n\n\nWelche der folgenden Aussagen beschreiben Vorteile von R-Projekten (.Rproj-Dateien)?\n\nR-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.\n\n\n\nR-Projekte setzen das Arbeitsverzeichnis automatisch (Option 1), merken sich offene Skripte (Option 2), und ermöglichen portables Übertragen des Projekts (Option 4). Die Rechengeschwindigkeit (Option 3) wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von .Rproj-Dateien.\n\n\n\n\nWarum sollte setwd() in Analyseskripten nicht verwendet werden?\n\nWenn das Skript auf einem anderen Computer ausgeführt wird, schlägt setwd() mit einem Fehler fehl, da der Pfad nicht existiert.setwd() ist langsamer als here() bei der Pfadauflösung.setwd() kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.Der mit setwd() gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.\n\n\n\nDie Kernprobleme mit setwd() sind Option 2 und Option 4: Der absolute Pfad ist systemspezifisch und führt auf anderen Computern zu Fehlern. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. here() löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
+    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu R-Projekten und relativen Pfaden.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nWelche der folgenden Aussagen beschreiben Vorteile von R-Projekten (.Rproj-Dateien)?\n\nProjekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.\n\n\n\nR-Projekte setzen das Arbeitsverzeichnis automatisch, merken sich offene Skripte und Einstellungen, und ermöglichen portables Übertragen des Projekts dank relativer Pfade. Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von .Rproj-Dateien.\n\n\n\n\nIhr R-Projekt liegt im Ordner /Users/tom/Analysen/Studie_2026/. Welcher der folgenden Ausdrücke erstellt mit dem here-Paket den korrekten relativen Pfad zur Datei /Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv?\n\nhere(\"rohdaten.csv\")here(\"Daten_Roh/rohdaten.csv\")here(\"Daten_Roh\", \"rohdaten.csv\")here(\"/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv\")\n\n\n\nKorrekt ist here(\"Daten_Roh\", \"rohdaten.csv\") — das here-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Die Variante mit Schrägstrich (here(\"Daten_Roh/rohdaten.csv\")) würde zwar ohne Fehler funktionieren, entspricht aber nicht guter Coding-Praxis: Pfadbestandteile sollten als separate Argumente übergeben werden, damit here() die plattformspezifischen Trennzeichen korrekt setzen kann. here(\"rohdaten.csv\") würde nur im Projektordner suchen und die Datei nicht finden. Die Variante mit absolutem Pfad widerspricht dem Sinn von here().\n\n\n\n\nWarum sollte setwd() in Analyseskripten nicht verwendet werden?\n\nWenn das Skript auf einem anderen Computer ausgeführt wird, schlägt setwd() mit einem Fehler fehl, da der Pfad nicht existiert.Der mit setwd() gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.setwd() ist langsamer als here() bei der Pfadauflösung.setwd() kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.\n\n\n\nDie Kernprobleme mit setwd() sind, dass der absolute Pfad nur auf dem eigenen Computer funktioniert und dass das Skript auf anderen Computern mit einem Fehler fehlschlägt, da der Pfad nicht existiert. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. here() löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut. Die Aussage zur Geschwindigkeit ist falsch — setwd() und here() unterscheiden sich nicht in der Performance. Die Aussage zu R-Markdown/Quarto ist ebenfalls falsch — setwd() kann dort verwendet werden, ist aber nicht empfohlen.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
     "crumbs": [
       "Übungen",
       "Übung 2"
     ]
   },
   {
-    "objectID": "exercise4.html",
-    "href": "exercise4.html",
-    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
+    "objectID": "exercise11.html",
+    "href": "exercise11.html",
+    "title": "Übung 11 - Folgt",
     "section": "",
-    "text": "In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem Tidy-Data-Prinzip und der Umkodierung von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nTidy Data and tidyr Explained\npivot_longer and pivot_wider in R (tidyr)",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 11"
     ]
   },
   {
-    "objectID": "exercise4.html#wiederholung-vertiefung-datenaufbereitung-i",
-    "href": "exercise4.html#wiederholung-vertiefung-datenaufbereitung-i",
-    "title": "Übung 4 - Datenaufbereitung I",
+    "objectID": "exercise11.html#übung-11",
+    "href": "exercise11.html#übung-11",
+    "title": "Übung 11 - Folgt",
     "section": "",
-    "text": "In dieser Übung lernen Sie, wie Sie nach dem Einlesen der Daten systematisch Datenqualitätsprobleme identifizieren und beheben. Dazu gehören fehlende Werte, inkonsistente Kodierungen, Duplikate und falsche Datentypen.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nData Cleaning in R - Full Tutorial\nHandling Missing Data in R",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 11"
     ]
   },
   {
-    "objectID": "exercise4.html#daten-für-diese-übung",
-    "href": "exercise4.html#daten-für-diese-übung",
-    "title": "Übung 4 - Datenaufbereitung I",
-    "section": "Daten für diese Übung",
-    "text": "Daten für diese Übung\nIn dieser Übung arbeiten Sie mit den gleichen Datensätzen wie in Übung 3:\n\nWM_Fragebögen.csv — Fragebogen- und Arbeitsspeicherdaten\nLab_Kodierung.dat — Laborkodierungsdaten\n\nDie webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.",
+    "objectID": "exercise1.html",
+    "href": "exercise1.html",
+    "title": "Übung 1 - Reproduzierbare Analysen",
+    "section": "",
+    "text": "In dieser Übung beschäftigen wir uns mit den Grundprinzipien reproduzierbarer Datenanalysen. Reproduzierbarkeit bedeutet, dass eine Analyse von anderen Personen — oder von Ihnen selbst zu einem späteren Zeitpunkt — mit denselben Daten und demselben Code zu identischen Ergebnissen führt.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgendes Video:\n\nWhat is Reproducible Research?",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 1"
     ]
   },
   {
-    "objectID": "exercise4.html#typische-datenqualitätsprobleme",
-    "href": "exercise4.html#typische-datenqualitätsprobleme",
-    "title": "Übung 4 - Datenaufbereitung I",
-    "section": "Typische Datenqualitätsprobleme",
-    "text": "Typische Datenqualitätsprobleme\nIn der Praxis begegnen Ihnen häufig folgende Probleme:\n\nFehlende Werte: Explizit (NA) oder versteckt (z. B. \"999\", \"-\", \"k.A.\")\nFalsche Datentypen: Zahlen als Text gespeichert, Faktoren als Zahlen\nInkonsistente Kodierungen: Gleiche Kategorie unterschiedlich geschrieben (z. B. \"KG\" vs. \"Kontrolle\")\nDuplikate: Doppelt eingetragene Zeilen oder IDs\nWerte ausserhalb des plausiblen Bereichs: z. B. Alter = 999 oder negative Reaktionszeiten",
+    "objectID": "exercise1.html#wiederholung-vertiefung-reproduzierbare-analysen",
+    "href": "exercise1.html#wiederholung-vertiefung-reproduzierbare-analysen",
+    "title": "Übung 1 - Reproduzierbare Analysen",
+    "section": "",
+    "text": "In dieser Übung beschäftigen wir uns mit den Grundprinzipien reproduzierbarer Datenanalysen. Reproduzierbarkeit bedeutet, dass eine Analyse von anderen Personen — oder von Ihnen selbst zu einem späteren Zeitpunkt — mit denselben Daten und demselben Code zu identischen Ergebnissen führt.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgendes Video:\n\nWhat is Reproducible Research?",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 1"
     ]
   },
   {
-    "objectID": "exercise4.html#übungen",
-    "href": "exercise4.html#übungen",
-    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
+    "objectID": "exercise1.html#was-macht-eine-analyse-reproduzierbar",
+    "href": "exercise1.html#was-macht-eine-analyse-reproduzierbar",
+    "title": "Übung 1 - Reproduzierbare Analysen",
+    "section": "Was macht eine Analyse reproduzierbar?",
+    "text": "Was macht eine Analyse reproduzierbar?\nEine reproduzierbare Analyse zeichnet sich durch folgende Merkmale aus:\n\nKlare Projektstruktur: Alle Dateien sind sinnvoll in Ordnern organisiert\nRelative Pfade: Keine absoluten Pfade (C:/Users/...), die von einem bestimmten Rechner abhängen\nDokumentierter Code: Skripte sind kommentiert und erklären was jeder Schritt macht\nVersionskontrolle: Änderungen am Code werden nachverfolgt (z. B. mit Git)\nAbhängigkeiten dokumentiert: Verwendete Pakete und ihre Versionen sind festgehalten",
+    "crumbs": [
+      "Übungen",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "exercise1.html#übungen",
+    "href": "exercise1.html#übungen",
+    "title": "Übung 1 - Reproduzierbare Analysen",
     "section": "Übungen",
-    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu Tidy Data und Umkodierung.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nSie haben einen Datensatz mit den Spalten id, score_t1, score_t2 und score_t3. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem tidyr-Paket bringt diesen Datensatz in das Tidy-Data-Format?\n\nselect() — weil die unnötigen Spalten entfernt werden müssen.pivot_longer() — weil die Spaltennamen (score_t1 etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.full_join() — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.pivot_wider() — weil die Daten von lang nach breit umstrukturiert werden müssen.\n\n\n\nKorrekt ist Option 1. Die Spalten score_t1, score_t2 und score_t3 verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. pivot_longer() löst dieses Problem: Es erzeugt eine neue Variable zeitpunkt und eine neue Variable score, sodass jede Zeile genau eine Messung enthält. pivot_wider() (Option 2) macht das Gegenteil: es wandelt langes in breites Format um. full_join() (Option 3) führt zwei Datensätze zusammen. select() (Option 4) wählt Spalten aus und ändert die Struktur nicht.\n\n\n\n\nWelche der folgenden Aussagen beschreiben das Tidy-Data-Prinzip korrekt?\n\nFehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.Jede Variable entspricht einer eigenen Spalte im Datensatz.\n\n\n\nKorrekt sind Option 1 und Option 2. Tidy Data definiert eine klare Struktur: Eine Variable = eine Spalte (Option 1), eine Beobachtung = eine Zeile (Option 2). Fehlende Werte werden durch Tidy Data nicht automatisch entfernt (Option 3) — sie bleiben als NA erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp (Option 4): Spalten können numerisch, kategorisch oder als Text vorliegen.\n\n\n\n\nIn Ihrem Datensatz enthält die Variable gruppe die Werte \"KG\", \"Kontrolle\" und \"control\" — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?\n\nInkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.Das Problem lässt sich durch pivot_longer() beheben, da die Werte in verschiedene Spalten aufgeteilt werden.Mit case_when() können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.\n\n\n\nKorrekt sind Option 1, Option 2 und Option 4. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (\"KG\", \"Kontrolle\", \"control\"), spricht man von einer inkonsistenten Kodierung (Option 1). R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppen-Vergleiche und alle darauf aufbauenden Analysen (Option 4). Mit case_when() lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen (Option 2). pivot_longer() (Option 3) verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
+    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu den Grundkonzepten reproduzierbarer Analysen. Die Fragen können Sie direkt auf dieser Seite beantworten.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nEine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript reproduzierbar ist?\n\nAlle verwendeten Pakete werden am Anfang des Skripts mit library() geladen.Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.\n\n\n\nKorrekt sind die Aussagen zum expliziten Laden der Pakete mit library() und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.\n\n\n\n\nSie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen reproduzierbare Analysen?\n\nDie Rohdaten werden niemals direkt verändert oder überschrieben.Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in separaten Unterordnern gespeichert.Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.\n\n\n\nKorrekt sind die Aussagen zu separaten Unterordnern und zum Schutz der Rohdaten. Separate Unterordner ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden, weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur wird schnell unübersichtlich. Desktop-Speicherung führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.\n\n\n\n\nWelche der folgenden Aussagen beschreiben korrekte Merkmale einer reproduzierbaren Datenanalyse?\n\nDas Arbeitsverzeichnis wird zu Beginn jedes Skripts mit setwd() fest definiert.Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.\n\n\n\nEine reproduzierbare Analyse dokumentiert alle Schritte in Skripten und verwendet relative Pfade statt absoluter Pfade, damit das Projekt auf anderen Computern ausgeführt werden kann. Point-and-Click-Analysen mit Excel-Screenshots sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. setwd() setzt absolute Pfade, die auf anderen Computern nicht funktionieren — auch das widerspricht dem Prinzip der Reproduzierbarkeit.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 1"
     ]
   },
   {
-    "objectID": "exercise6.html",
-    "href": "exercise6.html",
-    "title": "Übung 6 - Folgt",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Hilfe & Kontakt",
+    "section": "",
+    "text": "Falls Sie Probleme mit der Installation von R und R-Studio haben, dann schauen Sie sich dieses YouTube Video an, das zeigt wie sie R und RStudio auf Ihrem Rechner installieren können: https://www.youtube.com/watch?v=X_Mxya2Fis0\nFalls Sie Probleme mit den Übungen für die Vorlesung “Statistik IV” haben, folgen Sie den folgenden Schritten:\nSollten Sie nach all diesen Schritten gemeinsam keine Lösung finden und mehrere Studierende ein Problem mit den Online implementierten Übungen haben, dann können Sie sich per Mail an mich wenden: gidon.frischkorn@unilu.ch"
+  },
+  {
+    "objectID": "about.html#tipps-um-hilfe-mit-r-rstudio-zu-finden",
+    "href": "about.html#tipps-um-hilfe-mit-r-rstudio-zu-finden",
+    "title": "Hilfe & Kontakt",
+    "section": "Tipps um Hilfe mit R & RStudio zu finden",
+    "text": "Tipps um Hilfe mit R & RStudio zu finden\nDas Internet bietet viele verschiedene Möglichkeiten um Hilfe bei der Arbeit mit R & RStudio zu bekommen. Hier finden Sie einige Vorschläge wie sie Probleme mit R und RStudio mit Hilfe aus dem Internet lösen können.\n\nSuchmaschinen\nDer einfachste Weg um Hilfe mit R oder RStudio zu bekommen ist ihr Problem in einer Suchmaschine einzugeben. Fügen Sie dabei hinzu, dass sie das Problem in R lösen wollen. Wenn Sie zum Beispiel eine Fehlermeldung bekommen, dann kopieren sie die Nachricht der Fehlermeldung in die Suchzeile ein und fügen “in R” hinzu, damit die Suche Lösungen für R findet.\nTipp: Suchen Sie auf Englisch nach einer Lösung für Ihr Problem, dann werden Sie mehr Ergebnisse bekommen und finden leichter eine Lösung die Sie nachvollziehen und für sich nutzen können.\n\n# Beispiel Code der eine Warnung erzeugt\ndata &lt;- c(1, 4, 3, 2, \"hallo\")\nmean(data)\n\nWarning in mean.default(data): argument is not numeric or logical: returning NA\n\n\n[1] NA\n\n\n\n\nYouTube\nNeben der Nutzung von Suchmaschinen finden Sie auf YouTube eine Vielzahl an Erklärvideos zur Nutzung von R und spezifischen Analysen beziehungsweise Programmieraufgaben. Ich empfehle Ihnen dabei vor allem nach Englischen Videos zu suchen, da sie damit eine grössere Chance haben ein Video zu finden, dass Ihnen für Ihr konkretes Problem weiter hilft.\nEinige Kanäle die eine breite Menge an Themen abdecken sind:\n\nR Programming 101 (über 180 Videos zu verschiedenen R Themen)\nDataDaft (nicht nur Videos für R)\nStatistik am PC (Videos auf Deutsch, nicht nur für R)\n\n\n\nLLM Chats\nIm Laufe der letzten Jahre sind vermehrt Chats mit Large Language Modellen (LLMs) — wie zum Beispiel ChatGPT, Claude oder Gemini — als weitere Möglichkeit zur Problemlösung von Programmierfragen genutzt worden. Viele LLMs können direkt Code vorschlagen, mit dem Sie gezielt bestimmte Probleme lösen können.\nSeien Sie sich jedoch bewusst, dass der Output der LLMs nicht immer korrekt sein muss, so dass Sie die Ergebnisse immer selbst überprüfen müssen. Grundsätzlich werden Sie das Programmieren und Analysieren von Daten mit R und RStudio schneller und nachhaltiger lernen, wenn Sie Code selbst schreiben, Fehlermeldungen nachvollziehen, und eigenständig nach Lösungen im Internet suchen und diese selbst für Ihren Code anpassen."
+  },
+  {
+    "objectID": "Checklisten.html",
+    "href": "Checklisten.html",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Diese Seite enthält Checklisten für die wichtigsten Schritte einer reproduzierbaren Datenanalyse in R. Die Checklisten helfen Ihnen sicherzustellen, dass Sie alle notwendigen Schritte durchgeführt haben.\n\n\n\nBevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.\n\nR-Projekt erstellen: In RStudio: File → New Project → New Directory\nSinnvollen Projektnamen wählen: Keine Leerzeichen, keine Sonderzeichen (z. B. WM_Studie_2026)\nOrdnerstruktur anlegen:\nMein_Projekt/\n├── Daten_Roh/          # Originaldaten — NIE verändern!\n├── Daten_Verarbeitet/  # Aufbereitete Daten\n├── R_Skripte/          # Analyseskripte\n├── Abbildungen/        # Grafiken\n├── Tabellen/           # Ergebnistabellen\n└── Dokumentation/      # Notizen, README\nhere-Paket laden: library(here) am Anfang jedes Skripts\nRohdaten in Daten_Roh/ ablegen: Originaldateien nie überschreiben\nREADME.txt erstellen: Kurze Beschreibung des Projekts, der Datensätze und der Skripte\n\n\n\n\n\nBevor Sie Daten einlesen, prüfen Sie das Dateiformat.\n\nDateiendung notieren: .csv, .dat, .txt, .xlsx, .sav\nRohe Datei anschauen: readLines(\"datei.csv\", n = 5)\nTrennzeichen identifizieren: Komma (,), Semikolon (;), Tab (\\t), Leerzeichen\nDezimaltrennzeichen prüfen: Punkt (. = englisch) oder Komma (, = deutsch)\nFehlende Werte kodiert als: NA, \"\", \"999\", \"-99\", \"k.A.\", \".\" ?\nKopfzeile vorhanden?: Erste Zeile mit Variablennamen (header = TRUE/FALSE)\nKodierung prüfen: UTF-8 oder Latin-1 (relevant bei Umlauten)\n\nEntscheidungsbaum: Welche Funktion?\n\n\n\nDateiformat\nFunktion\n\n\n\n\nCSV, Komma, englisch\nread.csv() oder readr::read_csv()\n\n\nCSV, Semikolon, deutsch\nread.csv2() oder readr::read_csv2()\n\n\nTab-getrennt\nread.delim() oder readr::read_tsv()\n\n\nBeliebiges Trennzeichen\nread.table(sep = \"...\")\n\n\nExcel .xlsx\nreadxl::read_excel()\n\n\nSPSS .sav\nhaven::read_sav()\n\n\n\n\n\n\n\nNach dem Einlesen immer systematisch validieren.\n\n\n\nDimensionen prüfen: dim(daten) — Stimmt die Anzahl der Zeilen und Spalten?\nSpaltennamen prüfen: names(daten) — Alle erwarteten Variablen vorhanden?\nDatentypen prüfen: str(daten) oder sapply(daten, class) — Stimmen die Typen?\nErste und letzte Zeilen anschauen: head(daten) und tail(daten)\n\n\n\n\n\nDeskriptive Statistiken: summary(daten) — Plausible Min/Max-Werte?\nFehlende Werte zählen: colSums(is.na(daten)) — Wo fehlen Daten?\nHäufigkeiten kategorischer Variablen: table(daten$gruppe) — Erwartete Kategorien?\nWertebereiche prüfen: range(daten$alter, na.rm = TRUE) — Plausible Werte?\nVersteckte fehlende Werte prüfen: unique(daten$var) — Codes wie \"999\" oder \"-\"?\n\n\n\n\n\nDuplikate prüfen: sum(duplicated(daten)) — Keine doppelten Zeilen?\nID-Konsistenz: Gibt es in beiden Datensätzen die gleichen IDs? intersect(d1$id, d2$id)\nFehlende IDs: IDs in einem Datensatz, die im anderen fehlen? setdiff(d1$id, d2$id)\nInkonsistente Kodierung: Gleiche Kategorie unterschiedlich kodiert? (z. B. \"KG\" vs. \"Kontrolle\")\n\n\n\n\n\n\nSystematische Datenbereinigung nach der Validierung.\n\nSkript dokumentieren: Kommentare für jeden Bereinigungsschritt\nRohdaten nicht verändern: Immer mit einer Kopie arbeiten\nSpaltennamen bereinigen: janitor::clean_names(daten) — Einheitliche Kleinschreibung\nDatentypen korrigieren: as.numeric(), as.character(), as.factor()\nVersteckte fehlende Werte ersetzen: na_if(daten$var, \"999\")\nInkonsistente Kategorien rekodieren: case_when() für systematische Umkodierung\nVariablen umbenennen: rename(daten, neuer_name = alter_name)\nNeue Variablen berechnen: mutate(daten, z_score = scale(rohwert))\nErgebnis validieren: Nach jeder Bereinigung str() und summary() aufrufen\nAufbereitete Daten speichern: write.csv(daten_clean, here(\"Daten_Verarbeitet\", \"daten_clean.csv\"))\n\n\n\n\n\nPrüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchführen.\nTidy Data Prinzipien:\n\nJede Variable ist eine Spalte\nJede Beobachtung ist eine Zeile\nJede Beobachtungseinheit ist eine Tabelle\n\n\nTidy-Format identifizieren: Ist jede Variable eine eigene Spalte?\nBreites Format erkennen: Mehrere Spalten für dieselbe Variable (z. B. messung_t1, messung_t2)?\npivot_longer() anwenden: Breites → langes Format\ndaten_lang &lt;- daten |&gt;\n  pivot_longer(cols = starts_with(\"messung\"),\n               names_to = \"zeitpunkt\",\n               values_to = \"wert\")\npivot_wider() anwenden: Langes → breites Format (wenn für Analyse nötig)\nDatensätze verbinden: left_join() / full_join() mit korrekt definiertem by-Argument\n\n\n\n\n\nAbschluss-Checkliste für die vollständige Reproduzierbarkeit.\n\nAlle Pakete laden: library()-Befehle am Anfang des Skripts — kein library() mitten im Code\nset.seed() verwenden: Bei allen Zufallsprozessen am Anfang des Skripts\nRelative Pfade: Nur here() verwenden, kein setwd(), keine absoluten Pfade\nSkript-Reihenfolge: Skripte nummerieren (z. B. 01_einlesen.R, 02_bereinigung.R)\nSauberes Environment: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)\nSession-Informationen dokumentieren: sessionInfo() am Ende des Skripts oder in einem separaten Log\nKommentare: Jeder nicht-triviale Schritt ist mit # kommentiert\nVersionierung: Änderungen mit Git tracken (optional aber empfohlen)"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-1-neues-r-projekt-anlegen",
+    "href": "Checklisten.html#checkliste-1-neues-r-projekt-anlegen",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Bevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.\n\nR-Projekt erstellen: In RStudio: File → New Project → New Directory\nSinnvollen Projektnamen wählen: Keine Leerzeichen, keine Sonderzeichen (z. B. WM_Studie_2026)\nOrdnerstruktur anlegen:\nMein_Projekt/\n├── Daten_Roh/          # Originaldaten — NIE verändern!\n├── Daten_Verarbeitet/  # Aufbereitete Daten\n├── R_Skripte/          # Analyseskripte\n├── Abbildungen/        # Grafiken\n├── Tabellen/           # Ergebnistabellen\n└── Dokumentation/      # Notizen, README\nhere-Paket laden: library(here) am Anfang jedes Skripts\nRohdaten in Daten_Roh/ ablegen: Originaldateien nie überschreiben\nREADME.txt erstellen: Kurze Beschreibung des Projekts, der Datensätze und der Skripte"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-2-dateiformat-identifizieren",
+    "href": "Checklisten.html#checkliste-2-dateiformat-identifizieren",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Bevor Sie Daten einlesen, prüfen Sie das Dateiformat.\n\nDateiendung notieren: .csv, .dat, .txt, .xlsx, .sav\nRohe Datei anschauen: readLines(\"datei.csv\", n = 5)\nTrennzeichen identifizieren: Komma (,), Semikolon (;), Tab (\\t), Leerzeichen\nDezimaltrennzeichen prüfen: Punkt (. = englisch) oder Komma (, = deutsch)\nFehlende Werte kodiert als: NA, \"\", \"999\", \"-99\", \"k.A.\", \".\" ?\nKopfzeile vorhanden?: Erste Zeile mit Variablennamen (header = TRUE/FALSE)\nKodierung prüfen: UTF-8 oder Latin-1 (relevant bei Umlauten)\n\nEntscheidungsbaum: Welche Funktion?\n\n\n\nDateiformat\nFunktion\n\n\n\n\nCSV, Komma, englisch\nread.csv() oder readr::read_csv()\n\n\nCSV, Semikolon, deutsch\nread.csv2() oder readr::read_csv2()\n\n\nTab-getrennt\nread.delim() oder readr::read_tsv()\n\n\nBeliebiges Trennzeichen\nread.table(sep = \"...\")\n\n\nExcel .xlsx\nreadxl::read_excel()\n\n\nSPSS .sav\nhaven::read_sav()"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-3-daten-validieren-3-ebenen",
+    "href": "Checklisten.html#checkliste-3-daten-validieren-3-ebenen",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Nach dem Einlesen immer systematisch validieren.\n\n\n\nDimensionen prüfen: dim(daten) — Stimmt die Anzahl der Zeilen und Spalten?\nSpaltennamen prüfen: names(daten) — Alle erwarteten Variablen vorhanden?\nDatentypen prüfen: str(daten) oder sapply(daten, class) — Stimmen die Typen?\nErste und letzte Zeilen anschauen: head(daten) und tail(daten)\n\n\n\n\n\nDeskriptive Statistiken: summary(daten) — Plausible Min/Max-Werte?\nFehlende Werte zählen: colSums(is.na(daten)) — Wo fehlen Daten?\nHäufigkeiten kategorischer Variablen: table(daten$gruppe) — Erwartete Kategorien?\nWertebereiche prüfen: range(daten$alter, na.rm = TRUE) — Plausible Werte?\nVersteckte fehlende Werte prüfen: unique(daten$var) — Codes wie \"999\" oder \"-\"?\n\n\n\n\n\nDuplikate prüfen: sum(duplicated(daten)) — Keine doppelten Zeilen?\nID-Konsistenz: Gibt es in beiden Datensätzen die gleichen IDs? intersect(d1$id, d2$id)\nFehlende IDs: IDs in einem Datensatz, die im anderen fehlen? setdiff(d1$id, d2$id)\nInkonsistente Kodierung: Gleiche Kategorie unterschiedlich kodiert? (z. B. \"KG\" vs. \"Kontrolle\")"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-4-daten-aufbereiten",
+    "href": "Checklisten.html#checkliste-4-daten-aufbereiten",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Systematische Datenbereinigung nach der Validierung.\n\nSkript dokumentieren: Kommentare für jeden Bereinigungsschritt\nRohdaten nicht verändern: Immer mit einer Kopie arbeiten\nSpaltennamen bereinigen: janitor::clean_names(daten) — Einheitliche Kleinschreibung\nDatentypen korrigieren: as.numeric(), as.character(), as.factor()\nVersteckte fehlende Werte ersetzen: na_if(daten$var, \"999\")\nInkonsistente Kategorien rekodieren: case_when() für systematische Umkodierung\nVariablen umbenennen: rename(daten, neuer_name = alter_name)\nNeue Variablen berechnen: mutate(daten, z_score = scale(rohwert))\nErgebnis validieren: Nach jeder Bereinigung str() und summary() aufrufen\nAufbereitete Daten speichern: write.csv(daten_clean, here(\"Daten_Verarbeitet\", \"daten_clean.csv\"))"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-5-tidy-data",
+    "href": "Checklisten.html#checkliste-5-tidy-data",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Prüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchführen.\nTidy Data Prinzipien:\n\nJede Variable ist eine Spalte\nJede Beobachtung ist eine Zeile\nJede Beobachtungseinheit ist eine Tabelle\n\n\nTidy-Format identifizieren: Ist jede Variable eine eigene Spalte?\nBreites Format erkennen: Mehrere Spalten für dieselbe Variable (z. B. messung_t1, messung_t2)?\npivot_longer() anwenden: Breites → langes Format\ndaten_lang &lt;- daten |&gt;\n  pivot_longer(cols = starts_with(\"messung\"),\n               names_to = \"zeitpunkt\",\n               values_to = \"wert\")\npivot_wider() anwenden: Langes → breites Format (wenn für Analyse nötig)\nDatensätze verbinden: left_join() / full_join() mit korrekt definiertem by-Argument"
+  },
+  {
+    "objectID": "Checklisten.html#checkliste-6-reproduzierbare-analyse",
+    "href": "Checklisten.html#checkliste-6-reproduzierbare-analyse",
+    "title": "Checklisten",
+    "section": "",
+    "text": "Abschluss-Checkliste für die vollständige Reproduzierbarkeit.\n\nAlle Pakete laden: library()-Befehle am Anfang des Skripts — kein library() mitten im Code\nset.seed() verwenden: Bei allen Zufallsprozessen am Anfang des Skripts\nRelative Pfade: Nur here() verwenden, kein setwd(), keine absoluten Pfade\nSkript-Reihenfolge: Skripte nummerieren (z. B. 01_einlesen.R, 02_bereinigung.R)\nSauberes Environment: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)\nSession-Informationen dokumentieren: sessionInfo() am Ende des Skripts oder in einem separaten Log\nKommentare: Jeder nicht-triviale Schritt ist mit # kommentiert\nVersionierung: Änderungen mit Git tracken (optional aber empfohlen)"
+  },
+  {
+    "objectID": "Funktionsübersicht.html",
+    "href": "Funktionsübersicht.html",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Diese Seite bietet eine kompakte Übersicht der wichtigsten R-Funktionen, die Sie in der Vorlesung und den Übungen verwenden. Die Funktionen sind nach Workflow-Schritten geordnet.\n\n\n\n\nDas here-Paket ermöglicht reproduzierbare relative Pfade, die unabhängig vom Arbeitssystem funktionieren.\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nhere()\nGibt den Projektordner zurück\nhere()\n\n\nhere(\"ordner\", \"datei.csv\")\nBaut einen relativen Pfad\nhere(\"daten\", \"rohdaten.csv\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nlist.files(path)\nListet Dateien in einem Ordner\nlist.files(here(\"daten\"))\n\n\nfile.exists(path)\nPrüft ob eine Datei existiert\nfile.exists(here(\"daten\", \"data.csv\"))\n\n\nfile.copy(from, to)\nKopiert eine Datei\nfile.copy(\"quelle.csv\", \"ziel.csv\")\n\n\ndir.create(path)\nErstellt einen neuen Ordner\ndir.create(here(\"output\"))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nTypische Argumente\n\n\n\n\nreadLines(con, n)\nLiest rohe Textzeilen (zur Format-Inspektion)\nn = 5 für die ersten 5 Zeilen\n\n\nread.csv(file)\nLiest CSV mit Komma-Trennung (englisch)\nheader = TRUE, stringsAsFactors = FALSE\n\n\nread.csv2(file)\nLiest CSV mit Semikolon-Trennung (deutsch)\nheader = TRUE, dec = \",\"\n\n\nread.table(file)\nFlexibles Einlesen mit wählbarem Trennzeichen\nsep = \"\\t\", header = TRUE, na.strings = c(\"NA\", \"\")\n\n\nread.delim(file)\nLiest Tab-getrennte Dateien\nheader = TRUE\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_csv(file)\nLiest CSV mit Komma-Trennung\n\n\nread_csv2(file)\nLiest CSV mit Semikolon-Trennung\n\n\nread_tsv(file)\nLiest Tab-getrennte Dateien\n\n\nread_delim(file, delim)\nLiest mit beliebigem Trennzeichen\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_sav(file)\nLiest SPSS .sav-Dateien\n\n\nread_dta(file)\nLiest Stata .dta-Dateien\n\n\nread_sas(file)\nLiest SAS .sas7bdat-Dateien\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_excel(file)\nLiest Excel .xlsx/.xls-Dateien\n\n\nexcel_sheets(file)\nListet alle Tabellenblätter\n\n\nread_excel(file, sheet = \"Name\")\nLiest ein bestimmtes Tabellenblatt\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nAusgabe\n\n\n\n\ndim(df)\nZeilen- und Spaltenanzahl\nc(Zeilen, Spalten)\n\n\nnrow(df) / ncol(df)\nZeilen- bzw. Spaltenanzahl\nEinzelner Wert\n\n\nnames(df)\nSpaltennamen\nCharaktervektor\n\n\nstr(df)\nStruktur mit Datentypen\nÜbersicht im Konsole\n\n\nclass(df)\nDatentyp eines Objekts\nz. B. \"data.frame\"\n\n\nsapply(df, class)\nDatentyp jeder Spalte\nBenannter Vektor\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nsummary(df)\nDeskriptive Statistiken je Spalte\nsummary(daten)\n\n\ntable(df$var)\nHäufigkeitstabelle einer Variable\ntable(daten$geschlecht)\n\n\nis.na(x)\nPrüft auf fehlende Werte\nis.na(daten$wm_score)\n\n\ncolSums(is.na(df))\nAnzahl fehlender Werte je Spalte\ncolSums(is.na(daten))\n\n\nsum(is.na(x))\nGesamtanzahl fehlender Werte\nsum(is.na(daten$alter))\n\n\nrange(x, na.rm = TRUE)\nMinimum und Maximum\nrange(daten$alter, na.rm = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nduplicated(df)\nIdentifiziert duplizierte Zeilen\nsum(duplicated(daten))\n\n\nunique(x)\nEindeutige Werte\nunique(daten$gruppe)\n\n\nintersect(x, y)\nGemeinsame Elemente zweier Vektoren\nintersect(daten1$id, daten2$id)\n\n\nsetdiff(x, y)\nElemente in x aber nicht in y\nsetdiff(daten1$id, daten2$id)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nfilter(df, cond)\nFiltert Zeilen nach Bedingung\nfilter(daten, alter &gt; 18)\n\n\nselect(df, vars)\nWählt Spalten aus\nselect(daten, id, alter, geschlecht)\n\n\nrename(df, neu = alt)\nBenennt Spalten um\nrename(daten, age = alter)\n\n\narrange(df, var)\nSortiert nach einer Variable\narrange(daten, alter)\n\n\ndistinct(df)\nEntfernt duplizierte Zeilen\ndistinct(daten)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nmutate(df, neu = ausdruck)\nErstellt oder verändert Spalten\nmutate(daten, alter_z = scale(alter))\n\n\ncase_when(...)\nMehrfach-If-Else für Rekodierung\nSiehe unten\n\n\nif_else(cond, ja, nein)\nEinfaches If-Else\nif_else(daten$alter &gt;= 18, \"adult\", \"minor\")\n\n\nna_if(x, val)\nErsetzt Wert durch NA\nna_if(daten$gender, \"k.A.\")\n\n\nreplace_na(x, val)\nErsetzt NA durch Wert\nreplace_na(daten$score, 0)\n\n\ncoalesce(x, y)\nNimmt ersten nicht-NA Wert\ncoalesce(daten$v1, daten$v2)\n\n\n\n# Beispiel: case_when für Rekodierung\ndaten &lt;- daten |&gt;\n  mutate(\n    gruppe = case_when(\n      gruppe_raw %in% c(\"KG\", \"Kontrolle\", \"control\") ~ \"Kontrolle\",\n      gruppe_raw %in% c(\"EG\", \"Experimental\", \"exp\")  ~ \"Experimental\",\n      TRUE ~ NA_character_\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\ngroup_by(df, var)\nGruppiert nach Variable\ngroup_by(daten, geschlecht)\n\n\nsummarise(df, stat = fun)\nBerechnet Zusammenfassungen\nsummarise(daten, m = mean(score))\n\n\ncount(df, var)\nZählt Vorkommen je Wert\ncount(daten, gruppe)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\npivot_longer(df, cols, ...)\nVon breitem zu langem Format\nSiehe unten\n\n\npivot_wider(df, ...)\nVon langem zu breitem Format\nSiehe unten\n\n\nseparate(df, col, into, sep)\nTeilt eine Spalte auf\nseparate(df, datum, c(\"tag\",\"monat\",\"jahr\"), sep = \".\")\n\n\nunite(df, col, ..., sep)\nVerbindet Spalten\nunite(df, name_voll, vorname, nachname, sep = \" \")\n\n\ndrop_na(df, cols)\nEntfernt Zeilen mit fehlenden Werten\ndrop_na(daten, wm_score)\n\n\n\n# pivot_longer: von breit nach lang\ndaten_lang &lt;- daten_breit |&gt;\n  pivot_longer(\n    cols = starts_with(\"messung\"),\n    names_to = \"zeitpunkt\",\n    values_to = \"wert\"\n  )\n\n# pivot_wider: von lang nach breit\ndaten_breit &lt;- daten_lang |&gt;\n  pivot_wider(\n    names_from = zeitpunkt,\n    values_from = wert\n  )\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nleft_join(x, y, by)\nAlle Zeilen von x, passende von y\n\n\nright_join(x, y, by)\nAlle Zeilen von y, passende von x\n\n\nfull_join(x, y, by)\nAlle Zeilen von x und y\n\n\ninner_join(x, y, by)\nNur Zeilen mit Übereinstimmung in beiden\n\n\nanti_join(x, y, by)\nZeilen in x ohne Übereinstimmung in y\n\n\n\n# Beispiel: Zwei Datensätze über ID verbinden\ndaten_komplett &lt;- left_join(fragebogen, lab_daten, by = \"id\")\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nsessionInfo()\nZeigt R-Version und geladene Pakete\n\n\nSys.time()\nAktuelles Datum und Uhrzeit\n\n\nset.seed(n)\nReproduzierbare Zufallszahlen\n\n\nglimpse(df)\nKompakte Übersicht eines Data Frames (dplyr)\n\n\nhead(df, n) / tail(df, n)\nErste/letzte n Zeilen\n\n\nView(df)\nÖffnet Data Frame im Viewer\n\n\njanitor::clean_names(df)\nBereinigt Spaltennamen (janitor-Paket)\n\n\njanitor::tabyl(df, var)\nHäufigkeitstabelle mit Prozentanteilen"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#projektstruktur-pfade",
+    "href": "Funktionsübersicht.html#projektstruktur-pfade",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Das here-Paket ermöglicht reproduzierbare relative Pfade, die unabhängig vom Arbeitssystem funktionieren.\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nhere()\nGibt den Projektordner zurück\nhere()\n\n\nhere(\"ordner\", \"datei.csv\")\nBaut einen relativen Pfad\nhere(\"daten\", \"rohdaten.csv\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nlist.files(path)\nListet Dateien in einem Ordner\nlist.files(here(\"daten\"))\n\n\nfile.exists(path)\nPrüft ob eine Datei existiert\nfile.exists(here(\"daten\", \"data.csv\"))\n\n\nfile.copy(from, to)\nKopiert eine Datei\nfile.copy(\"quelle.csv\", \"ziel.csv\")\n\n\ndir.create(path)\nErstellt einen neuen Ordner\ndir.create(here(\"output\"))"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#daten-einlesen",
+    "href": "Funktionsübersicht.html#daten-einlesen",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\nTypische Argumente\n\n\n\n\nreadLines(con, n)\nLiest rohe Textzeilen (zur Format-Inspektion)\nn = 5 für die ersten 5 Zeilen\n\n\nread.csv(file)\nLiest CSV mit Komma-Trennung (englisch)\nheader = TRUE, stringsAsFactors = FALSE\n\n\nread.csv2(file)\nLiest CSV mit Semikolon-Trennung (deutsch)\nheader = TRUE, dec = \",\"\n\n\nread.table(file)\nFlexibles Einlesen mit wählbarem Trennzeichen\nsep = \"\\t\", header = TRUE, na.strings = c(\"NA\", \"\")\n\n\nread.delim(file)\nLiest Tab-getrennte Dateien\nheader = TRUE\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_csv(file)\nLiest CSV mit Komma-Trennung\n\n\nread_csv2(file)\nLiest CSV mit Semikolon-Trennung\n\n\nread_tsv(file)\nLiest Tab-getrennte Dateien\n\n\nread_delim(file, delim)\nLiest mit beliebigem Trennzeichen\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_sav(file)\nLiest SPSS .sav-Dateien\n\n\nread_dta(file)\nLiest Stata .dta-Dateien\n\n\nread_sas(file)\nLiest SAS .sas7bdat-Dateien\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\n\n\n\n\nread_excel(file)\nLiest Excel .xlsx/.xls-Dateien\n\n\nexcel_sheets(file)\nListet alle Tabellenblätter\n\n\nread_excel(file, sheet = \"Name\")\nLiest ein bestimmtes Tabellenblatt"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#daten-validieren",
+    "href": "Funktionsübersicht.html#daten-validieren",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\nAusgabe\n\n\n\n\ndim(df)\nZeilen- und Spaltenanzahl\nc(Zeilen, Spalten)\n\n\nnrow(df) / ncol(df)\nZeilen- bzw. Spaltenanzahl\nEinzelner Wert\n\n\nnames(df)\nSpaltennamen\nCharaktervektor\n\n\nstr(df)\nStruktur mit Datentypen\nÜbersicht im Konsole\n\n\nclass(df)\nDatentyp eines Objekts\nz. B. \"data.frame\"\n\n\nsapply(df, class)\nDatentyp jeder Spalte\nBenannter Vektor\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nsummary(df)\nDeskriptive Statistiken je Spalte\nsummary(daten)\n\n\ntable(df$var)\nHäufigkeitstabelle einer Variable\ntable(daten$geschlecht)\n\n\nis.na(x)\nPrüft auf fehlende Werte\nis.na(daten$wm_score)\n\n\ncolSums(is.na(df))\nAnzahl fehlender Werte je Spalte\ncolSums(is.na(daten))\n\n\nsum(is.na(x))\nGesamtanzahl fehlender Werte\nsum(is.na(daten$alter))\n\n\nrange(x, na.rm = TRUE)\nMinimum und Maximum\nrange(daten$alter, na.rm = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nduplicated(df)\nIdentifiziert duplizierte Zeilen\nsum(duplicated(daten))\n\n\nunique(x)\nEindeutige Werte\nunique(daten$gruppe)\n\n\nintersect(x, y)\nGemeinsame Elemente zweier Vektoren\nintersect(daten1$id, daten2$id)\n\n\nsetdiff(x, y)\nElemente in x aber nicht in y\nsetdiff(daten1$id, daten2$id)"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#daten-aufbereiten-dplyr",
+    "href": "Funktionsübersicht.html#daten-aufbereiten-dplyr",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\nBeispiel\n\n\n\n\nfilter(df, cond)\nFiltert Zeilen nach Bedingung\nfilter(daten, alter &gt; 18)\n\n\nselect(df, vars)\nWählt Spalten aus\nselect(daten, id, alter, geschlecht)\n\n\nrename(df, neu = alt)\nBenennt Spalten um\nrename(daten, age = alter)\n\n\narrange(df, var)\nSortiert nach einer Variable\narrange(daten, alter)\n\n\ndistinct(df)\nEntfernt duplizierte Zeilen\ndistinct(daten)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\nmutate(df, neu = ausdruck)\nErstellt oder verändert Spalten\nmutate(daten, alter_z = scale(alter))\n\n\ncase_when(...)\nMehrfach-If-Else für Rekodierung\nSiehe unten\n\n\nif_else(cond, ja, nein)\nEinfaches If-Else\nif_else(daten$alter &gt;= 18, \"adult\", \"minor\")\n\n\nna_if(x, val)\nErsetzt Wert durch NA\nna_if(daten$gender, \"k.A.\")\n\n\nreplace_na(x, val)\nErsetzt NA durch Wert\nreplace_na(daten$score, 0)\n\n\ncoalesce(x, y)\nNimmt ersten nicht-NA Wert\ncoalesce(daten$v1, daten$v2)\n\n\n\n# Beispiel: case_when für Rekodierung\ndaten &lt;- daten |&gt;\n  mutate(\n    gruppe = case_when(\n      gruppe_raw %in% c(\"KG\", \"Kontrolle\", \"control\") ~ \"Kontrolle\",\n      gruppe_raw %in% c(\"EG\", \"Experimental\", \"exp\")  ~ \"Experimental\",\n      TRUE ~ NA_character_\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n\nFunktion\nBeschreibung\nBeispiel\n\n\n\n\ngroup_by(df, var)\nGruppiert nach Variable\ngroup_by(daten, geschlecht)\n\n\nsummarise(df, stat = fun)\nBerechnet Zusammenfassungen\nsummarise(daten, m = mean(score))\n\n\ncount(df, var)\nZählt Vorkommen je Wert\ncount(daten, gruppe)"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#tidy-data-tidyr",
+    "href": "Funktionsübersicht.html#tidy-data-tidyr",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\nBeispiel\n\n\n\n\npivot_longer(df, cols, ...)\nVon breitem zu langem Format\nSiehe unten\n\n\npivot_wider(df, ...)\nVon langem zu breitem Format\nSiehe unten\n\n\nseparate(df, col, into, sep)\nTeilt eine Spalte auf\nseparate(df, datum, c(\"tag\",\"monat\",\"jahr\"), sep = \".\")\n\n\nunite(df, col, ..., sep)\nVerbindet Spalten\nunite(df, name_voll, vorname, nachname, sep = \" \")\n\n\ndrop_na(df, cols)\nEntfernt Zeilen mit fehlenden Werten\ndrop_na(daten, wm_score)\n\n\n\n# pivot_longer: von breit nach lang\ndaten_lang &lt;- daten_breit |&gt;\n  pivot_longer(\n    cols = starts_with(\"messung\"),\n    names_to = \"zeitpunkt\",\n    values_to = \"wert\"\n  )\n\n# pivot_wider: von lang nach breit\ndaten_breit &lt;- daten_lang |&gt;\n  pivot_wider(\n    names_from = zeitpunkt,\n    values_from = wert\n  )"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#datensätze-zusammenführen-dplyr",
+    "href": "Funktionsübersicht.html#datensätze-zusammenführen-dplyr",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\n\n\n\n\nleft_join(x, y, by)\nAlle Zeilen von x, passende von y\n\n\nright_join(x, y, by)\nAlle Zeilen von y, passende von x\n\n\nfull_join(x, y, by)\nAlle Zeilen von x und y\n\n\ninner_join(x, y, by)\nNur Zeilen mit Übereinstimmung in beiden\n\n\nanti_join(x, y, by)\nZeilen in x ohne Übereinstimmung in y\n\n\n\n# Beispiel: Zwei Datensätze über ID verbinden\ndaten_komplett &lt;- left_join(fragebogen, lab_daten, by = \"id\")"
+  },
+  {
+    "objectID": "Funktionsübersicht.html#nützliche-hilfsfunktionen",
+    "href": "Funktionsübersicht.html#nützliche-hilfsfunktionen",
+    "title": "Funktionsübersicht",
+    "section": "",
+    "text": "Funktion\nBeschreibung\n\n\n\n\nsessionInfo()\nZeigt R-Version und geladene Pakete\n\n\nSys.time()\nAktuelles Datum und Uhrzeit\n\n\nset.seed(n)\nReproduzierbare Zufallszahlen\n\n\nglimpse(df)\nKompakte Übersicht eines Data Frames (dplyr)\n\n\nhead(df, n) / tail(df, n)\nErste/letzte n Zeilen\n\n\nView(df)\nÖffnet Data Frame im Viewer\n\n\njanitor::clean_names(df)\nBereinigt Spaltennamen (janitor-Paket)\n\n\njanitor::tabyl(df, var)\nHäufigkeitstabelle mit Prozentanteilen"
+  },
+  {
+    "objectID": "exam_prep.html",
+    "href": "exam_prep.html",
+    "title": "Übungsfragen: Klausurvorbereitung",
+    "section": "",
+    "text": "Auf dieser Übungsseite finden Sie weitere Übungsfragen zur Vorbereitung auf die Klausur. Die Fragen werden alle entweder Single-Choice oder K-Prim Fragen mit je 4 Antwortoptionen sein. Die Formatierung der Fragen ist nicht identisch mit der Klausur, das Frageformat ist jedoch identisch. Die Lösungen erklären die korrekten Antworten kurz, wiederholen aber nicht alle Details der jeweiligen Inhalte.\nWichtig: Die Inhalte der Fragen sind nicht repräsentativ für die Inhalte die eventuell in der Prüfung abgefragt werden. Die Fragen sollen Ihnen ermöglichen einen guten Eindruck zu bekommen wie unterschiedliche Inhalte der Vorlesung in der Prüfung abgefragt werden.\n\n\n\n\nWelche der folgenden Praktiken sind notwendig für eine vollständig reproduzierbare Datenanalyse?\n\nRelative Pfade mit here() werden verwendet, sodass das Projekt auf anderen Computern ausführbar ist.set.seed() wird bei allen Zufallsprozessen verwendet, um identische Ergebnisse zu gewährleisten.Die Analyse wird auf einem schnellen Computer durchgeführt, damit die Ergebnisse schnell berechnet werden.Alle Analyseschritte werden in R-Skripten dokumentiert statt manuell in Tabellenprogrammen durchgeführt.\n\n\n\nReproduzierbare Analysen erfordern dokumentierte Skripte, relative Pfade mit here() und kontrollierten Zufall durch set.seed(). Die Geschwindigkeit des Computers hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.\n\n\n\n\n\n\n\nWelche Aussage beschreibt am besten den Hauptvorteil des here-Pakets gegenüber setwd()?\n\nhere() kann automatisch fehlende Dateien herunterladen.here() funktioniert auch ohne eine .Rproj-Datei.here() baut Pfade relativ zum R-Projektordner, sodass Skripte auf verschiedenen Computern ohne Änderungen funktionieren.here() ist schneller als setwd() beim Lesen grosser Dateien.\n\n\n\nDer Hauptvorteil von here() ist, dass Pfade relativ zum Projektordner aufgebaut werden. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu setwd(), das einen absoluten Pfad setzt. here() ist nicht schneller beim Lesen und kann keine Dateien herunterladen. here() funktioniert zwar technisch auch ohne .Rproj-Datei, dies entspricht aber nicht guter Coding-Praxis: Ohne R-Projekt fehlt die klare Verankerung des Arbeitsverzeichnisses, und die Reproduzierbarkeit des Skripts ist nicht mehr gewährleistet.\n\n\n\n\n\n\n\nSie erhalten eine unbekannte Datendatei messdaten.dat. Welche der folgenden Vorgehensweisen ist der empfohlene erste Schritt zum Einlesen dieser Datei?\n\nSofort read.csv(\"messdaten.dat\") ausführen und das Ergebnis inspizieren.read.table(\"messdaten.dat\") mit Standardeinstellungen ausführen.Die Datei in Excel öffnen, um sie zu inspizieren.readLines(\"messdaten.dat\", n = 5) ausführen, um das Dateiformat zu identifizieren.\n\n\n\nDer empfohlene erste Schritt ist readLines(): Diese Funktion liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. read.csv() und read.table() mit Standardeinstellungen können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.\n\n\n\n\n\n\n\nWelche der folgenden Aussagen zur 3-Ebenen-Validierung von Datensätzen sind korrekt?\n\nDie Validierungsreihenfolge ist beliebig — man kann mit jeder Ebene beginnen.Ebene 3 (Konsistenz) prüft Duplikate und ID-Übereinstimmungen zwischen Datensätzen mit duplicated() und intersect().Ebene 1 (Struktur) prüft Dimensionen, Variablennamen und Datentypen mit Funktionen wie dim(), names() und str().Ebene 2 (Werte) prüft Wertebereich, fehlende Werte und Häufigkeiten mit summary(), colSums(is.na()) und table().\n\n\n\nDie Aussagen zur Struktur-Ebene, Werte-Ebene und Konsistenz-Ebene beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Die Aussage, die Reihenfolge sei beliebig, ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.\n\n\n\n\n\n\n\nIn einer Studie werden Stress und Schlaf erhoben. Personen mit sehr hohem Stress haben die Stressfrage aus Überforderung nicht beantwortet — das Fehlen von stress hängt also direkt vom (nicht beobachteten) Stresswert selbst ab. Zusätzlich fehlen Schlafwerte (schlaf) häufiger bei Personen, die Schichtarbeit angegeben haben — das Fehlen von schlaf lässt sich also durch eine andere, beobachtete Variable (schichtarbeit) erklären. Welche Zuordnung der Missing-Mechanismen ist korrekt?\n\nschlaf fehlt nach MAR, weil das Fehlen durch die beobachtete Variable schichtarbeit erklärt werden kann.stress fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.stress fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.schlaf fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.\n\n\n\nKorrekt sind die Zuordnungen von stress zu MNAR und von schlaf zu MAR. stress fehlt nach MNAR — der hohe Stress selbst ist die Ursache für das Fehlen, d. h. das Fehlen hängt vom nicht beobachteten Wert der Variable ab. schlaf fehlt nach MAR — das Fehlen lässt sich durch die beobachtete Variable schichtarbeit erklären, nicht durch den Schlafwert selbst. Die Zuordnung von stress zu MCAR ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig und unabhängig vom Stressniveau ist, was dem Szenario widerspricht. Die Zuordnung von schlaf zu MNAR ist falsch — MNAR läge vor, wenn das Fehlen vom Schlafwert selbst abhinge; hier wird das Fehlen aber durch eine andere Variable (schichtarbeit) erklärt, was MAR entspricht.",
+    "crumbs": [
+      "Übungen",
+      "Übung: Klausur"
+    ]
+  },
+  {
+    "objectID": "exam_prep.html#übungsfragen-klausur",
+    "href": "exam_prep.html#übungsfragen-klausur",
+    "title": "Übungsfragen: Klausurvorbereitung",
+    "section": "",
+    "text": "Auf dieser Übungsseite finden Sie weitere Übungsfragen zur Vorbereitung auf die Klausur. Die Fragen werden alle entweder Single-Choice oder K-Prim Fragen mit je 4 Antwortoptionen sein. Die Formatierung der Fragen ist nicht identisch mit der Klausur, das Frageformat ist jedoch identisch. Die Lösungen erklären die korrekten Antworten kurz, wiederholen aber nicht alle Details der jeweiligen Inhalte.\nWichtig: Die Inhalte der Fragen sind nicht repräsentativ für die Inhalte die eventuell in der Prüfung abgefragt werden. Die Fragen sollen Ihnen ermöglichen einen guten Eindruck zu bekommen wie unterschiedliche Inhalte der Vorlesung in der Prüfung abgefragt werden.\n\n\n\n\nWelche der folgenden Praktiken sind notwendig für eine vollständig reproduzierbare Datenanalyse?\n\nRelative Pfade mit here() werden verwendet, sodass das Projekt auf anderen Computern ausführbar ist.set.seed() wird bei allen Zufallsprozessen verwendet, um identische Ergebnisse zu gewährleisten.Die Analyse wird auf einem schnellen Computer durchgeführt, damit die Ergebnisse schnell berechnet werden.Alle Analyseschritte werden in R-Skripten dokumentiert statt manuell in Tabellenprogrammen durchgeführt.\n\n\n\nReproduzierbare Analysen erfordern dokumentierte Skripte, relative Pfade mit here() und kontrollierten Zufall durch set.seed(). Die Geschwindigkeit des Computers hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.\n\n\n\n\n\n\n\nWelche Aussage beschreibt am besten den Hauptvorteil des here-Pakets gegenüber setwd()?\n\nhere() kann automatisch fehlende Dateien herunterladen.here() funktioniert auch ohne eine .Rproj-Datei.here() baut Pfade relativ zum R-Projektordner, sodass Skripte auf verschiedenen Computern ohne Änderungen funktionieren.here() ist schneller als setwd() beim Lesen grosser Dateien.\n\n\n\nDer Hauptvorteil von here() ist, dass Pfade relativ zum Projektordner aufgebaut werden. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu setwd(), das einen absoluten Pfad setzt. here() ist nicht schneller beim Lesen und kann keine Dateien herunterladen. here() funktioniert zwar technisch auch ohne .Rproj-Datei, dies entspricht aber nicht guter Coding-Praxis: Ohne R-Projekt fehlt die klare Verankerung des Arbeitsverzeichnisses, und die Reproduzierbarkeit des Skripts ist nicht mehr gewährleistet.\n\n\n\n\n\n\n\nSie erhalten eine unbekannte Datendatei messdaten.dat. Welche der folgenden Vorgehensweisen ist der empfohlene erste Schritt zum Einlesen dieser Datei?\n\nSofort read.csv(\"messdaten.dat\") ausführen und das Ergebnis inspizieren.read.table(\"messdaten.dat\") mit Standardeinstellungen ausführen.Die Datei in Excel öffnen, um sie zu inspizieren.readLines(\"messdaten.dat\", n = 5) ausführen, um das Dateiformat zu identifizieren.\n\n\n\nDer empfohlene erste Schritt ist readLines(): Diese Funktion liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. read.csv() und read.table() mit Standardeinstellungen können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.\n\n\n\n\n\n\n\nWelche der folgenden Aussagen zur 3-Ebenen-Validierung von Datensätzen sind korrekt?\n\nDie Validierungsreihenfolge ist beliebig — man kann mit jeder Ebene beginnen.Ebene 3 (Konsistenz) prüft Duplikate und ID-Übereinstimmungen zwischen Datensätzen mit duplicated() und intersect().Ebene 1 (Struktur) prüft Dimensionen, Variablennamen und Datentypen mit Funktionen wie dim(), names() und str().Ebene 2 (Werte) prüft Wertebereich, fehlende Werte und Häufigkeiten mit summary(), colSums(is.na()) und table().\n\n\n\nDie Aussagen zur Struktur-Ebene, Werte-Ebene und Konsistenz-Ebene beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Die Aussage, die Reihenfolge sei beliebig, ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.\n\n\n\n\n\n\n\nIn einer Studie werden Stress und Schlaf erhoben. Personen mit sehr hohem Stress haben die Stressfrage aus Überforderung nicht beantwortet — das Fehlen von stress hängt also direkt vom (nicht beobachteten) Stresswert selbst ab. Zusätzlich fehlen Schlafwerte (schlaf) häufiger bei Personen, die Schichtarbeit angegeben haben — das Fehlen von schlaf lässt sich also durch eine andere, beobachtete Variable (schichtarbeit) erklären. Welche Zuordnung der Missing-Mechanismen ist korrekt?\n\nschlaf fehlt nach MAR, weil das Fehlen durch die beobachtete Variable schichtarbeit erklärt werden kann.stress fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.stress fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.schlaf fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.\n\n\n\nKorrekt sind die Zuordnungen von stress zu MNAR und von schlaf zu MAR. stress fehlt nach MNAR — der hohe Stress selbst ist die Ursache für das Fehlen, d. h. das Fehlen hängt vom nicht beobachteten Wert der Variable ab. schlaf fehlt nach MAR — das Fehlen lässt sich durch die beobachtete Variable schichtarbeit erklären, nicht durch den Schlafwert selbst. Die Zuordnung von stress zu MCAR ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig und unabhängig vom Stressniveau ist, was dem Szenario widerspricht. Die Zuordnung von schlaf zu MNAR ist falsch — MNAR läge vor, wenn das Fehlen vom Schlafwert selbst abhinge; hier wird das Fehlen aber durch eine andere Variable (schichtarbeit) erklärt, was MAR entspricht.",
+    "crumbs": [
+      "Übungen",
+      "Übung: Klausur"
+    ]
+  },
+  {
+    "objectID": "exercise10.html",
+    "href": "exercise10.html",
+    "title": "Übung 10 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 6"
+      "Übung 10"
     ]
   },
   {
-    "objectID": "exercise6.html#übung-6",
-    "href": "exercise6.html#übung-6",
-    "title": "Übung 6 - Folgt",
+    "objectID": "exercise10.html#übung-10",
+    "href": "exercise10.html#übung-10",
+    "title": "Übung 10 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 6"
+      "Übung 10"
     ]
   },
   {
-    "objectID": "exercise8.html",
-    "href": "exercise8.html",
-    "title": "Übung 8 - Folgt",
+    "objectID": "exercise12.html",
+    "href": "exercise12.html",
+    "title": "Übung 12 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 8"
+      "Übung 12"
     ]
   },
   {
-    "objectID": "exercise8.html#übung-8",
-    "href": "exercise8.html#übung-8",
-    "title": "Übung 8 - Folgt",
+    "objectID": "exercise12.html#übung-12",
+    "href": "exercise12.html#übung-12",
+    "title": "Übung 12 - Folgt",
     "section": "",
     "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 8"
+      "Übung 12"
+    ]
+  },
+  {
+    "objectID": "exercise3.html",
+    "href": "exercise3.html",
+    "title": "Übung 3 - Daten Einlesen & Validieren",
+    "section": "",
+    "text": "In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das richtige Einlese-Format identifizieren, und nach dem Import systematisch validieren, ob die Daten korrekt eingelesen wurden.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nImporting Data in R\nread.csv and read.table in R",
+    "crumbs": [
+      "Übungen",
+      "Übung 3"
+    ]
+  },
+  {
+    "objectID": "exercise3.html#wiederholung-vertiefung-daten-einlesen-validieren",
+    "href": "exercise3.html#wiederholung-vertiefung-daten-einlesen-validieren",
+    "title": "Übung 3 - Daten Einlesen & Validieren",
+    "section": "",
+    "text": "In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das richtige Einlese-Format identifizieren, und nach dem Import systematisch validieren, ob die Daten korrekt eingelesen wurden.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nImporting Data in R\nread.csv and read.table in R",
+    "crumbs": [
+      "Übungen",
+      "Übung 3"
+    ]
+  },
+  {
+    "objectID": "exercise3.html#daten-für-diese-übung",
+    "href": "exercise3.html#daten-für-diese-übung",
+    "title": "Übung 3 - Daten Einlesen & Validieren",
+    "section": "Daten für diese Übung",
+    "text": "Daten für diese Übung\nIn dieser Übung arbeiten Sie mit zwei Datensätzen, die Sie auch auf dieser Website herunterladen können:\n\nWM_Fragebögen.csv — Fragebogen- und Arbeitsspeicherdaten (CSV, Semikolon-getrennt, deutsche Dezimalzeichen)\nLab_Kodierung.dat — Laborkodierungsdaten (Tab-getrennt)\n\nDie webR-Konsole unten lädt die Datensätze automatisch für Sie herunter.",
+    "crumbs": [
+      "Übungen",
+      "Übung 3"
+    ]
+  },
+  {
+    "objectID": "exercise3.html#vorgehen-beim-einlesen-unbekannter-dateien",
+    "href": "exercise3.html#vorgehen-beim-einlesen-unbekannter-dateien",
+    "title": "Übung 3 - Daten Einlesen & Validieren",
+    "section": "Vorgehen beim Einlesen unbekannter Dateien",
+    "text": "Vorgehen beim Einlesen unbekannter Dateien\n\nDateiformat identifizieren: Endung, readLines() für die ersten Zeilen\nPassende Funktion wählen: read.csv(), read.csv2(), read.table(), etc.\nEinlesen und Struktur prüfen: str(), dim(), names()\nWerte validieren: summary(), table(), colSums(is.na())",
+    "crumbs": [
+      "Übungen",
+      "Übung 3"
+    ]
+  },
+  {
+    "objectID": "exercise3.html#übungen",
+    "href": "exercise3.html#übungen",
+    "title": "Übung 3 - Daten Einlesen & Validieren",
+    "section": "Übungen",
+    "text": "Übungen\nBeantworten Sie die folgenden Fragen zum Einlesen und Validieren von Daten.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nNach dem Einlesen eines Datensatzes mit daten &lt;- read.csv2(\"daten.csv\") möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine erste Validierung geeignet?\n\nplot(daten) — erstellt automatisch Grafiken für alle Variablen.str(daten) — zeigt die Struktur mit Variablennamen und Datentypen.dim(daten) — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.names(daten) — prüft ob alle erwarteten Variablennamen vorhanden sind.\n\n\n\nFür die erste Validierung nach dem Einlesen sind dim(), str() und names() geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. plot(daten) ist kein Validierungswerkzeug für die Importqualität — es erstellt zwar Grafiken, zeigt aber nicht, ob der Import korrekt war.\n\n\n\n\nSie führen folgenden Code aus und erhalten die Ausgabe:\nreadLines(\"daten.csv\", n = 3)\n# [1] \"id;wm_score;alter;geschlecht\"\n# [2] \"VP01;7,5;22;weiblich\"\n# [3] \"VP02;6,3;25;männlich\"\nWelche Aussagen über diese Datei sind korrekt?\n\nDas Trennzeichen ist ein Semikolon (;).Das Dezimaltrennzeichen ist ein Komma (,), wie im deutschen Format üblich.Das Trennzeichen ist ein Komma (,).Die erste Zeile enthält Variablennamen (Header).\n\n\n\nAus der Ausgabe von readLines() erkennt man: Das Trennzeichen ist ein Semikolon (nicht ein Komma), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich, und die erste Zeile enthält Spaltennamen (Header). Für dieses Format verwendet man read.csv2() oder read.table(sep = \";\", dec = \",\").\n\n\n\n\nWelche Funktion liest eine CSV-Datei mit Semikolon als Trennzeichen und Komma als Dezimaltrennzeichen (deutsches Format) korrekt ein?\n\nread.delim(\"daten.csv\")read.csv2(\"daten.csv\")read.table(\"daten.csv\", sep = \";\", dec = \",\")read.csv(\"daten.csv\")\n\n\n\nKorrekt sind read.csv2() und read.table() mit den Argumenten sep = \";\" und dec = \",\". read.csv2() ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). read.table() mit den entsprechenden Argumenten erreicht dasselbe Ergebnis. read.csv() verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format) und ist hier falsch. read.delim() liest Tab-getrennte Dateien ein und passt ebenfalls nicht.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
+    "crumbs": [
+      "Übungen",
+      "Übung 3"
+    ]
+  },
+  {
+    "objectID": "exercise5.html",
+    "href": "exercise5.html",
+    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
+    "section": "",
+    "text": "In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: fehlenden Werten und Ausreissern. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nMissing Data in R — Types and How to Handle Them\nOutlier Detection in R",
+    "crumbs": [
+      "Übungen",
+      "Übung 5"
     ]
   },
   {
@@ -469,6 +511,17 @@
     "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
     "section": "",
     "text": "In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: fehlenden Werten und Ausreissern. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nMissing Data in R — Types and How to Handle Them\nOutlier Detection in R",
+    "crumbs": [
+      "Übungen",
+      "Übung 5"
+    ]
+  },
+  {
+    "objectID": "exercise5.html#mechanismen-fehlender-werte",
+    "href": "exercise5.html#mechanismen-fehlender-werte",
+    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
+    "section": "Mechanismen fehlender Werte",
+    "text": "Mechanismen fehlender Werte\nNicht alle fehlenden Werte sind gleich. Der Mechanismus des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:\n\n\n\n\n\n\n\n\nMechanismus\nBedeutung\nBeispiel\n\n\n\n\nMCAR (Missing Completely At Random)\nFehlen ist unabhängig von allen Variablen\nTechnischer Ausfall beim Speichern\n\n\nMAR (Missing At Random)\nFehlen hängt von anderen bekannten Variablen ab\nSchlafmangel → fehlende Konzentrationswerte\n\n\nMNAR (Missing Not At Random)\nFehlen hängt vom fehlenden Wert selbst ab\nHoher Stress → keine Stressbewertung abgegeben\n\n\n\nNur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).",
     "crumbs": [
       "Übungen",
       "Übung 5"
@@ -486,36 +539,58 @@
     ]
   },
   {
-    "objectID": "exercise4.html#wiederholung-vertiefung-tidy-data-umkodierung",
-    "href": "exercise4.html#wiederholung-vertiefung-tidy-data-umkodierung",
-    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
+    "objectID": "exercise5.html#übungen",
+    "href": "exercise5.html#übungen",
+    "title": "Übung 5 - Datenaufbereitung II: Fehlende Werte & Ausreisser",
+    "section": "Übungen",
+    "text": "Übungen\nBeantworten Sie die folgenden Fragen zu fehlenden Werten und Ausreissern.\nWie in den Übungen finden Sie unter den Übungsfragen die webr Konsole, die Ihnen das Schreiben und Durchführen von R Code direkt auf der Website ermöglicht. Wenn viele Studierenden die Übungen parallel machen, dann kann es sein, dass webr langsam wird.\n\nUm den Code den Sie geschrieben haben auszuführen drücken Sie entweder Run Code, damit der gesamte Code ausgeführt wird. Alternativ können Sie auch einzelne Zeilen ausführen, indem sie CTRL+Enter (Windows) oder CMD+Enter (Mac) drücken.\n\n\n\nWelche der folgenden Aussagen zu Ausreissern und ihrer Identifikation sind korrekt?\n\nDie IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.Nach der IQR-Regel gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.Nach dem z-Score-Kriterium werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.\n\n\n\nKorrekt sind die Aussagen zur IQR-Regel und zum z-Score-Kriterium. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 — in R: Q1 - 1.5 * IQR(x) und Q3 + 1.5 * IQR(x). Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser. Ausreisser müssen nicht zwingend entfernt werden: Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen, da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs. Mittelwert/SD) und bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren können.\n\n\n\n\nWelche der folgenden Aussagen zu den Mechanismen fehlender Werte (MCAR, MAR, MNAR) sind korrekt?\n\nMNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.Bei MAR (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.Bei MCAR (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.Bei MNAR (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.\n\n\n\nKorrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.\n\n\n\n\nWelche R-Funktion gibt Ihnen für jede Spalte eines Data Frames an, wie viele fehlende Werte (NA) enthalten sind?\n\ncolSums(is.na(daten)) — berechnet pro Spalte die Anzahl fehlender Werte.complete.cases(daten) — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.sum(is.na(daten)) — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.na.omit(daten) — entfernt alle Zeilen mit mindestens einem fehlenden Wert.\n\n\n\nKorrekt ist colSums(is.na(daten)). Diese Funktion kombiniert is.na() (das für jeden Wert TRUE zurückgibt, wenn er NA ist) mit colSums() (das die Anzahl der TRUE-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. sum(is.na(daten)) gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. na.omit() und complete.cases() identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nNutzen Sie eine Suchmaschine, wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.",
+    "crumbs": [
+      "Übungen",
+      "Übung 5"
+    ]
+  },
+  {
+    "objectID": "exercise7.html",
+    "href": "exercise7.html",
+    "title": "Übung 7 - Folgt",
     "section": "",
-    "text": "In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem Tidy-Data-Prinzip und der Umkodierung von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.\nWenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:\n\nTidy Data and tidyr Explained\npivot_longer and pivot_wider in R (tidyr)",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 7"
     ]
   },
   {
-    "objectID": "exercise4.html#tidy-data-prinzipien",
-    "href": "exercise4.html#tidy-data-prinzipien",
-    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
-    "section": "Tidy Data Prinzipien",
-    "text": "Tidy Data Prinzipien\nEin Datensatz ist tidy wenn:\n\nJede Variable ist eine Spalte — eine Variable, eine Spalte, keine Ausnahmen\nJede Beobachtung ist eine Zeile — ein Messzeitpunkt oder eine Person, eine Zeile\nJede Beobachtungseinheit ist eine eigene Tabelle — verschiedene Einheiten (z. B. Personen und Schulen) werden nicht gemischt\n\nHäufige Verletzungen:\n\nSpaltennamen sind Werte statt Variablennamen (z. B. score_t1, score_t2, score_t3)\nMehrere Variablen in einer Spalte (z. B. \"KG_m\" für Gruppe und Geschlecht)\n\n\n\n\n\n\n\n\nZiel\nFunktion\n\n\n\n\nBreites → langes Format\npivot_longer()\n\n\nLanges → breites Format\npivot_wider()",
+    "objectID": "exercise7.html#übung-7",
+    "href": "exercise7.html#übung-7",
+    "title": "Übung 7 - Folgt",
+    "section": "",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 7"
     ]
   },
   {
-    "objectID": "exercise4.html#umkodierung",
-    "href": "exercise4.html#umkodierung",
-    "title": "Übung 4 - Datenaufbereitung I: Tidy Data & Umkodierung",
-    "section": "Umkodierung",
-    "text": "Umkodierung\nAuch wenn die Struktur stimmt, können die Werte inhaltlich problematisch sein. Typische Situationen:\n\nInkonsistente Kodierungen: \"KG\", \"Kontrolle\" und \"control\" meinen dasselbe — R sieht drei verschiedene Gruppen\nImplizite fehlende Werte: \"999\" oder \"-\" statt NA\nFalsche Skalenrichtung: Eine Item-Skala ist umgekehrt gepolt\n\nDie Funktion case_when() aus dem dplyr-Paket ist das Hauptwerkzeug für Umkodierungen.",
+    "objectID": "exercise9.html",
+    "href": "exercise9.html",
+    "title": "Übung 9 - Folgt",
+    "section": "",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
     "crumbs": [
       "Übungen",
-      "Übung 4"
+      "Übung 9"
+    ]
+  },
+  {
+    "objectID": "exercise9.html#übung-9",
+    "href": "exercise9.html#übung-9",
+    "title": "Übung 9 - Folgt",
+    "section": "",
+    "text": "Diese Übung wird im Laufe des Semesters ergänzt.",
+    "crumbs": [
+      "Übungen",
+      "Übung 9"
     ]
   }
 ]

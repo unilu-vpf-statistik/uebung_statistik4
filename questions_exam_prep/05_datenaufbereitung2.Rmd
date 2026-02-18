@@ -1,17 +1,17 @@
 Question
 ========
-Ein Datensatz enthält Stresswerte (`stress`), die für Personen mit sehr hohem Stress systematisch fehlen — weil diese Personen die Frage aus Überforderung nicht beantwortet haben. Gleichzeitig hat die Variable `schlaf` bei Personen mit wenig Schlaf häufiger fehlende Werte. Welche Zuordnung ist **korrekt**?
+In einer Studie werden Stress und Schlaf erhoben. Personen mit sehr hohem Stress haben die Stressfrage aus Überforderung nicht beantwortet — das Fehlen von `stress` hängt also direkt vom (nicht beobachteten) Stresswert selbst ab. Zusätzlich fehlen Schlafwerte (`schlaf`) häufiger bei Personen, die Schichtarbeit angegeben haben — das Fehlen von `schlaf` lässt sich also durch eine andere, beobachtete Variable (`schichtarbeit`) erklären. Welche Zuordnung der Missing-Mechanismen ist **korrekt**?
 
 Answerlist
 ----------
 * `stress` fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.
-* `schlaf` fehlt nach MAR, wenn das Fehlen durch eine andere beobachtete Variable (z. B. Schlafqualität) erklärt werden kann.
+* `schlaf` fehlt nach MAR, weil das Fehlen durch die beobachtete Variable `schichtarbeit` erklärt werden kann.
 * `stress` fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.
 * `schlaf` fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.
 
 Solution
 ========
-Option 1 ist korrekt: `stress` fehlt nach MNAR — der hohe Stress selbst ist die Ursache, nicht beobachtbare andere Variablen. Option 2 ist korrekt für das beschriebene Szenario von `schlaf`: wenn das Fehlen durch beobachtete Variablen erklärt werden kann, ist es MAR. Option 3 ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig ist, unabhängig vom Stressniveau. Option 4 beschreibt zwar ein systematisches Muster, aber ob es MNAR ist, hängt davon ab, ob die fehlenden Schlafwerte vom Schlafwert selbst abhängen — das Szenario beschreibt eher MAR.
+Korrekt sind die Zuordnungen von `stress` zu MNAR und von `schlaf` zu MAR. `stress` fehlt nach MNAR — der hohe Stress selbst ist die Ursache für das Fehlen, d. h. das Fehlen hängt vom nicht beobachteten Wert der Variable ab. `schlaf` fehlt nach MAR — das Fehlen lässt sich durch die beobachtete Variable `schichtarbeit` erklären, nicht durch den Schlafwert selbst. Die Zuordnung von `stress` zu MCAR ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig und unabhängig vom Stressniveau ist, was dem Szenario widerspricht. Die Zuordnung von `schlaf` zu MNAR ist falsch — MNAR läge vor, wenn das Fehlen vom Schlafwert selbst abhinge; hier wird das Fehlen aber durch eine andere Variable (`schichtarbeit`) erklärt, was MAR entspricht.
 
 Meta-information
 ================

@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Option 2 ist der empfohlene erste Schritt: `readLines()` liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. Option 1 und 4 können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel (Option 3) kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.
+Der empfohlene erste Schritt ist `readLines()`: Diese Funktion liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. `read.csv()` und `read.table()` mit Standardeinstellungen können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.
 
 Meta-information
 ================

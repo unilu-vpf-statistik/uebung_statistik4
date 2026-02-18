@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1 und Option 2. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel (Option 1). Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener (Option 2). MAR bedeutet nicht vollständige Zufälligkeit (Option 3): Das Fehlen hängt von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. MNAR ist gerade deshalb problematisch (Option 4), weil das Fehlen systematisch und nicht zufällig ist — Analysen können dadurch verzerrt sein.
+Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.
 
 Meta-information
 ================

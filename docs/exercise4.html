@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -38,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -369,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(tidyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\n# --- Aufgabe 1: Tidy Data ---\n# Der Datensatz wm_daten enthält mehrere Fragebogen-Items in separaten Spalten.\n# Schauen Sie sich die Spalten an:\nhead(wm_daten)\n\n# Identifizieren Sie Spalten, die Werte eines Messzeitpunkts oder einer Skala\n# repräsentieren. Konvertieren Sie diese mit pivot_longer() ins lange Format.\n# Beispiel (passen Sie die Spaltennamen an):\n# wm_lang <- wm_daten |>\n#   pivot_longer(cols = c(spalte1, spalte2),\n#                names_to = \"variable\",\n#                values_to = \"wert\")\n\n# --- Aufgabe 2: Umkodierung ---\n# Prüfen Sie die Kodierungen der Gruppe-Variable in lab_daten:\ntable(lab_daten$group_raw)\n\n# Kodieren Sie inkonsistente Werte mit case_when() um:\n# lab_daten <- lab_daten |>\n#   mutate(gruppe = case_when(\n#     group_raw %in% c(\"KG\", \"Kontrolle\", \"control\") ~ \"Kontrolle\",\n#     group_raw %in% c(\"EG\", \"Experimental\") ~ \"Experimental\",\n#     TRUE ~ NA_character_\n#   ))","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(tidyr)\n\n# Daten einlesen (wie in Übung 3 erarbeitet)\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\n# ===========================================================\n# Aufgabe 1: Tidy Data — pivot_longer()\n# ===========================================================\n# Der wm_daten Datensatz hat drei Ergebnisvariablen in separaten Spalten:\n# wm_score, sleep_hours, stress_rating\nhead(wm_daten)\n\n# Problem: Wenn wir alle drei Maße gemeinsam visualisieren oder auswerten\n# wollen (z. B. mit ggplot2), brauchen wir sie in EINER Spalte.\n# Lösung: pivot_longer() bringt die drei Spalten ins lange Format.\n\nwm_lang <- wm_daten |>\n  pivot_longer(\n    cols      = c(wm_score, sleep_hours, stress_rating),\n    names_to  = \"measure\",\n    values_to = \"wert\"\n  )\n\nhead(wm_lang)\n\n# Vergleichen Sie die Zeilenzahl:\nnrow(wm_daten)   # 188 Zeilen (eine pro Person × Sitzung)\nnrow(wm_lang)    # 188 × 3 = 564 Zeilen (eine pro Person × Sitzung × Maß)\n\n# ===========================================================\n# Aufgabe 2: Umkodierung — mutate() + case_when()\n# ===========================================================\n# Schritt 1: Alle Ausprägungen von group_raw sichten\ntable(lab_daten$group_raw)\n# → Sie sehen viele verschiedene Schreibweisen für dieselben Gruppen:\n#   \"Kontrollgruppe\", \"Kontrolle\", \"CON\", \"control\", \"ctrl\"  → alle = KG\n#   \"Stress\"                                                 → Experimentalgruppe\n#   \"fehlend\", \"k.A.\", \"keine Angabe\", ...                   → eigentlich NA\n\n# Schritt 2: Einheitlich umkodieren mit mutate() + case_when()\nlab_daten <- lab_daten |>\n  mutate(gruppe = case_when(\n    group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\", \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n    group_raw == \"Stress\"                                                       ~ \"Stress\",\n    .default = NA_character_\n  ))\n\n# Schritt 3: Ergebnis prüfen\ntable(lab_daten$gruppe, useNA = \"always\")\n\n# ===========================================================\n# Aufgabe 3 (Bonus): Stringr — session_code bereinigen\n# ===========================================================\nlibrary(stringr)\n\n# session_code hat das Format \"X/4\" — wir wollen nur die Sitzungsnummer\nhead(wm_daten$session_code)   # z. B. \"1/4\", \"2/4\", ...\n\nwm_daten <- wm_daten |>\n  mutate(session = as.integer(str_extract(session_code, \"^\\\\d+\")))\n\ntable(wm_daten$session)\n\n# ===========================================================\n# Reflexionsfrage\n# ===========================================================\n# Welche Analyse ist mit wm_lang nun möglich, die mit wm_daten schwieriger wäre?\n# Tipp: Denken Sie an ggplot2 — was käme in aes(x = ..., color = ...)?","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1634,8 +1669,6 @@ globalThis.qwebrExecuteCode = async function (
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Übungen - VL: Statistik IV</span>
     </a>
@@ -1647,7 +1680,7 @@ globalThis.qwebrExecuteCode = async function (
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Übungen</span></a>
   </li>  
   <li class="nav-item">
@@ -1686,10 +1719,6 @@ globalThis.qwebrExecuteCode = async function (
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -2108,6 +2137,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="wiederholung-vertiefung-tidy-data-umkodierung" class="level2">
 <h2 class="anchored" data-anchor-id="wiederholung-vertiefung-tidy-data-umkodierung">Wiederholung &amp; Vertiefung: Tidy Data &amp; Umkodierung</h2>
 <p>In dieser Übung beschäftigen wir uns mit zwei grundlegenden Schritten der Datenaufbereitung: der Herstellung einer einheitlichen Datenstruktur nach dem <strong>Tidy-Data-Prinzip</strong> und der <strong>Umkodierung</strong> von Variablen, damit Werte inhaltlich konsistent und interpretierbar sind.</p>
+<p>In Übung 3 haben Sie die beiden Datensätze <code>WM_Fragebögen.csv</code> und <code>Lab_Kodierung.dat</code> importiert und auf Plausibilität geprüft. In dieser Übung greifen wir darauf zurück und bringen die Daten in eine analysefähige Struktur.</p>
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=1ELALQlO-yM">Tidy Data and tidyr Explained</a></li>
@@ -2155,10 +2185,26 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Auch wenn die Struktur stimmt, können die <strong>Werte</strong> inhaltlich problematisch sein. Typische Situationen:</p>
 <ul>
 <li><strong>Inkonsistente Kodierungen</strong>: <code>"KG"</code>, <code>"Kontrolle"</code> und <code>"control"</code> meinen dasselbe — R sieht drei verschiedene Gruppen</li>
-<li><strong>Implizite fehlende Werte</strong>: <code>"999"</code> oder <code>"-"</code> statt <code>NA</code></li>
+<li><strong>Implizite fehlende Werte</strong>: <code>"fehlend"</code>, <code>"k.A."</code> oder <code>"keine Angabe"</code> statt <code>NA</code></li>
 <li><strong>Falsche Skalenrichtung</strong>: Eine Item-Skala ist umgekehrt gepolt</li>
 </ul>
-<p>Die Funktion <code>case_when()</code> aus dem <code>dplyr</code>-Paket ist das Hauptwerkzeug für Umkodierungen.</p>
+<p><strong>Diagnostik vor der Umkodierung:</strong> Bevor man umkodiert, muss man wissen, was überhaupt vorhanden ist. Dafür eignen sich:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(datensatz<span class="sc">$</span>variable)    <span class="co"># zählt alle Ausprägungen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datensatz<span class="sc">$</span>variable)   <span class="co"># listet einmalige Werte auf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Umkodierungsfunktionen</strong> aus dem <code>dplyr</code>-Paket:</p>
+<ul>
+<li><code>mutate()</code> — erzeugt eine neue oder veränderte Spalte (Grundfunktion für alle Transformationen)</li>
+<li><code>case_when()</code> — weist verschiedenen Bedingungen unterschiedliche Werte zu (flexibel, auch für viele Kategorien)</li>
+<li><code>recode()</code> — direkte 1:1-Umbenennung von Werten (einfacher, aber weniger flexibel)</li>
+</ul>
+<p>Beispiel mit <code>case_when()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datensatz <span class="ot">&lt;-</span> datensatz <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gruppe_clean =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    gruppe_raw <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"KG"</span>, <span class="st">"Kontrolle"</span>, <span class="st">"control"</span>) <span class="sc">~</span> <span class="st">"KG"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    gruppe_raw <span class="sc">==</span> <span class="st">"EG"</span>                               <span class="sc">~</span> <span class="st">"EG"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="cn">NA_character_</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Tipp:</strong> Mit <code>stringr</code>-Funktionen lassen sich auch Zeichenketten transformieren, z. B. wenn eine Variable einen Wert wie <code>"1/4"</code> enthält und nur die Zahl <code>1</code> gebraucht wird.</p>
 </section>
 <section id="übungen" class="level2">
 <h2 class="anchored" data-anchor-id="übungen">Übungen</h2>
@@ -2170,34 +2216,34 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie haben einen Datensatz mit den Spalten <code>id</code>, <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code>. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem <code>tidyr</code>-Paket bringt diesen Datensatz in das Tidy-Data-Format?</p>
-<div id="webex-76624659120c93d93d0b54d94b2a52df" class="webex-radiogroup" data-answer="bAYaAxgGGQls">
-<label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>select()</code> — weil die unnötigen Spalten entfernt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>pivot_longer()</code> — weil die Spaltennamen (<code>score_t1</code> etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>full_join()</code> — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="76624659120c93d93d0b54d94b2a52df"><span><code>pivot_wider()</code> — weil die Daten von lang nach breit umstrukturiert werden müssen.</span></label>
+<div id="webex-d8ebe9e268bbee097017fde0f3384d45" class="webex-radiogroup" data-answer="PwlJUkkJSQJr">
+<label><input type="radio" autocomplete="off" name="d8ebe9e268bbee097017fde0f3384d45"><span><code>pivot_longer()</code> — weil die Spaltennamen (<code>score_t1</code> etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.</span></label><label><input type="radio" autocomplete="off" name="d8ebe9e268bbee097017fde0f3384d45"><span><code>select()</code> — weil die unnötigen Spalten entfernt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="d8ebe9e268bbee097017fde0f3384d45"><span><code>pivot_wider()</code> — weil die Daten von lang nach breit umstrukturiert werden müssen.</span></label><label><input type="radio" autocomplete="off" name="d8ebe9e268bbee097017fde0f3384d45"><span><code>full_join()</code> — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist Option 1. Die Spalten <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code> verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. <code>pivot_longer()</code> löst dieses Problem: Es erzeugt eine neue Variable <code>zeitpunkt</code> und eine neue Variable <code>score</code>, sodass jede Zeile genau eine Messung enthält. <code>pivot_wider()</code> (Option 2) macht das Gegenteil: es wandelt langes in breites Format um. <code>full_join()</code> (Option 3) führt zwei Datensätze zusammen. <code>select()</code> (Option 4) wählt Spalten aus und ändert die Struktur nicht.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen beschreiben das <strong>Tidy-Data-Prinzip</strong> korrekt?</p>
-<div id="webex-2168f3130e4a4d35666045bf6fc858f8" class="webex-checkboxgroup" data-answer="aQEaCEoCHQJt">
-<label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="2168f3130e4a4d35666045bf6fc858f8"><span>Jede Variable entspricht einer eigenen Spalte im Datensatz.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind Option 1 und Option 2. Tidy Data definiert eine klare Struktur: Eine Variable = eine Spalte (Option 1), eine Beobachtung = eine Zeile (Option 2). Fehlende Werte werden durch Tidy Data nicht automatisch entfernt (Option 3) — sie bleiben als <code>NA</code> erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp (Option 4): Spalten können numerisch, kategorisch oder als Text vorliegen.</p>
+<p>Korrekt ist <code>pivot_longer()</code>. Die Spalten <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code> verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. <code>pivot_longer()</code> löst dieses Problem: Es erzeugt eine neue Variable <code>zeitpunkt</code> und eine neue Variable <code>score</code>, sodass jede Zeile genau eine Messung enthält. <code>pivot_wider()</code> macht das Gegenteil: es wandelt langes in breites Format um. <code>full_join()</code> führt zwei Datensätze zusammen. <code>select()</code> wählt Spalten aus und ändert die Struktur nicht.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>In Ihrem Datensatz enthält die Variable <code>gruppe</code> die Werte <code>"KG"</code>, <code>"Kontrolle"</code> und <code>"control"</code> — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?</p>
-<div id="webex-b88a76e8e1aad961b1647d11ce9d2edf" class="webex-checkboxgroup" data-answer="OQkUURsHSQk4">
-<label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Das Problem lässt sich durch <code>pivot_longer()</code> beheben, da die Werte in verschiedene Spalten aufgeteilt werden.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Mit <code>case_when()</code> können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="b88a76e8e1aad961b1647d11ce9d2edf"><span>Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.</span></label>
+<div id="webex-1d5b94ecc1a61e305121ac1d40dcac90" class="webex-checkboxgroup" data-answer="alUZUxUESVI+">
+<label><input type="checkbox" autocomplete="off" name="1d5b94ecc1a61e305121ac1d40dcac90"><span>Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.</span></label><label><input type="checkbox" autocomplete="off" name="1d5b94ecc1a61e305121ac1d40dcac90"><span>Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.</span></label><label><input type="checkbox" autocomplete="off" name="1d5b94ecc1a61e305121ac1d40dcac90"><span>Das Problem lässt sich durch <code>pivot_longer()</code> beheben, da die Werte in verschiedene Spalten aufgeteilt werden.</span></label><label><input type="checkbox" autocomplete="off" name="1d5b94ecc1a61e305121ac1d40dcac90"><span>Mit <code>case_when()</code> können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind Option 1, Option 2 und Option 4. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (<code>"KG"</code>, <code>"Kontrolle"</code>, <code>"control"</code>), spricht man von einer inkonsistenten Kodierung (Option 1). R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppen-Vergleiche und alle darauf aufbauenden Analysen (Option 4). Mit <code>case_when()</code> lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen (Option 2). <code>pivot_longer()</code> (Option 3) verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.</p>
+<p>Korrekt sind die Aussagen zur inkonsistenten Kodierung, zu <code>case_when()</code> als Lösung, und zur Verzerrung von Analysen. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (<code>"KG"</code>, <code>"Kontrolle"</code>, <code>"control"</code>), spricht man von einer inkonsistenten Kodierung. R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppenvergleiche und alle darauf aufbauenden Analysen. Mit <code>case_when()</code> lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen. <code>pivot_longer()</code> verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Aussagen beschreiben das <strong>Tidy-Data-Prinzip</strong> korrekt?</p>
+<div id="webex-4afde38c8d709373f941b23a0478becd" class="webex-checkboxgroup" data-answer="b1FKVUkCFFNl">
+<label><input type="checkbox" autocomplete="off" name="4afde38c8d709373f941b23a0478becd"><span>Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.</span></label><label><input type="checkbox" autocomplete="off" name="4afde38c8d709373f941b23a0478becd"><span>Jede Variable entspricht einer eigenen Spalte im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="4afde38c8d709373f941b23a0478becd"><span>Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="4afde38c8d709373f941b23a0478becd"><span>Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind die Aussagen zu Variablen als Spalten und Beobachtungen als Zeilen. Tidy Data definiert eine klare Struktur: eine Variable = eine Spalte, eine Beobachtung = eine Zeile. Fehlende Werte werden durch Tidy Data nicht automatisch entfernt — sie bleiben als <code>NA</code> erhalten und müssen separat behandelt werden. Tidy Data macht keine Anforderungen an den Datentyp: Spalten können numerisch, kategorisch oder als Text vorliegen.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -1669,8 +1669,6 @@ globalThis.qwebrExecuteCode = async function (
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Übungen - VL: Statistik IV</span>
     </a>
@@ -1682,7 +1680,7 @@ globalThis.qwebrExecuteCode = async function (
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Übungen</span></a>
   </li>  
   <li class="nav-item">
@@ -1721,10 +1719,6 @@ globalThis.qwebrExecuteCode = async function (
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -2179,35 +2173,35 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Ihr R-Projekt liegt im Ordner <code>/Users/tom/Analysen/Studie_2026/</code>. Welcher der folgenden Ausdrücke erstellt mit dem <code>here</code>-Paket den <strong>korrekten relativen Pfad</strong> zur Datei <code>/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv</code>?</p>
-<div id="webex-415bfe380662aa4846c4cc620fe79d00" class="webex-radiogroup" data-answer="bwEZUkpUHwht">
-<label><input type="radio" autocomplete="off" name="415bfe380662aa4846c4cc620fe79d00"><span><code>here("Daten_Roh/rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="415bfe380662aa4846c4cc620fe79d00"><span><code>here("rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="415bfe380662aa4846c4cc620fe79d00"><span><code>here("Daten_Roh", "rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="415bfe380662aa4846c4cc620fe79d00"><span><code>here("/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv")</code></span></label>
+<p>Welche der folgenden Aussagen beschreiben <strong>Vorteile</strong> von R-Projekten (<code>.Rproj</code>-Dateien)?</p>
+<div id="webex-f54b422abfe0a6ce896de03244ab3484" class="webex-checkboxgroup" data-answer="PQQYUxgDHlE/">
+<label><input type="checkbox" autocomplete="off" name="f54b422abfe0a6ce896de03244ab3484"><span>Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.</span></label><label><input type="checkbox" autocomplete="off" name="f54b422abfe0a6ce896de03244ab3484"><span>RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.</span></label><label><input type="checkbox" autocomplete="off" name="f54b422abfe0a6ce896de03244ab3484"><span>Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.</span></label><label><input type="checkbox" autocomplete="off" name="f54b422abfe0a6ce896de03244ab3484"><span>R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 3 ist korrekt: <code>here("Daten_Roh", "rohdaten.csv")</code> — Das <code>here</code>-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Option 2 würde auch funktionieren (mit Schrägstrich), ist aber weniger portabel. Option 1 würde nur im Projektordner suchen (falsch). Option 4 verwendet einen absoluten Pfad, was dem Sinn von <code>here()</code> widerspricht.</p>
+<p>R-Projekte setzen das Arbeitsverzeichnis automatisch, merken sich offene Skripte und Einstellungen, und ermöglichen portables Übertragen des Projekts dank relativer Pfade. Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von <code>.Rproj</code>-Dateien.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen beschreiben <strong>Vorteile</strong> von R-Projekten (<code>.Rproj</code>-Dateien)?</p>
-<div id="webex-96f1585b3c883846a120a02c41fb7ae1" class="webex-checkboxgroup" data-answer="YgZKABkJGVNu">
-<label><input type="checkbox" autocomplete="off" name="96f1585b3c883846a120a02c41fb7ae1"><span>R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.</span></label><label><input type="checkbox" autocomplete="off" name="96f1585b3c883846a120a02c41fb7ae1"><span>Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.</span></label><label><input type="checkbox" autocomplete="off" name="96f1585b3c883846a120a02c41fb7ae1"><span>RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.</span></label><label><input type="checkbox" autocomplete="off" name="96f1585b3c883846a120a02c41fb7ae1"><span>Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.</span></label>
+<p>Ihr R-Projekt liegt im Ordner <code>/Users/tom/Analysen/Studie_2026/</code>. Welcher der folgenden Ausdrücke erstellt mit dem <code>here</code>-Paket den <strong>korrekten relativen Pfad</strong> zur Datei <code>/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv</code>?</p>
+<div id="webex-0672196896651171dc281b361e5114f6" class="webex-radiogroup" data-answer="awYbAh0IGghk">
+<label><input type="radio" autocomplete="off" name="0672196896651171dc281b361e5114f6"><span><code>here("rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="0672196896651171dc281b361e5114f6"><span><code>here("Daten_Roh/rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="0672196896651171dc281b361e5114f6"><span><code>here("Daten_Roh", "rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="0672196896651171dc281b361e5114f6"><span><code>here("/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv")</code></span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>R-Projekte setzen das Arbeitsverzeichnis automatisch (Option 1), merken sich offene Skripte (Option 2), und ermöglichen portables Übertragen des Projekts (Option 4). Die Rechengeschwindigkeit (Option 3) wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von <code>.Rproj</code>-Dateien.</p>
+<p>Korrekt ist <code>here("Daten_Roh", "rohdaten.csv")</code> — das <code>here</code>-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Die Variante mit Schrägstrich (<code>here("Daten_Roh/rohdaten.csv")</code>) würde zwar ohne Fehler funktionieren, entspricht aber nicht guter Coding-Praxis: Pfadbestandteile sollten als separate Argumente übergeben werden, damit <code>here()</code> die plattformspezifischen Trennzeichen korrekt setzen kann. <code>here("rohdaten.csv")</code> würde nur im Projektordner suchen und die Datei nicht finden. Die Variante mit absolutem Pfad widerspricht dem Sinn von <code>here()</code>.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Warum sollte <code>setwd()</code> in Analyseskripten <strong>nicht</strong> verwendet werden?</p>
-<div id="webex-4ef92ecc2a0cf951e6c14982c9d21f04" class="webex-checkboxgroup" data-answer="b1RKCR5VT1Jv">
-<label><input type="checkbox" autocomplete="off" name="4ef92ecc2a0cf951e6c14982c9d21f04"><span>Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt <code>setwd()</code> mit einem Fehler fehl, da der Pfad nicht existiert.</span></label><label><input type="checkbox" autocomplete="off" name="4ef92ecc2a0cf951e6c14982c9d21f04"><span><code>setwd()</code> ist langsamer als <code>here()</code> bei der Pfadauflösung.</span></label><label><input type="checkbox" autocomplete="off" name="4ef92ecc2a0cf951e6c14982c9d21f04"><span><code>setwd()</code> kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.</span></label><label><input type="checkbox" autocomplete="off" name="4ef92ecc2a0cf951e6c14982c9d21f04"><span>Der mit <code>setwd()</code> gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.</span></label>
+<div id="webex-850642773304d9b19c768cd64c89a879" class="webex-checkboxgroup" data-answer="YwQcBxgCGwdu">
+<label><input type="checkbox" autocomplete="off" name="850642773304d9b19c768cd64c89a879"><span>Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt <code>setwd()</code> mit einem Fehler fehl, da der Pfad nicht existiert.</span></label><label><input type="checkbox" autocomplete="off" name="850642773304d9b19c768cd64c89a879"><span>Der mit <code>setwd()</code> gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.</span></label><label><input type="checkbox" autocomplete="off" name="850642773304d9b19c768cd64c89a879"><span><code>setwd()</code> ist langsamer als <code>here()</code> bei der Pfadauflösung.</span></label><label><input type="checkbox" autocomplete="off" name="850642773304d9b19c768cd64c89a879"><span><code>setwd()</code> kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Die Kernprobleme mit <code>setwd()</code> sind Option 2 und Option 4: Der absolute Pfad ist systemspezifisch und führt auf anderen Computern zu Fehlern. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. <code>here()</code> löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut.</p>
+<p>Die Kernprobleme mit <code>setwd()</code> sind, dass der absolute Pfad nur auf dem eigenen Computer funktioniert und dass das Skript auf anderen Computern mit einem Fehler fehlschlägt, da der Pfad nicht existiert. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. <code>here()</code> löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut. Die Aussage zur Geschwindigkeit ist falsch — <code>setwd()</code> und <code>here()</code> unterscheiden sich nicht in der Performance. Die Aussage zu R-Markdown/Quarto ist ebenfalls falsch — <code>setwd()</code> kann dort verwendet werden, ist aber nicht empfohlen.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Reproduzierbare Analysen erfordern dokumentierte Skripte (Option 1), relative Pfade (Option 2) und kontrollierten Zufall durch `set.seed()` (Option 4). Die Geschwindigkeit des Computers (Option 3) hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.
+Reproduzierbare Analysen erfordern dokumentierte Skripte, relative Pfade mit `here()` und kontrollierten Zufall durch `set.seed()`. Die Geschwindigkeit des Computers hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.
 
 Meta-information
 ================

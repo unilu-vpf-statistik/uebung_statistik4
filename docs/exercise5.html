@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -1634,8 +1634,6 @@ globalThis.qwebrExecuteCode = async function (
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Übungen - VL: Statistik IV</span>
     </a>
@@ -1647,7 +1645,7 @@ globalThis.qwebrExecuteCode = async function (
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Übungen</span></a>
   </li>  
   <li class="nav-item">
@@ -1686,10 +1684,6 @@ globalThis.qwebrExecuteCode = async function (
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -2176,35 +2170,35 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
-<div id="webex-b94b7dee20b0ac2e58862013ad057c95" class="webex-checkboxgroup" data-answer="OQkYUxtVSVVv">
-<label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="b94b7dee20b0ac2e58862013ad057c95"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label>
+<p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
+<div id="webex-591d290e4e540ef6fdcf90e06d69adf5" class="webex-checkboxgroup" data-answer="bgkdVR4JHFRp">
+<label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind Option 1 und Option 2. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel (Option 1). Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener (Option 2). MAR bedeutet nicht vollständige Zufälligkeit (Option 3): Das Fehlen hängt von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. MNAR ist gerade deshalb problematisch (Option 4), weil das Fehlen systematisch und nicht zufällig ist — Analysen können dadurch verzerrt sein.</p>
+<p>Korrekt sind die Aussagen zur IQR-Regel und zum z-Score-Kriterium. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 — in R: <code>Q1 - 1.5 * IQR(x)</code> und <code>Q3 + 1.5 * IQR(x)</code>. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser. Ausreisser müssen nicht zwingend entfernt werden: Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen, da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs.&nbsp;Mittelwert/SD) und bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren können.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
+<div id="webex-81e7f275b67282a2f9c585f52c527432" class="webex-checkboxgroup" data-answer="YwFJB0oDGwQ/">
+<label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
-<div id="webex-8332a89222ff6d5f88c115e5cad9fbf7" class="webex-radiogroup" data-answer="YwMfAk0IFQNv">
-<label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="8332a89222ff6d5f88c115e5cad9fbf7"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label>
+<div id="webex-7f0e932b1050a573cad4ac58e370c176" class="webex-radiogroup" data-answer="bFccVRUDHlJs">
+<label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist Option 1. <code>colSums(is.na(daten))</code> kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> (Option 2) gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> (Option 3) und <code>complete.cases()</code> (Option 4) identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
-<div id="webex-96ebbc10112b7ce9509da92136ff55bb" class="webex-checkboxgroup" data-answer="YgdJUk5SHQBs">
-<label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="96ebbc10112b7ce9509da92136ff55bb"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind Option 1 und Option 2. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 (Option 1) — in R: <code>Q1 - 1.5 * IQR(x)</code> und <code>Q3 + 1.5 * IQR(x)</code>. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser (Option 2). Ausreisser müssen nicht zwingend entfernt werden (Option 3): Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen (Option 4): Da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs.&nbsp;Mittelwert/SD), können sie bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren.</p>
+<p>Korrekt ist <code>colSums(is.na(daten))</code>. Diese Funktion kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> und <code>complete.cases()</code> identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
