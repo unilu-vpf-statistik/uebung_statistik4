@@ -10,7 +10,22 @@ Diese Seite enthält Checklisten für die wichtigsten Schritte einer reproduzier
 
 ---
 
-## Checkliste 1: Neues R-Projekt anlegen
+## Checkliste 1: Reproduzierbare Analyse
+
+Abschluss-Checkliste für die vollständige Reproduzierbarkeit.
+
+- [ ] **Alle Pakete laden**: `library()`-Befehle am Anfang des Skripts — kein `library()` mitten im Code
+- [ ] **`set.seed()` verwenden**: Bei allen Zufallsprozessen am Anfang des Skripts
+- [ ] **Relative Pfade**: Nur `here()` verwenden, kein `setwd()`, keine absoluten Pfade
+- [ ] **Skript-Reihenfolge**: Skripte nummerieren (z. B. `01_einlesen.R`, `02_bereinigung.R`)
+- [ ] **Sauberes Environment**: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)
+- [ ] **Session-Informationen dokumentieren**: `sessionInfo()` am Ende des Skripts oder in einem separaten Log
+- [ ] **Kommentare**: Jeder nicht-triviale Schritt ist mit `#` kommentiert
+- [ ] **Versionierung**: Änderungen mit Git tracken (optional aber empfohlen)
+
+---
+
+## Checkliste 2: Neues R-Projekt anlegen
 
 Bevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.
 
@@ -32,7 +47,7 @@ Bevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.
 
 ---
 
-## Checkliste 2: Dateiformat identifizieren
+## Checkliste 3: Dateiformat identifizieren
 
 Bevor Sie Daten einlesen, prüfen Sie das Dateiformat.
 
@@ -57,7 +72,7 @@ Bevor Sie Daten einlesen, prüfen Sie das Dateiformat.
 
 ---
 
-## Checkliste 3: Daten Validieren (3 Ebenen)
+## Checkliste 4: Daten Validieren (3 Ebenen)
 
 Nach dem Einlesen immer systematisch validieren.
 
@@ -85,23 +100,6 @@ Nach dem Einlesen immer systematisch validieren.
 
 ---
 
-## Checkliste 4: Daten Aufbereiten
-
-Systematische Datenbereinigung nach der Validierung.
-
-- [ ] **Skript dokumentieren**: Kommentare für jeden Bereinigungsschritt
-- [ ] **Rohdaten nicht verändern**: Immer mit einer Kopie arbeiten
-- [ ] **Spaltennamen bereinigen**: `janitor::clean_names(daten)` — Einheitliche Kleinschreibung
-- [ ] **Datentypen korrigieren**: `as.numeric()`, `as.character()`, `as.factor()`
-- [ ] **Versteckte fehlende Werte ersetzen**: `na_if(daten$var, "999")`
-- [ ] **Inkonsistente Kategorien rekodieren**: `case_when()` für systematische Umkodierung
-- [ ] **Variablen umbenennen**: `rename(daten, neuer_name = alter_name)`
-- [ ] **Neue Variablen berechnen**: `mutate(daten, z_score = scale(rohwert))`
-- [ ] **Ergebnis validieren**: Nach jeder Bereinigung `str()` und `summary()` aufrufen
-- [ ] **Aufbereitete Daten speichern**: `write.csv(daten_clean, here("Daten_Verarbeitet", "daten_clean.csv"))`
-
----
-
 ## Checkliste 5: Tidy Data
 
 Prüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchführen.
@@ -126,15 +124,42 @@ Prüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchfü
 
 ---
 
-## Checkliste 6: Reproduzierbare Analyse
+## Checkliste 6: Daten Aufbereiten
 
-Abschluss-Checkliste für die vollständige Reproduzierbarkeit.
+Systematische Datenbereinigung nach der Validierung.
 
-- [ ] **Alle Pakete laden**: `library()`-Befehle am Anfang des Skripts — kein `library()` mitten im Code
-- [ ] **`set.seed()` verwenden**: Bei allen Zufallsprozessen am Anfang des Skripts
-- [ ] **Relative Pfade**: Nur `here()` verwenden, kein `setwd()`, keine absoluten Pfade
-- [ ] **Skript-Reihenfolge**: Skripte nummerieren (z. B. `01_einlesen.R`, `02_bereinigung.R`)
-- [ ] **Sauberes Environment**: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)
-- [ ] **Session-Informationen dokumentieren**: `sessionInfo()` am Ende des Skripts oder in einem separaten Log
-- [ ] **Kommentare**: Jeder nicht-triviale Schritt ist mit `#` kommentiert
-- [ ] **Versionierung**: Änderungen mit Git tracken (optional aber empfohlen)
+- [ ] **Skript dokumentieren**: Kommentare für jeden Bereinigungsschritt
+- [ ] **Rohdaten nicht verändern**: Immer mit einer Kopie arbeiten
+- [ ] **Spaltennamen bereinigen**: `janitor::clean_names(daten)` — Einheitliche Kleinschreibung
+- [ ] **Datentypen korrigieren**: `as.numeric()`, `as.character()`, `as.factor()`
+- [ ] **Versteckte fehlende Werte ersetzen**: `na_if(daten$var, "999")`
+- [ ] **Inkonsistente Kategorien rekodieren**: `case_when()` für systematische Umkodierung
+- [ ] **Variablen umbenennen**: `rename(daten, neuer_name = alter_name)`
+- [ ] **Neue Variablen berechnen**: `mutate(daten, z_score = scale(rohwert))`
+- [ ] **Ergebnis validieren**: Nach jeder Bereinigung `str()` und `summary()` aufrufen
+- [ ] **Aufbereitete Daten speichern**: `write.csv(daten_clean, here("Daten_Verarbeitet", "daten_clean.csv"))`
+
+---
+
+## Checkliste 7: Fehlende Werte & Ausreisser
+
+Prüfen und begründet umgehen mit fehlenden Werten und extremen Beobachtungen.
+
+### Fehlende Werte
+
+- [ ] **Fehlende Werte zählen**: `colSums(is.na(daten))` — Wie viele Werte fehlen pro Variable?
+- [ ] **Fehlmechanismus einschätzen**:
+  - **MCAR** (Missing Completely At Random): Fehlen ist zufällig, unabhängig von allen Variablen
+  - **MAR** (Missing At Random): Fehlen hängt von *beobachteten* anderen Variablen ab
+  - **MNAR** (Missing Not At Random): Fehlen hängt vom Wert selbst ab (nicht beobachtbar)
+- [ ] **Entscheidung dokumentieren**: Begründeter Umgang abhängig vom Fehlmechanismus
+- [ ] **Listwise Deletion**: `na.omit(daten)` oder `filter(!is.na(variable))` — nur sinnvoll bei MCAR
+- [ ] **Einfache Imputation**: `replace_na(list(var = median(daten$var, na.rm = TRUE)))` — nur bei MAR
+
+### Ausreisser
+
+- [ ] **Ausreisser visualisieren**: Boxplot — Punkte jenseits der Whisker als potenzielle Ausreisser
+- [ ] **z-Werte berechnen**: `scale(daten$var)` — Werte mit |z| > 3 als extreme Ausreisser
+- [ ] **IQR-Methode**: Werte unterhalb Q1 − 1.5×IQR oder oberhalb Q3 + 1.5×IQR
+- [ ] **Ausreisser dokumentieren**: Anzahl, betroffene Fälle, betroffene Variablen
+- [ ] **Entscheidung begründen**: Ausreisser entfernen, winsorisieren oder beibehalten — immer dokumentieren

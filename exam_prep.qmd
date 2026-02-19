@@ -69,7 +69,7 @@ shuffled_questions_03 <- sample(exam_files_03)
 exams2forms(shuffled_questions_03, mathjax = TRUE)
 ```
 
-### Datenaufbereitung I
+### Datenaufbereitung I: Tidy Data & Umkodierung
 
 ```{r print_questions_04}
 #| echo: false
@@ -84,7 +84,7 @@ shuffled_questions_04 <- sample(exam_files_04)
 exams2forms(shuffled_questions_04, mathjax = TRUE)
 ```
 
-### Datenaufbereitung II: Tidy Data
+### Datenaufbereitung II: Fehlende Werte & Ausreisser
 
 ```{r print_questions_05}
 #| echo: false
