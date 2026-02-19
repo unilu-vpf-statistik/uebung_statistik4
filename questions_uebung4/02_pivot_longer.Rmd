@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist Option 1. Die Spalten `score_t1`, `score_t2` und `score_t3` verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. `pivot_longer()` löst dieses Problem: Es erzeugt eine neue Variable `zeitpunkt` und eine neue Variable `score`, sodass jede Zeile genau eine Messung enthält. `pivot_wider()` (Option 2) macht das Gegenteil: es wandelt langes in breites Format um. `full_join()` (Option 3) führt zwei Datensätze zusammen. `select()` (Option 4) wählt Spalten aus und ändert die Struktur nicht.
+Korrekt ist `pivot_longer()`. Die Spalten `score_t1`, `score_t2` und `score_t3` verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. `pivot_longer()` löst dieses Problem: Es erzeugt eine neue Variable `zeitpunkt` und eine neue Variable `score`, sodass jede Zeile genau eine Messung enthält. `pivot_wider()` macht das Gegenteil: es wandelt langes in breites Format um. `full_join()` führt zwei Datensätze zusammen. `select()` wählt Spalten aus und ändert die Struktur nicht.
 
 Meta-information
 ================

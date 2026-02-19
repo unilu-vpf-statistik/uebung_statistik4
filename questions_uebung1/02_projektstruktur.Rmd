@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1 und Option 3. Separate Unterordner (Option 1) ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden (Option 3), weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur (Option 2) wird schnell unübersichtlich. Desktop-Speicherung (Option 4) führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.
+Korrekt sind die Aussagen zu separaten Unterordnern und zum Schutz der Rohdaten. Separate Unterordner ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden, weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur wird schnell unübersichtlich. Desktop-Speicherung führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.
 
 Meta-information
 ================

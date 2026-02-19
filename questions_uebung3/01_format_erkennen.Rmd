@@ -20,7 +20,7 @@ Answerlist
 
 Solution
 ========
-Aus der Ausgabe von `readLines()` erkennt man: Das Trennzeichen ist ein Semikolon (Option 1 korrekt, Option 4 falsch), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich (Option 2 korrekt), und die erste Zeile enthält Spaltennamen (Option 3 korrekt). Für dieses Format verwendet man `read.csv2()` oder `read.table(sep = ";", dec = ",")`.
+Aus der Ausgabe von `readLines()` erkennt man: Das Trennzeichen ist ein Semikolon (nicht ein Komma), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich, und die erste Zeile enthält Spaltennamen (Header). Für dieses Format verwendet man `read.csv2()` oder `read.table(sep = ";", dec = ",")`.
 
 Meta-information
 ================

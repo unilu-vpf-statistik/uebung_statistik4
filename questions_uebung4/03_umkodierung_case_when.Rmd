@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1, Option 2 und Option 4. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (`"KG"`, `"Kontrolle"`, `"control"`), spricht man von einer inkonsistenten Kodierung (Option 1). R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppen-Vergleiche und alle darauf aufbauenden Analysen (Option 4). Mit `case_when()` lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen (Option 2). `pivot_longer()` (Option 3) verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.
+Korrekt sind die Aussagen zur inkonsistenten Kodierung, zu `case_when()` als Lösung, und zur Verzerrung von Analysen. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (`"KG"`, `"Kontrolle"`, `"control"`), spricht man von einer inkonsistenten Kodierung. R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppenvergleiche und alle darauf aufbauenden Analysen. Mit `case_when()` lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen. `pivot_longer()` verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.
 
 Meta-information
 ================

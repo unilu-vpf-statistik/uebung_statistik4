@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Option 1, 2 und 3 beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Option 4 ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.
+Die Aussagen zur Struktur-Ebene, Werte-Ebene und Konsistenz-Ebene beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Die Aussage, die Reihenfolge sei beliebig, ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.
 
 Meta-information
 ================

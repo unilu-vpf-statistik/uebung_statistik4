@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1 und Option 2. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 (Option 1) — in R: `Q1 - 1.5 * IQR(x)` und `Q3 + 1.5 * IQR(x)`. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser (Option 2). Ausreisser müssen nicht zwingend entfernt werden (Option 3): Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen (Option 4): Da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs. Mittelwert/SD), können sie bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren.
+Korrekt sind die Aussagen zur IQR-Regel und zum z-Score-Kriterium. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 — in R: `Q1 - 1.5 * IQR(x)` und `Q3 + 1.5 * IQR(x)`. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser. Ausreisser müssen nicht zwingend entfernt werden: Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen, da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs. Mittelwert/SD) und bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren können.
 
 Meta-information
 ================

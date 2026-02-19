@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Sowohl Option 2 als auch Option 3 sind korrekt. `read.csv2()` ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). `read.table()` mit den entsprechenden Argumenten (Option 3) erreicht dasselbe Ergebnis. `read.csv()` (Option 1) verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format). `read.delim()` (Option 4) liest Tab-getrennte Dateien ein.
+Korrekt sind `read.csv2()` und `read.table()` mit den Argumenten `sep = ";"` und `dec = ","`. `read.csv2()` ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). `read.table()` mit den entsprechenden Argumenten erreicht dasselbe Ergebnis. `read.csv()` verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format) und ist hier falsch. `read.delim()` liest Tab-getrennte Dateien ein und passt ebenfalls nicht.
 
 Meta-information
 ================

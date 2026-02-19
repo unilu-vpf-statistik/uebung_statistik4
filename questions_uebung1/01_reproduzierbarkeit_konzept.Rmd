@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Eine reproduzierbare Analyse dokumentiert alle Schritte in Skripten (Option 1) und verwendet relative Pfade statt absoluter Pfade (Option 3), damit das Projekt auf anderen Computern ausgeführt werden kann. Excel-Screenshots (Option 2) sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. `setwd()` (Option 4) setzt absolute Pfade, die auf anderen Computern nicht funktionieren.
+Eine reproduzierbare Analyse dokumentiert alle Schritte in Skripten und verwendet relative Pfade statt absoluter Pfade, damit das Projekt auf anderen Computern ausgeführt werden kann. Point-and-Click-Analysen mit Excel-Screenshots sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. `setwd()` setzt absolute Pfade, die auf anderen Computern nicht funktionieren — auch das widerspricht dem Prinzip der Reproduzierbarkeit.
 
 Meta-information
 ================

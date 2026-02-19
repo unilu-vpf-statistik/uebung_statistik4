@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Die Kernprobleme mit `setwd()` sind Option 2 und Option 4: Der absolute Pfad ist systemspezifisch und führt auf anderen Computern zu Fehlern. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. `here()` löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut.
+Die Kernprobleme mit `setwd()` sind, dass der absolute Pfad nur auf dem eigenen Computer funktioniert und dass das Skript auf anderen Computern mit einem Fehler fehlschlägt, da der Pfad nicht existiert. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. `here()` löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut. Die Aussage zur Geschwindigkeit ist falsch — `setwd()` und `here()` unterscheiden sich nicht in der Performance. Die Aussage zu R-Markdown/Quarto ist ebenfalls falsch — `setwd()` kann dort verwendet werden, ist aber nicht empfohlen.
 
 Meta-information
 ================

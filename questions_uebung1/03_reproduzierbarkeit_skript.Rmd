@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind Option 1 und Option 3. Wenn alle Pakete explizit geladen werden (Option 1), ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft (Option 3), kann von anderen exakt reproduziert werden. Fehlende Kommentare (Option 2) erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel (Option 4) unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.
+Korrekt sind die Aussagen zum expliziten Laden der Pakete mit `library()` und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.
 
 Meta-information
 ================

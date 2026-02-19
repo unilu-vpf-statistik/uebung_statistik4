@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-R-Projekte setzen das Arbeitsverzeichnis automatisch (Option 1), merken sich offene Skripte (Option 2), und ermöglichen portables Übertragen des Projekts (Option 4). Die Rechengeschwindigkeit (Option 3) wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von `.Rproj`-Dateien.
+R-Projekte setzen das Arbeitsverzeichnis automatisch, merken sich offene Skripte und Einstellungen, und ermöglichen portables Übertragen des Projekts dank relativer Pfade. Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von `.Rproj`-Dateien.
 
 Meta-information
 ================

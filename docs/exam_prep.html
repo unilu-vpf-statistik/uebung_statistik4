@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -81,8 +81,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Übungen - VL: Statistik IV</span>
     </a>
@@ -94,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Übungen</span></a>
   </li>  
   <li class="nav-item">
@@ -133,10 +131,6 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -281,12 +275,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Praktiken sind <strong>notwendig</strong> für eine vollständig reproduzierbare Datenanalyse?</p>
-<div id="webex-1d14d642062c2b01f6dfd77986504a38" class="webex-checkboxgroup" data-answer="alUdBEgHGANt">
-<label><input type="checkbox" autocomplete="off" name="1d14d642062c2b01f6dfd77986504a38"><span>Alle Analyseschritte werden in R-Skripten dokumentiert statt manuell in Tabellenprogrammen durchgeführt.</span></label><label><input type="checkbox" autocomplete="off" name="1d14d642062c2b01f6dfd77986504a38"><span>Die Analyse wird auf einem schnellen Computer durchgeführt, damit die Ergebnisse schnell berechnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="1d14d642062c2b01f6dfd77986504a38"><span><code>set.seed()</code> wird bei allen Zufallsprozessen verwendet, um identische Ergebnisse zu gewährleisten.</span></label><label><input type="checkbox" autocomplete="off" name="1d14d642062c2b01f6dfd77986504a38"><span>Relative Pfade mit <code>here()</code> werden verwendet, sodass das Projekt auf anderen Computern ausführbar ist.</span></label>
+<div id="webex-56fb66573090cd909680285f7639e4d9" class="webex-checkboxgroup" data-answer="bgdKUxoGGQZu">
+<label><input type="checkbox" autocomplete="off" name="56fb66573090cd909680285f7639e4d9"><span>Relative Pfade mit <code>here()</code> werden verwendet, sodass das Projekt auf anderen Computern ausführbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="56fb66573090cd909680285f7639e4d9"><span><code>set.seed()</code> wird bei allen Zufallsprozessen verwendet, um identische Ergebnisse zu gewährleisten.</span></label><label><input type="checkbox" autocomplete="off" name="56fb66573090cd909680285f7639e4d9"><span>Die Analyse wird auf einem schnellen Computer durchgeführt, damit die Ergebnisse schnell berechnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="56fb66573090cd909680285f7639e4d9"><span>Alle Analyseschritte werden in R-Skripten dokumentiert statt manuell in Tabellenprogrammen durchgeführt.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Reproduzierbare Analysen erfordern dokumentierte Skripte (Option 1), relative Pfade (Option 2) und kontrollierten Zufall durch <code>set.seed()</code> (Option 4). Die Geschwindigkeit des Computers (Option 3) hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.</p>
+<p>Reproduzierbare Analysen erfordern dokumentierte Skripte, relative Pfade mit <code>here()</code> und kontrollierten Zufall durch <code>set.seed()</code>. Die Geschwindigkeit des Computers hat keinen Einfluss auf die Reproduzierbarkeit — das Ergebnis muss unabhängig vom verwendeten System identisch sein.</p>
 </div>
 </div>
 </section>
@@ -295,12 +289,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussage beschreibt am besten den <strong>Hauptvorteil</strong> des <code>here</code>-Pakets gegenüber <code>setwd()</code>?</p>
-<div id="webex-cb2efdf3c71207a1a0207e5d9c35a06f" class="webex-radiogroup" data-answer="OFIeVEpUSgM+">
-<label><input type="radio" autocomplete="off" name="cb2efdf3c71207a1a0207e5d9c35a06f"><span><code>here()</code> kann automatisch fehlende Dateien herunterladen.</span></label><label><input type="radio" autocomplete="off" name="cb2efdf3c71207a1a0207e5d9c35a06f"><span><code>here()</code> baut Pfade relativ zum R-Projektordner, sodass Skripte auf verschiedenen Computern ohne Änderungen funktionieren.</span></label><label><input type="radio" autocomplete="off" name="cb2efdf3c71207a1a0207e5d9c35a06f"><span><code>here()</code> funktioniert auch ohne eine <code>.Rproj</code>-Datei.</span></label><label><input type="radio" autocomplete="off" name="cb2efdf3c71207a1a0207e5d9c35a06f"><span><code>here()</code> ist schneller als <code>setwd()</code> beim Lesen grosser Dateien.</span></label>
+<div id="webex-f51cff2bfebb8160fdcefa17a80c9924" class="webex-radiogroup" data-answer="PQUdU0pXHlI7">
+<label><input type="radio" autocomplete="off" name="f51cff2bfebb8160fdcefa17a80c9924"><span><code>here()</code> kann automatisch fehlende Dateien herunterladen.</span></label><label><input type="radio" autocomplete="off" name="f51cff2bfebb8160fdcefa17a80c9924"><span><code>here()</code> funktioniert auch ohne eine <code>.Rproj</code>-Datei.</span></label><label><input type="radio" autocomplete="off" name="f51cff2bfebb8160fdcefa17a80c9924"><span><code>here()</code> baut Pfade relativ zum R-Projektordner, sodass Skripte auf verschiedenen Computern ohne Änderungen funktionieren.</span></label><label><input type="radio" autocomplete="off" name="f51cff2bfebb8160fdcefa17a80c9924"><span><code>here()</code> ist schneller als <code>setwd()</code> beim Lesen grosser Dateien.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 2 ist der Hauptvorteil von <code>here()</code>: Pfade werden relativ zum Projektordner aufgebaut. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu <code>setwd()</code>, das einen absoluten Pfad setzt. <code>here()</code> ist nicht schneller beim Lesen (Option 1 falsch) und kann keine Dateien herunterladen (Option 3 falsch). Option 4 ist teilweise wahr — <code>here()</code> kann auch ohne <code>.Rproj</code> arbeiten, aber R-Projekte sind die empfohlene Grundlage.</p>
+<p>Der Hauptvorteil von <code>here()</code> ist, dass Pfade relativ zum Projektordner aufgebaut werden. Das bedeutet, dass ein Skript auf jedem Computer funktioniert, solange die Projektstruktur identisch ist — im Gegensatz zu <code>setwd()</code>, das einen absoluten Pfad setzt. <code>here()</code> ist nicht schneller beim Lesen und kann keine Dateien herunterladen. <code>here()</code> funktioniert zwar technisch auch ohne <code>.Rproj</code>-Datei, dies entspricht aber nicht guter Coding-Praxis: Ohne R-Projekt fehlt die klare Verankerung des Arbeitsverzeichnisses, und die Reproduzierbarkeit des Skripts ist nicht mehr gewährleistet.</p>
 </div>
 </div>
 </section>
@@ -309,12 +303,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie erhalten eine unbekannte Datendatei <code>messdaten.dat</code>. Welche der folgenden Vorgehensweisen ist der <strong>empfohlene erste Schritt</strong> zum Einlesen dieser Datei?</p>
-<div id="webex-ba9f1387083c813819161f5ee1b38c20" class="webex-radiogroup" data-answer="OVEVVh0DFAZt">
-<label><input type="radio" autocomplete="off" name="ba9f1387083c813819161f5ee1b38c20"><span>Sofort <code>read.csv("messdaten.dat")</code> ausführen und das Ergebnis inspizieren.</span></label><label><input type="radio" autocomplete="off" name="ba9f1387083c813819161f5ee1b38c20"><span>Die Datei in Excel öffnen, um sie zu inspizieren.</span></label><label><input type="radio" autocomplete="off" name="ba9f1387083c813819161f5ee1b38c20"><span><code>read.table("messdaten.dat")</code> mit Standardeinstellungen ausführen.</span></label><label><input type="radio" autocomplete="off" name="ba9f1387083c813819161f5ee1b38c20"><span><code>readLines("messdaten.dat", n = 5)</code> ausführen, um das Dateiformat zu identifizieren.</span></label>
+<div id="webex-8e7ee35ec559cebdda7ab56b98ac2611" class="webex-radiogroup" data-answer="Y1UbVUkDGVQ+">
+<label><input type="radio" autocomplete="off" name="8e7ee35ec559cebdda7ab56b98ac2611"><span>Sofort <code>read.csv("messdaten.dat")</code> ausführen und das Ergebnis inspizieren.</span></label><label><input type="radio" autocomplete="off" name="8e7ee35ec559cebdda7ab56b98ac2611"><span><code>read.table("messdaten.dat")</code> mit Standardeinstellungen ausführen.</span></label><label><input type="radio" autocomplete="off" name="8e7ee35ec559cebdda7ab56b98ac2611"><span>Die Datei in Excel öffnen, um sie zu inspizieren.</span></label><label><input type="radio" autocomplete="off" name="8e7ee35ec559cebdda7ab56b98ac2611"><span><code>readLines("messdaten.dat", n = 5)</code> ausführen, um das Dateiformat zu identifizieren.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 2 ist der empfohlene erste Schritt: <code>readLines()</code> liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. Option 1 und 4 können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel (Option 3) kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.</p>
+<p>Der empfohlene erste Schritt ist <code>readLines()</code>: Diese Funktion liest die rohen Textzeilen und zeigt Trennzeichen, Dezimaltrennzeichen, Header und Kodierung an — ohne die Datei zu verändern. Erst dann wählt man die passende Einlesefunktion. <code>read.csv()</code> und <code>read.table()</code> mit Standardeinstellungen können fehlschlagen oder falsche Ergebnisse liefern, wenn die Standardeinstellungen nicht zum Format passen. Excel kann Datenformate verändern und eignet sich nicht als Teil eines reproduzierbaren Workflows.</p>
 </div>
 </div>
 </section>
@@ -323,12 +317,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen zur <strong>3-Ebenen-Validierung</strong> von Datensätzen sind korrekt?</p>
-<div id="webex-8bb873245d6ae710eb884c01f7f67146" class="webex-checkboxgroup" data-answer="Y1NOCBsCHgVo">
-<label><input type="checkbox" autocomplete="off" name="8bb873245d6ae710eb884c01f7f67146"><span>Ebene 2 (Werte) prüft Wertebereich, fehlende Werte und Häufigkeiten mit <code>summary()</code>, <code>colSums(is.na())</code> und <code>table()</code>.</span></label><label><input type="checkbox" autocomplete="off" name="8bb873245d6ae710eb884c01f7f67146"><span>Die Validierungsreihenfolge ist beliebig — man kann mit jeder Ebene beginnen.</span></label><label><input type="checkbox" autocomplete="off" name="8bb873245d6ae710eb884c01f7f67146"><span>Ebene 3 (Konsistenz) prüft Duplikate und ID-Übereinstimmungen zwischen Datensätzen mit <code>duplicated()</code> und <code>intersect()</code>.</span></label><label><input type="checkbox" autocomplete="off" name="8bb873245d6ae710eb884c01f7f67146"><span>Ebene 1 (Struktur) prüft Dimensionen, Variablennamen und Datentypen mit Funktionen wie <code>dim()</code>, <code>names()</code> und <code>str()</code>.</span></label>
+<div id="webex-e627a46f21ef947473d141c687e362db" class="webex-checkboxgroup" data-answer="PgYeBk0FGldv">
+<label><input type="checkbox" autocomplete="off" name="e627a46f21ef947473d141c687e362db"><span>Die Validierungsreihenfolge ist beliebig — man kann mit jeder Ebene beginnen.</span></label><label><input type="checkbox" autocomplete="off" name="e627a46f21ef947473d141c687e362db"><span>Ebene 3 (Konsistenz) prüft Duplikate und ID-Übereinstimmungen zwischen Datensätzen mit <code>duplicated()</code> und <code>intersect()</code>.</span></label><label><input type="checkbox" autocomplete="off" name="e627a46f21ef947473d141c687e362db"><span>Ebene 1 (Struktur) prüft Dimensionen, Variablennamen und Datentypen mit Funktionen wie <code>dim()</code>, <code>names()</code> und <code>str()</code>.</span></label><label><input type="checkbox" autocomplete="off" name="e627a46f21ef947473d141c687e362db"><span>Ebene 2 (Werte) prüft Wertebereich, fehlende Werte und Häufigkeiten mit <code>summary()</code>, <code>colSums(is.na())</code> und <code>table()</code>.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1, 2 und 3 beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Option 4 ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.</p>
+<p>Die Aussagen zur Struktur-Ebene, Werte-Ebene und Konsistenz-Ebene beschreiben die 3 Ebenen der Validierung korrekt. Die Ebenen bauen logisch aufeinander auf: Erst Struktur (sind alle Variablen vorhanden?), dann Werte (sind sie plausibel?), dann Konsistenz (stimmen sie mit anderen Quellen überein?). Die Aussage, die Reihenfolge sei beliebig, ist falsch — es gibt eine sinnvolle Reihenfolge: Wenn Struktur-Probleme nicht behoben sind, können Wert-Validierungen fehlschlagen.</p>
 </div>
 </div>
 </section>
@@ -336,13 +330,13 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="datenaufbereitung-ii-tidy-data">Datenaufbereitung II: Tidy Data</h3>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Ein Datensatz enthält Stresswerte (<code>stress</code>), die für Personen mit sehr hohem Stress systematisch fehlen — weil diese Personen die Frage aus Überforderung nicht beantwortet haben. Gleichzeitig hat die Variable <code>schlaf</code> bei Personen mit wenig Schlaf häufiger fehlende Werte. Welche Zuordnung ist <strong>korrekt</strong>?</p>
-<div id="webex-a924b9138c9df09930d67d57267028aa" class="webex-checkboxgroup" data-answer="OgkeBU4IHQNl">
-<label><input type="checkbox" autocomplete="off" name="a924b9138c9df09930d67d57267028aa"><span><code>schlaf</code> fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.</span></label><label><input type="checkbox" autocomplete="off" name="a924b9138c9df09930d67d57267028aa"><span><code>schlaf</code> fehlt nach MAR, wenn das Fehlen durch eine andere beobachtete Variable (z. B. Schlafqualität) erklärt werden kann.</span></label><label><input type="checkbox" autocomplete="off" name="a924b9138c9df09930d67d57267028aa"><span><code>stress</code> fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.</span></label><label><input type="checkbox" autocomplete="off" name="a924b9138c9df09930d67d57267028aa"><span><code>stress</code> fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.</span></label>
+<p>In einer Studie werden Stress und Schlaf erhoben. Personen mit sehr hohem Stress haben die Stressfrage aus Überforderung nicht beantwortet — das Fehlen von <code>stress</code> hängt also direkt vom (nicht beobachteten) Stresswert selbst ab. Zusätzlich fehlen Schlafwerte (<code>schlaf</code>) häufiger bei Personen, die Schichtarbeit angegeben haben — das Fehlen von <code>schlaf</code> lässt sich also durch eine andere, beobachtete Variable (<code>schichtarbeit</code>) erklären. Welche Zuordnung der Missing-Mechanismen ist <strong>korrekt</strong>?</p>
+<div id="webex-b4a530d06428bfb9396ca4fa8c5df7a7" class="webex-checkboxgroup" data-answer="OQVNBR8BSABr">
+<label><input type="checkbox" autocomplete="off" name="b4a530d06428bfb9396ca4fa8c5df7a7"><span><code>schlaf</code> fehlt nach MAR, weil das Fehlen durch die beobachtete Variable <code>schichtarbeit</code> erklärt werden kann.</span></label><label><input type="checkbox" autocomplete="off" name="b4a530d06428bfb9396ca4fa8c5df7a7"><span><code>stress</code> fehlt nach MCAR, weil die fehlenden Werte zufällig verteilt sind.</span></label><label><input type="checkbox" autocomplete="off" name="b4a530d06428bfb9396ca4fa8c5df7a7"><span><code>stress</code> fehlt nach MNAR, weil der fehlende Wert selbst (hoher Stress) die Ursache für das Fehlen ist.</span></label><label><input type="checkbox" autocomplete="off" name="b4a530d06428bfb9396ca4fa8c5df7a7"><span><code>schlaf</code> fehlt nach MNAR, weil Personen mit wenig Schlaf systematisch keine Schlafangaben machen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Option 1 ist korrekt: <code>stress</code> fehlt nach MNAR — der hohe Stress selbst ist die Ursache, nicht beobachtbare andere Variablen. Option 2 ist korrekt für das beschriebene Szenario von <code>schlaf</code>: wenn das Fehlen durch beobachtete Variablen erklärt werden kann, ist es MAR. Option 3 ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig ist, unabhängig vom Stressniveau. Option 4 beschreibt zwar ein systematisches Muster, aber ob es MNAR ist, hängt davon ab, ob die fehlenden Schlafwerte vom Schlafwert selbst abhängen — das Szenario beschreibt eher MAR.</p>
+<p>Korrekt sind die Zuordnungen von <code>stress</code> zu MNAR und von <code>schlaf</code> zu MAR. <code>stress</code> fehlt nach MNAR — der hohe Stress selbst ist die Ursache für das Fehlen, d.&nbsp;h. das Fehlen hängt vom nicht beobachteten Wert der Variable ab. <code>schlaf</code> fehlt nach MAR — das Fehlen lässt sich durch die beobachtete Variable <code>schichtarbeit</code> erklären, nicht durch den Schlafwert selbst. Die Zuordnung von <code>stress</code> zu MCAR ist falsch — MCAR würde bedeuten, dass das Fehlen völlig zufällig und unabhängig vom Stressniveau ist, was dem Szenario widerspricht. Die Zuordnung von <code>schlaf</code> zu MNAR ist falsch — MNAR läge vor, wenn das Fehlen vom Schlafwert selbst abhinge; hier wird das Fehlen aber durch eine andere Variable (<code>schichtarbeit</code>) erklärt, was MAR entspricht.</p>
 </div>
 </div>
 
