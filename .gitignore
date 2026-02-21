@@ -43,3 +43,7 @@ Thumbs.db
 .env
 
 **/*.quarto_ipynb
+
+# Claude Code
+.claude/
+claude.md
