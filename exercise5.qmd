@@ -30,17 +30,46 @@ Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen 
 - [Missing Data in R — Types and How to Handle Them](https://www.youtube.com/watch?v=GXHFM1vVGq8)
 - [Outlier Detection in R](https://www.youtube.com/watch?v=TFwVOOZ-k6I)
 
+## Implizite fehlende Werte
+
+Bevor der Mechanismus des Fehlens beurteilt werden kann, müssen fehlende Werte überhaupt als solche erkannt werden. Das ist nicht selbstverständlich: Rohdaten enthalten fehlende Werte häufig in Formen, die R nicht automatisch als `NA` erkennt.
+
+Typische implizite Formen:
+
+| Form | Beispiel | Problem |
+|---|---|---|
+| Leerstring | `""` | R liest es als gültige Zeichenkette |
+| Platzhalter | `"fehlt"`, `"k.A."`, `"missing"` | Werden als Kategorie behandelt |
+| Sentinelwert | `-99`, `-1`, `999` | Verfälschen Mittelwerte und Varianzen |
+
+Solche Werte müssen **explizit umkodiert** werden — entweder beim Import oder danach:
+
+```r
+# Option 1: Beim Import (sauberste Lösung)
+read.csv("daten.csv", na.strings = c("", "fehlt", "-99"))
+
+# Option 2: Nachträglich mit na_if()
+library(dplyr)
+daten <- daten |> mutate(variable = na_if(variable, -99))
+```
+
+Erst wenn alle impliziten NAs kodiert sind, macht eine Zählung mit `is.na()` verlässliche Aussagen.
+
 ## Mechanismen fehlender Werte
 
-Nicht alle fehlenden Werte sind gleich. Der **Mechanismus** des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:
+Nicht alle fehlenden Werte sind gleich. Der **Mechanismus** des Fehlens bestimmt, wie stark eine Analyse verzerrt wird und welche Strategie angemessen ist:
 
 | Mechanismus | Bedeutung | Beispiel |
 |---|---|---|
 | **MCAR** (Missing Completely At Random) | Fehlen ist unabhängig von allen Variablen | Technischer Ausfall beim Speichern |
-| **MAR** (Missing At Random) | Fehlen hängt von anderen bekannten Variablen ab | Schlafmangel → fehlende Konzentrationswerte |
+| **MAR** (Missing At Random) | Fehlen hängt von anderen bekannten Variablen ab | Gestresste TN übersprangen häufiger Fragebogenseiten |
 | **MNAR** (Missing Not At Random) | Fehlen hängt vom fehlenden Wert selbst ab | Hoher Stress → keine Stressbewertung abgegeben |
 
-Nur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).
+Der Mechanismus ist oft **nicht direkt aus den Daten bestimmbar** — er erfordert inhaltliches Wissen über den Erhebungsprozess. Die Strategie folgt aus dem vermuteten Mechanismus:
+
+- **MCAR** → Ausschluss (listwise deletion) ist vertretbar, aber verkleinert die Stichprobe
+- **MAR** → Imputation (z. B. multiple Imputation) ist meist besser als Ausschluss
+- **MNAR** → Beides ist problematisch; Transparenz und Sensitivitätsanalysen sind nötig
 
 ## Ausreisser erkennen
 
@@ -86,18 +115,24 @@ library(dplyr)
 # Daten einlesen
 wm_daten <- read.csv2("WM_Fragebögen.csv")
 
-# --- Aufgabe 1: Fehlende Werte ---
+# --- Aufgabe 1: Fehlende Werte zählen ---
 # Anzahl fehlender Werte pro Spalte:
 colSums(is.na(wm_daten))
 
 # Welche Zeilen haben fehlende Werte?
 # which(!complete.cases(wm_daten))
 
-# Überlegen Sie: Fehlen die Werte in wm_score oder stress_rating eher
-# nach MCAR, MAR oder MNAR? Notieren Sie Ihre Begründung als Kommentar.
+# --- Aufgabe 2: Mechanismus einschätzen ---
+# Fehlen die Werte systematisch nach Gruppe?
+# Wenn ja, ist das ein Hinweis auf MAR (nicht MCAR).
+table(wm_daten$group_raw, is.na(wm_daten$wm_score))
 
-# --- Aufgabe 2: Ausreisser erkennen ---
-# IQR-Regel für wm_score:
+# Aufgabe 3 (Reflexion): Schreiben Sie Ihre Einschätzung als Kommentar:
+# Welcher Mechanismus liegt vermutlich vor — MCAR, MAR oder MNAR?
+# Begründen Sie anhand der Tabelle oben.
+# --> Ihre Antwort hier:
+
+# --- Aufgabe 4: Ausreisser erkennen (IQR-Regel) ---
 x <- wm_daten$wm_score
 Q1 <- quantile(x, 0.25, na.rm = TRUE)
 Q3 <- quantile(x, 0.75, na.rm = TRUE)
@@ -107,9 +142,20 @@ obere_grenze  <- Q3 + 1.5 * IQR_val
 cat("Ausreisser-Grenzen (IQR):", untere_grenze, "bis", obere_grenze, "\n")
 sum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)
 
-# z-Score-Kriterium:
+# --- Aufgabe 5: Ausreisser erkennen (z-Score) ---
 z_scores <- scale(x)
 sum(abs(z_scores) > 3, na.rm = TRUE)
+
+# Kommen IQR-Regel und z-Score zu denselben Fällen?
+# Vergleich: Welche Beobachtungen werden von beiden Methoden als Ausreisser markiert?
+ausreisser_iqr <- which(x < untere_grenze | x > obere_grenze)
+ausreisser_z   <- which(abs(z_scores) > 3)
+intersect(ausreisser_iqr, ausreisser_z)
+
+# Aufgabe 6 (Reflexion): Schreiben Sie Ihre Entscheidung als Kommentar:
+# Würden Sie die identifizierten Ausreisser ausschliessen?
+# Begründen Sie: Handelt es sich um Messfehler oder echte extreme Werte?
+# --> Ihre Antwort hier:
 ```
 
 > Nutzen Sie eine [Suchmaschine](https://unilu-vpf-statistik.github.io/uebung_statistik4/about.html#suchmaschinen), wenn Sie nicht wissen welche Funktionen Ihnen ein bestimmtes Ergebnis liefern.
