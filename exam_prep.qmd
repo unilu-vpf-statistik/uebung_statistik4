@@ -98,3 +98,108 @@ exam_files_05 <- list.files(
 shuffled_questions_05 <- sample(exam_files_05)
 exams2forms(shuffled_questions_05, mathjax = TRUE)
 ```
+
+### Programmieren mit R: Eigene Funktionen
+
+```{r print_questions_06}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_06 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^06_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_06 <- sample(exam_files_06)
+exams2forms(shuffled_questions_06, mathjax = TRUE)
+```
+
+### Deskriptive Statistik berechnen
+
+```{r print_questions_07}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_07 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^07_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_07 <- sample(exam_files_07)
+exams2forms(shuffled_questions_07, mathjax = TRUE)
+```
+
+### Datenvisualisierung I: Grundlagen ggplot2
+
+```{r print_questions_08}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_08 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^08_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_08 <- sample(exam_files_08)
+exams2forms(shuffled_questions_08, mathjax = TRUE)
+```
+
+### Datenvisualisierung II: Erweiterungen
+
+```{r print_questions_09}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_09 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^09_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_09 <- sample(exam_files_09)
+exams2forms(shuffled_questions_09, mathjax = TRUE)
+```
+
+### Ergebnisberichte: Quarto & Markdown
+
+```{r print_questions_10}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_10 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^10_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_10 <- sample(exam_files_10)
+exams2forms(shuffled_questions_10, mathjax = TRUE)
+```
+
+### Anwendung I: Gruppenvergleiche & ANOVA
+
+```{r print_questions_11}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_11 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^11_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_11 <- sample(exam_files_11)
+exams2forms(shuffled_questions_11, mathjax = TRUE)
+```
+
+### Anwendung II: Regression & Vorhersagen
+
+```{r print_questions_12}
+#| echo: false
+#| message: false
+#| results: "asis"
+exam_files_12 <- list.files(
+  here("questions_exam_prep"),
+  pattern = '^12_.*.Rmd$',
+  full.names = TRUE
+)
+shuffled_questions_12 <- sample(exam_files_12)
+exams2forms(shuffled_questions_12, mathjax = TRUE)
+```

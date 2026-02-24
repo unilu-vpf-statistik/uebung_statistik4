@@ -52,7 +52,25 @@ here()
 here("Daten_Roh", "daten.csv")
 ```
 
-## Übungen
+## Praktische Übung
+
+Führen Sie die folgenden Aufgaben in **RStudio** durch. Nutzen Sie die webR-Konsole weiter unten, um `here()`-Ausdrücke schnell auszuprobieren.
+
+1. **R-Projekt anlegen**: Legen Sie ein neues, leeres R-Projekt an (*File → New Project → New Directory → New Project*).
+
+2. **Ordnerstruktur erstellen**: Erstellen Sie im Projektordner die Ordnerstruktur, die Sie in der letzten Sitzung entworfen haben (z.B. `Daten_Roh/`, `R_Skripte/`, `Abbildungen/`).
+
+3. **Skript mit `here()` schreiben**: Erstellen Sie ein neues R-Skript im Ordner für Ihre Analyseskripte. Schreiben Sie darin:
+   a. Laden Sie das `here`-Paket (ggf. zuerst installieren mit `install.packages("here")`).
+   b. Erstellen Sie eine Variable `pfad_daten`, die auf die Datei `WM_Fragebögen.csv` in Ihrem Datenordner verweist.
+   c. Erstellen Sie eine Variable `pfad_abbildung`, die auf eine Datei `figure.jpg` in Ihrem Abbildungsordner verweist.
+
+4. **Reflexion**: Überlegen Sie — oder diskutieren Sie mit Ihrer Nachbarin / Ihrem Nachbarn:
+   - Was funktioniert an Ihrem Projekt **nicht mehr**, wenn der Projektordner auf Ihrem PC **verschoben** wird?
+   - Was passiert, wenn **jemand anderes** das Projekt öffnet, nachdem Sie den gesamten Ordner geteilt haben?
+   - Was passiert, wenn das R-Skript **direkt** geöffnet wird, **ohne vorher das R-Projekt** zu öffnen?
+
+## Verständnisfragen
 
 Beantworten Sie die folgenden Fragen zu R-Projekten und relativen Pfaden.
 
@@ -68,21 +86,25 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Schreiben Sie hier ihren Code um die Aufgaben zu lösen
+# Aufgabe 3: Pfade mit here() erstellen
 
-# Laden Sie das here-Paket
+# Schritt a: here-Paket laden
 library(here)
 
-# Was gibt here() zurück?
+# Was gibt here() zurück? (= Ihr Projekt-Root)
 here()
 
-# Bauen Sie Pfade mit here() zu verschiedenen Ordnern
-# Beispiel:
-here("Daten_Roh", "WM_Fragebögen.csv")
-here("R_Skripte", "01_einlesen.R")
+# Schritt b: Variable für den Datenpfad erstellen
+pfad_daten <- here("Daten_Roh", "WM_Fragebögen.csv")
+pfad_daten  # Pfad ausgeben
 
-# Was ist der Unterschied zu:
+# Schritt c: Variable für den Abbildungspfad erstellen
+pfad_abbildung <- here("Abbildungen", "figure.jpg")
+pfad_abbildung  # Pfad ausgeben
+
+# Zum Vergleich – wie sieht ein absoluter Pfad aus?
 # "/Users/maxmuster/Projekte/Mein_Projekt/Daten_Roh/WM_Fragebögen.csv"
+# → Dieser funktioniert nur auf DIESEM Computer in DIESEM Ordner!
 
 ```
 

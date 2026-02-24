@@ -1,12 +1,88 @@
 ---
-title: "Übung 7 - Folgt"
+title: "Übung 7 - Deskriptive Statistik berechnen"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 7
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung7"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Deskriptive Statistik
+
+In dieser Übung beschäftigen wir uns mit der Berechnung und Interpretation **deskriptiver Kennwerte**. Deskriptive Statistik ist kein Selbstzweck — sie ist die **Entscheidungsgrundlage** für weiterführende Analysen.
+
+### Welcher Kennwert für welche Daten?
+
+| Skalenniveau | Lagemass | Streuungsmass |
+|---|---|---|
+| **Nominal** | Modus | Häufigkeiten |
+| **Ordinal** | Median | IQR |
+| **Metrisch (symmetrisch)** | Mittelwert | SD |
+| **Metrisch (schief)** | Median | IQR |
+
+**Faustregel**: Wenn Mittelwert ≠ Median, deutet das auf eine schiefe Verteilung hin. In diesem Fall ist der Median das robustere Lagemass.
+
+### Split-Apply-Combine
+
+Für gruppierte Auswertungen folgen wir dem **Split-Apply-Combine**-Prinzip:
+
+1. **Split**: Daten nach Gruppen aufteilen
+2. **Apply**: Kennwert pro Gruppe berechnen
+3. **Combine**: Ergebnisse zusammenführen
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zur deskriptiven Statistik.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# --- Aufgabe 1: Gesamtkennwerte ---
+# Berechnen Sie Mittelwert und Median für wm_score:
+mean(wm_daten$wm_score, na.rm = TRUE)
+median(wm_daten$wm_score, na.rm = TRUE)
+# Was sagt der Vergleich über die Verteilung?
+
+# --- Aufgabe 2: Gruppierte Kennwerte ---
+# Berechnen Sie deskriptive Statistiken getrennt nach Gruppe:
+wm_daten |>
+  group_by(Experimentalgruppe) |>
+  summarise(
+    n = n(),
+    M = mean(wm_score, na.rm = TRUE),
+    Mdn = median(wm_score, na.rm = TRUE),
+    SD = sd(wm_score, na.rm = TRUE)
+  )
+```
 
 ------------------------------------------------------------------------
 

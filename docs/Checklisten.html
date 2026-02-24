@@ -263,17 +263,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#checklisten-reproduzierbare-datenanalyse" id="toc-checklisten-reproduzierbare-datenanalyse" class="nav-link active" data-scroll-target="#checklisten-reproduzierbare-datenanalyse">Checklisten: Reproduzierbare Datenanalyse</a>
   <ul class="collapse">
-  <li><a href="#checkliste-1-neues-r-projekt-anlegen" id="toc-checkliste-1-neues-r-projekt-anlegen" class="nav-link" data-scroll-target="#checkliste-1-neues-r-projekt-anlegen">Checkliste 1: Neues R-Projekt anlegen</a></li>
-  <li><a href="#checkliste-2-dateiformat-identifizieren" id="toc-checkliste-2-dateiformat-identifizieren" class="nav-link" data-scroll-target="#checkliste-2-dateiformat-identifizieren">Checkliste 2: Dateiformat identifizieren</a></li>
-  <li><a href="#checkliste-3-daten-validieren-3-ebenen" id="toc-checkliste-3-daten-validieren-3-ebenen" class="nav-link" data-scroll-target="#checkliste-3-daten-validieren-3-ebenen">Checkliste 3: Daten Validieren (3 Ebenen)</a>
+  <li><a href="#checkliste-1-reproduzierbare-analyse" id="toc-checkliste-1-reproduzierbare-analyse" class="nav-link" data-scroll-target="#checkliste-1-reproduzierbare-analyse">Checkliste 1: Reproduzierbare Analyse</a></li>
+  <li><a href="#checkliste-2-neues-r-projekt-anlegen" id="toc-checkliste-2-neues-r-projekt-anlegen" class="nav-link" data-scroll-target="#checkliste-2-neues-r-projekt-anlegen">Checkliste 2: Neues R-Projekt anlegen</a></li>
+  <li><a href="#checkliste-3-dateiformat-identifizieren" id="toc-checkliste-3-dateiformat-identifizieren" class="nav-link" data-scroll-target="#checkliste-3-dateiformat-identifizieren">Checkliste 3: Dateiformat identifizieren</a></li>
+  <li><a href="#checkliste-4-daten-validieren-3-ebenen" id="toc-checkliste-4-daten-validieren-3-ebenen" class="nav-link" data-scroll-target="#checkliste-4-daten-validieren-3-ebenen">Checkliste 4: Daten Validieren (3 Ebenen)</a>
   <ul class="collapse">
   <li><a href="#ebene-1-struktur" id="toc-ebene-1-struktur" class="nav-link" data-scroll-target="#ebene-1-struktur">Ebene 1: Struktur</a></li>
   <li><a href="#ebene-2-werte" id="toc-ebene-2-werte" class="nav-link" data-scroll-target="#ebene-2-werte">Ebene 2: Werte</a></li>
   <li><a href="#ebene-3-konsistenz" id="toc-ebene-3-konsistenz" class="nav-link" data-scroll-target="#ebene-3-konsistenz">Ebene 3: Konsistenz</a></li>
   </ul></li>
-  <li><a href="#checkliste-4-daten-aufbereiten" id="toc-checkliste-4-daten-aufbereiten" class="nav-link" data-scroll-target="#checkliste-4-daten-aufbereiten">Checkliste 4: Daten Aufbereiten</a></li>
   <li><a href="#checkliste-5-tidy-data" id="toc-checkliste-5-tidy-data" class="nav-link" data-scroll-target="#checkliste-5-tidy-data">Checkliste 5: Tidy Data</a></li>
-  <li><a href="#checkliste-6-reproduzierbare-analyse" id="toc-checkliste-6-reproduzierbare-analyse" class="nav-link" data-scroll-target="#checkliste-6-reproduzierbare-analyse">Checkliste 6: Reproduzierbare Analyse</a></li>
+  <li><a href="#checkliste-6-daten-aufbereiten" id="toc-checkliste-6-daten-aufbereiten" class="nav-link" data-scroll-target="#checkliste-6-daten-aufbereiten">Checkliste 6: Daten Aufbereiten</a></li>
+  <li><a href="#checkliste-7-fehlende-werte-ausreisser" id="toc-checkliste-7-fehlende-werte-ausreisser" class="nav-link" data-scroll-target="#checkliste-7-fehlende-werte-ausreisser">Checkliste 7: Fehlende Werte &amp; Ausreisser</a>
+  <ul class="collapse">
+  <li><a href="#fehlende-werte" id="toc-fehlende-werte" class="nav-link" data-scroll-target="#fehlende-werte">Fehlende Werte</a></li>
+  <li><a href="#ausreisser" id="toc-ausreisser" class="nav-link" data-scroll-target="#ausreisser">Ausreisser</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -311,8 +316,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Checklisten: Reproduzierbare Datenanalyse</h1>
 <p>Diese Seite enthält Checklisten für die wichtigsten Schritte einer reproduzierbaren Datenanalyse in R. Die Checklisten helfen Ihnen sicherzustellen, dass Sie alle notwendigen Schritte durchgeführt haben.</p>
 <hr>
-<section id="checkliste-1-neues-r-projekt-anlegen" class="level2">
-<h2 class="anchored" data-anchor-id="checkliste-1-neues-r-projekt-anlegen">Checkliste 1: Neues R-Projekt anlegen</h2>
+<section id="checkliste-1-reproduzierbare-analyse" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-1-reproduzierbare-analyse">Checkliste 1: Reproduzierbare Analyse</h2>
+<p>Abschluss-Checkliste für die vollständige Reproduzierbarkeit.</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Alle Pakete laden</strong>: <code>library()</code>-Befehle am Anfang des Skripts — kein <code>library()</code> mitten im Code</label></li>
+<li><label><input type="checkbox"><strong><code>set.seed()</code> verwenden</strong>: Bei allen Zufallsprozessen am Anfang des Skripts</label></li>
+<li><label><input type="checkbox"><strong>Relative Pfade</strong>: Nur <code>here()</code> verwenden, kein <code>setwd()</code>, keine absoluten Pfade</label></li>
+<li><label><input type="checkbox"><strong>Skript-Reihenfolge</strong>: Skripte nummerieren (z. B. <code>01_einlesen.R</code>, <code>02_bereinigung.R</code>)</label></li>
+<li><label><input type="checkbox"><strong>Sauberes Environment</strong>: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)</label></li>
+<li><label><input type="checkbox"><strong>Session-Informationen dokumentieren</strong>: <code>sessionInfo()</code> am Ende des Skripts oder in einem separaten Log</label></li>
+<li><label><input type="checkbox"><strong>Kommentare</strong>: Jeder nicht-triviale Schritt ist mit <code>#</code> kommentiert</label></li>
+<li><label><input type="checkbox"><strong>Versionierung</strong>: Änderungen mit Git tracken (optional aber empfohlen)</label></li>
+</ul>
+<hr>
+</section>
+<section id="checkliste-2-neues-r-projekt-anlegen" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-2-neues-r-projekt-anlegen">Checkliste 2: Neues R-Projekt anlegen</h2>
 <p>Bevor Sie mit einer neuen Analyse beginnen, legen Sie immer ein R-Projekt an.</p>
 <ul class="task-list">
 <li><p><label><input type="checkbox"><strong>R-Projekt erstellen</strong>: In RStudio: <em>File → New Project → New Directory</em></label></p></li>
@@ -331,8 +351,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <hr>
 </section>
-<section id="checkliste-2-dateiformat-identifizieren" class="level2">
-<h2 class="anchored" data-anchor-id="checkliste-2-dateiformat-identifizieren">Checkliste 2: Dateiformat identifizieren</h2>
+<section id="checkliste-3-dateiformat-identifizieren" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-3-dateiformat-identifizieren">Checkliste 3: Dateiformat identifizieren</h2>
 <p>Bevor Sie Daten einlesen, prüfen Sie das Dateiformat.</p>
 <ul class="task-list">
 <li><label><input type="checkbox"><strong>Dateiendung notieren</strong>: <code>.csv</code>, <code>.dat</code>, <code>.txt</code>, <code>.xlsx</code>, <code>.sav</code></label></li>
@@ -380,8 +400,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="checkliste-3-daten-validieren-3-ebenen" class="level2">
-<h2 class="anchored" data-anchor-id="checkliste-3-daten-validieren-3-ebenen">Checkliste 3: Daten Validieren (3 Ebenen)</h2>
+<section id="checkliste-4-daten-validieren-3-ebenen" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-4-daten-validieren-3-ebenen">Checkliste 4: Daten Validieren (3 Ebenen)</h2>
 <p>Nach dem Einlesen immer systematisch validieren.</p>
 <section id="ebene-1-struktur" class="level3">
 <h3 class="anchored" data-anchor-id="ebene-1-struktur">Ebene 1: Struktur</h3>
@@ -413,23 +433,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="checkliste-4-daten-aufbereiten" class="level2">
-<h2 class="anchored" data-anchor-id="checkliste-4-daten-aufbereiten">Checkliste 4: Daten Aufbereiten</h2>
-<p>Systematische Datenbereinigung nach der Validierung.</p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>Skript dokumentieren</strong>: Kommentare für jeden Bereinigungsschritt</label></li>
-<li><label><input type="checkbox"><strong>Rohdaten nicht verändern</strong>: Immer mit einer Kopie arbeiten</label></li>
-<li><label><input type="checkbox"><strong>Spaltennamen bereinigen</strong>: <code>janitor::clean_names(daten)</code> — Einheitliche Kleinschreibung</label></li>
-<li><label><input type="checkbox"><strong>Datentypen korrigieren</strong>: <code>as.numeric()</code>, <code>as.character()</code>, <code>as.factor()</code></label></li>
-<li><label><input type="checkbox"><strong>Versteckte fehlende Werte ersetzen</strong>: <code>na_if(daten$var, "999")</code></label></li>
-<li><label><input type="checkbox"><strong>Inkonsistente Kategorien rekodieren</strong>: <code>case_when()</code> für systematische Umkodierung</label></li>
-<li><label><input type="checkbox"><strong>Variablen umbenennen</strong>: <code>rename(daten, neuer_name = alter_name)</code></label></li>
-<li><label><input type="checkbox"><strong>Neue Variablen berechnen</strong>: <code>mutate(daten, z_score = scale(rohwert))</code></label></li>
-<li><label><input type="checkbox"><strong>Ergebnis validieren</strong>: Nach jeder Bereinigung <code>str()</code> und <code>summary()</code> aufrufen</label></li>
-<li><label><input type="checkbox"><strong>Aufbereitete Daten speichern</strong>: <code>write.csv(daten_clean, here("Daten_Verarbeitet", "daten_clean.csv"))</code></label></li>
-</ul>
-<hr>
-</section>
 <section id="checkliste-5-tidy-data" class="level2">
 <h2 class="anchored" data-anchor-id="checkliste-5-tidy-data">Checkliste 5: Tidy Data</h2>
 <p>Prüfen Sie, ob Ihre Daten im Tidy-Format vorliegen, bevor Sie Analysen durchführen.</p>
@@ -452,21 +455,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <hr>
 </section>
-<section id="checkliste-6-reproduzierbare-analyse" class="level2">
-<h2 class="anchored" data-anchor-id="checkliste-6-reproduzierbare-analyse">Checkliste 6: Reproduzierbare Analyse</h2>
-<p>Abschluss-Checkliste für die vollständige Reproduzierbarkeit.</p>
+<section id="checkliste-6-daten-aufbereiten" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-6-daten-aufbereiten">Checkliste 6: Daten Aufbereiten</h2>
+<p>Systematische Datenbereinigung nach der Validierung.</p>
 <ul class="task-list">
-<li><label><input type="checkbox"><strong>Alle Pakete laden</strong>: <code>library()</code>-Befehle am Anfang des Skripts — kein <code>library()</code> mitten im Code</label></li>
-<li><label><input type="checkbox"><strong><code>set.seed()</code> verwenden</strong>: Bei allen Zufallsprozessen am Anfang des Skripts</label></li>
-<li><label><input type="checkbox"><strong>Relative Pfade</strong>: Nur <code>here()</code> verwenden, kein <code>setwd()</code>, keine absoluten Pfade</label></li>
-<li><label><input type="checkbox"><strong>Skript-Reihenfolge</strong>: Skripte nummerieren (z. B. <code>01_einlesen.R</code>, <code>02_bereinigung.R</code>)</label></li>
-<li><label><input type="checkbox"><strong>Sauberes Environment</strong>: Skript von oben nach unten ausführen (kein Zustand aus interaktiver Session)</label></li>
-<li><label><input type="checkbox"><strong>Session-Informationen dokumentieren</strong>: <code>sessionInfo()</code> am Ende des Skripts oder in einem separaten Log</label></li>
-<li><label><input type="checkbox"><strong>Kommentare</strong>: Jeder nicht-triviale Schritt ist mit <code>#</code> kommentiert</label></li>
-<li><label><input type="checkbox"><strong>Versionierung</strong>: Änderungen mit Git tracken (optional aber empfohlen)</label></li>
+<li><label><input type="checkbox"><strong>Skript dokumentieren</strong>: Kommentare für jeden Bereinigungsschritt</label></li>
+<li><label><input type="checkbox"><strong>Rohdaten nicht verändern</strong>: Immer mit einer Kopie arbeiten</label></li>
+<li><label><input type="checkbox"><strong>Spaltennamen bereinigen</strong>: <code>janitor::clean_names(daten)</code> — Einheitliche Kleinschreibung</label></li>
+<li><label><input type="checkbox"><strong>Datentypen korrigieren</strong>: <code>as.numeric()</code>, <code>as.character()</code>, <code>as.factor()</code></label></li>
+<li><label><input type="checkbox"><strong>Versteckte fehlende Werte ersetzen</strong>: <code>na_if(daten$var, "999")</code></label></li>
+<li><label><input type="checkbox"><strong>Inkonsistente Kategorien rekodieren</strong>: <code>case_when()</code> für systematische Umkodierung</label></li>
+<li><label><input type="checkbox"><strong>Variablen umbenennen</strong>: <code>rename(daten, neuer_name = alter_name)</code></label></li>
+<li><label><input type="checkbox"><strong>Neue Variablen berechnen</strong>: <code>mutate(daten, z_score = scale(rohwert))</code></label></li>
+<li><label><input type="checkbox"><strong>Ergebnis validieren</strong>: Nach jeder Bereinigung <code>str()</code> und <code>summary()</code> aufrufen</label></li>
+<li><label><input type="checkbox"><strong>Aufbereitete Daten speichern</strong>: <code>write.csv(daten_clean, here("Daten_Verarbeitet", "daten_clean.csv"))</code></label></li>
+</ul>
+<hr>
+</section>
+<section id="checkliste-7-fehlende-werte-ausreisser" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-7-fehlende-werte-ausreisser">Checkliste 7: Fehlende Werte &amp; Ausreisser</h2>
+<p>Prüfen und begründet umgehen mit fehlenden Werten und extremen Beobachtungen.</p>
+<section id="fehlende-werte" class="level3">
+<h3 class="anchored" data-anchor-id="fehlende-werte">Fehlende Werte</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Fehlende Werte zählen</strong>: <code>colSums(is.na(daten))</code> — Wie viele Werte fehlen pro Variable?</label></li>
+<li><label><input type="checkbox"><strong>Fehlmechanismus einschätzen</strong>:</label>
+<ul>
+<li><strong>MCAR</strong> (Missing Completely At Random): Fehlen ist zufällig, unabhängig von allen Variablen</li>
+<li><strong>MAR</strong> (Missing At Random): Fehlen hängt von <em>beobachteten</em> anderen Variablen ab</li>
+<li><strong>MNAR</strong> (Missing Not At Random): Fehlen hängt vom Wert selbst ab (nicht beobachtbar)</li>
+</ul></li>
+<li><label><input type="checkbox"><strong>Entscheidung dokumentieren</strong>: Begründeter Umgang abhängig vom Fehlmechanismus</label></li>
+<li><label><input type="checkbox"><strong>Listwise Deletion</strong>: <code>na.omit(daten)</code> oder <code>filter(!is.na(variable))</code> — nur sinnvoll bei MCAR</label></li>
+<li><label><input type="checkbox"><strong>Einfache Imputation</strong>: <code>replace_na(list(var = median(daten$var, na.rm = TRUE)))</code> — nur bei MAR</label></li>
+</ul>
+</section>
+<section id="ausreisser" class="level3">
+<h3 class="anchored" data-anchor-id="ausreisser">Ausreisser</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Ausreisser visualisieren</strong>: Boxplot — Punkte jenseits der Whisker als potenzielle Ausreisser</label></li>
+<li><label><input type="checkbox"><strong>z-Werte berechnen</strong>: <code>scale(daten$var)</code> — Werte mit |z| &gt; 3 als extreme Ausreisser</label></li>
+<li><label><input type="checkbox"><strong>IQR-Methode</strong>: Werte unterhalb Q1 − 1.5×IQR oder oberhalb Q3 + 1.5×IQR</label></li>
+<li><label><input type="checkbox"><strong>Ausreisser dokumentieren</strong>: Anzahl, betroffene Fälle, betroffene Variablen</label></li>
+<li><label><input type="checkbox"><strong>Entscheidung begründen</strong>: Ausreisser entfernen, winsorisieren oder beibehalten — immer dokumentieren</label></li>
 </ul>
 
 
+</section>
 </section>
 </section>
 

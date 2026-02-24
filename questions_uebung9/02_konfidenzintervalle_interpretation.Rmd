@@ -1,0 +1,21 @@
+Question
+========
+In einem Diagramm werden Mittelwerte mit 95%-Konfidenzintervallen (CI) dargestellt. Die CIs zweier Gruppen überlappen sich leicht. Welche Aussagen sind **korrekt**?
+
+Answerlist
+----------
+* Überlappende Konfidenzintervalle bedeuten **nicht** automatisch, dass der Unterschied nicht signifikant ist — ein statistischer Test ist nötig.
+* Wenn sich die CIs überlappen, kann man sicher schliessen, dass kein signifikanter Unterschied zwischen den Gruppen besteht.
+* Konfidenzintervalle zeigen den Bereich, in dem 95% der einzelnen Messwerte liegen.
+* Ein Konfidenzintervall beschreibt die Unsicherheit der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte.
+
+Solution
+========
+Korrekt sind die erste und vierte Aussage. Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.
+
+Meta-information
+================
+exname: konfidenzintervalle_interpretation
+extype: mchoice
+exsolution: 1001
+exshuffle: TRUE

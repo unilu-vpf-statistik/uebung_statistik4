@@ -1,0 +1,36 @@
+Question
+========
+Sie berechnen deskriptive Kennwerte für die Variable `wm_score` und erhalten folgenden Output:
+
+```r
+daten |>
+  summarise(
+    M   = mean(wm_score),
+    Mdn = median(wm_score),
+    SD  = sd(wm_score)
+  )
+# # A tibble: 1 × 3
+#       M   Mdn    SD
+#   <dbl> <dbl> <dbl>
+# 1    NA  64.1  NA
+```
+
+Welche Aussagen sind **korrekt**?
+
+Answerlist
+----------
+* Der Output zeigt `NA` für Mittelwert und SD, weil die Variable `wm_score` fehlende Werte enthält und `mean()` sowie `sd()` standardmässig `NA` zurückgeben, wenn fehlende Werte vorhanden sind.
+* Das Problem lässt sich lösen, indem in den Funktionen das Argument `na.rm = TRUE` gesetzt wird (z. B. `mean(wm_score, na.rm = TRUE)`).
+* Der Median zeigt einen Wert (64.1), weil `median()` fehlende Werte automatisch ignoriert.
+* Das `NA` im Output bedeutet, dass die Variable `wm_score` keine numerischen Werte enthält und deshalb kein Mittelwert berechnet werden kann.
+
+Solution
+========
+Korrekt sind die erste und zweite Aussage. In R geben `mean()` und `sd()` standardmässig `NA` zurück, sobald ein einziger fehlender Wert in den Daten vorliegt. Die Lösung ist das Argument `na.rm = TRUE`, das fehlende Werte vor der Berechnung ausschliesst. Falsch ist, dass `median()` fehlende Werte automatisch ignoriert — auch `median()` gibt bei fehlenden Werten `NA` zurück. Dass im Beispiel ein Wert erscheint, kann z. B. daran liegen, dass die Spalte in einer Version ohne NAs vorlag oder der Output nur illustrativ ist. Ebenso falsch ist, dass `NA` bedeute, die Variable sei nicht numerisch — `NA` entsteht hier durch fehlende Werte, nicht durch einen falschen Datentyp.
+
+Meta-information
+================
+exname: lagemasse_entscheidung
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE

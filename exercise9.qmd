@@ -1,12 +1,98 @@
 ---
-title: "Übung 9 - Folgt"
+title: "Übung 9 - Datenvisualisierung II: Erweiterungen"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 9
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung9"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Facettierung, Unsicherheit & publikationsreife Grafiken
+
+In dieser Übung vertiefen wir die Visualisierung: **Mehrdimensionale Daten** durch Facettierung, die **korrekte Darstellung von Unsicherheit** und die Erstellung **publikationsreifer Grafiken**.
+
+### Facettierung
+
+| Funktion | Anwendung |
+|---|---|
+| `facet_wrap(~var)` | Panels fliessend anordnen (1 Variable) |
+| `facet_grid(zeile ~ spalte)` | Matrix-Layout (2 Variablen, z. B. Interaktionen) |
+
+**Grundregel**: Komplexität nur hinzufügen, wenn sie Information hinzufügt — nicht als Dekoration.
+
+### Konfidenzintervalle korrekt interpretieren
+
+- Ein 95%-CI beschreibt die **Unsicherheit der Schätzung** des Populationsmittelwerts.
+- **CI-Überlappung ≠ Nicht-Signifikanz**: Bei ca. 50% Überlappung kann der Unterschied durchaus signifikant sein.
+- CIs zeigen **nicht** den Bereich, in dem 95% der Einzelwerte liegen.
+
+### Publikationsreife Grafiken
+
+- Achsenbeschriftungen mit Einheiten (nicht Rohvariablennamen)
+- Klare Legende
+- Schlichtes Theme (`theme_minimal()`, `theme_bw()`)
+- Export mit `ggsave()` in geeignetem Format und Auflösung
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+library(ggplot2)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# --- Aufgabe 1: Facettierung ---
+# Histogramme getrennt nach Gruppe:
+ggplot(wm_daten, aes(x = wm_score)) +
+  geom_histogram(bins = 12, fill = "steelblue", color = "white") +
+  facet_wrap(~Experimentalgruppe) +
+  labs(title = "WM-Score nach Gruppe", x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal()
+
+# --- Aufgabe 2: Mittelwerte mit Fehlerbalken ---
+# Gruppierte Zusammenfassung berechnen und visualisieren:
+wm_summary <- wm_daten |>
+  group_by(Experimentalgruppe) |>
+  summarise(
+    M = mean(wm_score, na.rm = TRUE),
+    SE = sd(wm_score, na.rm = TRUE) / sqrt(n())
+  )
+
+ggplot(wm_summary, aes(x = Experimentalgruppe, y = M)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = M - 1.96 * SE, ymax = M + 1.96 * SE), width = 0.2) +
+  labs(title = "Mittelwerte mit 95%-CI", x = "Gruppe", y = "WM-Score (M ± 95%-CI)") +
+  theme_minimal()
+```
 
 ------------------------------------------------------------------------
 

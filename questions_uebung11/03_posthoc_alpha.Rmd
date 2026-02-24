@@ -1,0 +1,36 @@
+Question
+========
+Nach einer signifikanten ANOVA mit 3 Gruppen führen Sie Post-hoc-Vergleiche mit `emmeans` durch:
+
+```r
+emmeans(anova_ergebnis, pairwise ~ gruppe, adjust = "bonferroni")
+```
+
+Sie erhalten folgende Tabelle der paarweisen Vergleiche:
+
+```
+ contrast  estimate   SE  df t.ratio p.value
+ EG - KG       6.9 2.41  97   2.86  0.015
+ EG - WG       2.1 2.38  97   0.88  1.000
+ KG - WG      -4.8 2.44  97  -1.97  0.156
+```
+
+Welche Aussagen sind **korrekt**?
+
+Answerlist
+----------
+* Das Argument `adjust = "bonferroni"` korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.
+* Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.
+* Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.
+* Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.
+
+Solution
+========
+Korrekt sind die ersten drei Aussagen. Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs. KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist die vierte Aussage: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.
+
+Meta-information
+================
+exname: emmeans_output_lesen
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

@@ -1,12 +1,92 @@
 ---
-title: "Übung 8 - Folgt"
+title: "Übung 8 - Datenvisualisierung I: Grundlagen ggplot2"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 8
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung8"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Grundlagen ggplot2
+
+In dieser Übung beschäftigen wir uns mit der **Grammar of Graphics** — dem Schichtprinzip, das ggplot2 zugrunde liegt. Ziel ist nicht das Auswendiglernen von Funktionen, sondern das Verständnis der Logik: **Daten → Mapping → Geometrie**.
+
+### Das Schichtprinzip
+
+Ein ggplot2-Diagramm besteht aus unabhängigen Schichten:
+
+1. **Daten**: Welcher Datensatz?
+2. **Aesthetics (`aes()`)**: Welche Variable → welche visuelle Eigenschaft (x, y, Farbe, Grösse)?
+3. **Geometrie (`geom_*()`)**: Welche Form (Punkte, Balken, Boxplot, Histogramm)?
+4. **Skalen, Koordinaten, Theme**: Feineinstellungen
+
+### Welcher Diagrammtyp für welche Daten?
+
+| Variablen | Diagrammtyp |
+|---|---|
+| 1 metrisch | Histogramm |
+| 1 kategorial | Balkendiagramm |
+| 2 metrisch × metrisch | Scatterplot |
+| 1 kategorial × 1 metrisch | Boxplot |
+
+### Irreführende Grafiken erkennen
+
+- Abgeschnittene y-Achse → Unterschiede wirken grösser
+- 3D-Effekte → verzerrte Wahrnehmung
+- Fehlende Beschriftungen → Grafik nicht interpretierbar
+- Ungeeigneter Diagrammtyp → falsche Schlüsse
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zur Datenvisualisierung mit ggplot2.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+library(ggplot2)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# --- Aufgabe 1: Histogramm ---
+# Verteilung von wm_score:
+ggplot(wm_daten, aes(x = wm_score)) +
+  geom_histogram(bins = 15, fill = "steelblue", color = "white") +
+  labs(title = "Verteilung WM-Score", x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal()
+
+# --- Aufgabe 2: Boxplot nach Gruppe ---
+# Gruppenvergleich:
+ggplot(wm_daten, aes(x = Experimentalgruppe, y = wm_score, fill = Experimentalgruppe)) +
+  geom_boxplot() +
+  labs(title = "WM-Score nach Experimentalgruppe", x = "Gruppe", y = "WM-Score") +
+  theme_minimal()
+```
 
 ------------------------------------------------------------------------
 

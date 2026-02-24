@@ -1,12 +1,83 @@
 ---
-title: "Übung 10 - Folgt"
+title: "Übung 10 - Ergebnisberichte in R: Quarto & Markdown"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 10
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung10"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Reproduzierbare Berichte mit Quarto
+
+In dieser Übung beschäftigen wir uns mit **Quarto** als Werkzeug für reproduzierbare Ergebnisberichte. Ein Quarto-Dokument vereint Text, R-Code und Ergebnisse in einer einzigen Datei — der Bericht **ist** die Analyse.
+
+### Das Problem: Copy-Paste-Workflow
+
+R → Screenshot → Word → Daten ändern → **alles nochmal**. Fehlerquellen: falsche Versionen, nicht aktualisierte Tabellen, fehlende Nachvollziehbarkeit.
+
+### Die Lösung: Quarto-Dokumente
+
+Ein Quarto-Dokument (.qmd) besteht aus drei Bausteinen:
+
+| Baustein | Funktion | Beispiel |
+|---|---|---|
+| **YAML-Header** | Metadaten | Titel, Autor, Ausgabeformat |
+| **Markdown** | Formatierter Text | Überschriften, Listen, Fett/Kursiv |
+| **Code-Chunks** | R-Code | Analysen, Grafiken, Tabellen |
+
+### Chunk-Optionen
+
+| Option | Wirkung |
+|---|---|
+| `echo: true` | Code wird angezeigt |
+| `echo: false` | Code wird verborgen, Ergebnisse bleiben |
+| `eval: false` | Code wird angezeigt, aber nicht ausgeführt |
+| `message: false` | Meldungen werden unterdrückt |
+
+**Verbergen ≠ Löschen**: Auch bei `echo: false` bleibt der Code im Quelldokument erhalten.
+
+### Ausführungsreihenfolge
+
+Chunks werden **strikt von oben nach unten** ausgeführt. Datenimport und Pakete gehören an den Anfang des Dokuments.
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu reproduzierbaren Berichten mit Quarto.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# In dieser Übung geht es primär um konzeptuelle Fragen zu Quarto.
+# Nutzen Sie diese Konsole, um R-Code auszuprobieren.
+
+# Beispiel: Inline-Code simulieren
+mittelwert <- mean(c(5.2, 6.1, 4.8, 7.3, 5.9))
+cat("Der Mittelwert beträgt", round(mittelwert, 1), "Punkte.\n")
+
+# In einem Quarto-Dokument koennten Sie im Fliesstext schreiben:
+# "Der Mittelwert betraegt [r round(mittelwert, 1)] Punkte."
+# (mit Backticks statt eckigen Klammern um den R-Ausdruck)
+# Beim Rendern wird der R-Ausdruck automatisch durch das Ergebnis ersetzt.
+```
 
 ------------------------------------------------------------------------
 

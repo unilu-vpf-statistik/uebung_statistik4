@@ -1,12 +1,98 @@
 ---
-title: "Übung 12 - Folgt"
+title: "Übung 12 - Anwendung II: Regression & Vorhersagen"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 12
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung12"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Regression & Vorhersagen
+
+In dieser Übung beschäftigen wir uns mit der **linearen Regression** als Verallgemeinerung des Gruppenvergleichs. ANOVA und Regression sind Spezialfälle desselben linearen Modells.
+
+### Das lineare Modell
+
+**y = b₀ + b₁·x + e**
+
+| Koeffizient | Bedeutung |
+|---|---|
+| **b₀** (Achsenabschnitt) | Vorhergesagter y-Wert bei x = 0 |
+| **b₁** (Steigung) | Veränderung in y pro Einheit x |
+| **e** (Fehler) | Nicht erklärte Abweichung |
+
+### Korrelation ≠ Kausalität
+
+Regression zeigt **Zusammenhang**, nicht **Ursache-Wirkung**. Ein signifikanter Koeffizient bedeutet nicht, dass x die Veränderung in y verursacht.
+
+### Modellgüte: R²
+
+- R² = Anteil der Varianz in y, der durch das Modell erklärt wird
+- In der Psychologie oft R² = .05–.30 (normal)
+- **R² steigt mit jedem Prädiktor** → adjustiertes R² oder Modellvergleich verwenden
+
+### Interaktion (Moderation)
+
+Eine **Interaktion** bedeutet: Der Effekt von x₁ auf y ist unterschiedlich je nach x₂. Grafisch: **nicht-parallele** Regressionslinien.
+
+### Grenzen
+
+- **Extrapolation**: Vorhersage ausserhalb des Datenbereichs ist unzuverlässig
+- **Overfitting**: Zu viele Prädiktoren bei wenig Daten → Modell passt auf Stichprobe, versagt bei neuen Daten
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu Regression und Vorhersagen.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+library(ggplot2)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# --- Aufgabe 1: Einfache Regression ---
+# modell1 <- lm(wm_score ~ Alter, data = wm_daten)
+# summary(modell1)
+# Wie interpretieren Sie den Koeffizienten für Alter?
+
+# --- Aufgabe 2: Scatterplot mit Regressionslinie ---
+ggplot(wm_daten, aes(x = Alter, y = wm_score)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = "Alter", y = "WM-Score") +
+  theme_minimal()
+
+# --- Aufgabe 3: Residualdiagnostik ---
+# plot(modell1)
+# Was sagen die Diagnostik-Plots über die Modellannahmen?
+```
 
 ------------------------------------------------------------------------
 

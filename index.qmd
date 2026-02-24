@@ -33,12 +33,6 @@ Für die Übungen benötigen Sie folgende R-Pakete. Sie können diese mit den fo
 install.packages(c("tidyverse", "here", "haven", "readxl", "janitor"))
 ```
 
-Für die interaktiven Übungsfragen auf dieser Website werden zusätzlich folgende Pakete benötigt:
-
-```r
-install.packages(c("exams", "exams2forms"))
-```
-
 ------------------------------------------------------------------------
 
 [![](images/Logo_UniLu.png){fig-align="center" width="300"}](https://www.unilu.ch/fakultaeten/vpf/uebersicht/)

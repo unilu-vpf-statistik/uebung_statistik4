@@ -1,0 +1,21 @@
+Question
+========
+Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?
+
+Answerlist
+----------
+* Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.
+* Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.
+* `facet_wrap()`, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.
+* Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.
+
+Solution
+========
+Am geeignetsten ist `facet_wrap()`. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.
+
+Meta-information
+================
+exname: facettierung_entscheidung
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE

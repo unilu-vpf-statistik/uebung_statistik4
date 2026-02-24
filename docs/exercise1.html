@@ -2126,20 +2126,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Eine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript <strong>reproduzierbar</strong> ist?</p>
-<div id="webex-fe5a83b6285a13428204d3482c17d27f" class="webex-checkboxgroup" data-answer="PVQZUBQDTgZv">
-<label><input type="checkbox" autocomplete="off" name="fe5a83b6285a13428204d3482c17d27f"><span>Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> geladen.</span></label><label><input type="checkbox" autocomplete="off" name="fe5a83b6285a13428204d3482c17d27f"><span>Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.</span></label><label><input type="checkbox" autocomplete="off" name="fe5a83b6285a13428204d3482c17d27f"><span>Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.</span></label><label><input type="checkbox" autocomplete="off" name="fe5a83b6285a13428204d3482c17d27f"><span>Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind die Aussagen zum expliziten Laden der Pakete mit <code>library()</code> und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen <strong>reproduzierbare Analysen</strong>?</p>
-<div id="webex-5168e9067300aca0d3c825375ae59488" class="webex-checkboxgroup" data-answer="bgAaCEkIHAZq">
-<label><input type="checkbox" autocomplete="off" name="5168e9067300aca0d3c825375ae59488"><span>Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben.</span></label><label><input type="checkbox" autocomplete="off" name="5168e9067300aca0d3c825375ae59488"><span>Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="5168e9067300aca0d3c825375ae59488"><span>Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in <strong>separaten Unterordnern</strong> gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="5168e9067300aca0d3c825375ae59488"><span>Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.</span></label>
+<div id="webex-f02b9fbcae5feb97f375acdc088ac50e" class="webex-checkboxgroup" data-answer="PQEeUhVWTlI8">
+<label><input type="checkbox" autocomplete="off" name="f02b9fbcae5feb97f375acdc088ac50e"><span>Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in <strong>separaten Unterordnern</strong> gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="f02b9fbcae5feb97f375acdc088ac50e"><span>Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.</span></label><label><input type="checkbox" autocomplete="off" name="f02b9fbcae5feb97f375acdc088ac50e"><span>Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="f02b9fbcae5feb97f375acdc088ac50e"><span>Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2148,9 +2137,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Eine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript <strong>reproduzierbar</strong> ist?</p>
+<div id="webex-213a1aa40f0a23d6395292ad3fe6bb56" class="webex-checkboxgroup" data-answer="aQEfUB1QTQRt">
+<label><input type="checkbox" autocomplete="off" name="213a1aa40f0a23d6395292ad3fe6bb56"><span>Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.</span></label><label><input type="checkbox" autocomplete="off" name="213a1aa40f0a23d6395292ad3fe6bb56"><span>Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.</span></label><label><input type="checkbox" autocomplete="off" name="213a1aa40f0a23d6395292ad3fe6bb56"><span>Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> geladen.</span></label><label><input type="checkbox" autocomplete="off" name="213a1aa40f0a23d6395292ad3fe6bb56"><span>Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind die Aussagen zum expliziten Laden der Pakete mit <code>library()</code> und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen beschreiben korrekte Merkmale einer <strong>reproduzierbaren</strong> Datenanalyse?</p>
-<div id="webex-4a253495730590e29b2d30a91967e8b6" class="webex-checkboxgroup" data-answer="b1EeBB8EFQRq">
-<label><input type="checkbox" autocomplete="off" name="4a253495730590e29b2d30a91967e8b6"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="4a253495730590e29b2d30a91967e8b6"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="4a253495730590e29b2d30a91967e8b6"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="4a253495730590e29b2d30a91967e8b6"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label>
+<div id="webex-f31c8a8237bc39ed8ed2b150a8242e87" class="webex-checkboxgroup" data-answer="PQIdUxRQFAJu">
+<label><input type="checkbox" autocomplete="off" name="f31c8a8237bc39ed8ed2b150a8242e87"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="f31c8a8237bc39ed8ed2b150a8242e87"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="f31c8a8237bc39ed8ed2b150a8242e87"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label><label><input type="checkbox" autocomplete="off" name="f31c8a8237bc39ed8ed2b150a8242e87"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label>
 </div>
 </div>
 <div class="webex-solution">

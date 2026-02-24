@@ -1,0 +1,40 @@
+Question
+========
+Sie vergleichen ein einfaches und ein erweitertes Regressionsmodell:
+
+```r
+modell1 <- lm(wm_score ~ alter, data = daten)
+modell2 <- lm(wm_score ~ alter + stress + schlaf, data = daten)
+```
+
+`modell1` hat R² = .067, `modell2` hat R² = .142. Sie führen einen Modellvergleich durch:
+
+```r
+anova(modell1, modell2)
+# Analysis of Variance Table
+# Model 1: wm_score ~ alter
+# Model 2: wm_score ~ alter + stress + schlaf
+#   Res.Df   RSS  Df Sum of Sq    F  Pr(>F)
+# 1     98 13392
+# 2     96 12314  2     1078  4.21  0.018 *
+```
+
+Was lässt sich aus diesem Vergleich schliessen?
+
+Answerlist
+----------
+* Das erweiterte Modell (mit Stress und Schlaf) erklärt signifikant mehr Varianz als das einfache Modell (p = .018), daher ist die Aufnahme der zusätzlichen Prädiktoren gerechtfertigt.
+* Da R² von .067 auf .142 gestiegen ist, hat sich die erklärte Varianz mehr als verdoppelt — die Prädiktoren Stress und Schlaf tragen substanziell zur Vorhersage bei.
+* R² steigt immer, wenn Prädiktoren hinzugefügt werden — deshalb ist der formale Modellvergleich mit `anova()` nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.
+* Das einfache Modell sollte bevorzugt werden, weil ein R² von .142 immer noch niedrig ist.
+
+Solution
+========
+Korrekt sind die ersten drei Aussagen. Der Modellvergleich mit `anova()` zeigt, dass die zusätzliche erklärte Varianz durch Stress und Schlaf statistisch signifikant ist (p = .018). R² ist tatsächlich von 6.7% auf 14.2% gestiegen — die zusätzlichen Prädiktoren tragen substanziell bei. Wichtig ist die dritte Aussage: R² steigt grundsätzlich immer bei mehr Prädiktoren, auch bei irrelevanten — deshalb braucht es den formalen Modellvergleich. Falsch ist die vierte Aussage: Dass R² = .142 „niedrig" sei, ist kein Grund, das Modell zu verwerfen. In der Psychologie sind solche Werte üblich, und die Modellwahl sollte sich am signifikanten Modellvergleich orientieren, nicht an einer willkürlichen R²-Schwelle.
+
+Meta-information
+================
+exname: modellvergleich_anova
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

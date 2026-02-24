@@ -1,0 +1,21 @@
+Question
+========
+Sie erstellen einen Analysebericht für eine Auftraggeberin, die keinen R-Code lesen kann, aber die Ergebnisse (Tabellen und Grafiken) sehen möchte. Welche Chunk-Option ist am geeignetsten?
+
+Answerlist
+----------
+* `echo: true` — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.
+* `echo: false` — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.
+* Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.
+* `eval: false` — damit der Code zwar angezeigt, aber nicht ausgeführt wird.
+
+Solution
+========
+Korrekt ist `echo: false`. Diese Option verbirgt den R-Code im gerenderten Dokument, sodass nur die Ergebnisse (Tabellen, Grafiken, Zahlen) angezeigt werden. Entscheidend ist: Der Code bleibt im Quelldokument (.qmd) erhalten und wird beim Rendern ausgeführt — Verbergen ist nicht Löschen. `echo: true` würde den Code anzeigen, was für eine nicht-technische Auftraggeberin ungeeignet ist. Das Löschen des Codes widerspricht dem Prinzip der Reproduzierbarkeit. `eval: false` würde den Code anzeigen, aber nicht ausführen — es gäbe also keine Ergebnisse im Bericht.
+
+Meta-information
+================
+exname: chunk_optionen
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

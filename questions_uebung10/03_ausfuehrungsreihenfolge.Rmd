@@ -1,0 +1,29 @@
+Question
+========
+In einem Quarto-Dokument stehen folgende drei Code-Chunks in dieser Reihenfolge:
+
+**Chunk 1:** `ergebnis <- mean(daten$score)`
+
+**Chunk 2:** `daten <- read.csv2(here("daten", "studie.csv"))`
+
+**Chunk 3:** `print(ergebnis)`
+
+Was passiert beim Rendern des Dokuments?
+
+Answerlist
+----------
+* Es tritt ein Fehler auf, weil in Chunk 1 das Objekt `daten` verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.
+* Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.
+* Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.
+* Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.
+
+Solution
+========
+Korrekt ist die erste Aussage. Quarto führt Code-Chunks strikt sequentiell von oben nach unten aus. In Chunk 1 wird das Objekt `daten` benötigt, das aber erst in Chunk 2 erstellt wird. Daher bricht das Rendern mit einem Fehler ab ("object 'daten' not found"). Die Lösung wäre, den Import-Chunk (Chunk 2) vor den Berechnungs-Chunk (Chunk 1) zu verschieben. Quarto erkennt Abhängigkeiten nicht automatisch und führt Chunks weder parallel noch in einer optimierten Reihenfolge aus.
+
+Meta-information
+================
+exname: ausfuehrungsreihenfolge
+extype: schoice
+exsolution: 1000
+exshuffle: TRUE

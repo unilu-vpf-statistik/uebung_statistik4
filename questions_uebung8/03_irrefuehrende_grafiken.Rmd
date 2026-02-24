@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik **irreführend** wirkt?
+
+Answerlist
+----------
+* Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.
+* Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.
+* Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.
+* Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.
+
+Solution
+========
+Korrekt sind die zweite und dritte Aussage. Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.
+
+Meta-information
+================
+exname: irrefuehrende_grafiken
+extype: mchoice
+exsolution: 0110
+exshuffle: TRUE

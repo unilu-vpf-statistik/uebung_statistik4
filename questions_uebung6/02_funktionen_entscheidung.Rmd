@@ -1,0 +1,21 @@
+Question
+========
+In welcher der folgenden Situationen ist es am sinnvollsten, eine **eigene Funktion** zu schreiben?
+
+Answerlist
+----------
+* Sie berechnen einmalig den Mittelwert einer Spalte mit `mean(daten$score)`.
+* Sie laden ein Paket mit `library(tidyverse)` zu Beginn Ihres Skripts.
+* Sie prüfen in drei verschiedenen Datensätzen, ob numerische Werte innerhalb eines bestimmten Bereichs liegen, wobei sich der Bereich je nach Datensatz unterscheidet.
+* Sie lesen eine einzelne CSV-Datei mit `read.csv2()` ein.
+
+Solution
+========
+Eine eigene Funktion ist dann sinnvoll, wenn die gleiche Logik mehrfach mit unterschiedlichen Parametern angewendet wird. Die Bereichsprüfung in drei Datensätzen mit je unterschiedlichen Grenzen ist ein klassischer Fall: Die Prüflogik bleibt gleich, aber die Parameter (Bereichsgrenzen) variieren — genau das lässt sich elegant als Funktion mit Argumenten lösen. Die anderen Situationen sind einmalige, einfache Operationen, für die keine eigene Funktion nötig ist.
+
+Meta-information
+================
+exname: funktionen_entscheidung
+extype: schoice
+exsolution: 0010
+exshuffle: TRUE

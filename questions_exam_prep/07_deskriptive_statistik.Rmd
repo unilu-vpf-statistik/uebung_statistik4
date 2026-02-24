@@ -1,0 +1,32 @@
+Question
+========
+Sie erhalten folgenden R-Output für gruppierte deskriptive Statistiken:
+
+```
+# A tibble: 3 × 6
+  gruppe     n     M   Mdn    SD   IQR
+  <chr>  <int> <dbl> <dbl> <dbl> <dbl>
+1 EG        35  68.2  67.5  11.4  14.8
+2 KG        38  57.1  56.8  12.0  15.2
+3 WG        27  59.8  52.3  18.7  22.1
+```
+
+Was fällt Ihnen an diesem Output auf, und welche Konsequenz hat das für die weitere Analyse?
+
+Answerlist
+----------
+* In der WG weichen Mittelwert (59.8) und Median (52.3) deutlich voneinander ab, was auf eine schiefe Verteilung in dieser Gruppe hindeutet — hier wäre der Median das geeignetere Lagemass.
+* Die WG hat eine deutlich grössere Streuung (SD = 18.7) als EG und KG (SD ≈ 11–12), was bei einer ANOVA die Annahme der Varianzhomogenität verletzen könnte und mit einem Levene-Test geprüft werden sollte.
+* Da die Gruppengrösssen unterschiedlich sind (35, 38, 27), können keine gruppierten deskriptiven Statistiken berechnet werden.
+* Die EG zeigt den höchsten Mittelwert (68.2), und da M ≈ Mdn in dieser Gruppe, ist die Verteilung dort vermutlich annähernd symmetrisch.
+
+Solution
+========
+Korrekt sind die erste, zweite und vierte Aussage. In der WG ist M − Mdn = 7.5 Punkte, was auf eine rechtsschiefe Verteilung hindeutet — hier gibt der Median die typische Leistung besser wieder. Die deutlich grössere SD in der WG (18.7 vs. 11–12) ist ein Warnsignal für die Varianzhomogenität, die vor einer ANOVA mit dem Levene-Test geprüft werden sollte. In der EG liegen M und Mdn nahe beieinander, was für eine symmetrische Verteilung spricht. Falsch ist die dritte Aussage: Ungleiche Gruppengrössen sind kein Hindernis für gruppierte Deskriptivstatistiken — `group_by() + summarise()` funktioniert unabhängig von der Gruppengrösse.
+
+Meta-information
+================
+exname: exam_deskriptive_statistik
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

@@ -1,0 +1,21 @@
+Question
+========
+Sie möchten den **Zusammenhang** zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?
+
+Answerlist
+----------
+* Balkendiagramm, weil es Unterschiede klar sichtbar macht.
+* Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.
+* Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.
+* Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.
+
+Solution
+========
+Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.
+
+Meta-information
+================
+exname: diagrammtyp_auswahl
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

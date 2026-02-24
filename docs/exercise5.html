@@ -2170,20 +2170,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
-<div id="webex-591d290e4e540ef6fdcf90e06d69adf5" class="webex-checkboxgroup" data-answer="bgkdVR4JHFRp">
-<label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="591d290e4e540ef6fdcf90e06d69adf5"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind die Aussagen zur IQR-Regel und zum z-Score-Kriterium. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 — in R: <code>Q1 - 1.5 * IQR(x)</code> und <code>Q3 + 1.5 * IQR(x)</code>. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser. Ausreisser müssen nicht zwingend entfernt werden: Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen, da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs.&nbsp;Mittelwert/SD) und bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren können.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
-<div id="webex-81e7f275b67282a2f9c585f52c527432" class="webex-checkboxgroup" data-answer="YwFJB0oDGwQ/">
-<label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="81e7f275b67282a2f9c585f52c527432"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label>
+<div id="webex-c414b2ef181f77e97ec022fdd14af6b2" class="webex-checkboxgroup" data-answer="OAUdBU4CSVZs">
+<label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2193,12 +2182,23 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
-<div id="webex-7f0e932b1050a573cad4ac58e370c176" class="webex-radiogroup" data-answer="bFccVRUDHlJs">
-<label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="7f0e932b1050a573cad4ac58e370c176"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label>
+<div id="webex-d6258c42adf78d8da4a2710677ca4724" class="webex-radiogroup" data-answer="PwYeBRRTGAM8">
+<label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt ist <code>colSums(is.na(daten))</code>. Diese Funktion kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> und <code>complete.cases()</code> identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
+<div id="webex-f95570ab03df6aef05d49c7f0dc724c1" class="webex-checkboxgroup" data-answer="PQkZBRsBTVNt">
+<label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind die Aussagen zur IQR-Regel und zum z-Score-Kriterium. Die IQR-Regel definiert Ausreisser als Werte ausserhalb des 1,5-fachen Interquartilsabstands über Q3 bzw. unter Q1 — in R: <code>Q1 - 1.5 * IQR(x)</code> und <code>Q3 + 1.5 * IQR(x)</code>. Das z-Score-Kriterium identifiziert Werte, die mehr als 3 Standardabweichungen vom Mittelwert abweichen, als Ausreisser. Ausreisser müssen nicht zwingend entfernt werden: Sie können auch untersucht, transformiert oder im Rahmen von Sensitivitätsanalysen behandelt werden. Beide Methoden führen nicht immer zu denselben Ergebnissen, da sie auf unterschiedlichen Kennzahlen beruhen (IQR vs.&nbsp;Mittelwert/SD) und bei schiefen Verteilungen unterschiedliche Werte als Ausreisser klassifizieren können.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

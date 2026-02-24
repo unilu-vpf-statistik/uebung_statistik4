@@ -1,0 +1,33 @@
+Question
+========
+Sie führen eine ANOVA mit `afex::aov_ez()` durch und erhalten folgenden Output:
+
+```
+Anova Table (Type 3 tests)
+
+Response: wm_score
+   Effect    df  MSE     F   ges     p
+1  gruppe 1, 98 156.2  8.42  .08  .004 **
+---
+Signif. codes: '***' .001 '**' .01 '*' .05 '+' .1 ' ' 1
+```
+
+Welche Aussagen zur **Interpretation dieses Outputs** sind korrekt?
+
+Answerlist
+----------
+* Die Spalte `ges` gibt das generalisierte Eta-Quadrat an — hier werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.
+* Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.
+* Die Spalte `MSE` (Mean Square Error) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen.
+* Der Output zeigt, dass es zwei Gruppen gibt (df = 1, 98), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.
+
+Solution
+========
+Korrekt sind die erste, dritte und vierte Aussage. Die Spalte `ges` ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist die zweite Aussage: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.
+
+Meta-information
+================
+exname: aov_ez_output_lesen
+extype: mchoice
+exsolution: 1011
+exshuffle: TRUE

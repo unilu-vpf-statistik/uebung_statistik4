@@ -1,0 +1,21 @@
+Question
+========
+Welche Aussagen zur **Logik von ggplot2** (Grammar of Graphics) sind korrekt?
+
+Answerlist
+----------
+* Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.
+* In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.
+* Aesthetics (`aes()`) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.
+* ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.
+
+Solution
+========
+Korrekt sind die erste und dritte Aussage. ggplot2 basiert auf dem Schichtprinzip (Grammar of Graphics): Daten werden über Aesthetics (`aes()`) auf visuelle Eigenschaften abgebildet, und Geome bestimmen die geometrische Darstellung (z. B. Punkte, Balken, Boxplot). Falsch ist, dass ggplot2 automatisch Variablen zuordnet — die Zuordnung muss explizit über `aes()` definiert werden. Ebenso falsch ist, dass nur ein Geom pro Plot möglich sei: ggplot2 erlaubt beliebig viele Schichten (z. B. Punkte und eine Regressionslinie im selben Diagramm).
+
+Meta-information
+================
+exname: grammar_of_graphics
+extype: mchoice
+exsolution: 1010
+exshuffle: TRUE

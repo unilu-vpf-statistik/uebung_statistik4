@@ -1,0 +1,37 @@
+Question
+========
+Eine Kollegin zeigt Ihnen folgenden Code aus ihrem Analyseskript. Sie hat die gleiche Validierungslogik in drei Varianten kopiert:
+
+```r
+# Prüfung wm_score
+ausserhalb_wm <- daten$wm_score < 0 | daten$wm_score > 100
+cat("WM: ", sum(ausserhalb_wm, na.rm = TRUE), "Werte ausserhalb\n")
+
+# Prüfung stress
+ausserhalb_stress <- daten$stress < 1 | daten$stress > 10
+cat("Stress: ", sum(ausserhalb_stress, na.rm = TRUE), "Werte ausserhalb\n")
+
+# Prüfung alter
+ausserhalb_alter <- daten$alter < 18 | daten$alter > 65
+cat("Alter: ", sum(ausserhalb_alter, na.rm = TRUE), "Werte ausserhalb\n")
+```
+
+Welche Aussagen zu diesem Code sind **korrekt**?
+
+Answerlist
+----------
+* Der Code verstösst gegen das DRY-Prinzip, weil die gleiche Prüflogik dreimal kopiert wurde — nur die Variablen und Grenzen unterscheiden sich.
+* Eine Funktion mit Argumenten für Variable, Untergrenze und Obergrenze würde den Code wartbarer machen: Bei einer Änderung der Prüflogik müsste nur die Funktion angepasst werden.
+* Der Code ist optimal, weil jede Variable eigene Grenzen hat und daher nicht in eine Funktion ausgelagert werden kann.
+* Wenn die Kollegin später eine vierte Variable prüfen möchte, muss sie bei der aktuellen Lösung den Codeblock erneut kopieren und anpassen — bei einer Funktion genügt ein zusätzlicher Funktionsaufruf.
+
+Solution
+========
+Korrekt sind die erste, zweite und vierte Aussage. Der Code wiederholt die gleiche Logik (Grenzwertprüfung + Zählung + Ausgabe) mit unterschiedlichen Parametern — ein klassischer Fall für eine Funktion. Eine Funktion wie `pruefe_bereich(x, min, max)` würde die Logik einmal definieren; unterschiedliche Grenzen werden als Argumente übergeben. Bei einer Erweiterung (vierte Variable) genügt ein Funktionsaufruf statt eines kopierten Blocks. Falsch ist die dritte Aussage: Gerade *weil* sich nur die Parameter unterscheiden, eignet sich der Code für eine Funktion — die unterschiedlichen Grenzen werden als Argumente übergeben.
+
+Meta-information
+================
+exname: exam_programmieren
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

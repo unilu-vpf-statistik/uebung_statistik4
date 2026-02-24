@@ -1,12 +1,89 @@
 ---
-title: "Übung 6 - Folgt"
+title: "Übung 6 - Grundlagen: Programmieren mit R"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 6
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung6"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Eigene Funktionen & Kontrollstrukturen
+
+In dieser Übung beschäftigen wir uns mit den Grundlagen des Programmierens in R: **eigene Funktionen** und **Kontrollstrukturen** (Schleifen und Bedingungen). Ziel ist nicht, perfekten Code zu schreiben, sondern zu verstehen, wann und warum diese Werkzeuge sinnvoll eingesetzt werden.
+
+### Warum eigene Funktionen?
+
+Das **DRY-Prinzip** (Don't Repeat Yourself) ist ein zentrales Konzept: Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelagert werden. Vorteile:
+
+- **Wartbarkeit**: Fehler müssen nur an einer Stelle korrigiert werden.
+- **Transparenz**: Argumente dokumentieren explizit, welche Parameter variiert werden.
+- **Lesbarkeit**: Ein sprechender Funktionsname erklärt, *was* der Code tut.
+
+### Kontrollstrukturen
+
+| Struktur | Zweck | Beispiel |
+|---|---|---|
+| **`for`-Schleife** | Gleichen Schritt für jedes Element wiederholen | Prüfung jeder Spalte eines Datensatzes |
+| **`if`/`else`** | Bedingte Ausführung | Unterschiedliche Behandlung je nach Werttyp |
+| **Kombination** | Systematische Prüfung mit Entscheidung | Klassifikation jedes Werts als "auffällig" oder "unauffällig" |
+
+### Entscheidungshilfe: Wann eine Funktion schreiben?
+
+- Gleicher Code **mehr als zweimal** verwendet? → **Funktion schreiben**
+- Komplexe Logik, die erklärt werden muss? → **Funktion zur Dokumentation**
+- Verschiedene Parameter je nach Kontext? → **Funktion mit Argumenten**
+- Einmalige, einfache Operation? → **Direkt ausführen**
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu Funktionen und Kontrollstrukturen in R.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Beispiel: Eine eigene Funktion definieren
+pruefe_bereich <- function(x, min = 0, max = 100) {
+  ausserhalb <- x < min | x > max
+  anzahl <- sum(ausserhalb, na.rm = TRUE)
+  cat("Werte ausserhalb [", min, ",", max, "]:", anzahl, "\n")
+  return(ausserhalb)
+}
+
+# Testen Sie die Funktion:
+werte <- c(5, 102, -3, 50, 200, 75, 99, 101)
+pruefe_bereich(werte)
+pruefe_bereich(werte, min = 10, max = 90)
+
+# Beispiel: for-Schleife mit if-else
+ergebnis <- c()
+for (i in 1:length(werte)) {
+  if (werte[i] > 100) {
+    ergebnis <- c(ergebnis, "auffällig")
+  } else {
+    ergebnis <- c(ergebnis, "unauffällig")
+  }
+}
+data.frame(wert = werte, klassifikation = ergebnis)
+```
 
 ------------------------------------------------------------------------
 

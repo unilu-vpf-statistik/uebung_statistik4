@@ -1,0 +1,21 @@
+Question
+========
+Welche Kriterien machen eine Grafik **publikationsreif**?
+
+Answerlist
+----------
+* Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.
+* Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. "Reaktionszeit (ms)") statt Rohvariablennamen (z. B. "rt_ms").
+* Eine klare Legende und ein schlichtes Theme (z. B. `theme_minimal()`) ohne ablenkende Hintergrundfarben.
+* Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.
+
+Solution
+========
+Korrekt sind die zweite und dritte Aussage. Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie "rt_ms" sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.
+
+Meta-information
+================
+exname: publikationsreife_grafiken
+extype: mchoice
+exsolution: 0110
+exshuffle: TRUE

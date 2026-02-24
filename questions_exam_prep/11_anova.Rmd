@@ -1,0 +1,37 @@
+Question
+========
+Sie führen eine vollständige ANOVA-Analyse durch und dokumentieren die Schritte:
+
+**Schritt 1** — Deskription: M(EG) = 65.1, M(KG) = 58.2, M(WG) = 59.8
+
+**Schritt 2** — Levene-Test: p = .42 (nicht signifikant)
+
+**Schritt 3** — ANOVA: F(2, 97) = 4.15, p = .019, η²_G = .08
+
+**Schritt 4** — Post-hoc (Bonferroni):
+```
+ contrast  estimate    p
+ EG - KG       6.9  .012
+ EG - WG       5.3  .087
+ KG - WG      -1.6  1.00
+```
+
+Welche Aussage zum **Ergebnisbericht** ist korrekt?
+
+Answerlist
+----------
+* Der Levene-Test ist nicht signifikant, daher ist die Annahme der Varianzhomogenität erfüllt und eine klassische ANOVA (ohne Welch-Korrektur) angemessen.
+* Die ANOVA zeigt einen signifikanten Gruppenunterschied, aber nur der Post-hoc-Vergleich EG vs. KG ist signifikant — die EG erzielte im Mittel 6.9 Punkte mehr als die KG.
+* η²_G = .08 bedeutet, dass 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt werden — diese Effektgrösse muss zusätzlich zum p-Wert berichtet werden.
+* Da nur einer von drei Vergleichen signifikant ist, sollte im Bericht nur dieser eine Vergleich erwähnt werden — die nicht-signifikanten Vergleiche werden weggelassen.
+
+Solution
+========
+Korrekt sind die ersten drei Aussagen. Der nicht-signifikante Levene-Test (p = .42) bestätigt, dass die Varianzen vergleichbar sind — eine klassische ANOVA ist angemessen. Die Post-hoc-Vergleiche zeigen, dass nur EG vs. KG signifikant ist (p = .012, Differenz = 6.9 Punkte). Die Effektgrösse η²_G = .08 muss berichtet werden, weil der p-Wert allein nichts über die Relevanz des Effekts aussagt. Falsch ist die vierte Aussage: In einem vollständigen Ergebnisbericht werden alle Post-hoc-Vergleiche berichtet — auch die nicht-signifikanten. Das selektive Berichten nur signifikanter Vergleiche wäre intransparent und widerspricht guter wissenschaftlicher Praxis.
+
+Meta-information
+================
+exname: exam_anova
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

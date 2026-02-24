@@ -1,0 +1,21 @@
+Question
+========
+Welche Aussagen zur **reproduzierbaren Ergebnisdokumentation** mit Quarto sind korrekt?
+
+Answerlist
+----------
+* In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.
+* Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.
+* Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.
+* In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.
+
+Solution
+========
+Korrekt sind die erste und dritte Aussage. Quarto integriert Text, Code und Output in einem Dokument, sodass Änderungen am Code automatisch die Ergebnisse aktualisieren — das ist der Kern reproduzierbarer Berichterstattung. Der Copy-Paste-Workflow ist fehleranfällig, weil Grafiken und Zahlen manuell übertragen und bei Änderungen erneut aktualisiert werden müssen. Falsch ist, dass Quarto nur HTML erzeugen kann — es unterstützt auch PDF, Word und weitere Formate. Ebenso falsch ist, dass Code immer sichtbar sein muss: Mit der Chunk-Option `echo: false` kann der Code verborgen werden, während die Ergebnisse angezeigt werden.
+
+Meta-information
+================
+exname: reproduzierbare_berichte
+extype: mchoice
+exsolution: 1010
+exshuffle: TRUE

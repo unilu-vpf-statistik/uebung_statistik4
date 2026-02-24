@@ -1,0 +1,37 @@
+Question
+========
+Sie rechnen ein Regressionsmodell mit Interaktion und erhalten folgenden Output:
+
+```r
+modell <- lm(wm_score ~ alter * gruppe, data = daten)
+summary(modell)
+```
+
+```
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)
+(Intercept)       10.20      5.89    1.73   0.087
+alter              1.05      0.35    3.00   0.003 **
+gruppeEG           8.40      8.34    1.01   0.317
+alter:gruppeEG    -0.48      0.50   -0.96   0.340
+```
+
+Welche Aussage zur Interpretation des **Interaktionsterms** `alter:gruppeEG` ist korrekt?
+
+Answerlist
+----------
+* Der Interaktionsterm ist nicht signifikant (p = .340), also ist der Zusammenhang zwischen Alter und WM-Score in beiden Gruppen vergleichbar — die Steigung unterscheidet sich nicht bedeutsam.
+* Der Koeffizient `alter = 1.05` ist der durchschnittliche Alterseffekt über beide Gruppen gemittelt.
+* Der negative Wert von -0.48 bedeutet, dass Alter in der EG einen negativen Zusammenhang mit dem WM-Score hat.
+* Da der Interaktionsterm nicht signifikant ist, sollten `alter` und `gruppeEG` aus dem Modell entfernt werden.
+
+Solution
+========
+Korrekt ist die erste Aussage. Der Interaktionsterm `alter:gruppeEG` testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist die zweite Aussage: `alter = 1.05` ist der Alterseffekt in der Referenzgruppe (KG), nicht der Durchschnitt über beide Gruppen. Falsch ist auch die dritte Aussage: Der Wert -0.48 bedeutet, dass die Steigung in der EG um 0.48 geringer ist als in der KG (also 1.05 - 0.48 = 0.57) — der Effekt bleibt positiv, nur schwächer. Die vierte Aussage ist falsch: Ein nicht-signifikanter Interaktionsterm rechtfertigt das Entfernen der Interaktion, aber nicht der Haupteffekte — die bleiben im Modell.
+
+Meta-information
+================
+exname: interaktion_output_lesen
+extype: schoice
+exsolution: 1000
+exshuffle: TRUE

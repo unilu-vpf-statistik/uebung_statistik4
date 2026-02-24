@@ -1,0 +1,35 @@
+Question
+========
+Sie erstellen eine Grafik für eine wissenschaftliche Publikation. Betrachten Sie folgenden Code:
+
+```r
+p1 <- ggplot(daten, aes(x = alter, y = wm_score)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm") +
+  facet_wrap(~gruppe) +
+  labs(x = "Alter (Jahre)", y = "WM-Score (Punkte)") +
+  theme_bw()
+
+ggsave("ergebnisse/scatter_alter_wm.pdf",
+       plot = p1, width = 18, height = 10, units = "cm", dpi = 300)
+```
+
+Welche Aussagen zu diesem Code sind **korrekt**?
+
+Answerlist
+----------
+* `facet_wrap(~gruppe)` erzeugt separate Panels für jede Gruppe, sodass der Zusammenhang zwischen Alter und WM-Score pro Gruppe bei gleichen Achsen verglichen werden kann.
+* `ggsave()` exportiert die Grafik als PDF — ein Vektorformat, das für Publikationen geeignet ist, weil es beim Skalieren nicht an Qualität verliert.
+* `geom_smooth(method = "lm")` zeichnet in jedem Panel eine lineare Regressionslinie mit Konfidenzband — ob die Steigungen parallel oder unterschiedlich sind, gibt einen visuellen Hinweis auf eine mögliche Interaktion.
+* `dpi = 300` ist nur für PDF-Dateien relevant und hat bei PNG-Exporten keinen Einfluss auf die Bildqualität.
+
+Solution
+========
+Korrekt sind die ersten drei Aussagen. `facet_wrap(~gruppe)` teilt die Grafik in Panels mit identischen Achsen, was den direkten Vergleich ermöglicht. PDF ist ein Vektorformat — ideal für Publikationen, da es skalierbar ist. Die Regressionslinien pro Panel zeigen visuell, ob die Steigungen vergleichbar sind (parallel = kein Interaktionseffekt) oder unterschiedlich (mögliche Interaktion). Falsch ist die vierte Aussage: `dpi` (dots per inch) ist primär für Rasterformate wie PNG relevant, nicht für Vektorformate wie PDF — bei PDF wird `dpi` für eingebettete Rasterelemente verwendet, aber das PDF selbst ist auflösungsunabhängig.
+
+Meta-information
+================
+exname: exam_visualisierung2
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

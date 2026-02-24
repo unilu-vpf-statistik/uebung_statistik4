@@ -1,12 +1,102 @@
 ---
-title: "Übung 11 - Folgt"
+title: "Übung 11 - Anwendung I: Gruppenvergleiche & ANOVA"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+    include-after-body: webex.js
+filters:
+  - webr
+tbl-colwidths: [60,40]
 ---
 
-## Übung 11
+```{r preparation}
+#| include: false
+library(exams)
+library(exams2forms)
+library(here)
 
-Diese Übung wird im Laufe des Semesters ergänzt.
+exam_files <- list.files(here("questions_uebung11"), pattern = "*.Rmd", full.names = TRUE)
+shuffled_questions <- sample(exam_files)
+```
+
+## Wiederholung & Vertiefung: Gruppenvergleiche & ANOVA
+
+In dieser Übung beschäftigen wir uns mit der **ANOVA als Varianzzerlegungsmodell**. Ziel ist das Verständnis der Logik: Wie viel Varianz wird durch Gruppenzugehörigkeit erklärt?
+
+### Varianzzerlegung
+
+- **Daten = Modell + Fehler**: Jede Beobachtung = Gruppeneffekt + individuelle Abweichung
+- **SS_total = SS_between + SS_within**
+- **F = MS_between / MS_within**: Varianz zwischen Gruppen relativ zur Varianz innerhalb
+
+### Signifikanz ≠ Relevanz
+
+| Kennwert | Aussage |
+|---|---|
+| **p-Wert** | Wie wahrscheinlich wäre das Ergebnis unter H₀? |
+| **η²** | Anteil erklärter Varianz (Effektgrösse) |
+| **Cohen's d** | Standardisierter Mittelwertsunterschied |
+
+**Immer Effektgrösse berichten!** Ein kleines p bei grossem N kann einen winzigen Effekt "signifikant" machen.
+
+### Annahmen prüfen
+
+| Annahme | Prüfung | Bei Verletzung |
+|---|---|---|
+| Normalverteilung | QQ-Plot, Shapiro-Wilk | Kruskal-Wallis (bei starker Verletzung) |
+| Varianzhomogenität | Levene-Test | Welch-ANOVA |
+| Unabhängigkeit | Durch Design | Anderes Modell (z. B. Messwiederholung) |
+
+### Post-hoc-Vergleiche
+
+Die ANOVA sagt nur: "Irgendein Unterschied existiert." Post-hoc-Tests (mit Bonferroni- oder Tukey-Korrektur) identifizieren, **welche** Gruppen sich unterscheiden.
+
+## Übungen
+
+Beantworten Sie die folgenden Fragen zu Gruppenvergleichen und ANOVA.
+
+```{r print_questions}
+#| echo: false
+#| message: false
+#| results: "asis"
+exams2forms(shuffled_questions, mathjax = TRUE)
+```
+
+```{webr-r}
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+
+# Laden der benötigten Pakete
+library(dplyr)
+library(ggplot2)
+
+# Daten einlesen
+wm_daten <- read.csv2("WM_Fragebögen.csv")
+
+# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe ---
+wm_daten |>
+  group_by(Experimentalgruppe) |>
+  summarise(
+    n = n(),
+    M = mean(wm_score, na.rm = TRUE),
+    SD = sd(wm_score, na.rm = TRUE),
+    Mdn = median(wm_score, na.rm = TRUE)
+  )
+
+# --- Aufgabe 2: Boxplot zur visuellen Prüfung ---
+ggplot(wm_daten, aes(x = Experimentalgruppe, y = wm_score)) +
+  geom_boxplot() +
+  labs(x = "Gruppe", y = "WM-Score") +
+  theme_minimal()
+
+# --- Aufgabe 3: ANOVA (wenn afex verfügbar) ---
+# library(afex)
+# anova_ergebnis <- aov_ez("ID", "wm_score", wm_daten, between = "Experimentalgruppe")
+# anova_ergebnis
+```
 
 ------------------------------------------------------------------------
 

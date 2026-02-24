@@ -1,0 +1,33 @@
+Question
+========
+Sie führen eine einfache Regression durch und erhalten folgenden `summary()`-Output:
+
+```
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)
+(Intercept)    12.50      4.21    2.97   0.004 **
+alter           0.82      0.31    2.65   0.009 **
+---
+Residual standard error: 12.1 on 98 degrees of freedom
+Multiple R-squared: 0.067, Adjusted R-squared: 0.057
+```
+
+Welche Aussagen zur **Interpretation dieses Outputs** sind korrekt?
+
+Answerlist
+----------
+* Die Zeile `alter` zeigt: Pro zusätzliches Lebensjahr steigt der WM-Score im Durchschnitt um 0.82 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .009).
+* Der Wert `Multiple R-squared: 0.067` bedeutet, dass das Modell 6.7% der Varianz im WM-Score erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.
+* Der `(Intercept)` von 12.50 ist der vorhergesagte WM-Score für eine Person mit Alter = 0, was in diesem Kontext inhaltlich wenig sinnvoll ist.
+* Der `Std. Error` von 0.31 für Alter gibt die Standardabweichung der Variable Alter im Datensatz an.
+
+Solution
+========
+Korrekt sind die ersten drei Aussagen. Der Koeffizient `Estimate = 0.82` für Alter beschreibt die Steigung: Pro Jahr Altersunterschied ändert sich der WM-Score im Schnitt um 0.82 Punkte. R² = .067 bedeutet, dass nur 6.7% der Varianz durch Alter erklärt werden. Der Intercept (12.50) ist der vorhergesagte Wert bei x = 0 — bei Alter = 0 inhaltlich nicht sinnvoll interpretierbar, aber mathematisch notwendig. Falsch ist die vierte Aussage: Der Standardfehler (`Std. Error = 0.31`) ist nicht die Streuung der Variable Alter, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 0.82 geschätzt wurde.
+
+Meta-information
+================
+exname: lm_output_lesen
+extype: mchoice
+exsolution: 1110
+exshuffle: TRUE

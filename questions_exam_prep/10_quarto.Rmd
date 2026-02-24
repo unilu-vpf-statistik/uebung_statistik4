@@ -1,0 +1,45 @@
+Question
+========
+Eine Studentin erstellt ihren Analysebericht als Quarto-Dokument (.qmd). Sie hat folgenden Aufbau:
+
+**Chunk 1 (Setup):**
+```r
+library(dplyr)
+library(ggplot2)
+daten <- read.csv2(here::here("daten", "WM_Fragebögen.csv"))
+```
+
+**Chunk 2 (Deskription):**
+```r
+daten |>
+  group_by(Experimentalgruppe) |>
+  summarise(M = mean(wm_score, na.rm = TRUE), SD = sd(wm_score, na.rm = TRUE))
+```
+
+**Fliesstext zwischen Chunk 2 und 3:**
+"Der Mittelwert in der EG beträgt 65.1 Punkte (manuell eingetippt)."
+
+**Chunk 3 (Grafik):**
+```r
+ggplot(daten, aes(x = Experimentalgruppe, y = wm_score)) + geom_boxplot()
+```
+
+Welche Aussagen sind **korrekt**?
+
+Answerlist
+----------
+* Der manuell eingetippte Mittelwert im Fliesstext widerspricht dem Prinzip der Reproduzierbarkeit — bei Datenänderungen aktualisiert sich dieser Wert nicht automatisch. Besser wäre Inline-Code.
+* Die Reihenfolge der Chunks ist korrekt: Zuerst Pakete laden und Daten einlesen, dann deskriptive Auswertung, dann Visualisierung.
+* Wenn die Studentin `echo: false` im YAML-Header setzt, werden alle Code-Chunks gelöscht und können nicht mehr nachvollzogen werden.
+* Die Chunk-Option `message: false` im Setup-Chunk würde verhindern, dass Paketlade-Meldungen (z. B. von `library(dplyr)`) im gerenderten Bericht erscheinen.
+
+Solution
+========
+Korrekt sind die erste, zweite und vierte Aussage. Manuell eingetippte Zahlen im Fliesstext sind fehleranfällig — bei Datenänderungen muss die Zahl von Hand aktualisiert werden. Inline-R-Code (z. B. in der Form eines R-Ausdrucks im Fliesstext) wäre reproduzierbar. Die Chunk-Reihenfolge ist korrekt: Setup → Analyse → Visualisierung, was der sequentiellen Ausführung von Quarto entspricht. `message: false` unterdrückt Paketmeldungen im Output. Falsch ist die dritte Aussage: `echo: false` verbirgt den Code im gerenderten Dokument, löscht ihn aber nicht — der Code bleibt im Quelldokument (.qmd) vollständig erhalten und wird weiterhin ausgeführt.
+
+Meta-information
+================
+exname: exam_quarto
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

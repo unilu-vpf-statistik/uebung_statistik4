@@ -1,0 +1,31 @@
+Question
+========
+Sie erhalten folgenden R-Output einer gruppierten deskriptiven Auswertung:
+
+```
+# A tibble: 2 × 5
+  gruppe     n     M   Mdn    SD
+  <chr>  <int> <dbl> <dbl> <dbl>
+1 EG        52  65.1  64.8  12.3
+2 KG        48  58.2  57.9  13.1
+```
+
+Welche Aussagen zur **Interpretation dieses Outputs** sind korrekt?
+
+Answerlist
+----------
+* Die EG zeigt einen höheren mittleren WM-Score als die KG, aber ob dieser Unterschied statistisch bedeutsam ist, lässt sich allein aus deskriptiven Kennwerten nicht beurteilen.
+* Da M und Mdn in beiden Gruppen nahe beieinander liegen, gibt es keinen Hinweis auf stark schiefe Verteilungen innerhalb der Gruppen.
+* Die KG hat eine kleinere Stichprobe (n = 48), daher sind ihre Kennwerte automatisch weniger valide als die der EG.
+* Die SD-Werte sind in beiden Gruppen ähnlich (12.3 vs. 13.1), was auf vergleichbare Streuung in beiden Gruppen hindeutet — eine wichtige Voraussetzung für spätere Gruppenvergleiche (z. B. ANOVA).
+
+Solution
+========
+Korrekt sind die erste, zweite und vierte Aussage. Der Mittelwertsunterschied (65.1 vs. 58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.
+
+Meta-information
+================
+exname: output_interpretation
+extype: mchoice
+exsolution: 1101
+exshuffle: TRUE

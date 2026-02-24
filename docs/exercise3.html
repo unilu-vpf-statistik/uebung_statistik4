@@ -2170,25 +2170,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Nach dem Einlesen eines Datensatzes mit <code>daten &lt;- read.csv2("daten.csv")</code> möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine <strong>erste Validierung</strong> geeignet?</p>
-<div id="webex-de6451a35879cd7020d358f307bdc2d8" class="webex-checkboxgroup" data-answer="P1UaBRkATQJo">
-<label><input type="checkbox" autocomplete="off" name="de6451a35879cd7020d358f307bdc2d8"><span><code>plot(daten)</code> — erstellt automatisch Grafiken für alle Variablen.</span></label><label><input type="checkbox" autocomplete="off" name="de6451a35879cd7020d358f307bdc2d8"><span><code>str(daten)</code> — zeigt die Struktur mit Variablennamen und Datentypen.</span></label><label><input type="checkbox" autocomplete="off" name="de6451a35879cd7020d358f307bdc2d8"><span><code>dim(daten)</code> — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.</span></label><label><input type="checkbox" autocomplete="off" name="de6451a35879cd7020d358f307bdc2d8"><span><code>names(daten)</code> — prüft ob alle erwarteten Variablennamen vorhanden sind.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Für die erste Validierung nach dem Einlesen sind <code>dim()</code>, <code>str()</code> und <code>names()</code> geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. <code>plot(daten)</code> ist kein Validierungswerkzeug für die Importqualität — es erstellt zwar Grafiken, zeigt aber nicht, ob der Import korrekt war.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie führen folgenden Code aus und erhalten die Ausgabe:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(<span class="st">"daten.csv"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "id;wm_score;alter;geschlecht"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [2] "VP01;7,5;22;weiblich"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [3] "VP02;6,3;25;männlich"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Welche Aussagen über diese Datei sind <strong>korrekt</strong>?</p>
-<div id="webex-a76fb3b8634cde9fe6c529ca3f7e321d" class="webex-checkboxgroup" data-answer="OgYaV04DTglr">
-<label><input type="checkbox" autocomplete="off" name="a76fb3b8634cde9fe6c529ca3f7e321d"><span>Das Trennzeichen ist ein Semikolon (<code>;</code>).</span></label><label><input type="checkbox" autocomplete="off" name="a76fb3b8634cde9fe6c529ca3f7e321d"><span>Das Dezimaltrennzeichen ist ein Komma (<code>,</code>), wie im deutschen Format üblich.</span></label><label><input type="checkbox" autocomplete="off" name="a76fb3b8634cde9fe6c529ca3f7e321d"><span>Das Trennzeichen ist ein Komma (<code>,</code>).</span></label><label><input type="checkbox" autocomplete="off" name="a76fb3b8634cde9fe6c529ca3f7e321d"><span>Die erste Zeile enthält Variablennamen (Header).</span></label>
+<div id="webex-46f322061f8b112a7e8ac58e7763b4d2" class="webex-checkboxgroup" data-answer="bwZKAh4DHAds">
+<label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Trennzeichen ist ein Komma (<code>,</code>).</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Trennzeichen ist ein Semikolon (<code>;</code>).</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Dezimaltrennzeichen ist ein Komma (<code>,</code>), wie im deutschen Format üblich.</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Die erste Zeile enthält Variablennamen (Header).</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2197,9 +2186,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Nach dem Einlesen eines Datensatzes mit <code>daten &lt;- read.csv2("daten.csv")</code> möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine <strong>erste Validierung</strong> geeignet?</p>
+<div id="webex-7b7dd31d32cfd36f1be4703b73b2bfed" class="webex-checkboxgroup" data-answer="bFIbVUgCHVVu">
+<label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>plot(daten)</code> — erstellt automatisch Grafiken für alle Variablen.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>names(daten)</code> — prüft ob alle erwarteten Variablennamen vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>dim(daten)</code> — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>str(daten)</code> — zeigt die Struktur mit Variablennamen und Datentypen.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Für die erste Validierung nach dem Einlesen sind <code>dim()</code>, <code>str()</code> und <code>names()</code> geeignet. Diese geben schnell Auskunft darüber, ob die Dimensionen stimmen, die Variablennamen korrekt sind, und ob die Datentypen plausibel sind. <code>plot(daten)</code> ist kein Validierungswerkzeug für die Importqualität — es erstellt zwar Grafiken, zeigt aber nicht, ob der Import korrekt war.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche Funktion liest eine CSV-Datei mit <strong>Semikolon als Trennzeichen</strong> und <strong>Komma als Dezimaltrennzeichen</strong> (deutsches Format) korrekt ein?</p>
-<div id="webex-3f437fb7e25b5105aacae92583050f0d" class="webex-checkboxgroup" data-answer="aFYYAhtXTgc4">
-<label><input type="checkbox" autocomplete="off" name="3f437fb7e25b5105aacae92583050f0d"><span><code>read.delim("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="3f437fb7e25b5105aacae92583050f0d"><span><code>read.csv2("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="3f437fb7e25b5105aacae92583050f0d"><span><code>read.table("daten.csv", sep = ";", dec = ",")</code></span></label><label><input type="checkbox" autocomplete="off" name="3f437fb7e25b5105aacae92583050f0d"><span><code>read.csv("daten.csv")</code></span></label>
+<div id="webex-0331c6ab940deff0777066841b14e336" class="webex-checkboxgroup" data-answer="awIfAU8GTVNk">
+<label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.table("daten.csv", sep = ";", dec = ",")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.csv("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.delim("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.csv2("daten.csv")</code></span></label>
 </div>
 </div>
 <div class="webex-solution">

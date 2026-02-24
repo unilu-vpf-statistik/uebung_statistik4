@@ -1,0 +1,35 @@
+Question
+========
+Betrachten Sie folgenden ggplot2-Code:
+
+```r
+ggplot(daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  labs(
+    title = "WM-Score nach Experimentalgruppe",
+    x = "Gruppe",
+    y = "Working Memory Score"
+  ) +
+  theme_minimal()
+```
+
+Welche Aussage beschreibt am besten, was dieser Code erzeugt?
+
+Answerlist
+----------
+* Einen Boxplot pro Gruppe mit darübergelegten halbtransparenten Einzelpunkten — so werden sowohl die Verteilungskennwerte (Median, IQR) als auch die einzelnen Datenpunkte sichtbar.
+* Ein Histogramm der WM-Scores, eingefärbt nach Gruppe, mit einer minimalistischen Darstellung.
+* Einen Scatterplot von Gruppe gegen WM-Score, wobei die Punkte zufällig gestreut werden, um Überlappung zu vermeiden.
+* Einen Balkendiagramm der Gruppenmittelwerte mit Fehlerbalken, dargestellt in einem minimalistischen Theme.
+
+Solution
+========
+Korrekt ist die erste Aussage. Der Code kombiniert zwei geometrische Schichten: `geom_boxplot()` erzeugt pro Gruppe einen Boxplot (mit Median, IQR, Whiskers), und `geom_jitter()` fügt die einzelnen Datenpunkte leicht versetzt hinzu (`width = 0.2`) mit Transparenz (`alpha = 0.3`). Diese Kombination ist gute Praxis, weil Boxplots allein die Verteilungsform und Einzelwerte verbergen können. `fill = gruppe` färbt die Boxplots nach Gruppe. `labs()` setzt Beschriftungen und `theme_minimal()` ein schlichtes Design. Es handelt sich weder um ein Histogramm noch um ein Balkendiagramm — diese würden andere Geome erfordern (`geom_histogram()` bzw. `geom_bar()`).
+
+Meta-information
+================
+exname: exam_visualisierung1
+extype: schoice
+exsolution: 1000
+exshuffle: TRUE

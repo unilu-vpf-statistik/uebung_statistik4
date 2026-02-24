@@ -1,0 +1,34 @@
+Question
+========
+Betrachten Sie folgenden Code:
+
+```r
+ergebnis <- c()
+for (i in 1:length(daten)) {
+  if (daten[i] > 100) {
+    ergebnis <- c(ergebnis, "auffällig")
+  } else {
+    ergebnis <- c(ergebnis, "unauffällig")
+  }
+}
+```
+
+Was beschreibt die Funktion dieses Codes am besten?
+
+Answerlist
+----------
+* Er entfernt alle Werte über 100 aus dem Vektor `daten`.
+* Er erstellt einen neuen Vektor, der für jeden Wert in `daten` angibt, ob er über 100 liegt ("auffällig") oder nicht ("unauffällig").
+* Er berechnet den Mittelwert aller Werte über 100 im Vektor `daten`.
+* Er ersetzt alle Werte über 100 in `daten` durch den Text "auffällig".
+
+Solution
+========
+Der Code durchläuft mit einer `for`-Schleife jeden Wert im Vektor `daten`. Für jeden Wert prüft die `if`-Bedingung, ob er grösser als 100 ist. Falls ja, wird "auffällig" an den neuen Vektor `ergebnis` angehängt, sonst "unauffällig". Am Ende enthält `ergebnis` für jede Position in `daten` eine Klassifikation. Wichtig: Der ursprüngliche Vektor `daten` wird nicht verändert — es wird ein neuer Vektor erstellt. Der Code entfernt also keine Werte und berechnet keinen Mittelwert.
+
+Meta-information
+================
+exname: kontrollstrukturen_lesen
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

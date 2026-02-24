@@ -1,0 +1,21 @@
+Question
+========
+Sie haben in Ihrem R-Skript denselben Codeblock an fünf verschiedenen Stellen kopiert, der jeweils prüft, ob Werte in einem bestimmten Bereich liegen. Welche Aussagen zum **DRY-Prinzip** (Don't Repeat Yourself) sind korrekt?
+
+Answerlist
+----------
+* Wenn ein Fehler in der Prüflogik gefunden wird, muss er bei kopiertem Code an allen fünf Stellen korrigiert werden — eine Funktion erfordert nur eine Korrektur.
+* Eine eigene Funktion macht die Prüfkriterien explizit sichtbar, weil sie als Argumente definiert werden (z. B. `min` und `max`).
+* Das DRY-Prinzip besagt, dass jede Codezeile nur einmal im gesamten Skript vorkommen darf.
+* Funktionen verlangsamen die Ausführung von R erheblich und sollten daher nur bei sehr komplexen Berechnungen eingesetzt werden.
+
+Solution
+========
+Korrekt sind die ersten beiden Aussagen. Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte *Logik*, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.
+
+Meta-information
+================
+exname: dry_prinzip
+extype: mchoice
+exsolution: 1100
+exshuffle: TRUE

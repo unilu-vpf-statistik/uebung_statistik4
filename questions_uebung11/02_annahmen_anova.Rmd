@@ -1,0 +1,37 @@
+Question
+========
+Bevor Sie eine ANOVA rechnen, prüfen Sie die Modellannahmen. Sie führen folgenden Code aus:
+
+```r
+# Schritt 1: Levene-Test
+car::leveneTest(wm_score ~ gruppe, data = daten)
+# Levene's Test (center = median)
+#       Df F value Pr(>F)
+# group  1   5.82  0.018 *
+#        98
+
+# Schritt 2: QQ-Plot der Residuen
+modell <- lm(wm_score ~ gruppe, data = daten)
+plot(modell, which = 2)
+# (QQ-Plot zeigt Punkte nahe an der Diagonale)
+```
+
+Was ist der geeignetste nächste Schritt?
+
+Answerlist
+----------
+* Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.
+* Der Levene-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine **Welch-ANOVA** ist angemessener, da sie keine gleichen Varianzen voraussetzt.
+* Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.
+* Der signifikante Levene-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.
+
+Solution
+========
+Korrekt ist die zweite Aussage. Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die erste Aussage ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.
+
+Meta-information
+================
+exname: annahmen_workflow
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE
