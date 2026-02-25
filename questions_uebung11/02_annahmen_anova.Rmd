@@ -27,7 +27,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist die zweite Aussage. Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die erste Aussage ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.
+Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die Antwort, dass die ANOVA ohne Anpassung durchgeführt werden könne, ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.
 
 Meta-information
 ================

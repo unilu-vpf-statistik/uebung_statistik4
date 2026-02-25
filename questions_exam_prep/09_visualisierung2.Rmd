@@ -25,7 +25,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die ersten drei Aussagen. `facet_wrap(~gruppe)` teilt die Grafik in Panels mit identischen Achsen, was den direkten Vergleich ermöglicht. PDF ist ein Vektorformat — ideal für Publikationen, da es skalierbar ist. Die Regressionslinien pro Panel zeigen visuell, ob die Steigungen vergleichbar sind (parallel = kein Interaktionseffekt) oder unterschiedlich (mögliche Interaktion). Falsch ist die vierte Aussage: `dpi` (dots per inch) ist primär für Rasterformate wie PNG relevant, nicht für Vektorformate wie PDF — bei PDF wird `dpi` für eingebettete Rasterelemente verwendet, aber das PDF selbst ist auflösungsunabhängig.
+`facet_wrap(~gruppe)` teilt die Grafik in Panels mit identischen Achsen, was den direkten Vergleich ermöglicht. PDF ist ein Vektorformat — ideal für Publikationen, da es skalierbar ist. Die Regressionslinien pro Panel zeigen visuell, ob die Steigungen vergleichbar sind (parallel = kein Interaktionseffekt) oder unterschiedlich (mögliche Interaktion). Falsch ist hingegen: `dpi` (dots per inch) ist primär für Rasterformate wie PNG relevant, nicht für Vektorformate wie PDF — bei PDF wird `dpi` für eingebettete Rasterelemente verwendet, aber das PDF selbst ist auflösungsunabhängig.
 
 Meta-information
 ================

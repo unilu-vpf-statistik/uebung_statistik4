@@ -30,7 +30,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die ersten drei Aussagen. Der Modellvergleich mit `anova()` zeigt, dass die zusätzliche erklärte Varianz durch Stress und Schlaf statistisch signifikant ist (p = .018). R² ist tatsächlich von 6.7% auf 14.2% gestiegen — die zusätzlichen Prädiktoren tragen substanziell bei. Wichtig ist die dritte Aussage: R² steigt grundsätzlich immer bei mehr Prädiktoren, auch bei irrelevanten — deshalb braucht es den formalen Modellvergleich. Falsch ist die vierte Aussage: Dass R² = .142 „niedrig" sei, ist kein Grund, das Modell zu verwerfen. In der Psychologie sind solche Werte üblich, und die Modellwahl sollte sich am signifikanten Modellvergleich orientieren, nicht an einer willkürlichen R²-Schwelle.
+Der Modellvergleich mit `anova()` zeigt, dass die zusätzliche erklärte Varianz durch Stress und Schlaf statistisch signifikant ist (p = .018). R² ist tatsächlich von 6.7% auf 14.2% gestiegen — die zusätzlichen Prädiktoren tragen substanziell bei. Wichtig dabei: R² steigt grundsätzlich immer bei mehr Prädiktoren, auch bei irrelevanten — deshalb braucht es den formalen Modellvergleich. Falsch ist: Dass R² = .142 „niedrig" sei, ist kein Grund, das Modell zu verwerfen. In der Psychologie sind solche Werte üblich, und die Modellwahl sollte sich am signifikanten Modellvergleich orientieren, nicht an einer willkürlichen R²-Schwelle.
 
 Meta-information
 ================

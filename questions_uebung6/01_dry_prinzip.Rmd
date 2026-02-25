@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die ersten beiden Aussagen. Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte *Logik*, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.
+Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte *Logik*, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.
 
 Meta-information
 ================

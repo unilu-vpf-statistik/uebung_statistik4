@@ -27,7 +27,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die ersten drei Aussagen. Der nicht-signifikante Levene-Test (p = .42) bestätigt, dass die Varianzen vergleichbar sind — eine klassische ANOVA ist angemessen. Die Post-hoc-Vergleiche zeigen, dass nur EG vs. KG signifikant ist (p = .012, Differenz = 6.9 Punkte). Die Effektgrösse η²_G = .08 muss berichtet werden, weil der p-Wert allein nichts über die Relevanz des Effekts aussagt. Falsch ist die vierte Aussage: In einem vollständigen Ergebnisbericht werden alle Post-hoc-Vergleiche berichtet — auch die nicht-signifikanten. Das selektive Berichten nur signifikanter Vergleiche wäre intransparent und widerspricht guter wissenschaftlicher Praxis.
+Der nicht-signifikante Levene-Test (p = .42) bestätigt, dass die Varianzen vergleichbar sind — eine klassische ANOVA ist angemessen. Die Post-hoc-Vergleiche zeigen, dass nur EG vs. KG signifikant ist (p = .012, Differenz = 6.9 Punkte). Die Effektgrösse η²_G = .08 muss berichtet werden, weil der p-Wert allein nichts über die Relevanz des Effekts aussagt. Falsch ist: In einem vollständigen Ergebnisbericht werden alle Post-hoc-Vergleiche berichtet — auch die nicht-signifikanten. Das selektive Berichten nur signifikanter Vergleiche wäre intransparent und widerspricht guter wissenschaftlicher Praxis.
 
 Meta-information
 ================

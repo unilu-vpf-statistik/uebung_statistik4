@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste und vierte Aussage. Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.
+Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.
 
 Meta-information
 ================

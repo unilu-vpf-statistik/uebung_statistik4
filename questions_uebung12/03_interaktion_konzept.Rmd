@@ -27,7 +27,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist die erste Aussage. Der Interaktionsterm `alter:gruppeEG` testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist die zweite Aussage: `alter = 1.05` ist der Alterseffekt in der Referenzgruppe (KG), nicht der Durchschnitt über beide Gruppen. Falsch ist auch die dritte Aussage: Der Wert -0.48 bedeutet, dass die Steigung in der EG um 0.48 geringer ist als in der KG (also 1.05 - 0.48 = 0.57) — der Effekt bleibt positiv, nur schwächer. Die vierte Aussage ist falsch: Ein nicht-signifikanter Interaktionsterm rechtfertigt das Entfernen der Interaktion, aber nicht der Haupteffekte — die bleiben im Modell.
+Der Interaktionsterm `alter:gruppeEG` testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist, dass `alter = 1.05` der Durchschnitt über beide Gruppen sei — es ist der Alterseffekt in der Referenzgruppe (KG). Falsch ist auch, dass der negative Wert von -0.48 auf einen negativen Zusammenhang in der EG hinweise: -0.48 ist die Differenz der Steigungen (EG vs. KG) — der Effekt in der EG beträgt 1.05 - 0.48 = 0.57 und bleibt positiv, nur schwächer. Falsch ist ausserdem, dass ein nicht-signifikanter Interaktionsterm das Entfernen der Haupteffekte rechtfertige — nur die Interaktion kann entfernt werden, die Haupteffekte bleiben im Modell.
 
 Meta-information
 ================

@@ -23,7 +23,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist die erste Aussage. Der Code nutzt `group_by(gruppe)`, um die Daten nach Gruppen aufzuteilen, und `across(where(is.numeric), ...)`, um die Funktionen `mean` und `sd` auf alle numerischen Spalten gleichzeitig anzuwenden. Das Argument `.names = "{.col}_{.fn}"` erzeugt Spaltennamen im Format `variablenname_M` und `variablenname_SD`. `across()` wendet die Funktionen nicht nur auf die erste Spalte an, sondern auf alle, die das Kriterium `where(is.numeric)` erfüllen. Der Code filtert keine Spalten aus dem Datensatz und die Gruppierung durch `group_by()` wird nicht ignoriert.
+Der Code nutzt `group_by(gruppe)`, um die Daten nach Gruppen aufzuteilen, und `across(where(is.numeric), ...)`, um die Funktionen `mean` und `sd` auf alle numerischen Spalten gleichzeitig anzuwenden. Das Argument `.names = "{.col}_{.fn}"` erzeugt Spaltennamen im Format `variablenname_M` und `variablenname_SD`. `across()` wendet die Funktionen nicht nur auf die erste Spalte an, sondern auf alle, die das Kriterium `where(is.numeric)` erfüllen. Der Code filtert keine Spalten aus dem Datensatz und die Gruppierung durch `group_by()` wird nicht ignoriert.
 
 Meta-information
 ================

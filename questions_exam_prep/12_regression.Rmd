@@ -21,7 +21,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, dritte und vierte Aussage. Der Rückgang des Alterskoeffizienten von 0.82 auf 0.75 zeigt, dass ein Teil des Alterseffekts mit der Gruppenzugehörigkeit zusammenhing — im multiplen Modell wird der „reine" Alterseffekt sichtbar. Der Modellvergleich zeigt, dass die Interaktion den Modellfit nicht signifikant verbessert (p = .340) — Modell 2 ist daher sparsamer und vorzuziehen. Der Gruppenkoeffizient von 6.3 ist der adjustierte Unterschied zwischen EG und KG, kontrolliert für Alter. Falsch ist die zweite Aussage: Der höchste R²-Wert allein rechtfertigt kein komplexeres Modell, weil R² mit jedem Prädiktor steigt. Der formale Modellvergleich zeigt, dass der R²-Zuwachs von .142 auf .148 nicht signifikant ist.
+Der Rückgang des Alterskoeffizienten von 0.82 auf 0.75 zeigt, dass ein Teil des Alterseffekts mit der Gruppenzugehörigkeit zusammenhing — im multiplen Modell wird der „reine" Alterseffekt sichtbar. Der Modellvergleich zeigt, dass die Interaktion den Modellfit nicht signifikant verbessert (p = .340) — Modell 2 ist daher sparsamer und vorzuziehen. Der Gruppenkoeffizient von 6.3 ist der adjustierte Unterschied zwischen EG und KG, kontrolliert für Alter. Falsch ist: Der höchste R²-Wert allein rechtfertigt kein komplexeres Modell, weil R² mit jedem Prädiktor steigt. Der formale Modellvergleich zeigt, dass der R²-Zuwachs von .142 auf .148 nicht signifikant ist.
 
 Meta-information
 ================

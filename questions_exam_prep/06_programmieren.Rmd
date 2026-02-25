@@ -27,7 +27,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, zweite und vierte Aussage. Der Code wiederholt die gleiche Logik (Grenzwertprüfung + Zählung + Ausgabe) mit unterschiedlichen Parametern — ein klassischer Fall für eine Funktion. Eine Funktion wie `pruefe_bereich(x, min, max)` würde die Logik einmal definieren; unterschiedliche Grenzen werden als Argumente übergeben. Bei einer Erweiterung (vierte Variable) genügt ein Funktionsaufruf statt eines kopierten Blocks. Falsch ist die dritte Aussage: Gerade *weil* sich nur die Parameter unterscheiden, eignet sich der Code für eine Funktion — die unterschiedlichen Grenzen werden als Argumente übergeben.
+Der Code wiederholt die gleiche Logik (Grenzwertprüfung + Zählung + Ausgabe) mit unterschiedlichen Parametern — ein klassischer Fall für eine Funktion. Eine Funktion wie `pruefe_bereich(x, min, max)` würde die Logik einmal definieren; unterschiedliche Grenzen werden als Argumente übergeben. Bei einer Erweiterung (vierte Variable) genügt ein Funktionsaufruf statt eines kopierten Blocks. Falsch ist: Gerade *weil* sich nur die Parameter unterscheiden, eignet sich der Code für eine Funktion — die unterschiedlichen Grenzen werden als Argumente übergeben.
 
 Meta-information
 ================

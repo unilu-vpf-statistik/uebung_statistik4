@@ -25,7 +25,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist die erste Aussage. Der Code kombiniert zwei geometrische Schichten: `geom_boxplot()` erzeugt pro Gruppe einen Boxplot (mit Median, IQR, Whiskers), und `geom_jitter()` fügt die einzelnen Datenpunkte leicht versetzt hinzu (`width = 0.2`) mit Transparenz (`alpha = 0.3`). Diese Kombination ist gute Praxis, weil Boxplots allein die Verteilungsform und Einzelwerte verbergen können. `fill = gruppe` färbt die Boxplots nach Gruppe. `labs()` setzt Beschriftungen und `theme_minimal()` ein schlichtes Design. Es handelt sich weder um ein Histogramm noch um ein Balkendiagramm — diese würden andere Geome erfordern (`geom_histogram()` bzw. `geom_bar()`).
+Der Code kombiniert zwei geometrische Schichten: `geom_boxplot()` erzeugt pro Gruppe einen Boxplot (mit Median, IQR, Whiskers), und `geom_jitter()` fügt die einzelnen Datenpunkte leicht versetzt hinzu (`width = 0.2`) mit Transparenz (`alpha = 0.3`). Diese Kombination ist gute Praxis, weil Boxplots allein die Verteilungsform und Einzelwerte verbergen können. `fill = gruppe` färbt die Boxplots nach Gruppe. `labs()` setzt Beschriftungen und `theme_minimal()` ein schlichtes Design. Es handelt sich weder um ein Histogramm noch um ein Balkendiagramm — diese würden andere Geome erfordern (`geom_histogram()` bzw. `geom_bar()`).
 
 Meta-information
 ================

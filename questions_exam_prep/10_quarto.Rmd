@@ -35,7 +35,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, zweite und vierte Aussage. Manuell eingetippte Zahlen im Fliesstext sind fehleranfällig — bei Datenänderungen muss die Zahl von Hand aktualisiert werden. Inline-R-Code (z. B. in der Form eines R-Ausdrucks im Fliesstext) wäre reproduzierbar. Die Chunk-Reihenfolge ist korrekt: Setup → Analyse → Visualisierung, was der sequentiellen Ausführung von Quarto entspricht. `message: false` unterdrückt Paketmeldungen im Output. Falsch ist die dritte Aussage: `echo: false` verbirgt den Code im gerenderten Dokument, löscht ihn aber nicht — der Code bleibt im Quelldokument (.qmd) vollständig erhalten und wird weiterhin ausgeführt.
+Manuell eingetippte Zahlen im Fliesstext sind fehleranfällig — bei Datenänderungen muss die Zahl von Hand aktualisiert werden. Inline-R-Code (z. B. in der Form eines R-Ausdrucks im Fliesstext) wäre reproduzierbar. Die Chunk-Reihenfolge ist korrekt: Setup → Analyse → Visualisierung, was der sequentiellen Ausführung von Quarto entspricht. `message: false` unterdrückt Paketmeldungen im Output. Falsch ist: `echo: false` verbirgt den Code im gerenderten Dokument, löscht ihn aber nicht — der Code bleibt im Quelldokument (.qmd) vollständig erhalten und wird weiterhin ausgeführt.
 
 Meta-information
 ================

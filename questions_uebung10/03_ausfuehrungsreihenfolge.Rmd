@@ -19,7 +19,7 @@ Answerlist
 
 Solution
 ========
-Korrekt ist die erste Aussage. Quarto führt Code-Chunks strikt sequentiell von oben nach unten aus. In Chunk 1 wird das Objekt `daten` benötigt, das aber erst in Chunk 2 erstellt wird. Daher bricht das Rendern mit einem Fehler ab ("object 'daten' not found"). Die Lösung wäre, den Import-Chunk (Chunk 2) vor den Berechnungs-Chunk (Chunk 1) zu verschieben. Quarto erkennt Abhängigkeiten nicht automatisch und führt Chunks weder parallel noch in einer optimierten Reihenfolge aus.
+Quarto führt Code-Chunks strikt sequentiell von oben nach unten aus. In Chunk 1 wird das Objekt `daten` benötigt, das aber erst in Chunk 2 erstellt wird. Daher bricht das Rendern mit einem Fehler ab ("object 'daten' not found"). Die Lösung wäre, den Import-Chunk (Chunk 2) vor den Berechnungs-Chunk (Chunk 1) zu verschieben. Quarto erkennt Abhängigkeiten nicht automatisch und führt Chunks weder parallel noch in einer optimierten Reihenfolge aus.
 
 Meta-information
 ================

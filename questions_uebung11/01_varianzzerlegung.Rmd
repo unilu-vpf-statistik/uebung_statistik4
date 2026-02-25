@@ -23,7 +23,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, dritte und vierte Aussage. Die Spalte `ges` ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist die zweite Aussage: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.
+Die Spalte `ges` ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.
 
 Meta-information
 ================

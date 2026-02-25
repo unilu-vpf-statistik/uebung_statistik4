@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die zweite und dritte Aussage. Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.
+Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.
 
 Meta-information
 ================

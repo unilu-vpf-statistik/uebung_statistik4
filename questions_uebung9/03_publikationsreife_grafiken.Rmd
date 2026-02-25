@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die zweite und dritte Aussage. Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie "rt_ms" sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.
+Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie "rt_ms" sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.
 
 Meta-information
 ================

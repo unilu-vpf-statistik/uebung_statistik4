@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste und dritte Aussage. Quarto integriert Text, Code und Output in einem Dokument, sodass Änderungen am Code automatisch die Ergebnisse aktualisieren — das ist der Kern reproduzierbarer Berichterstattung. Der Copy-Paste-Workflow ist fehleranfällig, weil Grafiken und Zahlen manuell übertragen und bei Änderungen erneut aktualisiert werden müssen. Falsch ist, dass Quarto nur HTML erzeugen kann — es unterstützt auch PDF, Word und weitere Formate. Ebenso falsch ist, dass Code immer sichtbar sein muss: Mit der Chunk-Option `echo: false` kann der Code verborgen werden, während die Ergebnisse angezeigt werden.
+Quarto integriert Text, Code und Output in einem Dokument, sodass Änderungen am Code automatisch die Ergebnisse aktualisieren — das ist der Kern reproduzierbarer Berichterstattung. Der Copy-Paste-Workflow ist fehleranfällig, weil Grafiken und Zahlen manuell übertragen und bei Änderungen erneut aktualisiert werden müssen. Falsch ist, dass Quarto nur HTML erzeugen kann — es unterstützt auch PDF, Word und weitere Formate. Ebenso falsch ist, dass Code immer sichtbar sein muss: Mit der Chunk-Option `echo: false` kann der Code verborgen werden, während die Ergebnisse angezeigt werden.
 
 Meta-information
 ================

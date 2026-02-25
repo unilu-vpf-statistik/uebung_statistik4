@@ -21,7 +21,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, zweite und vierte Aussage. Der Mittelwertsunterschied (65.1 vs. 58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.
+Der Mittelwertsunterschied (65.1 vs. 58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.
 
 Meta-information
 ================

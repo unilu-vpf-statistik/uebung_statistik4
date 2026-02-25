@@ -26,7 +26,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die ersten drei Aussagen. Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs. KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist die vierte Aussage: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.
+Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs. KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.
 
 Meta-information
 ================

@@ -11,7 +11,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste und dritte Aussage. ggplot2 basiert auf dem Schichtprinzip (Grammar of Graphics): Daten werden über Aesthetics (`aes()`) auf visuelle Eigenschaften abgebildet, und Geome bestimmen die geometrische Darstellung (z. B. Punkte, Balken, Boxplot). Falsch ist, dass ggplot2 automatisch Variablen zuordnet — die Zuordnung muss explizit über `aes()` definiert werden. Ebenso falsch ist, dass nur ein Geom pro Plot möglich sei: ggplot2 erlaubt beliebig viele Schichten (z. B. Punkte und eine Regressionslinie im selben Diagramm).
+ggplot2 basiert auf dem Schichtprinzip (Grammar of Graphics): Daten werden über Aesthetics (`aes()`) auf visuelle Eigenschaften abgebildet, und Geome bestimmen die geometrische Darstellung (z. B. Punkte, Balken, Boxplot). Falsch ist, dass ggplot2 automatisch Variablen zuordnet — die Zuordnung muss explizit über `aes()` definiert werden. Ebenso falsch ist, dass nur ein Geom pro Plot möglich sei: ggplot2 erlaubt beliebig viele Schichten (z. B. Punkte und eine Regressionslinie im selben Diagramm).
 
 Meta-information
 ================

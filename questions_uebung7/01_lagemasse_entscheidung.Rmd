@@ -26,7 +26,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste und zweite Aussage. In R geben `mean()` und `sd()` standardmässig `NA` zurück, sobald ein einziger fehlender Wert in den Daten vorliegt. Die Lösung ist das Argument `na.rm = TRUE`, das fehlende Werte vor der Berechnung ausschliesst. Falsch ist, dass `median()` fehlende Werte automatisch ignoriert — auch `median()` gibt bei fehlenden Werten `NA` zurück. Dass im Beispiel ein Wert erscheint, kann z. B. daran liegen, dass die Spalte in einer Version ohne NAs vorlag oder der Output nur illustrativ ist. Ebenso falsch ist, dass `NA` bedeute, die Variable sei nicht numerisch — `NA` entsteht hier durch fehlende Werte, nicht durch einen falschen Datentyp.
+In R geben `mean()` und `sd()` standardmässig `NA` zurück, sobald ein einziger fehlender Wert in den Daten vorliegt. Die Lösung ist das Argument `na.rm = TRUE`, das fehlende Werte vor der Berechnung ausschliesst. Falsch ist, dass `median()` fehlende Werte automatisch ignoriert — auch `median()` gibt bei fehlenden Werten `NA` zurück. Dass im Beispiel ein Wert erscheint, kann z. B. daran liegen, dass die Spalte in einer Version ohne NAs vorlag oder der Output nur illustrativ ist. Ebenso falsch ist, dass `NA` bedeute, die Variable sei nicht numerisch — `NA` entsteht hier durch fehlende Werte, nicht durch einen falschen Datentyp.
 
 Meta-information
 ================

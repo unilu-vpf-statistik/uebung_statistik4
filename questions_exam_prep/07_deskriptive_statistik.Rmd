@@ -22,7 +22,7 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die erste, zweite und vierte Aussage. In der WG ist M − Mdn = 7.5 Punkte, was auf eine rechtsschiefe Verteilung hindeutet — hier gibt der Median die typische Leistung besser wieder. Die deutlich grössere SD in der WG (18.7 vs. 11–12) ist ein Warnsignal für die Varianzhomogenität, die vor einer ANOVA mit dem Levene-Test geprüft werden sollte. In der EG liegen M und Mdn nahe beieinander, was für eine symmetrische Verteilung spricht. Falsch ist die dritte Aussage: Ungleiche Gruppengrössen sind kein Hindernis für gruppierte Deskriptivstatistiken — `group_by() + summarise()` funktioniert unabhängig von der Gruppengrösse.
+In der WG ist M − Mdn = 7.5 Punkte, was auf eine rechtsschiefe Verteilung hindeutet — hier gibt der Median die typische Leistung besser wieder. Die deutlich grössere SD in der WG (18.7 vs. 11–12) ist ein Warnsignal für die Varianzhomogenität, die vor einer ANOVA mit dem Levene-Test geprüft werden sollte. In der EG liegen M und Mdn nahe beieinander, was für eine symmetrische Verteilung spricht. Falsch ist: Ungleiche Gruppengrössen sind kein Hindernis für gruppierte Deskriptivstatistiken — `group_by() + summarise()` funktioniert unabhängig von der Gruppengrösse.
 
 Meta-information
 ================
