@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -369,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\n\n# --- Aufgabe 1: Fehlende Werte ---\n# Anzahl fehlender Werte pro Spalte:\ncolSums(is.na(wm_daten))\n\n# Welche Zeilen haben fehlende Werte?\n# which(!complete.cases(wm_daten))\n\n# Überlegen Sie: Fehlen die Werte in wm_score oder stress_rating eher\n# nach MCAR, MAR oder MNAR? Notieren Sie Ihre Begründung als Kommentar.\n\n# --- Aufgabe 2: Ausreisser erkennen ---\n# IQR-Regel für wm_score:\nx <- wm_daten$wm_score\nQ1 <- quantile(x, 0.25, na.rm = TRUE)\nQ3 <- quantile(x, 0.75, na.rm = TRUE)\nIQR_val <- IQR(x, na.rm = TRUE)\nuntere_grenze <- Q1 - 1.5 * IQR_val\nobere_grenze  <- Q3 + 1.5 * IQR_val\ncat(\"Ausreisser-Grenzen (IQR):\", untere_grenze, \"bis\", obere_grenze, \"\\n\")\nsum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)\n\n# z-Score-Kriterium:\nz_scores <- scale(x)\nsum(abs(z_scores) > 3, na.rm = TRUE)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\n\n# --- Aufgabe 1: Fehlende Werte zählen ---\n# Anzahl fehlender Werte pro Spalte:\ncolSums(is.na(wm_daten))\n\n# Welche Zeilen haben fehlende Werte?\n# which(!complete.cases(wm_daten))\n\n# --- Aufgabe 2: Mechanismus einschätzen ---\n# Fehlen die Werte systematisch nach Gruppe?\n# Wenn ja, ist das ein Hinweis auf MAR (nicht MCAR).\ntable(wm_daten$group_raw, is.na(wm_daten$wm_score))\n\n# Aufgabe 3 (Reflexion): Schreiben Sie Ihre Einschätzung als Kommentar:\n# Welcher Mechanismus liegt vermutlich vor — MCAR, MAR oder MNAR?\n# Begründen Sie anhand der Tabelle oben.\n# --> Ihre Antwort hier:\n\n# --- Aufgabe 4: Ausreisser erkennen (IQR-Regel) ---\nx <- wm_daten$wm_score\nQ1 <- quantile(x, 0.25, na.rm = TRUE)\nQ3 <- quantile(x, 0.75, na.rm = TRUE)\nIQR_val <- IQR(x, na.rm = TRUE)\nuntere_grenze <- Q1 - 1.5 * IQR_val\nobere_grenze  <- Q3 + 1.5 * IQR_val\ncat(\"Ausreisser-Grenzen (IQR):\", untere_grenze, \"bis\", obere_grenze, \"\\n\")\nsum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)\n\n# --- Aufgabe 5: Ausreisser erkennen (z-Score) ---\nz_scores <- scale(x)\nsum(abs(z_scores) > 3, na.rm = TRUE)\n\n# Kommen IQR-Regel und z-Score zu denselben Fällen?\n# Vergleich: Welche Beobachtungen werden von beiden Methoden als Ausreisser markiert?\nausreisser_iqr <- which(x < untere_grenze | x > obere_grenze)\nausreisser_z   <- which(abs(z_scores) > 3)\nintersect(ausreisser_iqr, ausreisser_z)\n\n# Aufgabe 6 (Reflexion): Schreiben Sie Ihre Entscheidung als Kommentar:\n# Würden Sie die identifizierten Ausreisser ausschliessen?\n# Begründen Sie: Handelt es sich um Messfehler oder echte extreme Werte?\n# --> Ihre Antwort hier:","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1780,6 +1815,7 @@ globalThis.qwebrExecuteCode = async function (
    
   <ul>
   <li><a href="#wiederholung-vertiefung-fehlende-werte-ausreisser" id="toc-wiederholung-vertiefung-fehlende-werte-ausreisser" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-fehlende-werte-ausreisser">Wiederholung &amp; Vertiefung: Fehlende Werte &amp; Ausreisser</a></li>
+  <li><a href="#implizite-fehlende-werte" id="toc-implizite-fehlende-werte" class="nav-link" data-scroll-target="#implizite-fehlende-werte">Implizite fehlende Werte</a></li>
   <li><a href="#mechanismen-fehlender-werte" id="toc-mechanismen-fehlender-werte" class="nav-link" data-scroll-target="#mechanismen-fehlender-werte">Mechanismen fehlender Werte</a></li>
   <li><a href="#ausreisser-erkennen" id="toc-ausreisser-erkennen" class="nav-link" data-scroll-target="#ausreisser-erkennen">Ausreisser erkennen</a></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
@@ -2104,13 +2140,57 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: <strong>fehlenden Werten</strong> und <strong>Ausreissern</strong>. Beide können Analysen systematisch verzerren — weshalb es wichtig ist, sie zu erkennen, zu verstehen und begründet mit ihnen umzugehen.</p>
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=GXHFM1vVGq8">Missing Data in R — Types and How to Handle Them</a></li>
-<li><a href="https://www.youtube.com/watch?v=TFwVOOZ-k6I">Outlier Detection in R</a></li>
+<li><a href="https://www.youtube.com/watch?v=13N4USnMRbc">R: find missing values in a data frame</a></li>
+<li><a href="https://www.youtube.com/watch?v=21K9quDZCYU">Remove Outliers from Data Set in R</a></li>
 </ul>
+</section>
+<section id="implizite-fehlende-werte" class="level2">
+<h2 class="anchored" data-anchor-id="implizite-fehlende-werte">Implizite fehlende Werte</h2>
+<p>Bevor der Mechanismus des Fehlens beurteilt werden kann, müssen fehlende Werte überhaupt als solche erkannt werden. Das ist nicht selbstverständlich: Rohdaten enthalten fehlende Werte häufig in Formen, die R nicht automatisch als <code>NA</code> erkennt.</p>
+<p>Typische implizite Formen:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Form</th>
+<th>Beispiel</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Leerstring</td>
+<td><code>""</code></td>
+<td>R liest es als gültige Zeichenkette</td>
+</tr>
+<tr class="even">
+<td>Platzhalter</td>
+<td><code>"fehlt"</code>, <code>"k.A."</code>, <code>"missing"</code></td>
+<td>Werden als Kategorie behandelt</td>
+</tr>
+<tr class="odd">
+<td>Sentinelwert</td>
+<td><code>-99</code>, <code>-1</code>, <code>999</code></td>
+<td>Verfälschen Mittelwerte und Varianzen</td>
+</tr>
+</tbody>
+</table>
+<p>Solche Werte müssen <strong>explizit umkodiert</strong> werden — entweder beim Import oder danach:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1: Beim Import (sauberste Lösung)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"daten.csv"</span>, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"fehlt"</span>, <span class="st">"-99"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2: Nachträglich mit na_if()</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">&lt;-</span> daten <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">na_if</span>(variable, <span class="sc">-</span><span class="dv">99</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Erst wenn alle impliziten NAs kodiert sind, macht eine Zählung mit <code>is.na()</code> verlässliche Aussagen.</p>
 </section>
 <section id="mechanismen-fehlender-werte" class="level2">
 <h2 class="anchored" data-anchor-id="mechanismen-fehlender-werte">Mechanismen fehlender Werte</h2>
-<p>Nicht alle fehlenden Werte sind gleich. Der <strong>Mechanismus</strong> des Fehlens bestimmt, wie stark eine Analyse verzerrt wird:</p>
+<p>Nicht alle fehlenden Werte sind gleich. Der <strong>Mechanismus</strong> des Fehlens bestimmt, wie stark eine Analyse verzerrt wird und welche Strategie angemessen ist:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 43%">
@@ -2133,7 +2213,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <tr class="even">
 <td><strong>MAR</strong> (Missing At Random)</td>
 <td>Fehlen hängt von anderen bekannten Variablen ab</td>
-<td>Schlafmangel → fehlende Konzentrationswerte</td>
+<td>Gestresste TN übersprangen häufiger Fragebogenseiten</td>
 </tr>
 <tr class="odd">
 <td><strong>MNAR</strong> (Missing Not At Random)</td>
@@ -2142,7 +2222,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tr>
 </tbody>
 </table>
-<p>Nur MCAR ist für die meisten Analysen unproblematisch. MAR und MNAR erfordern besondere Behandlung (z. B. multiple Imputation, Modellierung des Fehlmechanismus).</p>
+<p>Der Mechanismus ist oft <strong>nicht direkt aus den Daten bestimmbar</strong> — er erfordert inhaltliches Wissen über den Erhebungsprozess. Die Strategie folgt aus dem vermuteten Mechanismus:</p>
+<ul>
+<li><strong>MCAR</strong> → Ausschluss (listwise deletion) ist vertretbar, aber verkleinert die Stichprobe</li>
+<li><strong>MAR</strong> → Imputation (z. B. multiple Imputation) ist meist besser als Ausschluss</li>
+<li><strong>MNAR</strong> → Beides ist problematisch; Transparenz und Sensitivitätsanalysen sind nötig</li>
+</ul>
 </section>
 <section id="ausreisser-erkennen" class="level2">
 <h2 class="anchored" data-anchor-id="ausreisser-erkennen">Ausreisser erkennen</h2>
@@ -2170,20 +2255,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
-<div id="webex-c414b2ef181f77e97ec022fdd14af6b2" class="webex-checkboxgroup" data-answer="OAUdBU4CSVZs">
-<label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="c414b2ef181f77e97ec022fdd14af6b2"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
-<div id="webex-d6258c42adf78d8da4a2710677ca4724" class="webex-radiogroup" data-answer="PwYeBRRTGAM8">
-<label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="d6258c42adf78d8da4a2710677ca4724"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label>
+<div id="webex-61394ad4afd4e1be9d8836979b3dfb12" class="webex-radiogroup" data-answer="bQEfCRhRSAU8">
+<label><input type="radio" autocomplete="off" name="61394ad4afd4e1be9d8836979b3dfb12"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="61394ad4afd4e1be9d8836979b3dfb12"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="61394ad4afd4e1be9d8836979b3dfb12"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="61394ad4afd4e1be9d8836979b3dfb12"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2192,9 +2266,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
+<div id="webex-2b224cfab11c7a0bf3333ba21b09265a" class="webex-checkboxgroup" data-answer="aVIeAxhSSlE/">
+<label><input type="checkbox" autocomplete="off" name="2b224cfab11c7a0bf3333ba21b09265a"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label><label><input type="checkbox" autocomplete="off" name="2b224cfab11c7a0bf3333ba21b09265a"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="2b224cfab11c7a0bf3333ba21b09265a"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="2b224cfab11c7a0bf3333ba21b09265a"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
-<div id="webex-f95570ab03df6aef05d49c7f0dc724c1" class="webex-checkboxgroup" data-answer="PQkZBRsBTVNt">
-<label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="f95570ab03df6aef05d49c7f0dc724c1"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label>
+<div id="webex-14aa7d4b46a012dea11afe47a2487d27" class="webex-checkboxgroup" data-answer="agRNUBtVGFJp">
+<label><input type="checkbox" autocomplete="off" name="14aa7d4b46a012dea11afe47a2487d27"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label><label><input type="checkbox" autocomplete="off" name="14aa7d4b46a012dea11afe47a2487d27"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="14aa7d4b46a012dea11afe47a2487d27"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="14aa7d4b46a012dea11afe47a2487d27"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label>
 </div>
 </div>
 <div class="webex-solution">

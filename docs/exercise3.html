@@ -2140,7 +2140,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=qPk0YEKhqB8">Importing Data in R</a></li>
-<li><a href="https://www.youtube.com/watch?v=pG3gHqSUlJw">read.csv and read.table in R</a></li>
+<li><a href="https://www.youtube.com/watch?v=2_tW7e4e_dM">How to import data into Rstudio</a></li>
 </ul>
 </section>
 <section id="daten-für-diese-übung" class="level2">
@@ -2170,25 +2170,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie führen folgenden Code aus und erhalten die Ausgabe:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(<span class="st">"daten.csv"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "id;wm_score;alter;geschlecht"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [2] "VP01;7,5;22;weiblich"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [3] "VP02;6,3;25;männlich"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Welche Aussagen über diese Datei sind <strong>korrekt</strong>?</p>
-<div id="webex-46f322061f8b112a7e8ac58e7763b4d2" class="webex-checkboxgroup" data-answer="bwZKAh4DHAds">
-<label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Trennzeichen ist ein Komma (<code>,</code>).</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Trennzeichen ist ein Semikolon (<code>;</code>).</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Das Dezimaltrennzeichen ist ein Komma (<code>,</code>), wie im deutschen Format üblich.</span></label><label><input type="checkbox" autocomplete="off" name="46f322061f8b112a7e8ac58e7763b4d2"><span>Die erste Zeile enthält Variablennamen (Header).</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Aus der Ausgabe von <code>readLines()</code> erkennt man: Das Trennzeichen ist ein Semikolon (nicht ein Komma), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich, und die erste Zeile enthält Spaltennamen (Header). Für dieses Format verwendet man <code>read.csv2()</code> oder <code>read.table(sep = ";", dec = ",")</code>.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Nach dem Einlesen eines Datensatzes mit <code>daten &lt;- read.csv2("daten.csv")</code> möchten Sie prüfen, ob der Import korrekt war. Welche der folgenden Funktionen sind für eine <strong>erste Validierung</strong> geeignet?</p>
-<div id="webex-7b7dd31d32cfd36f1be4703b73b2bfed" class="webex-checkboxgroup" data-answer="bFIbVUgCHVVu">
-<label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>plot(daten)</code> — erstellt automatisch Grafiken für alle Variablen.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>names(daten)</code> — prüft ob alle erwarteten Variablennamen vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>dim(daten)</code> — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.</span></label><label><input type="checkbox" autocomplete="off" name="7b7dd31d32cfd36f1be4703b73b2bfed"><span><code>str(daten)</code> — zeigt die Struktur mit Variablennamen und Datentypen.</span></label>
+<div id="webex-8ddc754c235ae2375d6356739cc094a9" class="webex-checkboxgroup" data-answer="Y1RIUhsEGFJv">
+<label><input type="checkbox" autocomplete="off" name="8ddc754c235ae2375d6356739cc094a9"><span><code>plot(daten)</code> — erstellt automatisch Grafiken für alle Variablen.</span></label><label><input type="checkbox" autocomplete="off" name="8ddc754c235ae2375d6356739cc094a9"><span><code>str(daten)</code> — zeigt die Struktur mit Variablennamen und Datentypen.</span></label><label><input type="checkbox" autocomplete="off" name="8ddc754c235ae2375d6356739cc094a9"><span><code>names(daten)</code> — prüft ob alle erwarteten Variablennamen vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="8ddc754c235ae2375d6356739cc094a9"><span><code>dim(daten)</code> — prüft ob die erwartete Anzahl Zeilen und Spalten vorhanden ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2198,12 +2182,28 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Funktion liest eine CSV-Datei mit <strong>Semikolon als Trennzeichen</strong> und <strong>Komma als Dezimaltrennzeichen</strong> (deutsches Format) korrekt ein?</p>
-<div id="webex-0331c6ab940deff0777066841b14e336" class="webex-checkboxgroup" data-answer="awIfAU8GTVNk">
-<label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.table("daten.csv", sep = ";", dec = ",")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.csv("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.delim("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="0331c6ab940deff0777066841b14e336"><span><code>read.csv2("daten.csv")</code></span></label>
+<div id="webex-6c04fd16516369b4e7782cd4e771ac3b" class="webex-checkboxgroup" data-answer="bVMcBUpUHQdo">
+<label><input type="checkbox" autocomplete="off" name="6c04fd16516369b4e7782cd4e771ac3b"><span><code>read.delim("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="6c04fd16516369b4e7782cd4e771ac3b"><span><code>read.csv2("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="6c04fd16516369b4e7782cd4e771ac3b"><span><code>read.csv("daten.csv")</code></span></label><label><input type="checkbox" autocomplete="off" name="6c04fd16516369b4e7782cd4e771ac3b"><span><code>read.table("daten.csv", sep = ";", dec = ",")</code></span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt sind <code>read.csv2()</code> und <code>read.table()</code> mit den Argumenten <code>sep = ";"</code> und <code>dec = ","</code>. <code>read.csv2()</code> ist die Standardfunktion für das deutsche CSV-Format (Semikolon-getrennt, Komma als Dezimaltrennzeichen). <code>read.table()</code> mit den entsprechenden Argumenten erreicht dasselbe Ergebnis. <code>read.csv()</code> verwendet Komma als Trennzeichen und Punkt als Dezimaltrennzeichen (englisches Format) und ist hier falsch. <code>read.delim()</code> liest Tab-getrennte Dateien ein und passt ebenfalls nicht.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie führen folgenden Code aus und erhalten die Ausgabe:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(<span class="st">"daten.csv"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "id;wm_score;alter;geschlecht"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [2] "VP01;7,5;22;weiblich"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [3] "VP02;6,3;25;männlich"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Welche Aussagen über diese Datei sind <strong>korrekt</strong>?</p>
+<div id="webex-17c0d01e824eca090026522549b58cbd" class="webex-checkboxgroup" data-answer="agZPAUgBHVVl">
+<label><input type="checkbox" autocomplete="off" name="17c0d01e824eca090026522549b58cbd"><span>Das Dezimaltrennzeichen ist ein Komma (<code>,</code>), wie im deutschen Format üblich.</span></label><label><input type="checkbox" autocomplete="off" name="17c0d01e824eca090026522549b58cbd"><span>Das Trennzeichen ist ein Semikolon (<code>;</code>).</span></label><label><input type="checkbox" autocomplete="off" name="17c0d01e824eca090026522549b58cbd"><span>Die erste Zeile enthält Variablennamen (Header).</span></label><label><input type="checkbox" autocomplete="off" name="17c0d01e824eca090026522549b58cbd"><span>Das Trennzeichen ist ein Komma (<code>,</code>).</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Aus der Ausgabe von <code>readLines()</code> erkennt man: Das Trennzeichen ist ein Semikolon (nicht ein Komma), das Dezimaltrennzeichen ist ein Komma wie im deutschsprachigen Raum üblich, und die erste Zeile enthält Spaltennamen (Header). Für dieses Format verwendet man <code>read.csv2()</code> oder <code>read.table(sep = ";", dec = ",")</code>.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

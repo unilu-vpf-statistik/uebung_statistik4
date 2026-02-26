@@ -30,7 +30,7 @@ In Übung 3 haben Sie die beiden Datensätze `WM_Fragebögen.csv` und `Lab_Kodie
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
 - [Tidy Data and tidyr Explained](https://www.youtube.com/watch?v=1ELALQlO-yM)
-- [pivot_longer and pivot_wider in R (tidyr)](https://www.youtube.com/watch?v=D48JHU4llkk)
+- [Tidying Data in R with "tidyr"](https://www.youtube.com/watch?v=4_7MDLTWflA)
 
 ## Tidy Data Prinzipien
 

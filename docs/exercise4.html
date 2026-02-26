@@ -2141,7 +2141,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=1ELALQlO-yM">Tidy Data and tidyr Explained</a></li>
-<li><a href="https://www.youtube.com/watch?v=D48JHU4llkk">pivot_longer and pivot_wider in R (tidyr)</a></li>
+<li><a href="https://www.youtube.com/watch?v=4_7MDLTWflA">Tidying Data in R with “tidyr”</a></li>
 </ul>
 </section>
 <section id="tidy-data-prinzipien" class="level2">
@@ -2215,20 +2215,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie haben einen Datensatz mit den Spalten <code>id</code>, <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code>. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem <code>tidyr</code>-Paket bringt diesen Datensatz in das Tidy-Data-Format?</p>
-<div id="webex-e34a86ef8b09973c8b903c0da1bc847f" class="webex-radiogroup" data-answer="PgMYUBQGSVZl">
-<label><input type="radio" autocomplete="off" name="e34a86ef8b09973c8b903c0da1bc847f"><span><code>pivot_wider()</code> — weil die Daten von lang nach breit umstrukturiert werden müssen.</span></label><label><input type="radio" autocomplete="off" name="e34a86ef8b09973c8b903c0da1bc847f"><span><code>pivot_longer()</code> — weil die Spaltennamen (<code>score_t1</code> etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.</span></label><label><input type="radio" autocomplete="off" name="e34a86ef8b09973c8b903c0da1bc847f"><span><code>select()</code> — weil die unnötigen Spalten entfernt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="e34a86ef8b09973c8b903c0da1bc847f"><span><code>full_join()</code> — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt ist <code>pivot_longer()</code>. Die Spalten <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code> verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. <code>pivot_longer()</code> löst dieses Problem: Es erzeugt eine neue Variable <code>zeitpunkt</code> und eine neue Variable <code>score</code>, sodass jede Zeile genau eine Messung enthält. <code>pivot_wider()</code> macht das Gegenteil: es wandelt langes in breites Format um. <code>full_join()</code> führt zwei Datensätze zusammen. <code>select()</code> wählt Spalten aus und ändert die Struktur nicht.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen beschreiben das <strong>Tidy-Data-Prinzip</strong> korrekt?</p>
-<div id="webex-c3d5bde879ea1c1f832c88f757e2102b" class="webex-checkboxgroup" data-answer="OAJIBE5USQhq">
-<label><input type="checkbox" autocomplete="off" name="c3d5bde879ea1c1f832c88f757e2102b"><span>Jede Variable entspricht einer eigenen Spalte im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="c3d5bde879ea1c1f832c88f757e2102b"><span>Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="c3d5bde879ea1c1f832c88f757e2102b"><span>Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.</span></label><label><input type="checkbox" autocomplete="off" name="c3d5bde879ea1c1f832c88f757e2102b"><span>Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.</span></label>
+<div id="webex-5df0dda813a67eb1aac9cf454a428bc1" class="webex-checkboxgroup" data-answer="blVKAEhUTQls">
+<label><input type="checkbox" autocomplete="off" name="5df0dda813a67eb1aac9cf454a428bc1"><span>Jede Variable entspricht einer eigenen Spalte im Datensatz.</span></label><label><input type="checkbox" autocomplete="off" name="5df0dda813a67eb1aac9cf454a428bc1"><span>Fehlende Werte werden in einem Tidy-Datensatz automatisch entfernt.</span></label><label><input type="checkbox" autocomplete="off" name="5df0dda813a67eb1aac9cf454a428bc1"><span>Alle Spalten eines Tidy-Datensatzes müssen numerische Werte enthalten.</span></label><label><input type="checkbox" autocomplete="off" name="5df0dda813a67eb1aac9cf454a428bc1"><span>Jede Beobachtung entspricht einer eigenen Zeile im Datensatz.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2238,12 +2227,23 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>In Ihrem Datensatz enthält die Variable <code>gruppe</code> die Werte <code>"KG"</code>, <code>"Kontrolle"</code> und <code>"control"</code> — alle meinen dieselbe Kontrollbedingung. Welche der folgenden Aussagen zu diesem Problem und seiner Lösung sind korrekt?</p>
-<div id="webex-822f19582d22b88ab59a1da249d4fa51" class="webex-checkboxgroup" data-answer="YwMeVx0JGQlv">
-<label><input type="checkbox" autocomplete="off" name="822f19582d22b88ab59a1da249d4fa51"><span>Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.</span></label><label><input type="checkbox" autocomplete="off" name="822f19582d22b88ab59a1da249d4fa51"><span>Mit <code>case_when()</code> können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="822f19582d22b88ab59a1da249d4fa51"><span>Das Problem lässt sich durch <code>pivot_longer()</code> beheben, da die Werte in verschiedene Spalten aufgeteilt werden.</span></label><label><input type="checkbox" autocomplete="off" name="822f19582d22b88ab59a1da249d4fa51"><span>Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.</span></label>
+<div id="webex-aa746dbfd3caf798b1fb8cf0e220654f" class="webex-checkboxgroup" data-answer="OlAbBRpUTlc5">
+<label><input type="checkbox" autocomplete="off" name="aa746dbfd3caf798b1fb8cf0e220654f"><span>Inkonsistente Kodierungen verzerren Analysen, weil R die verschiedenen Schreibweisen als unterschiedliche Kategorien behandelt.</span></label><label><input type="checkbox" autocomplete="off" name="aa746dbfd3caf798b1fb8cf0e220654f"><span>Mit <code>case_when()</code> können alle drei Varianten einer einheitlichen Kategorie zugeordnet werden.</span></label><label><input type="checkbox" autocomplete="off" name="aa746dbfd3caf798b1fb8cf0e220654f"><span>Das Problem lässt sich durch <code>pivot_longer()</code> beheben, da die Werte in verschiedene Spalten aufgeteilt werden.</span></label><label><input type="checkbox" autocomplete="off" name="aa746dbfd3caf798b1fb8cf0e220654f"><span>Das Problem ist eine inkonsistente Kodierung: Die gleiche Bedeutung wird durch unterschiedliche Werte repräsentiert.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt sind die Aussagen zur inkonsistenten Kodierung, zu <code>case_when()</code> als Lösung, und zur Verzerrung von Analysen. Wenn dieselbe inhaltliche Kategorie durch verschiedene Werte repräsentiert wird (<code>"KG"</code>, <code>"Kontrolle"</code>, <code>"control"</code>), spricht man von einer inkonsistenten Kodierung. R behandelt diese drei Werte als separate Gruppen — das verzerrt Zusammenfassungen, Gruppenvergleiche und alle darauf aufbauenden Analysen. Mit <code>case_when()</code> lassen sich alle drei Varianten einer einheitlichen Kodierung zuweisen. <code>pivot_longer()</code> verändert die Struktur des Datensatzes, behebt aber keine inhaltlichen Kodierungsprobleme.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie haben einen Datensatz mit den Spalten <code>id</code>, <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code>. Die drei Spalten enthalten jeweils Messwerte zu einem anderen Zeitpunkt. Welche Funktion aus dem <code>tidyr</code>-Paket bringt diesen Datensatz in das Tidy-Data-Format?</p>
+<div id="webex-387f729b21d870d5b5e9701a4fd02fde" class="webex-radiogroup" data-answer="aAgbVhsCFVNv">
+<label><input type="radio" autocomplete="off" name="387f729b21d870d5b5e9701a4fd02fde"><span><code>pivot_wider()</code> — weil die Daten von lang nach breit umstrukturiert werden müssen.</span></label><label><input type="radio" autocomplete="off" name="387f729b21d870d5b5e9701a4fd02fde"><span><code>full_join()</code> — weil die Messzeitpunkte zu einem einzigen Datensatz zusammengeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="387f729b21d870d5b5e9701a4fd02fde"><span><code>select()</code> — weil die unnötigen Spalten entfernt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="387f729b21d870d5b5e9701a4fd02fde"><span><code>pivot_longer()</code> — weil die Spaltennamen (<code>score_t1</code> etc.) Werte der Variable „Zeitpunkt” sind, keine eigenständigen Variablen.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist <code>pivot_longer()</code>. Die Spalten <code>score_t1</code>, <code>score_t2</code> und <code>score_t3</code> verletzen das Tidy-Data-Prinzip, weil ihre Namen Werte (Zeitpunkte) und keine Variablennamen sind. <code>pivot_longer()</code> löst dieses Problem: Es erzeugt eine neue Variable <code>zeitpunkt</code> und eine neue Variable <code>score</code>, sodass jede Zeile genau eine Messung enthält. <code>pivot_wider()</code> macht das Gegenteil: es wandelt langes in breites Format um. <code>full_join()</code> führt zwei Datensätze zusammen. <code>select()</code> wählt Spalten aus und ändert die Struktur nicht.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

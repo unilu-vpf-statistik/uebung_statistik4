@@ -27,8 +27,8 @@ In dieser Übung beschäftigen wir uns mit zwei häufigen Datenproblemen: **fehl
 
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
-- [Missing Data in R — Types and How to Handle Them](https://www.youtube.com/watch?v=GXHFM1vVGq8)
-- [Outlier Detection in R](https://www.youtube.com/watch?v=TFwVOOZ-k6I)
+- [R: find missing values in a data frame](https://www.youtube.com/watch?v=13N4USnMRbc)
+- [Remove Outliers from Data Set in R](https://www.youtube.com/watch?v=21K9quDZCYU)
 
 ## Implizite fehlende Werte
 

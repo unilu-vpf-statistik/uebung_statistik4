@@ -2223,24 +2223,6 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu Gruppenvergleichen und ANOVA.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Nach einer signifikanten ANOVA mit 3 Gruppen führen Sie Post-hoc-Vergleiche mit <code>emmeans</code> durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Sie erhalten folgende Tabelle der paarweisen Vergleiche:</p>
-<pre><code> contrast  estimate   SE  df t.ratio p.value
- EG - KG       6.9 2.41  97   2.86  0.015
- EG - WG       2.1 2.38  97   0.88  1.000
- KG - WG      -4.8 2.44  97  -1.97  0.156</code></pre>
-<p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-c7eb46821f3a87b3891ed2bc0ea6eab4" class="webex-checkboxgroup" data-answer="OAdJUxgHFANs">
-<label><input type="checkbox" autocomplete="off" name="c7eb46821f3a87b3891ed2bc0ea6eab4"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label><label><input type="checkbox" autocomplete="off" name="c7eb46821f3a87b3891ed2bc0ea6eab4"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="c7eb46821f3a87b3891ed2bc0ea6eab4"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label><label><input type="checkbox" autocomplete="off" name="c7eb46821f3a87b3891ed2bc0ea6eab4"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt sind die ersten drei Aussagen. Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs.&nbsp;KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist die vierte Aussage: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie führen eine ANOVA mit <code>afex::aov_ez()</code> durch und erhalten folgenden Output:</p>
 <pre><code>Anova Table (Type 3 tests)
 
@@ -2250,35 +2232,53 @@ Response: wm_score
 ---
 Signif. codes: '***' .001 '**' .01 '*' .05 '+' .1 ' ' 1</code></pre>
 <p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-5dcae2995cde19755a94228047ac6884" class="webex-checkboxgroup" data-answer="blVPUEkDFQlo">
-<label><input type="checkbox" autocomplete="off" name="5dcae2995cde19755a94228047ac6884"><span>Der Output zeigt, dass es zwei Gruppen gibt (df = 1, 98), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.</span></label><label><input type="checkbox" autocomplete="off" name="5dcae2995cde19755a94228047ac6884"><span>Die Spalte <code>MSE</code> (Mean Square Error) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen.</span></label><label><input type="checkbox" autocomplete="off" name="5dcae2995cde19755a94228047ac6884"><span>Die Spalte <code>ges</code> gibt das generalisierte Eta-Quadrat an — hier werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.</span></label><label><input type="checkbox" autocomplete="off" name="5dcae2995cde19755a94228047ac6884"><span>Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.</span></label>
+<div id="webex-3a3cb4b0d764ce1749710a6d901f914d" class="webex-checkboxgroup" data-answer="aFEfUk4FTgE5">
+<label><input type="checkbox" autocomplete="off" name="3a3cb4b0d764ce1749710a6d901f914d"><span>Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.</span></label><label><input type="checkbox" autocomplete="off" name="3a3cb4b0d764ce1749710a6d901f914d"><span>Der Output zeigt, dass es zwei Gruppen gibt (df = 1, 98), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.</span></label><label><input type="checkbox" autocomplete="off" name="3a3cb4b0d764ce1749710a6d901f914d"><span>Die Spalte <code>MSE</code> (Mean Square Error) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen.</span></label><label><input type="checkbox" autocomplete="off" name="3a3cb4b0d764ce1749710a6d901f914d"><span>Die Spalte <code>ges</code> gibt das generalisierte Eta-Quadrat an — hier werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind die erste, dritte und vierte Aussage. Die Spalte <code>ges</code> ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist die zweite Aussage: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.</p>
+<p>Die Spalte <code>ges</code> ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Bevor Sie eine ANOVA rechnen, prüfen Sie die Modellannahmen. Sie führen folgenden Code aus:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 1: Levene-Test</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's Test (center = median)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#       Df F value Pr(&gt;F)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># group  1   5.82  0.018 *</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        98</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 2: QQ-Plot der Residuen</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell, <span class="at">which =</span> <span class="dv">2</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (QQ-Plot zeigt Punkte nahe an der Diagonale)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 1: Levene-Test</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's Test (center = median)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#       Df F value Pr(&gt;F)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># group  1   5.82  0.018 *</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        98</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 2: QQ-Plot der Residuen</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (QQ-Plot zeigt Punkte nahe an der Diagonale)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Was ist der geeignetste nächste Schritt?</p>
-<div id="webex-20a26e28b575d24215631db148fafbf9" class="webex-radiogroup" data-answer="aQBNAxpVHgg/">
-<label><input type="radio" autocomplete="off" name="20a26e28b575d24215631db148fafbf9"><span>Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.</span></label><label><input type="radio" autocomplete="off" name="20a26e28b575d24215631db148fafbf9"><span>Der Levene-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine <strong>Welch-ANOVA</strong> ist angemessener, da sie keine gleichen Varianzen voraussetzt.</span></label><label><input type="radio" autocomplete="off" name="20a26e28b575d24215631db148fafbf9"><span>Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.</span></label><label><input type="radio" autocomplete="off" name="20a26e28b575d24215631db148fafbf9"><span>Der signifikante Levene-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.</span></label>
+<div id="webex-b043c7293f66fa8d80c534c07c10503b" class="webex-radiogroup" data-answer="OQAYA08GHglu">
+<label><input type="radio" autocomplete="off" name="b043c7293f66fa8d80c534c07c10503b"><span>Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.</span></label><label><input type="radio" autocomplete="off" name="b043c7293f66fa8d80c534c07c10503b"><span>Der signifikante Levene-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.</span></label><label><input type="radio" autocomplete="off" name="b043c7293f66fa8d80c534c07c10503b"><span>Der Levene-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine <strong>Welch-ANOVA</strong> ist angemessener, da sie keine gleichen Varianzen voraussetzt.</span></label><label><input type="radio" autocomplete="off" name="b043c7293f66fa8d80c534c07c10503b"><span>Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist die zweite Aussage. Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die erste Aussage ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.</p>
+<p>Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die Antwort, dass die ANOVA ohne Anpassung durchgeführt werden könne, ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Nach einer signifikanten ANOVA mit 3 Gruppen führen Sie Post-hoc-Vergleiche mit <code>emmeans</code> durch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sie erhalten folgende Tabelle der paarweisen Vergleiche:</p>
+<pre><code> contrast  estimate   SE  df t.ratio p.value
+ EG - KG       6.9 2.41  97   2.86  0.015
+ EG - WG       2.1 2.38  97   0.88  1.000
+ KG - WG      -4.8 2.44  97  -1.97  0.156</code></pre>
+<p>Welche Aussagen sind <strong>korrekt</strong>?</p>
+<div id="webex-9a16faf71c88dadbd4b05f2849221380" class="webex-checkboxgroup" data-answer="YlAdB0pRSgZs">
+<label><input type="checkbox" autocomplete="off" name="9a16faf71c88dadbd4b05f2849221380"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label><label><input type="checkbox" autocomplete="off" name="9a16faf71c88dadbd4b05f2849221380"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="9a16faf71c88dadbd4b05f2849221380"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label><label><input type="checkbox" autocomplete="off" name="9a16faf71c88dadbd4b05f2849221380"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs.&nbsp;KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

@@ -26,8 +26,8 @@ In dieser Übung lernen Sie, wie Sie R-Projekte anlegen und mit dem `here`-Paket
 
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
-- [R Projects - How to set up your projects in R](https://www.youtube.com/watch?v=kfcX5DEMAp4)
-- [here package tutorial - Manage file paths in R](https://www.youtube.com/watch?v=ULwFjNzWfKM)
+- [Paths And RStudio Projects](https://www.youtube.com/watch?v=2sReMmTMYFk)
+- [here package tutorial - Manage file paths in R](https://www.youtube.com/watch?v=oh3b3k5uM7E)
 
 ## Warum R-Projekte?
 

@@ -28,7 +28,7 @@ In dieser Übung lernen Sie, wie Sie unbekannte Datendateien inspizieren, das ri
 Wenn Sie die Inhalte der Vorlesung nochmal vertiefen wollen, empfehle ich Ihnen folgende Videos:
 
 - [Importing Data in R](https://www.youtube.com/watch?v=qPk0YEKhqB8)
-- [read.csv and read.table in R](https://www.youtube.com/watch?v=pG3gHqSUlJw)
+- [How to import data into Rstudio](https://www.youtube.com/watch?v=2_tW7e4e_dM)
 
 ## Daten für diese Übung
 
