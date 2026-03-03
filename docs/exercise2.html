@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2195,34 +2195,47 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Warum sollte <code>setwd()</code> in Analyseskripten <strong>nicht</strong> verwendet werden?</p>
-<div id="webex-256aef6531fa1066ab6e26f8b21e903e" class="webex-checkboxgroup" data-answer="aQUaUElWGgRu">
-<label><input type="checkbox" autocomplete="off" name="256aef6531fa1066ab6e26f8b21e903e"><span><code>setwd()</code> ist langsamer als <code>here()</code> bei der Pfadauflösung.</span></label><label><input type="checkbox" autocomplete="off" name="256aef6531fa1066ab6e26f8b21e903e"><span>Der mit <code>setwd()</code> gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.</span></label><label><input type="checkbox" autocomplete="off" name="256aef6531fa1066ab6e26f8b21e903e"><span><code>setwd()</code> kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.</span></label><label><input type="checkbox" autocomplete="off" name="256aef6531fa1066ab6e26f8b21e903e"><span>Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt <code>setwd()</code> mit einem Fehler fehl, da der Pfad nicht existiert.</span></label>
+<div id="webex-216bd331c1e803241c55049bb3510a3c" class="webex-checkboxgroup" data-answer="aQAaUkgCHwE+">
+<label><input type="checkbox" autocomplete="off" name="216bd331c1e803241c55049bb3510a3c"><span>Der mit <code>setwd()</code> gesetzte absolute Pfad funktioniert nur auf dem Computer, auf dem er geschrieben wurde.</span></label><label><input type="checkbox" autocomplete="off" name="216bd331c1e803241c55049bb3510a3c"><span><code>setwd()</code> kann nicht in R-Markdown oder Quarto-Dokumenten verwendet werden.</span></label><label><input type="checkbox" autocomplete="off" name="216bd331c1e803241c55049bb3510a3c"><span>Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt <code>setwd()</code> mit einem Fehler fehl, da der Pfad nicht existiert.</span></label><label><input type="checkbox" autocomplete="off" name="216bd331c1e803241c55049bb3510a3c"><span><code>setwd()</code> ist langsamer als <code>here()</code> bei der Pfadauflösung.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Die Kernprobleme mit <code>setwd()</code> sind, dass der absolute Pfad nur auf dem eigenen Computer funktioniert und dass das Skript auf anderen Computern mit einem Fehler fehlschlägt, da der Pfad nicht existiert. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. <code>here()</code> löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut. Die Aussage zur Geschwindigkeit ist falsch — <code>setwd()</code> und <code>here()</code> unterscheiden sich nicht in der Performance. Die Aussage zu R-Markdown/Quarto ist ebenfalls falsch — <code>setwd()</code> kann dort verwendet werden, ist aber nicht empfohlen.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen beschreiben <strong>Vorteile</strong> von R-Projekten (<code>.Rproj</code>-Dateien)?</p>
-<div id="webex-65e5b65d244a0f0aa37f63f0d937fec4" class="webex-checkboxgroup" data-answer="bQVJBE4HGVVv">
-<label><input type="checkbox" autocomplete="off" name="65e5b65d244a0f0aa37f63f0d937fec4"><span>R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.</span></label><label><input type="checkbox" autocomplete="off" name="65e5b65d244a0f0aa37f63f0d937fec4"><span>RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.</span></label><label><input type="checkbox" autocomplete="off" name="65e5b65d244a0f0aa37f63f0d937fec4"><span>Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.</span></label><label><input type="checkbox" autocomplete="off" name="65e5b65d244a0f0aa37f63f0d937fec4"><span>Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>R-Projekte setzen das Arbeitsverzeichnis automatisch, merken sich offene Skripte und Einstellungen, und ermöglichen portables Übertragen des Projekts dank relativer Pfade. Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von <code>.Rproj</code>-Dateien.</p>
+<p>Das zentrale Problem mit <code>setwd()</code> ist, dass es absolute Pfade verwendet, die nur auf dem Computer existieren, auf dem sie geschrieben wurden.</p>
+<p><strong>Falsch:</strong> Die Geschwindigkeit von <code>setwd()</code> vs.&nbsp;<code>here()</code> ist irrelevant — beide unterscheiden sich nicht in der Performance. Geschwindigkeit ist kein Argument gegen <code>setwd()</code>.</p>
+<p><strong>Korrekt:</strong> Der mit <code>setwd()</code> gesetzte absolute Pfad (z. B. <code>setwd("C:/Users/Max/Projekte/Analyse")</code>) funktioniert nur auf dem Computer, auf dem er geschrieben wurde. Auf einem anderen Computer existiert dieser Pfad nicht — das Skript ist nicht portabel.</p>
+<p><strong>Falsch:</strong> Die Aussage zu R-Markdown/Quarto ist falsch — <code>setwd()</code> kann dort verwendet werden (ist aber nicht empfohlen, da es das Arbeitsverzeichnis nur temporär ändert und bei jedem Chunk zurückgesetzt wird).</p>
+<p><strong>Korrekt:</strong> Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt <code>setwd()</code> mit einem Fehler fehl, weil der Pfad dort nicht existiert. Das betrifft Kollaboration (andere Personen) genauso wie eigene verschiedene Maschinen (Arbeitscomputer und Laptop).</p>
+<p><strong>In der Praxis:</strong> <code>here()</code> löst dieses Problem, indem es Pfade relativ zum R-Projektordner aufbaut. Das Projekt kann auf jeden Computer übertragen werden — <code>here()</code> findet automatisch den Projektordner und baut die Pfade korrekt auf.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Ihr R-Projekt liegt im Ordner <code>/Users/tom/Analysen/Studie_2026/</code>. Welcher der folgenden Ausdrücke erstellt mit dem <code>here</code>-Paket den <strong>korrekten relativen Pfad</strong> zur Datei <code>/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv</code>?</p>
-<div id="webex-42ce414c44f08049e9de6e08b7863885" class="webex-radiogroup" data-answer="bwNPVRgBGFNp">
-<label><input type="radio" autocomplete="off" name="42ce414c44f08049e9de6e08b7863885"><span><code>here("Daten_Roh", "rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="42ce414c44f08049e9de6e08b7863885"><span><code>here("Daten_Roh/rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="42ce414c44f08049e9de6e08b7863885"><span><code>here("rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="42ce414c44f08049e9de6e08b7863885"><span><code>here("/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv")</code></span></label>
+<div id="webex-4f3cdaf8ab70fe1fbe401106cbe3de1d" class="webex-radiogroup" data-answer="b1YfUkhRSgg8">
+<label><input type="radio" autocomplete="off" name="4f3cdaf8ab70fe1fbe401106cbe3de1d"><span><code>here("rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="4f3cdaf8ab70fe1fbe401106cbe3de1d"><span><code>here("Daten_Roh", "rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="4f3cdaf8ab70fe1fbe401106cbe3de1d"><span><code>here("/Users/tom/Analysen/Studie_2026/Daten_Roh/rohdaten.csv")</code></span></label><label><input type="radio" autocomplete="off" name="4f3cdaf8ab70fe1fbe401106cbe3de1d"><span><code>here("Daten_Roh/rohdaten.csv")</code></span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist <code>here("Daten_Roh", "rohdaten.csv")</code> — das <code>here</code>-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Die Variante mit Schrägstrich (<code>here("Daten_Roh/rohdaten.csv")</code>) würde zwar ohne Fehler funktionieren, entspricht aber nicht guter Coding-Praxis: Pfadbestandteile sollten als separate Argumente übergeben werden, damit <code>here()</code> die plattformspezifischen Trennzeichen korrekt setzen kann. <code>here("rohdaten.csv")</code> würde nur im Projektordner suchen und die Datei nicht finden. Die Variante mit absolutem Pfad widerspricht dem Sinn von <code>here()</code>.</p>
+<p>Die Funktion <code>here()</code> ist darauf ausgelegt, Pfadbestandteile als separate Argumente zu erhalten und diese mit dem richtigen Trennzeichen für das jeweilige Betriebssystem zu verbinden.</p>
+<p><strong>Korrekt:</strong> <code>here("Daten_Roh", "rohdaten.csv")</code> — separate Argumente ermöglichen es <code>here()</code>, automatisch das richtige Trennzeichen zu verwenden (/ für Mac/Linux, &nbsp;für Windows). Das ist die robuste, plattformunabhängige Lösung.</p>
+<p><strong>Achtung:</strong> <code>here("Daten_Roh/rohdaten.csv")</code> würde technisch funktionieren und keinen Fehler werfen — in den meisten Fällen akzeptiert auch Windows den Schrägstrich /. Aber: Dies entspricht nicht der best practice für <code>here()</code>. Wenn Sie den Schrägstrich selbst setzen, kann <code>here()</code> nicht das betriebssystemspezifische Trennzeichen wählen. Die Funktion ist darauf ausgelegt, dass Sie ihr die Pfadbestandteile einzeln übergeben, damit sie die plattformspezifische Arbeit übernimmt.</p>
+<p><strong>Falsch:</strong> <code>here("rohdaten.csv")</code> sucht nur im Projektordner selbst, nicht im Unterordner <code>Daten_Roh</code> — die Datei würde nicht gefunden.</p>
+<p><strong>Falsch:</strong> Die Variante mit absolutem Pfad (<code>/Users/tom/Analysen/...</code>) widerspricht dem gesamten Zweck von <code>here()</code>: relative, portable Pfade zu erstellen, die auf jedem Computer funktionieren.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Aussagen beschreiben <strong>Vorteile</strong> von R-Projekten (<code>.Rproj</code>-Dateien)?</p>
+<div id="webex-a94b0dba01c1520d0a645891fe172328" class="webex-checkboxgroup" data-answer="OggYUxxVTlFt">
+<label><input type="checkbox" autocomplete="off" name="a94b0dba01c1520d0a645891fe172328"><span>Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn das Projekt geöffnet wird.</span></label><label><input type="checkbox" autocomplete="off" name="a94b0dba01c1520d0a645891fe172328"><span>Projekte können einfach auf andere Computer übertragen werden, da Pfade relativ zum Projektordner sind.</span></label><label><input type="checkbox" autocomplete="off" name="a94b0dba01c1520d0a645891fe172328"><span>RStudio merkt sich die offenen Skripte und Einstellungen pro Projekt.</span></label><label><input type="checkbox" autocomplete="off" name="a94b0dba01c1520d0a645891fe172328"><span>R-Projekte erhöhen die Rechengeschwindigkeit von R deutlich.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>R-Projekte (<code>.Rproj</code>-Dateien) bieten mehrere Vorteile für <strong>reproduzierbare</strong> und <strong>portable</strong> Analysen.</p>
+<p><strong>Korrekt:</strong> Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn Sie das Projekt öffnen — kein manuelles <code>setwd()</code> nötig. Das bedeutet: Pfade können relativ zum Projektordner angegeben werden und funktionieren auf jedem Computer.</p>
+<p><strong>Korrekt:</strong> RStudio merkt sich pro Projekt, welche Skripte geöffnet waren, welche Dateien im Viewer angezeigt wurden, und weitere Einstellungen — beim nächsten Öffnen können Sie genau dort weitermachen, wo Sie aufgehört haben.</p>
+<p><strong>Falsch:</strong> Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — <code>.Rproj</code>-Dateien sind Organisations- und Konfigurationsdateien, keine Performance-Optimierung. R-Code läuft in einem Projekt genauso schnell (oder langsam) wie außerhalb.</p>
+<p><strong>Korrekt:</strong> Projekte können einfach auf andere Computer übertragen werden (z. B. per Git oder als ZIP-Datei), da alle Pfade relativ zum Projektordner sind. Das macht Zusammenarbeit und das Arbeiten auf verschiedenen Rechnern (z. B. Arbeitscomputer und Laptop) deutlich einfacher.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

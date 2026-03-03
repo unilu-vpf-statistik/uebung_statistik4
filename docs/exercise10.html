@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2190,8 +2190,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie erstellen einen Analysebericht für eine Auftraggeberin, die keinen R-Code lesen kann, aber die Ergebnisse (Tabellen und Grafiken) sehen möchte. Welche Chunk-Option ist am geeignetsten?</p>
-<div id="webex-a084dc0635326d9c4ba6aaa699bc65c1" class="webex-radiogroup" data-answer="OgAUBUhTHAZu">
-<label><input type="radio" autocomplete="off" name="a084dc0635326d9c4ba6aaa699bc65c1"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="a084dc0635326d9c4ba6aaa699bc65c1"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="a084dc0635326d9c4ba6aaa699bc65c1"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label><label><input type="radio" autocomplete="off" name="a084dc0635326d9c4ba6aaa699bc65c1"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label>
+<div id="webex-b58279e48db2dce2298d7dc4285b76fb" class="webex-radiogroup" data-answer="OQUUAhsISQRl">
+<label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2205,8 +2205,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p><strong>Chunk 2:</strong> <code>daten &lt;- read.csv2(here("daten", "studie.csv"))</code></p>
 <p><strong>Chunk 3:</strong> <code>print(ergebnis)</code></p>
 <p>Was passiert beim Rendern des Dokuments?</p>
-<div id="webex-0739a194009d969c21e063f7d5de752f" class="webex-radiogroup" data-answer="awcfCU0BFQVt">
-<label><input type="radio" autocomplete="off" name="0739a194009d969c21e063f7d5de752f"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="0739a194009d969c21e063f7d5de752f"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label><label><input type="radio" autocomplete="off" name="0739a194009d969c21e063f7d5de752f"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="0739a194009d969c21e063f7d5de752f"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label>
+<div id="webex-6b6ac7243bd900144a1120940c3656d0" class="webex-radiogroup" data-answer="bVIaUU8GHgRu">
+<label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2216,8 +2216,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>reproduzierbaren Ergebnisdokumentation</strong> mit Quarto sind korrekt?</p>
-<div id="webex-72b9dcc9a2677fcb04f22a7e4cf0b171" class="webex-checkboxgroup" data-answer="bAJOCEhSTwk8">
-<label><input type="checkbox" autocomplete="off" name="72b9dcc9a2677fcb04f22a7e4cf0b171"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="72b9dcc9a2677fcb04f22a7e4cf0b171"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label><label><input type="checkbox" autocomplete="off" name="72b9dcc9a2677fcb04f22a7e4cf0b171"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="72b9dcc9a2677fcb04f22a7e4cf0b171"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label>
+<div id="webex-6877e8609911b5be3e67a54b196c8184" class="webex-checkboxgroup" data-answer="bQgbB0kJGgFk">
+<label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label>
 </div>
 </div>
 <div class="webex-solution">

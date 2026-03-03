@@ -11,7 +11,15 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die Aussagen zum expliziten Laden der Pakete mit `library()` und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.
+Ein reproduzierbares Skript kann von anderen (oder von Ihnen selbst später) exakt nachvollzogen und ausgeführt werden — ohne manuelle Eingriffe oder Rätselraten.
+
+**Korrekt:** Alle verwendeten Pakete werden am Anfang des Skripts mit `library()` explizit geladen — so ist auf den ersten Blick klar, welche Abhängigkeiten die Analyse hat. Andere wissen sofort, welche Pakete sie installieren müssen, um das Skript auszuführen.
+
+**Falsch:** Das Skript enthält keine Kommentare, weil "der Code selbst verständlich ist" — das ist ein Trugschluss. Code erklärt *wie* etwas gemacht wird, aber nicht *warum*. Ohne Kommentare wird das Skript schwer verständlich, auch für die Autorin selbst nach einigen Wochen. **Häufiger Fehler:** Unterschätzen, wie schnell man eigenen Code vergisst.
+
+**Korrekt:** Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte wie "jetzt Datei X öffnen und Wert Y kopieren". Vollständige Automatisierung ist der Kern von Reproduzierbarkeit. Wenn andere (oder Sie selbst) das Skript ausführen, erhalten sie exakt dieselben Ergebnisse.
+
+**Falsch:** Die Analyseergebnisse wurden manuell in Excel übertragen und dort weiterverarbeitet — das unterbricht die Analysekette. Der manuelle Schritt ist nirgendwo dokumentiert und kann nicht rekonstruiert werden. Excel-Berechnungen sind nicht nachvollziehbar, weil Formeln überschrieben oder gelöscht werden können.
 
 Meta-information
 ================

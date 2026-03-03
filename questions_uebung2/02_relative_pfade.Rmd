@@ -11,7 +11,15 @@ Answerlist
 
 Solution
 ========
-Korrekt ist `here("Daten_Roh", "rohdaten.csv")` — das `here`-Paket nimmt mehrere Argumente für die Ordnerstruktur und verbindet sie automatisch mit dem richtigen Trennzeichen für das jeweilige Betriebssystem. Die Variante mit Schrägstrich (`here("Daten_Roh/rohdaten.csv")`) würde zwar ohne Fehler funktionieren, entspricht aber nicht guter Coding-Praxis: Pfadbestandteile sollten als separate Argumente übergeben werden, damit `here()` die plattformspezifischen Trennzeichen korrekt setzen kann. `here("rohdaten.csv")` würde nur im Projektordner suchen und die Datei nicht finden. Die Variante mit absolutem Pfad widerspricht dem Sinn von `here()`.
+Die Funktion `here()` ist darauf ausgelegt, Pfadbestandteile als separate Argumente zu erhalten und diese mit dem richtigen Trennzeichen für das jeweilige Betriebssystem zu verbinden.
+
+**Korrekt:** `here("Daten_Roh", "rohdaten.csv")` — separate Argumente ermöglichen es `here()`, automatisch das richtige Trennzeichen zu verwenden (/ für Mac/Linux, \ für Windows). Das ist die robuste, plattformunabhängige Lösung.
+
+**Achtung:** `here("Daten_Roh/rohdaten.csv")` würde technisch funktionieren und keinen Fehler werfen — in den meisten Fällen akzeptiert auch Windows den Schrägstrich /. Aber: Dies entspricht nicht der best practice für `here()`. Wenn Sie den Schrägstrich selbst setzen, kann `here()` nicht das betriebssystemspezifische Trennzeichen wählen. Die Funktion ist darauf ausgelegt, dass Sie ihr die Pfadbestandteile einzeln übergeben, damit sie die plattformspezifische Arbeit übernimmt.
+
+**Falsch:** `here("rohdaten.csv")` sucht nur im Projektordner selbst, nicht im Unterordner `Daten_Roh` — die Datei würde nicht gefunden.
+
+**Falsch:** Die Variante mit absolutem Pfad (`/Users/tom/Analysen/...`) widerspricht dem gesamten Zweck von `here()`: relative, portable Pfade zu erstellen, die auf jedem Computer funktionieren.
 
 Meta-information
 ================

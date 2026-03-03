@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2127,34 +2127,46 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen beschreiben korrekte Merkmale einer <strong>reproduzierbaren</strong> Datenanalyse?</p>
-<div id="webex-2168e03eebacf6eb92766f0befa4d308" class="webex-checkboxgroup" data-answer="aQAaCEkAH1Q4">
-<label><input type="checkbox" autocomplete="off" name="2168e03eebacf6eb92766f0befa4d308"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label><label><input type="checkbox" autocomplete="off" name="2168e03eebacf6eb92766f0befa4d308"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="2168e03eebacf6eb92766f0befa4d308"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="2168e03eebacf6eb92766f0befa4d308"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label>
+<div id="webex-6b78dcd00ac421a882b0062d4ca5d75b" class="webex-checkboxgroup" data-answer="bVIbCUhSSABt">
+<label><input type="checkbox" autocomplete="off" name="6b78dcd00ac421a882b0062d4ca5d75b"><span>Das Arbeitsverzeichnis wird zu Beginn jedes Skripts mit <code>setwd()</code> fest definiert.</span></label><label><input type="checkbox" autocomplete="off" name="6b78dcd00ac421a882b0062d4ca5d75b"><span>Relative Pfade werden verwendet, sodass das Projekt auf verschiedenen Computern ausführbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="6b78dcd00ac421a882b0062d4ca5d75b"><span>Alle Analyseschritte sind in Skripten dokumentiert und können von anderen nachvollzogen werden.</span></label><label><input type="checkbox" autocomplete="off" name="6b78dcd00ac421a882b0062d4ca5d75b"><span>Die Analyse wird ausschliesslich mit Point-and-Click in Excel durchgeführt und das Ergebnis als Screenshot gespeichert.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Eine reproduzierbare Analyse dokumentiert alle Schritte in Skripten und verwendet relative Pfade statt absoluter Pfade, damit das Projekt auf anderen Computern ausgeführt werden kann. Point-and-Click-Analysen mit Excel-Screenshots sind nicht reproduzierbar, da die Analyseschritte nicht nachvollzogen werden können. <code>setwd()</code> setzt absolute Pfade, die auf anderen Computern nicht funktionieren — auch das widerspricht dem Prinzip der Reproduzierbarkeit.</p>
+<p>Reproduzierbarkeit bedeutet, dass eine Analyse mit denselben Daten und demselben Code zu identischen Ergebnissen führt — unabhängig davon, wer die Analyse durchführt oder auf welchem Computer sie ausgeführt wird.</p>
+<p><strong>Korrekt:</strong> Alle Analyseschritte in Skripten dokumentieren — nur so können andere (oder Sie selbst in der Zukunft) jeden Schritt exakt nachvollziehen und wiederholen. Jeder Klick, jede Transformation, jede Berechnung muss im Code stehen.</p>
+<p><strong>Falsch:</strong> Point-and-Click-Analysen mit Excel und Screenshots — die Klicks werden nirgendwo dokumentiert. Ein Screenshot zeigt nur das Endergebnis, nicht den Weg dorthin. Niemand (auch Sie selbst nach ein paar Wochen nicht) kann die Analyse rekonstruieren oder überprüfen.</p>
+<p><strong>Korrekt:</strong> Relative Pfade verwenden — absolute Pfade wie <code>C:/Users/Max/Dokumente/...</code> funktionieren nur auf dem Computer, auf dem sie geschrieben wurden. Relative Pfade ermöglichen es, das gesamte Projekt auf einen anderen Computer zu übertragen, ohne Pfade manuell anpassen zu müssen.</p>
+<p><strong>Falsch:</strong> <code>setwd()</code> mit festen Pfaden verwenden — <code>setwd("C:/Users/Max/...")</code> ist ein absoluter Pfad, der nur auf diesem einen Computer existiert. Wenn eine Kollegin das Skript öffnet, schlägt <code>setwd()</code> mit einem Fehler fehl, weil der Pfad auf ihrem Computer nicht existiert. Das Projekt ist nicht portabel.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Eine Kollegin schickt Ihnen ihr R-Skript zur Datenanalyse. Welche der folgenden Merkmale sprechen dafür, dass das Skript <strong>reproduzierbar</strong> ist?</p>
-<div id="webex-4d060bcc484d11cfbb2a38e5c09d52c5" class="webex-checkboxgroup" data-answer="b1QcBhxTT1Jp">
-<label><input type="checkbox" autocomplete="off" name="4d060bcc484d11cfbb2a38e5c09d52c5"><span>Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.</span></label><label><input type="checkbox" autocomplete="off" name="4d060bcc484d11cfbb2a38e5c09d52c5"><span>Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.</span></label><label><input type="checkbox" autocomplete="off" name="4d060bcc484d11cfbb2a38e5c09d52c5"><span>Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.</span></label><label><input type="checkbox" autocomplete="off" name="4d060bcc484d11cfbb2a38e5c09d52c5"><span>Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> geladen.</span></label>
+<div id="webex-955d2ef58d559686a5734b4054d21b89" class="webex-checkboxgroup" data-answer="YgQZVB5VSgRl">
+<label><input type="checkbox" autocomplete="off" name="955d2ef58d559686a5734b4054d21b89"><span>Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> geladen.</span></label><label><input type="checkbox" autocomplete="off" name="955d2ef58d559686a5734b4054d21b89"><span>Die Analyseergebnisse wurden manuell in eine Excel-Tabelle übertragen und dort weiterverarbeitet.</span></label><label><input type="checkbox" autocomplete="off" name="955d2ef58d559686a5734b4054d21b89"><span>Das Skript enthält keine Kommentare, da „der Code selbst verständlich ist”.</span></label><label><input type="checkbox" autocomplete="off" name="955d2ef58d559686a5734b4054d21b89"><span>Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind die Aussagen zum expliziten Laden der Pakete mit <code>library()</code> und zum vollständigen Durchlaufen des Skripts. Wenn alle Pakete explizit geladen werden, ist klar, welche Abhängigkeiten die Analyse hat. Ein Skript, das vollständig durchläuft, kann von anderen exakt reproduziert werden. Fehlende Kommentare erschweren das Verständnis — auch für die Autorin selbst nach einigen Wochen. Manuelle Übertragung in Excel unterbricht die Analysekette: der Schritt ist nicht im Skript dokumentiert und damit nicht reproduzierbar.</p>
+<p>Ein reproduzierbares Skript kann von anderen (oder von Ihnen selbst später) exakt nachvollzogen und ausgeführt werden — ohne manuelle Eingriffe oder Rätselraten.</p>
+<p><strong>Korrekt:</strong> Alle verwendeten Pakete werden am Anfang des Skripts mit <code>library()</code> explizit geladen — so ist auf den ersten Blick klar, welche Abhängigkeiten die Analyse hat. Andere wissen sofort, welche Pakete sie installieren müssen, um das Skript auszuführen.</p>
+<p><strong>Falsch:</strong> Das Skript enthält keine Kommentare, weil “der Code selbst verständlich ist” — das ist ein Trugschluss. Code erklärt <em>wie</em> etwas gemacht wird, aber nicht <em>warum</em>. Ohne Kommentare wird das Skript schwer verständlich, auch für die Autorin selbst nach einigen Wochen. <strong>Häufiger Fehler:</strong> Unterschätzen, wie schnell man eigenen Code vergisst.</p>
+<p><strong>Korrekt:</strong> Das Skript läuft vollständig durch, wenn es von Anfang bis Ende ausgeführt wird — ohne manuelle Zwischenschritte wie “jetzt Datei X öffnen und Wert Y kopieren”. Vollständige Automatisierung ist der Kern von Reproduzierbarkeit. Wenn andere (oder Sie selbst) das Skript ausführen, erhalten sie exakt dieselben Ergebnisse.</p>
+<p><strong>Falsch:</strong> Die Analyseergebnisse wurden manuell in Excel übertragen und dort weiterverarbeitet — das unterbricht die Analysekette. Der manuelle Schritt ist nirgendwo dokumentiert und kann nicht rekonstruiert werden. Excel-Berechnungen sind nicht nachvollziehbar, weil Formeln überschrieben oder gelöscht werden können.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie beginnen ein neues Analyseprojekt in R. Welche der folgenden Eigenschaften einer Ordnerstruktur unterstützen <strong>reproduzierbare Analysen</strong>?</p>
-<div id="webex-48db83f9ed6799553c458a79124ce5f2" class="webex-checkboxgroup" data-answer="bwlIUhQDSgg4">
-<label><input type="checkbox" autocomplete="off" name="48db83f9ed6799553c458a79124ce5f2"><span>Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in <strong>separaten Unterordnern</strong> gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="48db83f9ed6799553c458a79124ce5f2"><span>Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="48db83f9ed6799553c458a79124ce5f2"><span>Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.</span></label><label><input type="checkbox" autocomplete="off" name="48db83f9ed6799553c458a79124ce5f2"><span>Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben.</span></label>
+<div id="webex-2441cf797b8e4cdc28f0cd77026152f0" class="webex-checkboxgroup" data-answer="aQQYAE9XGwlq">
+<label><input type="checkbox" autocomplete="off" name="2441cf797b8e4cdc28f0cd77026152f0"><span>Skripte und Daten werden direkt auf dem Desktop abgelegt, damit sie leicht zugänglich sind.</span></label><label><input type="checkbox" autocomplete="off" name="2441cf797b8e4cdc28f0cd77026152f0"><span>Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben.</span></label><label><input type="checkbox" autocomplete="off" name="2441cf797b8e4cdc28f0cd77026152f0"><span>Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in <strong>separaten Unterordnern</strong> gespeichert.</span></label><label><input type="checkbox" autocomplete="off" name="2441cf797b8e4cdc28f0cd77026152f0"><span>Alle Dateien (Daten, Skripte, Ergebnisse) liegen in einem einzigen Ordner ohne Unterstruktur.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind die Aussagen zu separaten Unterordnern und zum Schutz der Rohdaten. Separate Unterordner ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden, weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur wird schnell unübersichtlich. Desktop-Speicherung führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.</p>
+<p>Eine klare Ordnerstruktur ist die Grundlage reproduzierbarer Analysen — sie macht auf den ersten Blick erkennbar, welche Dateien wozu gehören.</p>
+<p><strong>Korrekt:</strong> Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in separaten Unterordnern gespeichert (z. B. <code>Daten_Roh/</code>, <code>Daten_Verarbeitet/</code>, <code>R_Skripte/</code>, <code>Ergebnisse/</code>). Das unterstützt Reproduzierbarkeit und Kollaboration: Andere (oder Sie selbst nach Monaten) erkennen sofort, wo welche Dateien liegen und was die Analyse macht.</p>
+<p><strong>Falsch:</strong> Alle Dateien in einem einzigen Ordner ohne Unterstruktur — bei mehr als 10-15 Dateien wird das schnell unübersichtlich. Stellen Sie sich vor: 50 Dateien in einem Ordner, gemischt Rohdaten, Skripte, Ergebnisse, Abbildungen — niemand findet sich zurecht.</p>
+<p><strong>Korrekt:</strong> Die Rohdaten werden <strong>niemals</strong> direkt verändert oder überschrieben — sie bleiben im Originalzustand erhalten. Nur so ist der gesamte Analyseprozess rekonstruierbar: Von den ursprünglichen Daten über alle Transformationen bis zum Endergebnis. Wenn Rohdaten überschrieben werden, ist die Analyse nicht mehr nachvollziehbar.</p>
+<p><strong>Falsch:</strong> Skripte und Daten direkt auf dem Desktop ablegen — sobald der Rechner gewechselt wird oder jemand anderes die Analyse nachvollziehen will, funktioniert nichts mehr. Desktop-Speicherung ist nicht portabel und nicht professionell.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

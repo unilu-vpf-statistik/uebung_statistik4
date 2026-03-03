@@ -11,7 +11,15 @@ Answerlist
 
 Solution
 ========
-R-Projekte setzen das Arbeitsverzeichnis automatisch, merken sich offene Skripte und Einstellungen, und ermöglichen portables Übertragen des Projekts dank relativer Pfade. Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — das ist kein Vorteil von `.Rproj`-Dateien.
+R-Projekte (`.Rproj`-Dateien) bieten mehrere Vorteile für **reproduzierbare** und **portable** Analysen.
+
+**Korrekt:** Das Arbeitsverzeichnis wird automatisch auf den Projektordner gesetzt, wenn Sie das Projekt öffnen — kein manuelles `setwd()` nötig. Das bedeutet: Pfade können relativ zum Projektordner angegeben werden und funktionieren auf jedem Computer.
+
+**Korrekt:** RStudio merkt sich pro Projekt, welche Skripte geöffnet waren, welche Dateien im Viewer angezeigt wurden, und weitere Einstellungen — beim nächsten Öffnen können Sie genau dort weitermachen, wo Sie aufgehört haben.
+
+**Falsch:** Die Rechengeschwindigkeit wird durch R-Projekte nicht beeinflusst — `.Rproj`-Dateien sind Organisations- und Konfigurationsdateien, keine Performance-Optimierung. R-Code läuft in einem Projekt genauso schnell (oder langsam) wie außerhalb.
+
+**Korrekt:** Projekte können einfach auf andere Computer übertragen werden (z. B. per Git oder als ZIP-Datei), da alle Pfade relativ zum Projektordner sind. Das macht Zusammenarbeit und das Arbeiten auf verschiedenen Rechnern (z. B. Arbeitscomputer und Laptop) deutlich einfacher.
 
 Meta-information
 ================

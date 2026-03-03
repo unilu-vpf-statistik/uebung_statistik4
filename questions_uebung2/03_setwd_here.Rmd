@@ -11,7 +11,17 @@ Answerlist
 
 Solution
 ========
-Die Kernprobleme mit `setwd()` sind, dass der absolute Pfad nur auf dem eigenen Computer funktioniert und dass das Skript auf anderen Computern mit einem Fehler fehlschlägt, da der Pfad nicht existiert. Das ist das Hauptproblem bei kollaborativen Projekten oder wenn das gleiche Skript auf verschiedenen Maschinen (z. B. Arbeitscomputer und Laptop) ausgeführt werden soll. `here()` löst dieses Problem, indem es den Pfad relativ zum R-Projektordner aufbaut. Die Aussage zur Geschwindigkeit ist falsch — `setwd()` und `here()` unterscheiden sich nicht in der Performance. Die Aussage zu R-Markdown/Quarto ist ebenfalls falsch — `setwd()` kann dort verwendet werden, ist aber nicht empfohlen.
+Das zentrale Problem mit `setwd()` ist, dass es absolute Pfade verwendet, die nur auf dem Computer existieren, auf dem sie geschrieben wurden.
+
+**Falsch:** Die Geschwindigkeit von `setwd()` vs. `here()` ist irrelevant — beide unterscheiden sich nicht in der Performance. Geschwindigkeit ist kein Argument gegen `setwd()`.
+
+**Korrekt:** Der mit `setwd()` gesetzte absolute Pfad (z. B. `setwd("C:/Users/Max/Projekte/Analyse")`) funktioniert nur auf dem Computer, auf dem er geschrieben wurde. Auf einem anderen Computer existiert dieser Pfad nicht — das Skript ist nicht portabel.
+
+**Falsch:** Die Aussage zu R-Markdown/Quarto ist falsch — `setwd()` kann dort verwendet werden (ist aber nicht empfohlen, da es das Arbeitsverzeichnis nur temporär ändert und bei jedem Chunk zurückgesetzt wird).
+
+**Korrekt:** Wenn das Skript auf einem anderen Computer ausgeführt wird, schlägt `setwd()` mit einem Fehler fehl, weil der Pfad dort nicht existiert. Das betrifft Kollaboration (andere Personen) genauso wie eigene verschiedene Maschinen (Arbeitscomputer und Laptop).
+
+**In der Praxis:** `here()` löst dieses Problem, indem es Pfade relativ zum R-Projektordner aufbaut. Das Projekt kann auf jeden Computer übertragen werden — `here()` findet automatisch den Projektordner und baut die Pfade korrekt auf.
 
 Meta-information
 ================

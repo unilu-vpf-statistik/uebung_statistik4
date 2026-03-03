@@ -11,7 +11,15 @@ Answerlist
 
 Solution
 ========
-Korrekt sind die Aussagen zu separaten Unterordnern und zum Schutz der Rohdaten. Separate Unterordner ermöglichen es, auf den ersten Blick zu erkennen, welche Dateien wozu gehören — das unterstützt Reproduzierbarkeit und Kollaboration. Rohdaten dürfen nie überschrieben werden, weil der Analyseprozess sonst nicht rekonstruierbar ist. Ein einziger Ordner ohne Struktur wird schnell unübersichtlich. Desktop-Speicherung führt zu Problemen, sobald der Rechner gewechselt wird oder andere Personen die Analyse nachvollziehen wollen.
+Eine klare Ordnerstruktur ist die Grundlage reproduzierbarer Analysen — sie macht auf den ersten Blick erkennbar, welche Dateien wozu gehören.
+
+**Korrekt:** Rohdaten, verarbeitete Daten, Skripte und Ergebnisse werden in separaten Unterordnern gespeichert (z. B. `Daten_Roh/`, `Daten_Verarbeitet/`, `R_Skripte/`, `Ergebnisse/`). Das unterstützt Reproduzierbarkeit und Kollaboration: Andere (oder Sie selbst nach Monaten) erkennen sofort, wo welche Dateien liegen und was die Analyse macht.
+
+**Falsch:** Alle Dateien in einem einzigen Ordner ohne Unterstruktur — bei mehr als 10-15 Dateien wird das schnell unübersichtlich. Stellen Sie sich vor: 50 Dateien in einem Ordner, gemischt Rohdaten, Skripte, Ergebnisse, Abbildungen — niemand findet sich zurecht.
+
+**Korrekt:** Die Rohdaten werden **niemals** direkt verändert oder überschrieben — sie bleiben im Originalzustand erhalten. Nur so ist der gesamte Analyseprozess rekonstruierbar: Von den ursprünglichen Daten über alle Transformationen bis zum Endergebnis. Wenn Rohdaten überschrieben werden, ist die Analyse nicht mehr nachvollziehbar.
+
+**Falsch:** Skripte und Daten direkt auf dem Desktop ablegen — sobald der Rechner gewechselt wird oder jemand anderes die Analyse nachvollziehen will, funktioniert nichts mehr. Desktop-Speicherung ist nicht portabel und nicht professionell.
 
 Meta-information
 ================
