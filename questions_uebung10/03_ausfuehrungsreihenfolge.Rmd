@@ -26,4 +26,4 @@ Meta-information
 exname: ausfuehrungsreihenfolge
 extype: schoice
 exsolution: 1000
-exshuffle: TRUE
+exshuffle: FALSE

@@ -34,4 +34,4 @@ Meta-information
 exname: annahmen_workflow
 extype: schoice
 exsolution: 0100
-exshuffle: TRUE
+exshuffle: FALSE

@@ -28,4 +28,4 @@ Meta-information
 exname: exam_regression
 extype: mchoice
 exsolution: 1011
-exshuffle: TRUE
+exshuffle: FALSE

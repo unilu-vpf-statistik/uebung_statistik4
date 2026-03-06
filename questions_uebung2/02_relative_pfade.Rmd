@@ -26,4 +26,4 @@ Meta-information
 exname: relative_pfade
 extype: schoice
 exsolution: 0010
-exshuffle: TRUE
+exshuffle: FALSE

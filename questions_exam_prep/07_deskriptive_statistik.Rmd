@@ -29,4 +29,4 @@ Meta-information
 exname: exam_deskriptive_statistik
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

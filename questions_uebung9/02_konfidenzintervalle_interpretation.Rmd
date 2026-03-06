@@ -18,4 +18,4 @@ Meta-information
 exname: konfidenzintervalle_interpretation
 extype: mchoice
 exsolution: 1001
-exshuffle: TRUE
+exshuffle: FALSE

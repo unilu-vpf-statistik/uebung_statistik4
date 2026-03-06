@@ -34,4 +34,4 @@ Meta-information
 exname: interaktion_output_lesen
 extype: schoice
 exsolution: 1000
-exshuffle: TRUE
+exshuffle: FALSE

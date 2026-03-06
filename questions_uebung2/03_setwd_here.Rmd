@@ -28,4 +28,4 @@ Meta-information
 exname: setwd_here
 extype: mchoice
 exsolution: 0101
-exshuffle: TRUE
+exshuffle: FALSE

@@ -26,4 +26,4 @@ Meta-information
 exname: rproj_erstellen
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

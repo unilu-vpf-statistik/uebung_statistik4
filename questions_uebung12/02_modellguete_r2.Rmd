@@ -37,4 +37,4 @@ Meta-information
 exname: modellvergleich_anova
 extype: mchoice
 exsolution: 1110
-exshuffle: TRUE
+exshuffle: FALSE

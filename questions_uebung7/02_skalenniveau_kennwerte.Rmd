@@ -30,4 +30,4 @@ Meta-information
 exname: across_deskription
 extype: schoice
 exsolution: 1000
-exshuffle: TRUE
+exshuffle: FALSE

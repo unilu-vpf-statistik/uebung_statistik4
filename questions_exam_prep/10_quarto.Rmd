@@ -42,4 +42,4 @@ Meta-information
 exname: exam_quarto
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

@@ -18,4 +18,4 @@ Meta-information
 exname: exam_datenaufbereitung2
 extype: mchoice
 exsolution: 1100
-exshuffle: TRUE
+exshuffle: FALSE

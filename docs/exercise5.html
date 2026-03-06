@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2255,20 +2255,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </blockquote>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
-<div id="webex-29f373e6e9fc2c6687227e63c39ca242" class="webex-checkboxgroup" data-answer="aQhKAhsDSQY4">
-<label><input type="checkbox" autocomplete="off" name="29f373e6e9fc2c6687227e63c39ca242"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="29f373e6e9fc2c6687227e63c39ca242"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="29f373e6e9fc2c6687227e63c39ca242"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label><label><input type="checkbox" autocomplete="off" name="29f373e6e9fc2c6687227e63c39ca242"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label>
+<p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
+<div id="webex-7e3c52bdf42a20410932d88675a7c40a" class="webex-radiogroup" data-answer="bFQfUxkCTlQ7">
+<label><input type="radio" autocomplete="off" name="7e3c52bdf42a20410932d88675a7c40a"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label><label><input type="radio" autocomplete="off" name="7e3c52bdf42a20410932d88675a7c40a"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="7e3c52bdf42a20410932d88675a7c40a"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label><label><input type="radio" autocomplete="off" name="7e3c52bdf42a20410932d88675a7c40a"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.</p>
+<p>Korrekt ist <code>colSums(is.na(daten))</code>. Diese Funktion kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> und <code>complete.cases()</code> identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen zu <strong>Ausreissern</strong> und ihrer Identifikation sind korrekt?</p>
-<div id="webex-c4e83d0208282dd0f1c40b6c55f67b7b" class="webex-checkboxgroup" data-answer="OARJCR9VHAJt">
-<label><input type="checkbox" autocomplete="off" name="c4e83d0208282dd0f1c40b6c55f67b7b"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="c4e83d0208282dd0f1c40b6c55f67b7b"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="c4e83d0208282dd0f1c40b6c55f67b7b"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="c4e83d0208282dd0f1c40b6c55f67b7b"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label>
+<div id="webex-702f3cc8b337b794adbd42c0c0089a2b" class="webex-checkboxgroup" data-answer="bAEeVx9TTwg/">
+<label><input type="checkbox" autocomplete="off" name="702f3cc8b337b794adbd42c0c0089a2b"><span>Nach der <strong>IQR-Regel</strong> gelten Werte als Ausreisser, die kleiner als Q1 − 1,5 × IQR oder grösser als Q3 + 1,5 × IQR sind.</span></label><label><input type="checkbox" autocomplete="off" name="702f3cc8b337b794adbd42c0c0089a2b"><span>Nach dem <strong>z-Score-Kriterium</strong> werden Werte mit einem z-Score von |z| &gt; 3 als Ausreisser betrachtet.</span></label><label><input type="checkbox" autocomplete="off" name="702f3cc8b337b794adbd42c0c0089a2b"><span>Ausreisser müssen immer aus dem Datensatz entfernt werden, bevor eine statistische Analyse durchgeführt wird.</span></label><label><input type="checkbox" autocomplete="off" name="702f3cc8b337b794adbd42c0c0089a2b"><span>Die IQR-Methode und der z-Score führen immer zu exakt denselben Ausreisserlisten.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2277,13 +2277,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche R-Funktion gibt Ihnen für <strong>jede Spalte</strong> eines Data Frames an, wie viele fehlende Werte (<code>NA</code>) enthalten sind?</p>
-<div id="webex-a62264d8136b75d250bff4a325da47ae" class="webex-radiogroup" data-answer="OgYeAhoFSAhs">
-<label><input type="radio" autocomplete="off" name="a62264d8136b75d250bff4a325da47ae"><span><code>complete.cases(daten)</code> — gibt einen logischen Vektor zurück, der anzeigt, ob eine Zeile vollständig ist.</span></label><label><input type="radio" autocomplete="off" name="a62264d8136b75d250bff4a325da47ae"><span><code>sum(is.na(daten))</code> — gibt die Gesamtzahl fehlender Werte im gesamten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="a62264d8136b75d250bff4a325da47ae"><span><code>colSums(is.na(daten))</code> — berechnet pro Spalte die Anzahl fehlender Werte.</span></label><label><input type="radio" autocomplete="off" name="a62264d8136b75d250bff4a325da47ae"><span><code>na.omit(daten)</code> — entfernt alle Zeilen mit mindestens einem fehlenden Wert.</span></label>
+<p>Welche der folgenden Aussagen zu den <strong>Mechanismen fehlender Werte</strong> (MCAR, MAR, MNAR) sind korrekt?</p>
+<div id="webex-8cba1ca8583ff1b8474e919f653fadd7" class="webex-checkboxgroup" data-answer="Y1JOUB1TTQho">
+<label><input type="checkbox" autocomplete="off" name="8cba1ca8583ff1b8474e919f653fadd7"><span>Bei <strong>MCAR</strong> (Missing Completely At Random) hängt das Fehlen der Werte nicht mit anderen Variablen im Datensatz zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="8cba1ca8583ff1b8474e919f653fadd7"><span>Bei <strong>MNAR</strong> (Missing Not At Random) hängt das Fehlen mit dem Wert der fehlenden Variable selbst zusammen.</span></label><label><input type="checkbox" autocomplete="off" name="8cba1ca8583ff1b8474e919f653fadd7"><span>Bei <strong>MAR</strong> (Missing At Random) ist das Fehlen vollständig zufällig und von keiner anderen Variable im Datensatz abhängig.</span></label><label><input type="checkbox" autocomplete="off" name="8cba1ca8583ff1b8474e919f653fadd7"><span>MNAR ist für Analysen unproblematisch, weil die Daten zufällig fehlen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist <code>colSums(is.na(daten))</code>. Diese Funktion kombiniert <code>is.na()</code> (das für jeden Wert <code>TRUE</code> zurückgibt, wenn er <code>NA</code> ist) mit <code>colSums()</code> (das die Anzahl der <code>TRUE</code>-Werte pro Spalte summiert) — das Ergebnis ist ein benannter Vektor mit der fehlenden-Werte-Anzahl je Variable. <code>sum(is.na(daten))</code> gibt nur eine einzige Gesamtzahl zurück, ohne Aufschlüsselung nach Spalten. <code>na.omit()</code> und <code>complete.cases()</code> identifizieren keine Spaltenmuster — sie operieren auf Zeilenebene.</p>
+<p>Korrekt sind die Aussagen zu MCAR und MNAR. Bei MCAR fehlen die Werte unabhängig von allen anderen Variablen — ein technischer Ausfall ist ein typisches Beispiel. Bei MNAR fehlt ein Wert genau dann häufiger, wenn er selbst extrem ist — z. B. berichten Personen mit sehr hohem Stress ihre Stresswerte seltener. Die Aussage, MAR bedeute vollständige Zufälligkeit, ist falsch: Bei MAR hängt das Fehlen von anderen bekannten Variablen ab, aber nicht vom fehlenden Wert selbst. Die Aussage, MNAR sei unproblematisch, ist ebenfalls falsch — MNAR ist gerade deshalb problematisch, weil das Fehlen systematisch und nicht zufällig ist.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

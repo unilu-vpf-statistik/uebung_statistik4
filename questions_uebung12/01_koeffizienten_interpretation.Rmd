@@ -30,4 +30,4 @@ Meta-information
 exname: lm_output_lesen
 extype: mchoice
 exsolution: 1110
-exshuffle: TRUE
+exshuffle: FALSE

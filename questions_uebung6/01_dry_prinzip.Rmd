@@ -18,4 +18,4 @@ Meta-information
 exname: dry_prinzip
 extype: mchoice
 exsolution: 1100
-exshuffle: TRUE
+exshuffle: FALSE

@@ -18,4 +18,4 @@ Meta-information
 exname: exam_daten_einlesen
 extype: schoice
 exsolution: 0100
-exshuffle: TRUE
+exshuffle: FALSE

@@ -34,4 +34,4 @@ Meta-information
 exname: exam_programmieren
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

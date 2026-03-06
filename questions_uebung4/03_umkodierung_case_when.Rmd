@@ -18,4 +18,4 @@ Meta-information
 exname: umkodierung_case_when
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

@@ -32,4 +32,4 @@ Meta-information
 exname: exam_visualisierung2
 extype: mchoice
 exsolution: 1110
-exshuffle: TRUE
+exshuffle: FALSE

@@ -18,4 +18,4 @@ Meta-information
 exname: tidy_data_prinzipien
 extype: mchoice
 exsolution: 1100
-exshuffle: TRUE
+exshuffle: FALSE

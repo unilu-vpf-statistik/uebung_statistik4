@@ -33,4 +33,4 @@ Meta-information
 exname: lagemasse_entscheidung
 extype: mchoice
 exsolution: 1100
-exshuffle: TRUE
+exshuffle: FALSE

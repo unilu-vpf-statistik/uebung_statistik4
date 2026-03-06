@@ -18,4 +18,4 @@ Meta-information
 exname: validierung_import
 extype: mchoice
 exsolution: 1011
-exshuffle: TRUE
+exshuffle: FALSE

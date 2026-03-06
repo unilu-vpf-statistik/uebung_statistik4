@@ -32,4 +32,4 @@ Meta-information
 exname: exam_visualisierung1
 extype: schoice
 exsolution: 1000
-exshuffle: TRUE
+exshuffle: FALSE

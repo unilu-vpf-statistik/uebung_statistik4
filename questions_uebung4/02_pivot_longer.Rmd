@@ -18,4 +18,4 @@ Meta-information
 exname: pivot_longer
 extype: schoice
 exsolution: 1000
-exshuffle: TRUE
+exshuffle: FALSE

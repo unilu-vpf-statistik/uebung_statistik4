@@ -28,4 +28,4 @@ Meta-information
 exname: output_interpretation
 extype: mchoice
 exsolution: 1101
-exshuffle: TRUE
+exshuffle: FALSE

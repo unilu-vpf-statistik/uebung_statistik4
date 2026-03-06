@@ -18,4 +18,4 @@ Meta-information
 exname: missing_mechanismen
 extype: mchoice
 exsolution: 1100
-exshuffle: TRUE
+exshuffle: FALSE

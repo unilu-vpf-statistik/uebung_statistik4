@@ -27,4 +27,4 @@ Meta-information
 exname: format_erkennen
 extype: mchoice
 exsolution: 1110
-exshuffle: TRUE
+exshuffle: FALSE

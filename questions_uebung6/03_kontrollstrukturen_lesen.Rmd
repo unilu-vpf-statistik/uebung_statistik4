@@ -31,4 +31,4 @@ Meta-information
 exname: kontrollstrukturen_lesen
 extype: schoice
 exsolution: 0100
-exshuffle: TRUE
+exshuffle: FALSE

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2189,24 +2189,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu reproduzierbaren Berichten mit Quarto.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie erstellen einen Analysebericht für eine Auftraggeberin, die keinen R-Code lesen kann, aber die Ergebnisse (Tabellen und Grafiken) sehen möchte. Welche Chunk-Option ist am geeignetsten?</p>
-<div id="webex-b58279e48db2dce2298d7dc4285b76fb" class="webex-radiogroup" data-answer="OQUUAhsISQRl">
-<label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="b58279e48db2dce2298d7dc4285b76fb"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt ist <code>echo: false</code>. Diese Option verbirgt den R-Code im gerenderten Dokument, sodass nur die Ergebnisse (Tabellen, Grafiken, Zahlen) angezeigt werden. Entscheidend ist: Der Code bleibt im Quelldokument (.qmd) erhalten und wird beim Rendern ausgeführt — Verbergen ist nicht Löschen. <code>echo: true</code> würde den Code anzeigen, was für eine nicht-technische Auftraggeberin ungeeignet ist. Das Löschen des Codes widerspricht dem Prinzip der Reproduzierbarkeit. <code>eval: false</code> würde den Code anzeigen, aber nicht ausführen — es gäbe also keine Ergebnisse im Bericht.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>In einem Quarto-Dokument stehen folgende drei Code-Chunks in dieser Reihenfolge:</p>
 <p><strong>Chunk 1:</strong> <code>ergebnis &lt;- mean(daten$score)</code></p>
 <p><strong>Chunk 2:</strong> <code>daten &lt;- read.csv2(here("daten", "studie.csv"))</code></p>
 <p><strong>Chunk 3:</strong> <code>print(ergebnis)</code></p>
 <p>Was passiert beim Rendern des Dokuments?</p>
-<div id="webex-6b6ac7243bd900144a1120940c3656d0" class="webex-radiogroup" data-answer="bVIaUU8GHgRu">
-<label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label><label><input type="radio" autocomplete="off" name="6b6ac7243bd900144a1120940c3656d0"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label>
+<div id="webex-cb8229d41f09ede4151e6f694d05dd1b" class="webex-radiogroup" data-answer="OFMUAh4JSARs">
+<label><input type="radio" autocomplete="off" name="cb8229d41f09ede4151e6f694d05dd1b"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label><label><input type="radio" autocomplete="off" name="cb8229d41f09ede4151e6f694d05dd1b"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="cb8229d41f09ede4151e6f694d05dd1b"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="cb8229d41f09ede4151e6f694d05dd1b"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2216,12 +2205,23 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>reproduzierbaren Ergebnisdokumentation</strong> mit Quarto sind korrekt?</p>
-<div id="webex-6877e8609911b5be3e67a54b196c8184" class="webex-checkboxgroup" data-answer="bQgbB0kJGgFk">
-<label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="6877e8609911b5be3e67a54b196c8184"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label>
+<div id="webex-ddab7aeb21d564d3f81cd3cbce932092" class="webex-checkboxgroup" data-answer="P1VNUhtQSVJv">
+<label><input type="checkbox" autocomplete="off" name="ddab7aeb21d564d3f81cd3cbce932092"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label><label><input type="checkbox" autocomplete="off" name="ddab7aeb21d564d3f81cd3cbce932092"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="ddab7aeb21d564d3f81cd3cbce932092"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="ddab7aeb21d564d3f81cd3cbce932092"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Quarto integriert Text, Code und Output in einem Dokument, sodass Änderungen am Code automatisch die Ergebnisse aktualisieren — das ist der Kern reproduzierbarer Berichterstattung. Der Copy-Paste-Workflow ist fehleranfällig, weil Grafiken und Zahlen manuell übertragen und bei Änderungen erneut aktualisiert werden müssen. Falsch ist, dass Quarto nur HTML erzeugen kann — es unterstützt auch PDF, Word und weitere Formate. Ebenso falsch ist, dass Code immer sichtbar sein muss: Mit der Chunk-Option <code>echo: false</code> kann der Code verborgen werden, während die Ergebnisse angezeigt werden.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie erstellen einen Analysebericht für eine Auftraggeberin, die keinen R-Code lesen kann, aber die Ergebnisse (Tabellen und Grafiken) sehen möchte. Welche Chunk-Option ist am geeignetsten?</p>
+<div id="webex-ec885709643a170cca9e4788a742d011" class="webex-radiogroup" data-answer="PlMUCRkHHAlr">
+<label><input type="radio" autocomplete="off" name="ec885709643a170cca9e4788a742d011"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label><label><input type="radio" autocomplete="off" name="ec885709643a170cca9e4788a742d011"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="ec885709643a170cca9e4788a742d011"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="ec885709643a170cca9e4788a742d011"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist <code>echo: false</code>. Diese Option verbirgt den R-Code im gerenderten Dokument, sodass nur die Ergebnisse (Tabellen, Grafiken, Zahlen) angezeigt werden. Entscheidend ist: Der Code bleibt im Quelldokument (.qmd) erhalten und wird beim Rendern ausgeführt — Verbergen ist nicht Löschen. <code>echo: true</code> würde den Code anzeigen, was für eine nicht-technische Auftraggeberin ungeeignet ist. Das Löschen des Codes widerspricht dem Prinzip der Reproduzierbarkeit. <code>eval: false</code> würde den Code anzeigen, aber nicht ausführen — es gäbe also keine Ergebnisse im Bericht.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

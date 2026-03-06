@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -2163,9 +2163,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zur Datenvisualisierung mit ggplot2.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
+<div id="webex-4657f1b0d722bc233a6ab509f245e617" class="webex-radiogroup" data-answer="bwYZBkoBTgA5">
+<label><input type="radio" autocomplete="off" name="4657f1b0d722bc233a6ab509f245e617"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="4657f1b0d722bc233a6ab509f245e617"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="4657f1b0d722bc233a6ab509f245e617"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="4657f1b0d722bc233a6ab509f245e617"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-e7c5e80f876de453e360ecc33b3ad70c" class="webex-checkboxgroup" data-answer="PgdPBEkJHFZl">
-<label><input type="checkbox" autocomplete="off" name="e7c5e80f876de453e360ecc33b3ad70c"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label><label><input type="checkbox" autocomplete="off" name="e7c5e80f876de453e360ecc33b3ad70c"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="e7c5e80f876de453e360ecc33b3ad70c"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="e7c5e80f876de453e360ecc33b3ad70c"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label>
+<div id="webex-14a36cb97e77345b57cc7cb9b640a8f8" class="webex-checkboxgroup" data-answer="agRNAhpSTglq">
+<label><input type="checkbox" autocomplete="off" name="14a36cb97e77345b57cc7cb9b640a8f8"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="14a36cb97e77345b57cc7cb9b640a8f8"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="14a36cb97e77345b57cc7cb9b640a8f8"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="14a36cb97e77345b57cc7cb9b640a8f8"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2175,23 +2186,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>Logik von ggplot2</strong> (Grammar of Graphics) sind korrekt?</p>
-<div id="webex-8c7018465049963527b642d460724234" class="webex-checkboxgroup" data-answer="Y1IbAB0IGAdo">
-<label><input type="checkbox" autocomplete="off" name="8c7018465049963527b642d460724234"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="8c7018465049963527b642d460724234"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label><label><input type="checkbox" autocomplete="off" name="8c7018465049963527b642d460724234"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="8c7018465049963527b642d460724234"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label>
+<div id="webex-4f715f670d3399e6a1e984888ff40f18" class="webex-checkboxgroup" data-answer="b1cbARlXGgdt">
+<label><input type="checkbox" autocomplete="off" name="4f715f670d3399e6a1e984888ff40f18"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label><label><input type="checkbox" autocomplete="off" name="4f715f670d3399e6a1e984888ff40f18"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="4f715f670d3399e6a1e984888ff40f18"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="4f715f670d3399e6a1e984888ff40f18"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>ggplot2 basiert auf dem Schichtprinzip (Grammar of Graphics): Daten werden über Aesthetics (<code>aes()</code>) auf visuelle Eigenschaften abgebildet, und Geome bestimmen die geometrische Darstellung (z. B. Punkte, Balken, Boxplot). Falsch ist, dass ggplot2 automatisch Variablen zuordnet — die Zuordnung muss explizit über <code>aes()</code> definiert werden. Ebenso falsch ist, dass nur ein Geom pro Plot möglich sei: ggplot2 erlaubt beliebig viele Schichten (z. B. Punkte und eine Regressionslinie im selben Diagramm).</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-448c5786fdb4187204359bdb7ab62b04" class="webex-radiogroup" data-answer="bwQUUhkHFAY7">
-<label><input type="radio" autocomplete="off" name="448c5786fdb4187204359bdb7ab62b04"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="448c5786fdb4187204359bdb7ab62b04"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="448c5786fdb4187204359bdb7ab62b04"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label><label><input type="radio" autocomplete="off" name="448c5786fdb4187204359bdb7ab62b04"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
