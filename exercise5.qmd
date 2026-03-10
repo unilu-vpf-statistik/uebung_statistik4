@@ -105,15 +105,38 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Herunterladen des Datensatzes
+# Herunterladen der Datensätze
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
 download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
 
 # Laden der benötigten Pakete
 library(dplyr)
+library(stringr)
 
 # Daten einlesen
 wm_daten <- read.csv2("WM_Fragebögen.csv")
+lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
+
+# Gruppenvariable bereinigen und Datensätze zusammenführen
+# (wie in Übung 4 erarbeitet)
+lab_daten <- lab_daten |>
+  mutate(
+    id = id_raw |>
+      trimws() |>
+      str_remove("ID-") |>
+      str_remove("P") |>
+      as.integer(),
+    gruppe = case_when(
+      group_raw %in% c("Kontrollgruppe", "Kontrolle",
+                       "CON", "control", "ctrl") ~ "KG",
+      group_raw == "Stress"                      ~ "Stress",
+      .default = NA_character_
+    )
+  )
+
+wm_daten <- wm_daten |>
+  left_join(lab_daten |> select(id, gruppe), by = "id")
 
 # --- Aufgabe 1: Fehlende Werte zählen ---
 # Anzahl fehlender Werte pro Spalte:
@@ -125,7 +148,7 @@ colSums(is.na(wm_daten))
 # --- Aufgabe 2: Mechanismus einschätzen ---
 # Fehlen die Werte systematisch nach Gruppe?
 # Wenn ja, ist das ein Hinweis auf MAR (nicht MCAR).
-table(wm_daten$group_raw, is.na(wm_daten$wm_score))
+table(wm_daten$gruppe, is.na(wm_daten$wm_score))
 
 # Aufgabe 3 (Reflexion): Schreiben Sie Ihre Einschätzung als Kommentar:
 # Welcher Mechanismus liegt vermutlich vor — MCAR, MAR oder MNAR?
@@ -139,7 +162,6 @@ Q3 <- quantile(x, 0.75, na.rm = TRUE)
 IQR_val <- IQR(x, na.rm = TRUE)
 untere_grenze <- Q1 - 1.5 * IQR_val
 obere_grenze  <- Q3 + 1.5 * IQR_val
-cat("Ausreisser-Grenzen (IQR):", untere_grenze, "bis", obere_grenze, "\n")
 sum(x < untere_grenze | x > obere_grenze, na.rm = TRUE)
 
 # --- Aufgabe 5: Ausreisser erkennen (z-Score) ---

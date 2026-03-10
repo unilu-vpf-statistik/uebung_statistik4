@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Beispiel: Eine eigene Funktion definieren\npruefe_bereich <- function(x, min = 0, max = 100) {\n  ausserhalb <- x < min | x > max\n  anzahl <- sum(ausserhalb, na.rm = TRUE)\n  cat(\"Werte ausserhalb [\", min, \",\", max, \"]:\", anzahl, \"\\n\")\n  return(ausserhalb)\n}\n\n# Testen Sie die Funktion:\nwerte <- c(5, 102, -3, 50, 200, 75, 99, 101)\npruefe_bereich(werte)\npruefe_bereich(werte, min = 10, max = 90)\n\n# Beispiel: for-Schleife mit if-else\nergebnis <- c()\nfor (i in 1:length(werte)) {\n  if (werte[i] > 100) {\n    ergebnis <- c(ergebnis, \"auffällig\")\n  } else {\n    ergebnis <- c(ergebnis, \"unauffällig\")\n  }\n}\ndata.frame(wert = werte, klassifikation = ergebnis)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Beispiel: Eine eigene Funktion definieren\npruefe_bereich <- function(x, min = 0, max = 100) {\n  ausserhalb <- x < min | x > max\n  return(ausserhalb)\n}\n\n# Testen Sie die Funktion:\nwerte <- c(5, 102, -3, 50, 200, 75, 99, 101)\npruefe_bereich(werte)\npruefe_bereich(werte, min = 10, max = 90)\n\n# Beispiel: for-Schleife mit if-else\nergebnis <- c()\nfor (i in seq_along(werte)) {\n  if (werte[i] > 100) {\n    ergebnis <- c(ergebnis, \"auffällig\")\n  } else {\n    ergebnis <- c(ergebnis, \"unauffällig\")\n  }\n}\ndata.frame(wert = werte, klassifikation = ergebnis)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2199,23 +2199,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>In welcher der folgenden Situationen ist es am sinnvollsten, eine <strong>eigene Funktion</strong> zu schreiben?</p>
-<div id="webex-cc3ff88df4e6e42f02d9e4837d068c7c" class="webex-radiogroup" data-answer="OFMfVkoJFFQ7">
-<label><input type="radio" autocomplete="off" name="cc3ff88df4e6e42f02d9e4837d068c7c"><span>Sie berechnen einmalig den Mittelwert einer Spalte mit <code>mean(daten$score)</code>.</span></label><label><input type="radio" autocomplete="off" name="cc3ff88df4e6e42f02d9e4837d068c7c"><span>Sie laden ein Paket mit <code>library(tidyverse)</code> zu Beginn Ihres Skripts.</span></label><label><input type="radio" autocomplete="off" name="cc3ff88df4e6e42f02d9e4837d068c7c"><span>Sie prüfen in drei verschiedenen Datensätzen, ob numerische Werte innerhalb eines bestimmten Bereichs liegen, wobei sich der Bereich je nach Datensatz unterscheidet.</span></label><label><input type="radio" autocomplete="off" name="cc3ff88df4e6e42f02d9e4837d068c7c"><span>Sie lesen eine einzelne CSV-Datei mit <code>read.csv2()</code> ein.</span></label>
+<div id="webex-1b92e2d0d975bf80727e988111fbae24" class="webex-radiogroup" data-answer="alIVAkkDSAA5">
+<label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie berechnen einmalig den Mittelwert einer Spalte mit <code>mean(daten$score)</code>.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie laden ein Paket mit <code>library(tidyverse)</code> zu Beginn Ihres Skripts.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie prüfen in drei verschiedenen Datensätzen, ob numerische Werte innerhalb eines bestimmten Bereichs liegen, wobei sich der Bereich je nach Datensatz unterscheidet.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie lesen eine einzelne CSV-Datei mit <code>read.csv2()</code> ein.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Eine eigene Funktion ist dann sinnvoll, wenn die gleiche Logik mehrfach mit unterschiedlichen Parametern angewendet wird. Die Bereichsprüfung in drei Datensätzen mit je unterschiedlichen Grenzen ist ein klassischer Fall: Die Prüflogik bleibt gleich, aber die Parameter (Bereichsgrenzen) variieren — genau das lässt sich elegant als Funktion mit Argumenten lösen. Die anderen Situationen sind einmalige, einfache Operationen, für die keine eigene Funktion nötig ist.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie haben in Ihrem R-Skript denselben Codeblock an fünf verschiedenen Stellen kopiert, der jeweils prüft, ob Werte in einem bestimmten Bereich liegen. Welche Aussagen zum <strong>DRY-Prinzip</strong> (Don’t Repeat Yourself) sind korrekt?</p>
-<div id="webex-6d909b9ae55f3e085b51cd8fd20ddb42" class="webex-checkboxgroup" data-answer="bVUVARVSFVE4">
-<label><input type="checkbox" autocomplete="off" name="6d909b9ae55f3e085b51cd8fd20ddb42"><span>Wenn ein Fehler in der Prüflogik gefunden wird, muss er bei kopiertem Code an allen fünf Stellen korrigiert werden — eine Funktion erfordert nur eine Korrektur.</span></label><label><input type="checkbox" autocomplete="off" name="6d909b9ae55f3e085b51cd8fd20ddb42"><span>Eine eigene Funktion macht die Prüfkriterien explizit sichtbar, weil sie als Argumente definiert werden (z. B. <code>min</code> und <code>max</code>).</span></label><label><input type="checkbox" autocomplete="off" name="6d909b9ae55f3e085b51cd8fd20ddb42"><span>Das DRY-Prinzip besagt, dass jede Codezeile nur einmal im gesamten Skript vorkommen darf.</span></label><label><input type="checkbox" autocomplete="off" name="6d909b9ae55f3e085b51cd8fd20ddb42"><span>Funktionen verlangsamen die Ausführung von R erheblich und sollten daher nur bei sehr komplexen Berechnungen eingesetzt werden.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte <em>Logik</em>, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.</p>
 </div>
 </div>
 <div class="webex-question">
@@ -2230,12 +2219,23 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Was beschreibt die Funktion dieses Codes am besten?</p>
-<div id="webex-acb6a9d40b76a22f9b5394257f8c2390" class="webex-radiogroup" data-answer="OlNOB00JSARt">
-<label><input type="radio" autocomplete="off" name="acb6a9d40b76a22f9b5394257f8c2390"><span>Er entfernt alle Werte über 100 aus dem Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="acb6a9d40b76a22f9b5394257f8c2390"><span>Er erstellt einen neuen Vektor, der für jeden Wert in <code>daten</code> angibt, ob er über 100 liegt (“auffällig”) oder nicht (“unauffällig”).</span></label><label><input type="radio" autocomplete="off" name="acb6a9d40b76a22f9b5394257f8c2390"><span>Er berechnet den Mittelwert aller Werte über 100 im Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="acb6a9d40b76a22f9b5394257f8c2390"><span>Er ersetzt alle Werte über 100 in <code>daten</code> durch den Text “auffällig”.</span></label>
+<div id="webex-33a575cb927e3eb85849fc29993f03b5" class="webex-radiogroup" data-answer="aANNBBsFT1Jk">
+<label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er entfernt alle Werte über 100 aus dem Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er erstellt einen neuen Vektor, der für jeden Wert in <code>daten</code> angibt, ob er über 100 liegt (“auffällig”) oder nicht (“unauffällig”).</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er berechnet den Mittelwert aller Werte über 100 im Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er ersetzt alle Werte über 100 in <code>daten</code> durch den Text “auffällig”.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Code durchläuft mit einer <code>for</code>-Schleife jeden Wert im Vektor <code>daten</code>. Für jeden Wert prüft die <code>if</code>-Bedingung, ob er grösser als 100 ist. Falls ja, wird “auffällig” an den neuen Vektor <code>ergebnis</code> angehängt, sonst “unauffällig”. Am Ende enthält <code>ergebnis</code> für jede Position in <code>daten</code> eine Klassifikation. Wichtig: Der ursprüngliche Vektor <code>daten</code> wird nicht verändert — es wird ein neuer Vektor erstellt. Der Code entfernt also keine Werte und berechnet keinen Mittelwert.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie haben in Ihrem R-Skript denselben Codeblock an fünf verschiedenen Stellen kopiert, der jeweils prüft, ob Werte in einem bestimmten Bereich liegen. Welche Aussagen zum <strong>DRY-Prinzip</strong> (Don’t Repeat Yourself) sind korrekt?</p>
+<div id="webex-48a6ebd30f37266a6ce215d7ce876028" class="webex-checkboxgroup" data-answer="bwlNB0lSSANt">
+<label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Wenn ein Fehler in der Prüflogik gefunden wird, muss er bei kopiertem Code an allen fünf Stellen korrigiert werden — eine Funktion erfordert nur eine Korrektur.</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Eine eigene Funktion macht die Prüfkriterien explizit sichtbar, weil sie als Argumente definiert werden (z. B. <code>min</code> und <code>max</code>).</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Das DRY-Prinzip besagt, dass jede Codezeile nur einmal im gesamten Skript vorkommen darf.</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Funktionen verlangsamen die Ausführung von R erheblich und sollten daher nur bei sehr komplexen Berechnungen eingesetzt werden.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte <em>Logik</em>, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

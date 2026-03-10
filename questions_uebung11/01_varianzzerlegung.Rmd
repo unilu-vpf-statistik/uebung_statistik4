@@ -1,13 +1,11 @@
 Question
 ========
-Sie führen eine ANOVA mit `afex::aov_ez()` durch und erhalten folgenden Output:
+Sie führen eine ANOVA mit `aov()` durch und lesen den Output mit `summary()`:
 
 ```
-Anova Table (Type 3 tests)
-
-Response: wm_score
-   Effect    df  MSE     F   ges     p
-1  gruppe 1, 98 156.2  8.42  .08  .004 **
+            Df Sum Sq Mean Sq F value  Pr(>F)
+gruppe       1   1315  1314.8   8.42  0.004 **
+Residuals   98  15307   156.2
 ---
 Signif. codes: '***' .001 '**' .01 '*' .05 '+' .1 ' ' 1
 ```
@@ -16,18 +14,18 @@ Welche Aussagen zur **Interpretation dieses Outputs** sind korrekt?
 
 Answerlist
 ----------
-* Die Spalte `ges` gibt das generalisierte Eta-Quadrat an — hier werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.
+* Aus dem Output lässt sich η² berechnen: η² = 1315 / (1315 + 15307) = .08 — also werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.
 * Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.
-* Die Spalte `MSE` (Mean Square Error) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen.
-* Der Output zeigt, dass es zwei Gruppen gibt (df = 1, 98), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.
+* Die Spalte `Mean Sq` bei Residuals (156.2) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen (F = Mean Sq gruppe / Mean Sq Residuals).
+* Der Output zeigt, dass es zwei Gruppen gibt (Df = 1 für gruppe), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.
 
 Solution
 ========
-Die Spalte `ges` ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.
+Aus dem Output lässt sich η² berechnen: SS_gruppe / SS_total = 1315 / (1315 + 15307) = .08, also 8% erklärte Varianz. Die Mean Sq der Residuals ist die Fehlervarianz innerhalb der Gruppen, und F = 1314.8 / 156.2 = 8.42. Die Freiheitsgrade (Df = 1) zeigen, dass es sich um einen Vergleich mit 2 Gruppen handelt, aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η² = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.
 
 Meta-information
 ================
-exname: aov_ez_output_lesen
+exname: aov_output_lesen
 extype: mchoice
 exsolution: 1011
 exshuffle: FALSE

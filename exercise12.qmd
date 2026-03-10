@@ -78,19 +78,19 @@ library(ggplot2)
 wm_daten <- read.csv2("WM_Fragebögen.csv")
 
 # --- Aufgabe 1: Einfache Regression ---
-# modell1 <- lm(wm_score ~ Alter, data = wm_daten)
-# summary(modell1)
-# Wie interpretieren Sie den Koeffizienten für Alter?
+modell1 <- lm(wm_score ~ age, data = wm_daten)
+summary(modell1)
+# Wie interpretieren Sie den Koeffizienten für age?
 
 # --- Aufgabe 2: Scatterplot mit Regressionslinie ---
-ggplot(wm_daten, aes(x = Alter, y = wm_score)) +
+ggplot(wm_daten, aes(x = age, y = wm_score)) +
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = TRUE) +
   labs(x = "Alter", y = "WM-Score") +
   theme_minimal()
 
 # --- Aufgabe 3: Residualdiagnostik ---
-# plot(modell1)
+plot(modell1)
 # Was sagen die Diagnostik-Plots über die Modellannahmen?
 ```
 

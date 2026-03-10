@@ -59,37 +59,61 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Herunterladen des Datensatzes
+# Herunterladen der Datensätze
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
 download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
 
 # Laden der benötigten Pakete
 library(dplyr)
 library(ggplot2)
+library(stringr)
 
-# Daten einlesen
+# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)
 wm_daten <- read.csv2("WM_Fragebögen.csv")
+lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
+
+lab_daten <- lab_daten |>
+  mutate(
+    id = id_raw |>
+      trimws() |>
+      str_remove("ID-") |>
+      str_remove("P") |>
+      as.integer(),
+    gruppe = case_when(
+      group_raw %in% c("Kontrollgruppe", "Kontrolle",
+                       "CON", "control", "ctrl") ~ "KG",
+      group_raw == "Stress"                      ~ "Stress",
+      .default = NA_character_
+    )
+  )
+
+wm_daten <- wm_daten |>
+  left_join(lab_daten |> select(id, gruppe), by = "id")
+
+# Schwellenwert für Konfidenzintervall (z-Wert für 95%)
+z_ki <- 1.96
 
 # --- Aufgabe 1: Facettierung ---
 # Histogramme getrennt nach Gruppe:
 ggplot(wm_daten, aes(x = wm_score)) +
   geom_histogram(bins = 12, fill = "steelblue", color = "white") +
-  facet_wrap(~Experimentalgruppe) +
+  facet_wrap(~gruppe) +
   labs(title = "WM-Score nach Gruppe", x = "WM-Score", y = "Häufigkeit") +
   theme_minimal()
 
 # --- Aufgabe 2: Mittelwerte mit Fehlerbalken ---
 # Gruppierte Zusammenfassung berechnen und visualisieren:
 wm_summary <- wm_daten |>
-  group_by(Experimentalgruppe) |>
+  group_by(gruppe) |>
   summarise(
     M = mean(wm_score, na.rm = TRUE),
     SE = sd(wm_score, na.rm = TRUE) / sqrt(n())
   )
 
-ggplot(wm_summary, aes(x = Experimentalgruppe, y = M)) +
+ggplot(wm_summary, aes(x = gruppe, y = M)) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = M - 1.96 * SE, ymax = M + 1.96 * SE), width = 0.2) +
+  geom_errorbar(aes(ymin = M - z_ki * SE, ymax = M + z_ki * SE), width = 0.2) +
   labs(title = "Mittelwerte mit 95%-CI", x = "Gruppe", y = "WM-Score (M ± 95%-CI)") +
   theme_minimal()
 ```

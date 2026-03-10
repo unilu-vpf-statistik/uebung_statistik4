@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\n\n# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe ---\nwm_daten |>\n  group_by(Experimentalgruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score, na.rm = TRUE),\n    SD = sd(wm_score, na.rm = TRUE),\n    Mdn = median(wm_score, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Boxplot zur visuellen Prüfung ---\nggplot(wm_daten, aes(x = Experimentalgruppe, y = wm_score)) +\n  geom_boxplot() +\n  labs(x = \"Gruppe\", y = \"WM-Score\") +\n  theme_minimal()\n\n# --- Aufgabe 3: ANOVA (wenn afex verfügbar) ---\n# library(afex)\n# anova_ergebnis <- aov_ez(\"ID\", \"wm_score\", wm_daten, between = \"Experimentalgruppe\")\n# anova_ergebnis","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe ---\nwm_daten |>\n  group_by(gruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score, na.rm = TRUE),\n    SD = sd(wm_score, na.rm = TRUE),\n    Mdn = median(wm_score, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Boxplot zur visuellen Prüfung ---\nggplot(wm_daten, aes(x = gruppe, y = wm_score)) +\n  geom_boxplot() +\n  labs(x = \"Gruppe\", y = \"WM-Score\") +\n  theme_minimal()\n\n# --- Aufgabe 3: ANOVA (base R) ---\nmodell <- aov(wm_score ~ gruppe, data = wm_daten)\nsummary(modell)\n\n# Effektgrösse η² berechnen\nss <- summary(modell)[[1]][[\"Sum Sq\"]]\neta_sq <- ss[1] / sum(ss)\nround(eta_sq, 3)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2223,62 +2223,58 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu Gruppenvergleichen und ANOVA.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie führen eine ANOVA mit <code>afex::aov_ez()</code> durch und erhalten folgenden Output:</p>
-<pre><code>Anova Table (Type 3 tests)
-
-Response: wm_score
-   Effect    df  MSE     F   ges     p
-1  gruppe 1, 98 156.2  8.42  .08  .004 **
----
-Signif. codes: '***' .001 '**' .01 '*' .05 '+' .1 ' ' 1</code></pre>
-<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-db89488630be119daa797308f8822c39" class="webex-checkboxgroup" data-answer="P1MUCRgJFAdu">
-<label><input type="checkbox" autocomplete="off" name="db89488630be119daa797308f8822c39"><span>Die Spalte <code>ges</code> gibt das generalisierte Eta-Quadrat an — hier werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.</span></label><label><input type="checkbox" autocomplete="off" name="db89488630be119daa797308f8822c39"><span>Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.</span></label><label><input type="checkbox" autocomplete="off" name="db89488630be119daa797308f8822c39"><span>Die Spalte <code>MSE</code> (Mean Square Error) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen.</span></label><label><input type="checkbox" autocomplete="off" name="db89488630be119daa797308f8822c39"><span>Der Output zeigt, dass es zwei Gruppen gibt (df = 1, 98), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.</span></label>
+<p>Bevor Sie eine ANOVA rechnen, prüfen Sie die Modellannahmen. Sie führen folgenden Code aus:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 1: Bartlett-Test (Varianzhomogenität)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bartlett test of homogeneity of variances</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bartlett's K-squared = 5.62, df = 1, p-value = 0.018</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 2: QQ-Plot der Residuen</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># (QQ-Plot zeigt Punkte nahe an der Diagonale)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Was ist der geeignetste nächste Schritt?</p>
+<div id="webex-5cc4221612c3a3962405af4f1907b04e" class="webex-radiogroup" data-answer="blNPBR4CHQZs">
+<label><input type="radio" autocomplete="off" name="5cc4221612c3a3962405af4f1907b04e"><span>Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.</span></label><label><input type="radio" autocomplete="off" name="5cc4221612c3a3962405af4f1907b04e"><span>Der Bartlett-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine <strong>Welch-ANOVA</strong> (<code>oneway.test()</code>) ist angemessener, da sie keine gleichen Varianzen voraussetzt.</span></label><label><input type="radio" autocomplete="off" name="5cc4221612c3a3962405af4f1907b04e"><span>Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.</span></label><label><input type="radio" autocomplete="off" name="5cc4221612c3a3962405af4f1907b04e"><span>Der signifikante Bartlett-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Die Spalte <code>ges</code> ist das generalisierte Eta-Quadrat — hier η²_G = .08, also 8% erklärte Varianz. Der MSE ist die Fehlervarianz innerhalb der Gruppen. Die Freiheitsgrade (1, 98) zeigen, dass es sich um einen Vergleich mit df = 1 im Zähler handelt (2 Gruppen), aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η²_G = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.</p>
+<p>Der Bartlett-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA (<code>oneway.test(wm_score ~ gruppe, data = daten)</code>), die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die Antwort, dass die ANOVA ohne Anpassung durchgeführt werden könne, ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie führen eine ANOVA mit <code>aov()</code> durch und lesen den Output mit <code>summary()</code>:</p>
+<pre><code>            Df Sum Sq Mean Sq F value  Pr(&gt;F)
+gruppe       1   1315  1314.8   8.42  0.004 **
+Residuals   98  15307   156.2
+---
+Signif. codes: '***' .001 '**' .01 '*' .05 '+' .1 ' ' 1</code></pre>
+<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
+<div id="webex-ec5ead55edd4c7f37be2744e19ec094f" class="webex-checkboxgroup" data-answer="PlIZVU1VGQQ4">
+<label><input type="checkbox" autocomplete="off" name="ec5ead55edd4c7f37be2744e19ec094f"><span>Aus dem Output lässt sich η² berechnen: η² = 1315 / (1315 + 15307) = .08 — also werden 8% der Varianz im WM-Score durch die Gruppenzugehörigkeit erklärt.</span></label><label><input type="checkbox" autocomplete="off" name="ec5ead55edd4c7f37be2744e19ec094f"><span>Das Ergebnis ist signifikant (p = .004), was bedeutet, dass der Gruppenunterschied praktisch relevant und gross ist.</span></label><label><input type="checkbox" autocomplete="off" name="ec5ead55edd4c7f37be2744e19ec094f"><span>Die Spalte <code>Mean Sq</code> bei Residuals (156.2) gibt die mittlere Varianz innerhalb der Gruppen an und wird benötigt, um den F-Wert zu berechnen (F = Mean Sq gruppe / Mean Sq Residuals).</span></label><label><input type="checkbox" autocomplete="off" name="ec5ead55edd4c7f37be2744e19ec094f"><span>Der Output zeigt, dass es zwei Gruppen gibt (Df = 1 für gruppe), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Statistiken oder Post-hoc-Vergleiche.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Aus dem Output lässt sich η² berechnen: SS_gruppe / SS_total = 1315 / (1315 + 15307) = .08, also 8% erklärte Varianz. Die Mean Sq der Residuals ist die Fehlervarianz innerhalb der Gruppen, und F = 1314.8 / 156.2 = 8.42. Die Freiheitsgrade (Df = 1) zeigen, dass es sich um einen Vergleich mit 2 Gruppen handelt, aber die Richtung des Effekts ist aus dem ANOVA-Output nicht ersichtlich. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse (hier η² = .08) entscheidend. Mit grossem N können auch kleine Effekte signifikant werden.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Nach einer signifikanten ANOVA mit 3 Gruppen führen Sie Post-hoc-Vergleiche mit <code>emmeans</code> durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Sie erhalten folgende Tabelle der paarweisen Vergleiche:</p>
 <pre><code> contrast  estimate   SE  df t.ratio p.value
  EG - KG       6.9 2.41  97   2.86  0.015
  EG - WG       2.1 2.38  97   0.88  1.000
  KG - WG      -4.8 2.44  97  -1.97  0.156</code></pre>
 <p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-08d38e5e635e0aaafcb46debe46ee031" class="webex-checkboxgroup" data-answer="awlIAhRUGVVr">
-<label><input type="checkbox" autocomplete="off" name="08d38e5e635e0aaafcb46debe46ee031"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label><label><input type="checkbox" autocomplete="off" name="08d38e5e635e0aaafcb46debe46ee031"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label><label><input type="checkbox" autocomplete="off" name="08d38e5e635e0aaafcb46debe46ee031"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="08d38e5e635e0aaafcb46debe46ee031"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label>
+<div id="webex-815315f7d8b2446b96bb49c18238ef3a" class="webex-checkboxgroup" data-answer="YwAZAh0ESgc5">
+<label><input type="checkbox" autocomplete="off" name="815315f7d8b2446b96bb49c18238ef3a"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label><label><input type="checkbox" autocomplete="off" name="815315f7d8b2446b96bb49c18238ef3a"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label><label><input type="checkbox" autocomplete="off" name="815315f7d8b2446b96bb49c18238ef3a"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="815315f7d8b2446b96bb49c18238ef3a"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs.&nbsp;KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Bevor Sie eine ANOVA rechnen, prüfen Sie die Modellannahmen. Sie führen folgenden Code aus:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 1: Levene-Test</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Levene's Test (center = median)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#       Df F value Pr(&gt;F)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># group  1   5.82  0.018 *</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        98</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Schritt 2: QQ-Plot der Residuen</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> gruppe, <span class="at">data =</span> daten)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modell, <span class="at">which =</span> <span class="dv">2</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (QQ-Plot zeigt Punkte nahe an der Diagonale)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Was ist der geeignetste nächste Schritt?</p>
-<div id="webex-df8dd9825eaca5eddb0f60616ad9d9c8" class="webex-radiogroup" data-answer="P1YUVUgJFAJo">
-<label><input type="radio" autocomplete="off" name="df8dd9825eaca5eddb0f60616ad9d9c8"><span>Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.</span></label><label><input type="radio" autocomplete="off" name="df8dd9825eaca5eddb0f60616ad9d9c8"><span>Der Levene-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine <strong>Welch-ANOVA</strong> ist angemessener, da sie keine gleichen Varianzen voraussetzt.</span></label><label><input type="radio" autocomplete="off" name="df8dd9825eaca5eddb0f60616ad9d9c8"><span>Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.</span></label><label><input type="radio" autocomplete="off" name="df8dd9825eaca5eddb0f60616ad9d9c8"><span>Der signifikante Levene-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Der Levene-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA, die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die Antwort, dass die ANOVA ohne Anpassung durchgeführt werden könne, ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

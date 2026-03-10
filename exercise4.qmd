@@ -82,7 +82,7 @@ datensatz <- datensatz |>
   ))
 ```
 
-**Tipp:** Mit `stringr`-Funktionen lassen sich auch Zeichenketten transformieren, z. B. wenn eine Variable einen Wert wie `"1/4"` enthält und nur die Zahl `1` gebraucht wird.
+**Tipp:** Mit `stringr`-Funktionen wie `str_remove()` lassen sich Zeichenketten bereinigen, z. B. wenn eine Variable einen Wert wie `"1/4"` enthält und nur die Zahl `1` gebraucht wird.
 
 ## Übungen
 
@@ -108,6 +108,7 @@ download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
 # Laden der benötigten Pakete
 library(dplyr)
 library(tidyr)
+library(stringr)
 
 # Daten einlesen (wie in Übung 3 erarbeitet)
 wm_daten <- read.csv2("WM_Fragebögen.csv")
@@ -159,15 +160,17 @@ lab_daten <- lab_daten |>
 table(lab_daten$gruppe, useNA = "always")
 
 # ===========================================================
-# Aufgabe 3 (Bonus): Stringr — session_code bereinigen
+# Aufgabe 3 (Bonus): session_code bereinigen
 # ===========================================================
-library(stringr)
 
 # session_code hat das Format "X/4" — wir wollen nur die Sitzungsnummer
 head(wm_daten$session_code)   # z. B. "1/4", "2/4", ...
 
 wm_daten <- wm_daten |>
-  mutate(session = as.integer(str_extract(session_code, "^\\d+")))
+  mutate(session = session_code |>
+           str_remove(fixed("/4")) |>
+           as.integer()
+  )
 
 table(wm_daten$session)
 

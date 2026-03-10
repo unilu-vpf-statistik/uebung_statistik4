@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\n\n# Daten einlesen\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\n\n# --- Aufgabe 1: Gesamtkennwerte ---\n# Berechnen Sie Mittelwert und Median für wm_score:\nmean(wm_daten$wm_score, na.rm = TRUE)\nmedian(wm_daten$wm_score, na.rm = TRUE)\n# Was sagt der Vergleich über die Verteilung?\n\n# --- Aufgabe 2: Gruppierte Kennwerte ---\n# Berechnen Sie deskriptive Statistiken getrennt nach Gruppe:\nwm_daten |>\n  group_by(Experimentalgruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score, na.rm = TRUE),\n    Mdn = median(wm_score, na.rm = TRUE),\n    SD = sd(wm_score, na.rm = TRUE)\n  )","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Gesamtkennwerte ---\n# Berechnen Sie Mittelwert und Median für wm_score:\nmean(wm_daten$wm_score, na.rm = TRUE)\nmedian(wm_daten$wm_score, na.rm = TRUE)\n# Was sagt der Vergleich über die Verteilung?\n\n# --- Aufgabe 2: Gruppierte Kennwerte ---\n# Berechnen Sie deskriptive Statistiken getrennt nach Gruppe:\nwm_daten |>\n  group_by(gruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score, na.rm = TRUE),\n    Mdn = median(wm_score, na.rm = TRUE),\n    SD = sd(wm_score, na.rm = TRUE)\n  )","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2194,20 +2194,37 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zur deskriptiven Statistik.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie erhalten folgenden R-Output einer gruppierten deskriptiven Auswertung:</p>
+<pre><code># A tibble: 2 × 5
+  gruppe     n     M   Mdn    SD
+  &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 EG        52  65.1  64.8  12.3
+2 KG        48  58.2  57.9  13.1</code></pre>
+<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
+<div id="webex-745e72d3fc2684f03452625d0f6f1e89" class="webex-checkboxgroup" data-answer="bAUZVBsCSAI7">
+<label><input type="checkbox" autocomplete="off" name="745e72d3fc2684f03452625d0f6f1e89"><span>Die EG zeigt einen höheren mittleren WM-Score als die KG, aber ob dieser Unterschied statistisch bedeutsam ist, lässt sich allein aus deskriptiven Kennwerten nicht beurteilen.</span></label><label><input type="checkbox" autocomplete="off" name="745e72d3fc2684f03452625d0f6f1e89"><span>Da M und Mdn in beiden Gruppen nahe beieinander liegen, gibt es keinen Hinweis auf stark schiefe Verteilungen innerhalb der Gruppen.</span></label><label><input type="checkbox" autocomplete="off" name="745e72d3fc2684f03452625d0f6f1e89"><span>Die KG hat eine kleinere Stichprobe (n = 48), daher sind ihre Kennwerte automatisch weniger valide als die der EG.</span></label><label><input type="checkbox" autocomplete="off" name="745e72d3fc2684f03452625d0f6f1e89"><span>Die SD-Werte sind in beiden Gruppen ähnlich (12.3 vs.&nbsp;13.1), was auf vergleichbare Streuung in beiden Gruppen hindeutet — eine wichtige Voraussetzung für spätere Gruppenvergleiche (z. B. ANOVA).</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Der Mittelwertsunterschied (65.1 vs.&nbsp;58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Sie berechnen deskriptive Kennwerte für die Variable <code>wm_score</code> und erhalten folgenden Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">M   =</span> <span class="fu">mean</span>(wm_score),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mdn =</span> <span class="fu">median</span>(wm_score),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD  =</span> <span class="fu">sd</span>(wm_score)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 1 × 3</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#       M   Mdn    SD</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1    NA  64.1  NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">M   =</span> <span class="fu">mean</span>(wm_score),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mdn =</span> <span class="fu">median</span>(wm_score),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD  =</span> <span class="fu">sd</span>(wm_score)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 1 × 3</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#       M   Mdn    SD</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1    NA  64.1  NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-3f92a05acaf486b8bf21c53a04f8b8fe" class="webex-checkboxgroup" data-answer="aFcVA00AGVE+">
-<label><input type="checkbox" autocomplete="off" name="3f92a05acaf486b8bf21c53a04f8b8fe"><span>Der Output zeigt <code>NA</code> für Mittelwert und SD, weil die Variable <code>wm_score</code> fehlende Werte enthält und <code>mean()</code> sowie <code>sd()</code> standardmässig <code>NA</code> zurückgeben, wenn fehlende Werte vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="3f92a05acaf486b8bf21c53a04f8b8fe"><span>Das Problem lässt sich lösen, indem in den Funktionen das Argument <code>na.rm = TRUE</code> gesetzt wird (z. B. <code>mean(wm_score, na.rm = TRUE)</code>).</span></label><label><input type="checkbox" autocomplete="off" name="3f92a05acaf486b8bf21c53a04f8b8fe"><span>Der Median zeigt einen Wert (64.1), weil <code>median()</code> fehlende Werte automatisch ignoriert.</span></label><label><input type="checkbox" autocomplete="off" name="3f92a05acaf486b8bf21c53a04f8b8fe"><span>Das <code>NA</code> im Output bedeutet, dass die Variable <code>wm_score</code> keine numerischen Werte enthält und deshalb kein Mittelwert berechnet werden kann.</span></label>
+<div id="webex-e3247a30c48567ea88a5502d341f78c7" class="webex-checkboxgroup" data-answer="PgIeBRtRHwA+">
+<label><input type="checkbox" autocomplete="off" name="e3247a30c48567ea88a5502d341f78c7"><span>Der Output zeigt <code>NA</code> für Mittelwert und SD, weil die Variable <code>wm_score</code> fehlende Werte enthält und <code>mean()</code> sowie <code>sd()</code> standardmässig <code>NA</code> zurückgeben, wenn fehlende Werte vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="e3247a30c48567ea88a5502d341f78c7"><span>Das Problem lässt sich lösen, indem in den Funktionen das Argument <code>na.rm = TRUE</code> gesetzt wird (z. B. <code>mean(wm_score, na.rm = TRUE)</code>).</span></label><label><input type="checkbox" autocomplete="off" name="e3247a30c48567ea88a5502d341f78c7"><span>Der Median zeigt einen Wert (64.1), weil <code>median()</code> fehlende Werte automatisch ignoriert.</span></label><label><input type="checkbox" autocomplete="off" name="e3247a30c48567ea88a5502d341f78c7"><span>Das <code>NA</code> im Output bedeutet, dass die Variable <code>wm_score</code> keine numerischen Werte enthält und deshalb kein Mittelwert berechnet werden kann.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2217,37 +2234,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie möchten deskriptive Kennwerte für mehrere numerische Variablen gleichzeitig berechnen. Betrachten Sie folgenden Code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gruppe) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">where</span>(is.numeric),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">M =</span> mean, <span class="at">SD =</span> sd),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gruppe) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">where</span>(is.numeric),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">M =</span> mean, <span class="at">SD =</span> sd),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Was bewirkt dieser Code?</p>
-<div id="webex-aea0f72d3f48a426126077ccad177750" class="webex-radiogroup" data-answer="OlRNAEoHHlRu">
-<label><input type="radio" autocomplete="off" name="aea0f72d3f48a426126077ccad177750"><span>Er berechnet Mittelwert und SD für alle numerischen Spalten im Datensatz, getrennt nach der Variable <code>gruppe</code>.</span></label><label><input type="radio" autocomplete="off" name="aea0f72d3f48a426126077ccad177750"><span>Er berechnet Mittelwert und SD nur für die erste numerische Spalte im Datensatz.</span></label><label><input type="radio" autocomplete="off" name="aea0f72d3f48a426126077ccad177750"><span>Er filtert alle nicht-numerischen Spalten aus dem Datensatz und gibt den reduzierten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="aea0f72d3f48a426126077ccad177750"><span>Er berechnet Mittelwert und SD für den gesamten Datensatz ohne Gruppierung.</span></label>
+<div id="webex-847ecca50f6036c6b3aa9d2dd9b7895b" class="webex-radiogroup" data-answer="YwUbVU9TTQVt">
+<label><input type="radio" autocomplete="off" name="847ecca50f6036c6b3aa9d2dd9b7895b"><span>Er berechnet Mittelwert und SD für alle numerischen Spalten im Datensatz, getrennt nach der Variable <code>gruppe</code>.</span></label><label><input type="radio" autocomplete="off" name="847ecca50f6036c6b3aa9d2dd9b7895b"><span>Er berechnet Mittelwert und SD nur für die erste numerische Spalte im Datensatz.</span></label><label><input type="radio" autocomplete="off" name="847ecca50f6036c6b3aa9d2dd9b7895b"><span>Er filtert alle nicht-numerischen Spalten aus dem Datensatz und gibt den reduzierten Datensatz zurück.</span></label><label><input type="radio" autocomplete="off" name="847ecca50f6036c6b3aa9d2dd9b7895b"><span>Er berechnet Mittelwert und SD für den gesamten Datensatz ohne Gruppierung.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Code nutzt <code>group_by(gruppe)</code>, um die Daten nach Gruppen aufzuteilen, und <code>across(where(is.numeric), ...)</code>, um die Funktionen <code>mean</code> und <code>sd</code> auf alle numerischen Spalten gleichzeitig anzuwenden. Das Argument <code>.names = "{.col}_{.fn}"</code> erzeugt Spaltennamen im Format <code>variablenname_M</code> und <code>variablenname_SD</code>. <code>across()</code> wendet die Funktionen nicht nur auf die erste Spalte an, sondern auf alle, die das Kriterium <code>where(is.numeric)</code> erfüllen. Der Code filtert keine Spalten aus dem Datensatz und die Gruppierung durch <code>group_by()</code> wird nicht ignoriert.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie erhalten folgenden R-Output einer gruppierten deskriptiven Auswertung:</p>
-<pre><code># A tibble: 2 × 5
-  gruppe     n     M   Mdn    SD
-  &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 EG        52  65.1  64.8  12.3
-2 KG        48  58.2  57.9  13.1</code></pre>
-<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-9a33d1bbf858f0705829ebc72990ef84" class="webex-checkboxgroup" data-answer="YlAfAkgBTlM7">
-<label><input type="checkbox" autocomplete="off" name="9a33d1bbf858f0705829ebc72990ef84"><span>Die EG zeigt einen höheren mittleren WM-Score als die KG, aber ob dieser Unterschied statistisch bedeutsam ist, lässt sich allein aus deskriptiven Kennwerten nicht beurteilen.</span></label><label><input type="checkbox" autocomplete="off" name="9a33d1bbf858f0705829ebc72990ef84"><span>Da M und Mdn in beiden Gruppen nahe beieinander liegen, gibt es keinen Hinweis auf stark schiefe Verteilungen innerhalb der Gruppen.</span></label><label><input type="checkbox" autocomplete="off" name="9a33d1bbf858f0705829ebc72990ef84"><span>Die KG hat eine kleinere Stichprobe (n = 48), daher sind ihre Kennwerte automatisch weniger valide als die der EG.</span></label><label><input type="checkbox" autocomplete="off" name="9a33d1bbf858f0705829ebc72990ef84"><span>Die SD-Werte sind in beiden Gruppen ähnlich (12.3 vs.&nbsp;13.1), was auf vergleichbare Streuung in beiden Gruppen hindeutet — eine wichtige Voraussetzung für spätere Gruppenvergleiche (z. B. ANOVA).</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Der Mittelwertsunterschied (65.1 vs.&nbsp;58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

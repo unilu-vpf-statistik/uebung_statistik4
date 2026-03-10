@@ -63,8 +63,6 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 # Beispiel: Eine eigene Funktion definieren
 pruefe_bereich <- function(x, min = 0, max = 100) {
   ausserhalb <- x < min | x > max
-  anzahl <- sum(ausserhalb, na.rm = TRUE)
-  cat("Werte ausserhalb [", min, ",", max, "]:", anzahl, "\n")
   return(ausserhalb)
 }
 
@@ -75,7 +73,7 @@ pruefe_bereich(werte, min = 10, max = 90)
 
 # Beispiel: for-Schleife mit if-else
 ergebnis <- c()
-for (i in 1:length(werte)) {
+for (i in seq_along(werte)) {
   if (werte[i] > 100) {
     ergebnis <- c(ergebnis, "auffällig")
   } else {

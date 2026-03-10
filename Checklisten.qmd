@@ -130,7 +130,7 @@ Systematische Datenbereinigung nach der Validierung.
 
 - [ ] **Skript dokumentieren**: Kommentare für jeden Bereinigungsschritt
 - [ ] **Rohdaten nicht verändern**: Immer mit einer Kopie arbeiten
-- [ ] **Spaltennamen bereinigen**: `janitor::clean_names(daten)` — Einheitliche Kleinschreibung
+- [ ] **Spaltennamen bereinigen**: `tolower(names(daten))` oder `names(daten) <- make.names(names(daten))` — Einheitliche Kleinschreibung (base R)
 - [ ] **Datentypen korrigieren**: `as.numeric()`, `as.character()`, `as.factor()`
 - [ ] **Versteckte fehlende Werte ersetzen**: `na_if(daten$var, "999")`
 - [ ] **Inkonsistente Kategorien rekodieren**: `case_when()` für systematische Umkodierung

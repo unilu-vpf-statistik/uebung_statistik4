@@ -30,7 +30,7 @@ Falls Sie R und RStudio noch nicht installiert haben, können Sie diese hier her
 Für die Übungen benötigen Sie folgende R-Pakete. Sie können diese mit den folgenden Befehlen installieren:
 
 ```r
-install.packages(c("tidyverse", "here", "haven", "readxl", "janitor"))
+install.packages(c("tidyverse", "here", "haven", "readxl", "emmeans"))
 ```
 
 ------------------------------------------------------------------------

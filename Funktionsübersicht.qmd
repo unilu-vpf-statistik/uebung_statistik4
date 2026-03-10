@@ -205,5 +205,6 @@ daten_komplett <- left_join(fragebogen, lab_daten, by = "id")
 | `glimpse(df)` | Kompakte Übersicht eines Data Frames (dplyr) |
 | `head(df, n)` / `tail(df, n)` | Erste/letzte n Zeilen |
 | `View(df)` | Öffnet Data Frame im Viewer |
-| `janitor::clean_names(df)` | Bereinigt Spaltennamen (janitor-Paket) |
-| `janitor::tabyl(df, var)` | Häufigkeitstabelle mit Prozentanteilen |
+| `table(df$var)` | Häufigkeitstabelle (base R) |
+| `prop.table(table(df$var))` | Häufigkeitstabelle mit Anteilen (base R) |
+| `addmargins(table(df$var1, df$var2))` | Kreuztabelle mit Randsummen (base R) |
