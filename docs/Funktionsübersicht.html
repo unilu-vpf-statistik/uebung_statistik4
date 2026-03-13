@@ -909,6 +909,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="nützliche-hilfsfunktionen" class="level2">
 <h2 class="anchored" data-anchor-id="nützliche-hilfsfunktionen">Nützliche Hilfsfunktionen</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Funktion</th>
@@ -941,12 +945,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Öffnet Data Frame im Viewer</td>
 </tr>
 <tr class="odd">
-<td><code>janitor::clean_names(df)</code></td>
-<td>Bereinigt Spaltennamen (janitor-Paket)</td>
+<td><code>table(df$var)</code></td>
+<td>Häufigkeitstabelle (base R)</td>
 </tr>
 <tr class="even">
-<td><code>janitor::tabyl(df, var)</code></td>
-<td>Häufigkeitstabelle mit Prozentanteilen</td>
+<td><code>prop.table(table(df$var))</code></td>
+<td>Häufigkeitstabelle mit Anteilen (base R)</td>
+</tr>
+<tr class="odd">
+<td><code>addmargins(table(df$var1, df$var2))</code></td>
+<td>Kreuztabelle mit Randsummen (base R)</td>
 </tr>
 </tbody>
 </table>

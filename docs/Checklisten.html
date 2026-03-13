@@ -461,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="task-list">
 <li><label><input type="checkbox"><strong>Skript dokumentieren</strong>: Kommentare für jeden Bereinigungsschritt</label></li>
 <li><label><input type="checkbox"><strong>Rohdaten nicht verändern</strong>: Immer mit einer Kopie arbeiten</label></li>
-<li><label><input type="checkbox"><strong>Spaltennamen bereinigen</strong>: <code>janitor::clean_names(daten)</code> — Einheitliche Kleinschreibung</label></li>
+<li><label><input type="checkbox"><strong>Spaltennamen bereinigen</strong>: <code>tolower(names(daten))</code> oder <code>names(daten) &lt;- make.names(names(daten))</code> — Einheitliche Kleinschreibung (base R)</label></li>
 <li><label><input type="checkbox"><strong>Datentypen korrigieren</strong>: <code>as.numeric()</code>, <code>as.character()</code>, <code>as.factor()</code></label></li>
 <li><label><input type="checkbox"><strong>Versteckte fehlende Werte ersetzen</strong>: <code>na_if(daten$var, "999")</code></label></li>
 <li><label><input type="checkbox"><strong>Inkonsistente Kategorien rekodieren</strong>: <code>case_when()</code> für systematische Umkodierung</label></li>
