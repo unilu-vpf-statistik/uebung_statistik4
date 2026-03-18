@@ -25,9 +25,67 @@ shuffled_questions <- sample(exam_files)
 
 In dieser Übung beschäftigen wir uns mit den Grundlagen des Programmierens in R: **eigene Funktionen** und **Kontrollstrukturen** (Schleifen und Bedingungen). Ziel ist nicht, perfekten Code zu schreiben, sondern zu verstehen, wann und warum diese Werkzeuge sinnvoll eingesetzt werden.
 
-### Warum eigene Funktionen?
+### Logische Vergleiche — Bausteine für Bedingungen
 
-Das **DRY-Prinzip** (Don't Repeat Yourself) ist ein zentrales Konzept: Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelagert werden. Vorteile:
+Bevor wir Funktionen und Schleifen schreiben, brauchen wir die Grundbausteine: **Logische Vergleiche** erzeugen `TRUE` oder `FALSE` und sind die Basis für `if`-Bedingungen, `filter()` und Ausreisser-Erkennung.
+
+| Operator | Bedeutung | Beispiel | Ergebnis |
+|----------|-----------|----------|----------|
+| `==` | gleich | `3 == 3` | `TRUE` |
+| `!=` | ungleich | `3 != 5` | `TRUE` |
+| `>`, `<` | grösser / kleiner | `7 > 10` | `FALSE` |
+| `>=`, `<=` | grösser-gleich / kleiner-gleich | `5 >= 5` | `TRUE` |
+| `%in%` | in Menge enthalten? | `"KG" %in% c("KG", "EG")` | `TRUE` |
+| `is.na()` | fehlender Wert? | `is.na(NA)` | `TRUE` |
+
+**Verknüpfungen** kombinieren mehrere Bedingungen:
+
+- `&` (UND): beide müssen gelten — `x > 0 & x < 100`
+- `|` (ODER): mindestens eine muss gelten — `x < 0 | x > 100`
+- `!` (NICHT): kehrt um — `!is.na(x)`
+
+### Zugriff auf Daten: Indexierung
+
+R bietet verschiedene Wege, auf Spalten und Zeilen in einem Datensatz zuzugreifen:
+
+| Notation | Wann verwenden? | Beispiel |
+|----------|----------------|----------|
+| `$` | Interaktive Arbeit, Name bekannt | `daten$wm_score` |
+| `[[]]` | **Funktionen & Schleifen** (Name als Variable) | `daten[["wm_score"]]` oder `daten[[var]]` |
+| `[zeilen, spalten]` | Flexible Auswahl von Zeilen und Spalten | `daten[1:5, c("id", "wm_score")]` |
+
+Der `[[]]`-Operator ist der Schlüssel für Schleifen, weil der Variablenname in einer Variable stehen kann:
+
+```r
+var <- "wm_score"
+daten[[var]]   # funktioniert — greift auf die Spalte wm_score zu
+daten$var      # funktioniert NICHT — sucht eine Spalte namens "var"
+```
+
+### Das DRY-Prinzip: Don't Repeat Yourself
+
+Das **DRY-Prinzip** gilt nicht nur für Code, sondern für **alle Werte, die sich ändern könnten**. Die Grundidee: Jede Information wird **einmal** an einer zentralen Stelle festgelegt und danach nur noch referenziert.
+
+**DRY für Werte — Einstellungen am Anfang des Skripts definieren:**
+
+```r
+# --- Einstellungen (einmal festlegen, überall verwenden) ---
+datei_name  <- "WM_Fragebögen.csv"
+min_bereich <- 0
+max_bereich <- 100
+grenze_na   <- 0.10
+text_groesse <- 14
+
+# Später im Skript:
+daten <- read.csv2(here("daten", datei_name))
+ggplot(daten, ...) + theme(text = element_text(size = text_groesse))
+```
+
+Ändert sich der Dateiname oder die Schriftgrösse, muss nur **eine Zeile** am Anfang angepasst werden — nicht jede Stelle im Skript, an der der Wert vorkommt.
+
+**DRY für Logik — Wiederholte Schritte in Funktionen auslagern:**
+
+Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelagert werden. Vorteile:
 
 - **Wartbarkeit**: Fehler müssen nur an einer Stelle korrigiert werden.
 - **Transparenz**: Argumente dokumentieren explizit, welche Parameter variiert werden.
