@@ -95,9 +95,10 @@ Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelage
 
 | Struktur | Zweck | Beispiel |
 |---|---|---|
-| **`for`-Schleife** | Gleichen Schritt für jedes Element wiederholen | Prüfung jeder Spalte eines Datensatzes |
-| **`if`/`else`** | Bedingte Ausführung | Unterschiedliche Behandlung je nach Werttyp |
-| **Kombination** | Systematische Prüfung mit Entscheidung | Klassifikation jedes Werts als "auffällig" oder "unauffällig" |
+| **`for`-Schleife** | Gleichen Schritt für jedes Element wiederholen | Ausreisser-Flags für alle Spalten mit `flag_iqr_outliers()` berechnen |
+| **`if`/`else`** | Bedingte Ausführung | Warnung ausgeben, wenn Ausreisser gefunden wurden |
+| **`next`** | Nicht-relevante Fälle überspringen | Nicht-numerische Spalten in der Schleife überspringen |
+| **Kombination** | Systematische Prüfung mit Entscheidung | Alle numerischen Spalten prüfen und nur auffällige melden |
 
 ### Entscheidungshilfe: Wann eine Funktion schreiben?
 
@@ -118,27 +119,58 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
 ```{webr-r}
-# Beispiel: Eine eigene Funktion definieren
-pruefe_bereich <- function(x, min = 0, max = 100) {
-  ausserhalb <- x < min | x > max
-  return(ausserhalb)
+# --- Aus der Vorlesung: flag_iqr_outliers() ---
+flag_iqr_outliers <- function(x, criterion = 1.5, na.rm = TRUE) {
+  q <- quantile(x, c(0.25, 0.75), na.rm = na.rm)
+  iqr <- q[2] - q[1]
+  lower <- q[1] - criterion * iqr
+  upper <- q[2] + criterion * iqr
+  return(x < lower | x > upper)
 }
 
-# Testen Sie die Funktion:
+# Testen:
 werte <- c(5, 102, -3, 50, 200, 75, 99, 101)
-pruefe_bereich(werte)
-pruefe_bereich(werte, min = 10, max = 90)
+flag_iqr_outliers(werte)
+sum(flag_iqr_outliers(werte))
+```
 
-# Beispiel: for-Schleife mit if-else
-ergebnis <- c()
-for (i in seq_along(werte)) {
-  if (werte[i] > 100) {
-    ergebnis <- c(ergebnis, "auffällig")
+```{webr-r}
+# --- Beispiel: for-Schleife mit paste() und next ---
+daten <- data.frame(
+  id = 1:8,
+  wm_score = c(5, 102, -3, 50, 200, 75, 99, 101),
+  stress = c(3, 5, 2, 4, 3, 50, 4, 6),
+  gruppe = c("KG", "EG", "KG", "EG", "KG", "EG", "KG", "EG")
+)
+
+for (var in names(daten)) {
+  if (!is.numeric(daten[[var]])) next
+
+  name_outlier_var <- paste("outlier", var, sep = "_")
+  daten[[name_outlier_var]] <- flag_iqr_outliers(daten[[var]])
+
+  n_outlier <- sum(daten[[name_outlier_var]], na.rm = TRUE)
+  if (n_outlier > 0) {
+    cat("⚠", var, ":", n_outlier, "Ausreisser\n")
   } else {
-    ergebnis <- c(ergebnis, "unauffällig")
+    cat("OK", var, ": keine Ausreisser\n")
   }
 }
-data.frame(wert = werte, klassifikation = ergebnis)
+```
+
+```{webr-r}
+# --- Übung: Schreiben Sie flag_z_outliers() ---
+# Ein Wert gilt als Ausreisser, wenn sein z-Wert
+# betragsmässig grösser als criterion ist.
+# Hinweise: mean(), sd(), abs()
+
+# flag_z_outliers <- function(x, criterion = 3, na.rm = TRUE) {
+#   # Ihr Code hier
+# }
+
+# Testen Sie Ihre Funktion:
+# flag_z_outliers(werte)
+# sum(flag_z_outliers(werte))
 ```
 
 ------------------------------------------------------------------------
