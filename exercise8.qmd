@@ -32,23 +32,19 @@ Ein ggplot2-Diagramm besteht aus unabhängigen Schichten:
 1. **Daten**: Welcher Datensatz?
 2. **Aesthetics (`aes()`)**: Welche Variable → welche visuelle Eigenschaft (x, y, Farbe, Grösse)?
 3. **Geometrie (`geom_*()`)**: Welche Form (Punkte, Balken, Boxplot, Histogramm)?
-4. **Skalen, Koordinaten, Theme**: Feineinstellungen
+4. **Statistische Transformation (`stat_*()`)**: Rohdaten oder Zusammenfassungen?
+5. **Theme**: Erscheinungsbild
 
-### Welcher Diagrammtyp für welche Daten?
+### Von Rohdaten zu Zusammenfassungen: `stat_summary()`
 
-| Variablen | Diagrammtyp |
-|---|---|
-| 1 metrisch | Histogramm |
-| 1 kategorial | Balkendiagramm |
-| 2 metrisch × metrisch | Scatterplot |
-| 1 kategorial × 1 metrisch | Boxplot |
+Geome wie `geom_boxplot()` oder `geom_histogram()` zeigen die **Rohdaten** in verschiedenen Formen. Manchmal möchten wir aber statistische **Zusammenfassungen** direkt im Plot darstellen — zum Beispiel den Gruppenmittelwert mit Konfidenzintervall.
 
-### Irreführende Grafiken erkennen
+`stat_summary()` berechnet Zusammenfassungen und stellt sie als Geom dar:
 
-- Abgeschnittene y-Achse → Unterschiede wirken grösser
-- 3D-Effekte → verzerrte Wahrnehmung
-- Fehlende Beschriftungen → Grafik nicht interpretierbar
-- Ungeeigneter Diagrammtyp → falsche Schlüsse
+- `stat_summary(fun = mean, geom = "point")` → ein Punkt pro Gruppe (Mittelwert)
+- `stat_summary(fun.data = mean_cl_normal, geom = "pointrange")` → Mittelwert + 95%-CI
+
+Das Konfidenzintervall zeigt die **Präzision der Schätzung** des Populationsmittelwerts. Wichtig: CI-Überlappung zwischen Gruppen bedeutet **nicht** automatisch, dass der Unterschied nicht signifikant ist.
 
 ## Übungen
 
@@ -107,7 +103,27 @@ ggplot(wm_daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +
   geom_boxplot() +
   labs(title = "WM-Score nach Gruppe", x = "Gruppe", y = "WM-Score") +
   theme_minimal()
+
+# --- Aufgabe 3: stat_summary() — Mittelwert mit CI ---
+# Denselben Gruppenvergleich als Mittelwert mit Konfidenzintervall:
+ggplot(wm_daten, aes(x = gruppe, y = wm_score)) +
+  stat_summary(fun.data = mean_cl_normal, geom = "pointrange", size = 0.8) +
+  labs(title = "Mittelwerte mit 95%-CI",
+       x = "Gruppe",
+       y = "WM-Score (M ± 95%-CI)") +
+  theme_minimal()
+
+# Reflexion: Vergleichen Sie Aufgabe 2 und 3 —
+# Was zeigt der Boxplot, was der Pointrange-Plot?
+# Überlappen sich die CIs? Was können Sie daraus
+# schliessen — und was nicht?
 ```
+
+::: {.callout-tip}
+## Weiter vertiefen
+
+Diagrammtyp-Auswahl, irreführende Grafiken, Facettierung und publikationsreife Grafiken finden Sie in **[Übung 9 (Selbststudium)](exercise9.qmd)**.
+:::
 
 ------------------------------------------------------------------------
 

@@ -369,7 +369,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Histogramm ---\n# Verteilung von wm_score:\nggplot(wm_daten, aes(x = wm_score)) +\n  geom_histogram(bins = 15, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Verteilung WM-Score\", x = \"WM-Score\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# --- Aufgabe 2: Boxplot nach Gruppe ---\n# Gruppenvergleich:\nggplot(wm_daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +\n  geom_boxplot() +\n  labs(title = \"WM-Score nach Gruppe\", x = \"Gruppe\", y = \"WM-Score\") +\n  theme_minimal()","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen.csv\"), \"WM_Fragebögen.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung.dat\"), \"Lab_Kodierung.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\nwm_daten <- read.csv2(\"WM_Fragebögen.csv\")\nlab_daten <- read.table(\"Lab_Kodierung.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Histogramm ---\n# Verteilung von wm_score:\nggplot(wm_daten, aes(x = wm_score)) +\n  geom_histogram(bins = 15, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Verteilung WM-Score\", x = \"WM-Score\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# --- Aufgabe 2: Boxplot nach Gruppe ---\n# Gruppenvergleich:\nggplot(wm_daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +\n  geom_boxplot() +\n  labs(title = \"WM-Score nach Gruppe\", x = \"Gruppe\", y = \"WM-Score\") +\n  theme_minimal()\n\n# --- Aufgabe 3: stat_summary() — Mittelwert mit CI ---\n# Denselben Gruppenvergleich als Mittelwert mit Konfidenzintervall:\nggplot(wm_daten, aes(x = gruppe, y = wm_score)) +\n  stat_summary(fun.data = mean_cl_normal, geom = \"pointrange\", size = 0.8) +\n  labs(title = \"Mittelwerte mit 95%-CI\",\n       x = \"Gruppe\",\n       y = \"WM-Score (M ± 95%-CI)\") +\n  theme_minimal()\n\n# Reflexion: Vergleichen Sie Aufgabe 2 und 3 —\n# Was zeigt der Boxplot, was der Pointrange-Plot?\n# Überlappen sich die CIs? Was können Sie daraus\n# schliessen — und was nicht?","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1782,8 +1782,7 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#wiederholung-vertiefung-grundlagen-ggplot2" id="toc-wiederholung-vertiefung-grundlagen-ggplot2" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-grundlagen-ggplot2">Wiederholung &amp; Vertiefung: Grundlagen ggplot2</a>
   <ul class="collapse">
   <li><a href="#das-schichtprinzip" id="toc-das-schichtprinzip" class="nav-link" data-scroll-target="#das-schichtprinzip">Das Schichtprinzip</a></li>
-  <li><a href="#welcher-diagrammtyp-für-welche-daten" id="toc-welcher-diagrammtyp-für-welche-daten" class="nav-link" data-scroll-target="#welcher-diagrammtyp-für-welche-daten">Welcher Diagrammtyp für welche Daten?</a></li>
-  <li><a href="#irreführende-grafiken-erkennen" id="toc-irreführende-grafiken-erkennen" class="nav-link" data-scroll-target="#irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</a></li>
+  <li><a href="#von-rohdaten-zu-zusammenfassungen-stat_summary" id="toc-von-rohdaten-zu-zusammenfassungen-stat_summary" class="nav-link" data-scroll-target="#von-rohdaten-zu-zusammenfassungen-stat_summary">Von Rohdaten zu Zusammenfassungen: <code>stat_summary()</code></a></li>
   </ul></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
   </ul>
@@ -2112,50 +2111,19 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><strong>Daten</strong>: Welcher Datensatz?</li>
 <li><strong>Aesthetics (<code>aes()</code>)</strong>: Welche Variable → welche visuelle Eigenschaft (x, y, Farbe, Grösse)?</li>
 <li><strong>Geometrie (<code>geom_*()</code>)</strong>: Welche Form (Punkte, Balken, Boxplot, Histogramm)?</li>
-<li><strong>Skalen, Koordinaten, Theme</strong>: Feineinstellungen</li>
+<li><strong>Statistische Transformation (<code>stat_*()</code>)</strong>: Rohdaten oder Zusammenfassungen?</li>
+<li><strong>Theme</strong>: Erscheinungsbild</li>
 </ol>
 </section>
-<section id="welcher-diagrammtyp-für-welche-daten" class="level3">
-<h3 class="anchored" data-anchor-id="welcher-diagrammtyp-für-welche-daten">Welcher Diagrammtyp für welche Daten?</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 60%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variablen</th>
-<th>Diagrammtyp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1 metrisch</td>
-<td>Histogramm</td>
-</tr>
-<tr class="even">
-<td>1 kategorial</td>
-<td>Balkendiagramm</td>
-</tr>
-<tr class="odd">
-<td>2 metrisch × metrisch</td>
-<td>Scatterplot</td>
-</tr>
-<tr class="even">
-<td>1 kategorial × 1 metrisch</td>
-<td>Boxplot</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="irreführende-grafiken-erkennen" class="level3">
-<h3 class="anchored" data-anchor-id="irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</h3>
+<section id="von-rohdaten-zu-zusammenfassungen-stat_summary" class="level3">
+<h3 class="anchored" data-anchor-id="von-rohdaten-zu-zusammenfassungen-stat_summary">Von Rohdaten zu Zusammenfassungen: <code>stat_summary()</code></h3>
+<p>Geome wie <code>geom_boxplot()</code> oder <code>geom_histogram()</code> zeigen die <strong>Rohdaten</strong> in verschiedenen Formen. Manchmal möchten wir aber statistische <strong>Zusammenfassungen</strong> direkt im Plot darstellen — zum Beispiel den Gruppenmittelwert mit Konfidenzintervall.</p>
+<p><code>stat_summary()</code> berechnet Zusammenfassungen und stellt sie als Geom dar:</p>
 <ul>
-<li>Abgeschnittene y-Achse → Unterschiede wirken grösser</li>
-<li>3D-Effekte → verzerrte Wahrnehmung</li>
-<li>Fehlende Beschriftungen → Grafik nicht interpretierbar</li>
-<li>Ungeeigneter Diagrammtyp → falsche Schlüsse</li>
+<li><code>stat_summary(fun = mean, geom = "point")</code> → ein Punkt pro Gruppe (Mittelwert)</li>
+<li><code>stat_summary(fun.data = mean_cl_normal, geom = "pointrange")</code> → Mittelwert + 95%-CI</li>
 </ul>
+<p>Das Konfidenzintervall zeigt die <strong>Präzision der Schätzung</strong> des Populationsmittelwerts. Wichtig: CI-Überlappung zwischen Gruppen bedeutet <strong>nicht</strong> automatisch, dass der Unterschied nicht signifikant ist.</p>
 </section>
 </section>
 <section id="übungen" class="level2">
@@ -2164,8 +2132,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>Logik von ggplot2</strong> (Grammar of Graphics) sind korrekt?</p>
-<div id="webex-8992413a1dd55504cb00279ad912ce10" class="webex-checkboxgroup" data-answer="YwgVAhgAH1Fs">
-<label><input type="checkbox" autocomplete="off" name="8992413a1dd55504cb00279ad912ce10"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label><label><input type="checkbox" autocomplete="off" name="8992413a1dd55504cb00279ad912ce10"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="8992413a1dd55504cb00279ad912ce10"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="8992413a1dd55504cb00279ad912ce10"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label>
+<div id="webex-c24d467243ddb67dc217b53038c7dc66" class="webex-checkboxgroup" data-answer="OAMYVBgHGwJp">
+<label><input type="checkbox" autocomplete="off" name="c24d467243ddb67dc217b53038c7dc66"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label><label><input type="checkbox" autocomplete="off" name="c24d467243ddb67dc217b53038c7dc66"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="c24d467243ddb67dc217b53038c7dc66"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="c24d467243ddb67dc217b53038c7dc66"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2175,8 +2143,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-2b7950739661004e5c1ebbb1f030488e" class="webex-radiogroup" data-answer="aVIbCBkAGwNk">
-<label><input type="radio" autocomplete="off" name="2b7950739661004e5c1ebbb1f030488e"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="2b7950739661004e5c1ebbb1f030488e"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="2b7950739661004e5c1ebbb1f030488e"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="2b7950739661004e5c1ebbb1f030488e"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+<div id="webex-19bba19ab8fffc4b960f0291b69ff837" class="webex-radiogroup" data-answer="aglOU00BFVE/">
+<label><input type="radio" autocomplete="off" name="19bba19ab8fffc4b960f0291b69ff837"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="19bba19ab8fffc4b960f0291b69ff837"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="19bba19ab8fffc4b960f0291b69ff837"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="19bba19ab8fffc4b960f0291b69ff837"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2186,8 +2154,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-e7bd96357a10237eedf69f0871316a09" class="webex-checkboxgroup" data-answer="PgdOVRUHHwVq">
-<label><input type="checkbox" autocomplete="off" name="e7bd96357a10237eedf69f0871316a09"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="e7bd96357a10237eedf69f0871316a09"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="e7bd96357a10237eedf69f0871316a09"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="e7bd96357a10237eedf69f0871316a09"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+<div id="webex-78c22df83c7ac0af79a1d6947a4ff27f" class="webex-checkboxgroup" data-answer="bAhPAx5VSghu">
+<label><input type="checkbox" autocomplete="off" name="78c22df83c7ac0af79a1d6947a4ff27f"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="78c22df83c7ac0af79a1d6947a4ff27f"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="78c22df83c7ac0af79a1d6947a4ff27f"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="78c22df83c7ac0af79a1d6947a4ff27f"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2196,6 +2164,19 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Weiter vertiefen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diagrammtyp-Auswahl, irreführende Grafiken, Facettierung und publikationsreife Grafiken finden Sie in <strong><a href="./exercise9.html">Übung 9 (Selbststudium)</a></strong>.</p>
+</div>
+</div>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

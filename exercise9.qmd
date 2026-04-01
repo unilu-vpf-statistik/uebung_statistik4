@@ -1,5 +1,5 @@
 ---
-title: "Übung 9 - Datenvisualisierung II: Erweiterungen"
+title: "Übung 9 - Datenvisualisierung: Vertiefung (Selbststudium)"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 format:
@@ -21,31 +21,123 @@ exam_files <- list.files(here("questions_uebung9"), pattern = "*.Rmd", full.name
 shuffled_questions <- sample(exam_files)
 ```
 
-## Wiederholung & Vertiefung: Facettierung, Unsicherheit & publikationsreife Grafiken
+::: {.callout-note}
+## Selbststudium
 
-In dieser Übung vertiefen wir die Visualisierung: **Mehrdimensionale Daten** durch Facettierung, die **korrekte Darstellung von Unsicherheit** und die Erstellung **publikationsreifer Grafiken**.
+Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9). In der Vorlesung haben Sie die **Grammar of Graphics**, **Geome**, **`stat_summary()`** und die **CI-Interpretation** kennengelernt. Die folgenden Themen sind ebenfalls **prüfungsrelevant** und werden hier im Selbststudium behandelt.
+:::
 
-### Facettierung
+## Welcher Diagrammtyp für welche Daten?
 
-| Funktion | Anwendung |
+Die Wahl des Diagrammtyps ist keine Geschmacksfrage — sie folgt aus dem **Skalenniveau** und der **Anzahl der Variablen**, die Sie darstellen möchten. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, während ein Boxplot den Vergleich einer metrischen Variable zwischen Gruppen ermöglicht. Ein Scatterplot eignet sich, wenn Sie den Zusammenhang zwischen zwei metrischen Variablen untersuchen wollen.
+
+| Variablen | Diagrammtyp | Geom |
+|---|---|---|
+| 1 metrisch | Histogramm | `geom_histogram()` |
+| 1 kategorial | Balkendiagramm | `geom_bar()` |
+| 2 metrisch × metrisch | Scatterplot | `geom_point()` |
+| 1 kategorial × 1 metrisch | Boxplot | `geom_boxplot()` |
+
+**Entscheidungshilfe:** Fragen Sie sich zuerst: *Wie viele Variablen möchte ich zeigen?* Dann: *Welches Skalenniveau haben sie?* Die Antwort bestimmt den Diagrammtyp. Ein häufiger Fehler ist, einen Balkenplot für metrische Daten zu verwenden — dabei geht die gesamte Verteilungsinformation verloren.
+
+## Irreführende Grafiken erkennen
+
+Eine Grafik kann technisch korrekt sein und trotzdem in die Irre führen. Vier häufige Designfehler:
+
+1. **Abgeschnittene y-Achse**: Wenn die y-Achse nicht bei 0 beginnt, wirken selbst kleine Unterschiede dramatisch gross. Besonders problematisch bei Balkendiagrammen, weil die Balkenfläche den Effekt zusätzlich übertreibt.
+
+2. **3D-Effekte**: Dreidimensionale Darstellungen verzerren die Wahrnehmung von Flächen und Höhen. Sie fügen keine Information hinzu, machen aber das Ablesen schwieriger. In wissenschaftlichen Publikationen sind 3D-Effekte grundsätzlich unangemessen.
+
+3. **Fehlende Beschriftung**: Ohne Achsentitel, Einheiten und Legende ist eine Grafik nicht interpretierbar. Variablennamen wie `wm_score` sind keine geeigneten Achsenbeschriftungen — stattdessen: „Working-Memory-Score (Punkte)".
+
+4. **Ungeeigneter Diagrammtyp**: Tortendiagramme sind für Vergleiche schlecht geeignet, weil Menschen Winkel schlechter vergleichen als Längen. Ein Balkendiagramm zeigt dieselbe Information deutlich klarer.
+
+**Reflexionsfrage:** *Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken) irreführend? Was fehlt?*
+
+## Facettierung: Mehrere Panels für Vergleiche
+
+Wenn Sie mehr als 2–3 Gruppen vergleichen oder die Verteilung in verschiedenen Bedingungen zeigen möchten, stösst Farbe (`fill`, `color`) an ihre Grenzen. **Facettierung** löst dieses Problem: Die gleiche Grafik wird in separate Panels aufgeteilt, eines pro Ausprägung einer Gruppierungsvariable.
+
+### `facet_wrap()` — ein Faktor
+
+`facet_wrap(~var)` erzeugt ein Panel pro Ausprägung. Die Panels fliessen von links nach rechts (wie Textumbruch). Mit `ncol` können Sie die Anzahl Spalten steuern.
+
+```r
+ggplot(daten, aes(x = wm_score)) +
+  geom_histogram(bins = 12) +
+  facet_wrap(~gruppe)
+```
+
+**Wann sinnvoll:** Verteilungen vergleichen, >3 Gruppen, zeitliche Verläufe.
+
+### `facet_grid()` — zwei Faktoren
+
+`facet_grid(zeile ~ spalte)` erzeugt ein Matrix-Layout: Zeilen entsprechen einer Variable, Spalten einer anderen. So werden **Interaktionen** zwischen zwei Faktoren direkt sichtbar.
+
+```r
+ggplot(daten, aes(x = wm_score)) +
+  geom_histogram(bins = 12) +
+  facet_grid(geschlecht ~ gruppe)
+```
+
+**Wann sinnvoll:** Zwei Gruppierungsvariablen, Interaktionsmuster sichtbar machen.
+
+### Entscheidung
+
+| Situation | Empfehlung |
 |---|---|
-| `facet_wrap(~var)` | Panels fliessend anordnen (1 Variable) |
-| `facet_grid(zeile ~ spalte)` | Matrix-Layout (2 Variablen, z. B. Interaktionen) |
+| 1 Faktor, viele Ausprägungen | `facet_wrap()` |
+| 2 Faktoren, Matrix-Vergleich | `facet_grid()` |
+| Nur 2–3 Gruppen | Farbe (`fill`) reicht oft |
 
-**Grundregel**: Komplexität nur hinzufügen, wenn sie Information hinzufügt — nicht als Dekoration.
+**Grundregel:** Komplexität nur hinzufügen, wenn sie Information hinzufügt — nicht als Dekoration.
 
-### Konfidenzintervalle korrekt interpretieren
+## Publikationsreife Grafiken
 
-- Ein 95%-CI beschreibt die **Unsicherheit der Schätzung** des Populationsmittelwerts.
-- **CI-Überlappung ≠ Nicht-Signifikanz**: Bei ca. 50% Überlappung kann der Unterschied durchaus signifikant sein.
-- CIs zeigen **nicht** den Bereich, in dem 95% der Einzelwerte liegen.
+Eine Grafik, die Sie in der explorativen Analyse erstellen, ist noch kein fertiges Ergebnis. Für einen Forschungsbericht oder ein Paper müssen Sie drei Aspekte anpassen: **Theme**, **Beschriftung** und **Export**.
 
-### Publikationsreife Grafiken
+### Themes: Erscheinungsbild ändern
 
-- Achsenbeschriftungen mit Einheiten (nicht Rohvariablennamen)
-- Klare Legende
-- Schlichtes Theme (`theme_minimal()`, `theme_bw()`)
-- Export mit `ggsave()` in geeignetem Format und Auflösung
+| Theme | Beschreibung |
+|---|---|
+| `theme_gray()` | Default (grauer Hintergrund) — OK zum Explorieren |
+| `theme_bw()` | Weisser Hintergrund, dezente Gitterlinien |
+| `theme_minimal()` | Minimalistisch, wenig visuelle Ablenkung |
+| `theme_classic()` | Klassisch, keine Gitterlinien (wie in Lehrbüchern) |
+
+Für wissenschaftliche Arbeiten eignen sich `theme_bw()` oder `theme_minimal()` am besten.
+
+### Beschriftung: `labs()`
+
+```r
++ labs(
+    title = "WM-Score nach Versuchsgruppe",
+    x = "Versuchsgruppe",
+    y = "Working-Memory-Score (Punkte)",
+    caption = "Daten: WM-Studie 2024"
+  )
+```
+
+**Regeln:** Keine Variablennamen als Achsenlabels. Einheiten in Klammern angeben. Legende mit aussagekräftigen Labels.
+
+### Export: `ggsave()`
+
+```r
+ggsave("abbildungen/wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi = 300)
+```
+
+| Format | Verwendung |
+|---|---|
+| **PDF** | Vektorgrafik, skalierbar → Paper, Poster |
+| **PNG** | Rastergrafik, feste Auflösung → Präsentationen, Web |
+
+### Checkliste: Ist meine Grafik fertig?
+
+1. Aussagekräftiger Titel
+2. Achsenbeschriftung mit Einheiten (nicht Rohvariablennamen)
+3. Sauberes Theme (kein grauer Default-Hintergrund)
+4. Legende klar beschriftet
+5. Richtige Auflösung und Grösse für das Zielmedium
 
 ## Übungen
 
@@ -57,6 +149,8 @@ Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.
 #| results: "asis"
 exams2forms(shuffled_questions, mathjax = TRUE)
 ```
+
+### Aufgabe A: Facettierung ausprobieren
 
 ```{webr-r}
 # Herunterladen der Datensätze
@@ -91,31 +185,43 @@ lab_daten <- lab_daten |>
 wm_daten <- wm_daten |>
   left_join(lab_daten |> select(id, gruppe), by = "id")
 
-# Schwellenwert für Konfidenzintervall (z-Wert für 95%)
-z_ki <- 1.96
-
-# --- Aufgabe 1: Facettierung ---
-# Histogramme getrennt nach Gruppe:
+# --- Aufgabe A1: Facettiertes Histogramm ---
+# Erstellen Sie ein Histogramm für wm_score, facettiert nach gruppe:
 ggplot(wm_daten, aes(x = wm_score)) +
   geom_histogram(bins = 12, fill = "steelblue", color = "white") +
   facet_wrap(~gruppe) +
   labs(title = "WM-Score nach Gruppe", x = "WM-Score", y = "Häufigkeit") +
   theme_minimal()
 
-# --- Aufgabe 2: Mittelwerte mit Fehlerbalken ---
-# Gruppierte Zusammenfassung berechnen und visualisieren:
-wm_summary <- wm_daten |>
-  group_by(gruppe) |>
-  summarise(
-    M = mean(wm_score, na.rm = TRUE),
-    SE = sd(wm_score, na.rm = TRUE) / sqrt(n())
-  )
+# --- Aufgabe A2: Reflexion ---
+# Vergleichen Sie die Verteilungen: Haben die Gruppen
+# ähnliche Verteilungsformen? Wo unterscheiden sie sich?
+```
 
-ggplot(wm_summary, aes(x = gruppe, y = M)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = M - z_ki * SE, ymax = M + z_ki * SE), width = 0.2) +
-  labs(title = "Mittelwerte mit 95%-CI", x = "Gruppe", y = "WM-Score (M ± 95%-CI)") +
-  theme_minimal()
+### Aufgabe B: Publikationsfertige Grafik
+
+```{webr-r}
+# --- Aufgabe B1: Boxplot mit Theme und Beschriftung ---
+# Erstellen Sie einen Boxplot für wm_score nach gruppe,
+# mit theme_bw() und vollständiger Beschriftung:
+ggplot(wm_daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +
+  geom_boxplot() +
+  labs(
+    title = "WM-Score nach Versuchsgruppe",
+    x = "Versuchsgruppe",
+    y = "Working-Memory-Score (Punkte)",
+    fill = "Gruppe"
+  ) +
+  theme_bw()
+
+# --- Aufgabe B2: Theme-Vergleich ---
+# Ersetzen Sie theme_bw() durch theme_classic() —
+# was ändert sich am Erscheinungsbild?
+
+# --- Aufgabe B3: ggsave (Syntax-Demonstration) ---
+# So würden Sie die Grafik exportieren (funktioniert
+# nicht in webR, aber merken Sie sich die Syntax):
+# ggsave("wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi = 300)
 ```
 
 ------------------------------------------------------------------------

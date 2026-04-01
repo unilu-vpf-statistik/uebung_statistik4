@@ -17,6 +17,13 @@ In dieser Vorlesung lernen Sie, wie Sie statistische Analysen **vollständig rep
 3. **Daten Einlesen** — Import verschiedener Dateiformate
 4. **Datenaufbereitung I** — Tidy Data und Umkodierung
 5. **Datenaufbereitung II** — Fehlende Werte und Ausreisser
+6. **Programmieren mit R** — Eigene Funktionen und Kontrollstrukturen
+7. **Deskriptive Statistik** — Gruppierte Zusammenfassungen berechnen
+8. **Datenvisualisierung I** — Grundlagen ggplot2
+9. **Datenvisualisierung II** — Facettierung, Unsicherheit und publikationsreife Grafiken
+10. **Quarto & Markdown** — Reproduzierbare Ergebnisberichte
+11. **Gruppenvergleiche & ANOVA** — Varianzzerlegung und Post-hoc-Vergleiche
+12. **Regression & Vorhersagen** — Lineare Modelle und Interaktionseffekte
 
 ## R und RStudio
 

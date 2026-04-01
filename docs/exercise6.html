@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Beispiel: Eine eigene Funktion definieren\npruefe_bereich <- function(x, min = 0, max = 100) {\n  ausserhalb <- x < min | x > max\n  return(ausserhalb)\n}\n\n# Testen Sie die Funktion:\nwerte <- c(5, 102, -3, 50, 200, 75, 99, 101)\npruefe_bereich(werte)\npruefe_bereich(werte, min = 10, max = 90)\n\n# Beispiel: for-Schleife mit if-else\nergebnis <- c()\nfor (i in seq_along(werte)) {\n  if (werte[i] > 100) {\n    ergebnis <- c(ergebnis, \"auffällig\")\n  } else {\n    ergebnis <- c(ergebnis, \"unauffällig\")\n  }\n}\ndata.frame(wert = werte, klassifikation = ergebnis)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# --- Aus der Vorlesung: flag_iqr_outliers() ---\nflag_iqr_outliers <- function(x, criterion = 1.5, na.rm = TRUE) {\n  q <- quantile(x, c(0.25, 0.75), na.rm = na.rm)\n  iqr <- q[2] - q[1]\n  lower <- q[1] - criterion * iqr\n  upper <- q[2] + criterion * iqr\n  return(x < lower | x > upper)\n}\n\n# Testen:\nwerte <- c(5, 102, -3, 50, 200, 75, 99, 101)\nflag_iqr_outliers(werte)\nsum(flag_iqr_outliers(werte))","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# --- Beispiel: for-Schleife mit paste() und next ---\ndaten <- data.frame(\n  id = 1:8,\n  wm_score = c(5, 102, -3, 50, 200, 75, 99, 101),\n  stress = c(3, 5, 2, 4, 3, 50, 4, 6),\n  gruppe = c(\"KG\", \"EG\", \"KG\", \"EG\", \"KG\", \"EG\", \"KG\", \"EG\")\n)\n\nfor (var in names(daten)) {\n  if (!is.numeric(daten[[var]])) next\n\n  name_outlier_var <- paste(\"outlier\", var, sep = \"_\")\n  daten[[name_outlier_var]] <- flag_iqr_outliers(daten[[var]])\n\n  n_outlier <- sum(daten[[name_outlier_var]], na.rm = TRUE)\n  if (n_outlier > 0) {\n    cat(\"⚠\", var, \":\", n_outlier, \"Ausreisser\\n\")\n  } else {\n    cat(\"OK\", var, \": keine Ausreisser\\n\")\n  }\n}","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# --- Übung: Schreiben Sie flag_z_outliers() ---\n# Ein Wert gilt als Ausreisser, wenn sein z-Wert\n# betragsmässig grösser als criterion ist.\n# Hinweise: mean(), sd(), abs()\n\n# flag_z_outliers <- function(x, criterion = 3, na.rm = TRUE) {\n#   # Ihr Code hier\n# }\n\n# Testen Sie Ihre Funktion:\n# flag_z_outliers(werte)\n# sum(flag_z_outliers(werte))","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1816,7 +1816,9 @@ globalThis.qwebrExecuteCode = async function (
   <ul>
   <li><a href="#wiederholung-vertiefung-eigene-funktionen-kontrollstrukturen" id="toc-wiederholung-vertiefung-eigene-funktionen-kontrollstrukturen" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-eigene-funktionen-kontrollstrukturen">Wiederholung &amp; Vertiefung: Eigene Funktionen &amp; Kontrollstrukturen</a>
   <ul class="collapse">
-  <li><a href="#warum-eigene-funktionen" id="toc-warum-eigene-funktionen" class="nav-link" data-scroll-target="#warum-eigene-funktionen">Warum eigene Funktionen?</a></li>
+  <li><a href="#logische-vergleiche-bausteine-für-bedingungen" id="toc-logische-vergleiche-bausteine-für-bedingungen" class="nav-link" data-scroll-target="#logische-vergleiche-bausteine-für-bedingungen">Logische Vergleiche — Bausteine für Bedingungen</a></li>
+  <li><a href="#zugriff-auf-daten-indexierung" id="toc-zugriff-auf-daten-indexierung" class="nav-link" data-scroll-target="#zugriff-auf-daten-indexierung">Zugriff auf Daten: Indexierung</a></li>
+  <li><a href="#das-dry-prinzip-dont-repeat-yourself" id="toc-das-dry-prinzip-dont-repeat-yourself" class="nav-link" data-scroll-target="#das-dry-prinzip-dont-repeat-yourself">Das DRY-Prinzip: Don’t Repeat Yourself</a></li>
   <li><a href="#kontrollstrukturen" id="toc-kontrollstrukturen" class="nav-link" data-scroll-target="#kontrollstrukturen">Kontrollstrukturen</a></li>
   <li><a href="#entscheidungshilfe-wann-eine-funktion-schreiben" id="toc-entscheidungshilfe-wann-eine-funktion-schreiben" class="nav-link" data-scroll-target="#entscheidungshilfe-wann-eine-funktion-schreiben">Entscheidungshilfe: Wann eine Funktion schreiben?</a></li>
   </ul></li>
@@ -2140,9 +2142,126 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="wiederholung-vertiefung-eigene-funktionen-kontrollstrukturen" class="level2">
 <h2 class="anchored" data-anchor-id="wiederholung-vertiefung-eigene-funktionen-kontrollstrukturen">Wiederholung &amp; Vertiefung: Eigene Funktionen &amp; Kontrollstrukturen</h2>
 <p>In dieser Übung beschäftigen wir uns mit den Grundlagen des Programmierens in R: <strong>eigene Funktionen</strong> und <strong>Kontrollstrukturen</strong> (Schleifen und Bedingungen). Ziel ist nicht, perfekten Code zu schreiben, sondern zu verstehen, wann und warum diese Werkzeuge sinnvoll eingesetzt werden.</p>
-<section id="warum-eigene-funktionen" class="level3">
-<h3 class="anchored" data-anchor-id="warum-eigene-funktionen">Warum eigene Funktionen?</h3>
-<p>Das <strong>DRY-Prinzip</strong> (Don’t Repeat Yourself) ist ein zentrales Konzept: Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelagert werden. Vorteile:</p>
+<section id="logische-vergleiche-bausteine-für-bedingungen" class="level3">
+<h3 class="anchored" data-anchor-id="logische-vergleiche-bausteine-für-bedingungen">Logische Vergleiche — Bausteine für Bedingungen</h3>
+<p>Bevor wir Funktionen und Schleifen schreiben, brauchen wir die Grundbausteine: <strong>Logische Vergleiche</strong> erzeugen <code>TRUE</code> oder <code>FALSE</code> und sind die Basis für <code>if</code>-Bedingungen, <code>filter()</code> und Ausreisser-Erkennung.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Bedeutung</th>
+<th>Beispiel</th>
+<th>Ergebnis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>==</code></td>
+<td>gleich</td>
+<td><code>3 == 3</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>ungleich</td>
+<td><code>3 != 5</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td><code>&gt;</code>, <code>&lt;</code></td>
+<td>grösser / kleiner</td>
+<td><code>7 &gt; 10</code></td>
+<td><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code>, <code>&lt;=</code></td>
+<td>grösser-gleich / kleiner-gleich</td>
+<td><code>5 &gt;= 5</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td><code>%in%</code></td>
+<td>in Menge enthalten?</td>
+<td><code>"KG" %in% c("KG", "EG")</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td><code>is.na()</code></td>
+<td>fehlender Wert?</td>
+<td><code>is.na(NA)</code></td>
+<td><code>TRUE</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verknüpfungen</strong> kombinieren mehrere Bedingungen:</p>
+<ul>
+<li><code>&amp;</code> (UND): beide müssen gelten — <code>x &gt; 0 &amp; x &lt; 100</code></li>
+<li><code>|</code> (ODER): mindestens eine muss gelten — <code>x &lt; 0 | x &gt; 100</code></li>
+<li><code>!</code> (NICHT): kehrt um — <code>!is.na(x)</code></li>
+</ul>
+</section>
+<section id="zugriff-auf-daten-indexierung" class="level3">
+<h3 class="anchored" data-anchor-id="zugriff-auf-daten-indexierung">Zugriff auf Daten: Indexierung</h3>
+<p>R bietet verschiedene Wege, auf Spalten und Zeilen in einem Datensatz zuzugreifen:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Notation</th>
+<th>Wann verwenden?</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>$</code></td>
+<td>Interaktive Arbeit, Name bekannt</td>
+<td><code>daten$wm_score</code></td>
+</tr>
+<tr class="even">
+<td><code>[[]]</code></td>
+<td><strong>Funktionen &amp; Schleifen</strong> (Name als Variable)</td>
+<td><code>daten[["wm_score"]]</code> oder <code>daten[[var]]</code></td>
+</tr>
+<tr class="odd">
+<td><code>[zeilen, spalten]</code></td>
+<td>Flexible Auswahl von Zeilen und Spalten</td>
+<td><code>daten[1:5, c("id", "wm_score")]</code></td>
+</tr>
+</tbody>
+</table>
+<p>Der <code>[[]]</code>-Operator ist der Schlüssel für Schleifen, weil der Variablenname in einer Variable stehen kann:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="st">"wm_score"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>daten[[var]]   <span class="co"># funktioniert — greift auf die Spalte wm_score zu</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>daten<span class="sc">$</span>var      <span class="co"># funktioniert NICHT — sucht eine Spalte namens "var"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="das-dry-prinzip-dont-repeat-yourself" class="level3">
+<h3 class="anchored" data-anchor-id="das-dry-prinzip-dont-repeat-yourself">Das DRY-Prinzip: Don’t Repeat Yourself</h3>
+<p>Das <strong>DRY-Prinzip</strong> gilt nicht nur für Code, sondern für <strong>alle Werte, die sich ändern könnten</strong>. Die Grundidee: Jede Information wird <strong>einmal</strong> an einer zentralen Stelle festgelegt und danach nur noch referenziert.</p>
+<p><strong>DRY für Werte — Einstellungen am Anfang des Skripts definieren:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Einstellungen (einmal festlegen, überall verwenden) ---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>datei_name  <span class="ot">&lt;-</span> <span class="st">"WM_Fragebögen.csv"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>min_bereich <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>max_bereich <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>grenze_na   <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>text_groesse <span class="ot">&lt;-</span> <span class="dv">14</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Später im Skript:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="fu">here</span>(<span class="st">"daten"</span>, datei_name))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, ...) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> text_groesse))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ändert sich der Dateiname oder die Schriftgrösse, muss nur <strong>eine Zeile</strong> am Anfang angepasst werden — nicht jede Stelle im Skript, an der der Wert vorkommt.</p>
+<p><strong>DRY für Logik — Wiederholte Schritte in Funktionen auslagern:</strong></p>
+<p>Wird die gleiche Logik mehrfach verwendet, sollte sie in eine Funktion ausgelagert werden. Vorteile:</p>
 <ul>
 <li><strong>Wartbarkeit</strong>: Fehler müssen nur an einer Stelle korrigiert werden.</li>
 <li><strong>Transparenz</strong>: Argumente dokumentieren explizit, welche Parameter variiert werden.</li>
@@ -2168,17 +2287,22 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <tr class="odd">
 <td><strong><code>for</code>-Schleife</strong></td>
 <td>Gleichen Schritt für jedes Element wiederholen</td>
-<td>Prüfung jeder Spalte eines Datensatzes</td>
+<td>Ausreisser-Flags für alle Spalten mit <code>flag_iqr_outliers()</code> berechnen</td>
 </tr>
 <tr class="even">
 <td><strong><code>if</code>/<code>else</code></strong></td>
 <td>Bedingte Ausführung</td>
-<td>Unterschiedliche Behandlung je nach Werttyp</td>
+<td>Warnung ausgeben, wenn Ausreisser gefunden wurden</td>
 </tr>
 <tr class="odd">
+<td><strong><code>next</code></strong></td>
+<td>Nicht-relevante Fälle überspringen</td>
+<td>Nicht-numerische Spalten in der Schleife überspringen</td>
+</tr>
+<tr class="even">
 <td><strong>Kombination</strong></td>
 <td>Systematische Prüfung mit Entscheidung</td>
-<td>Klassifikation jedes Werts als “auffällig” oder “unauffällig”</td>
+<td>Alle numerischen Spalten prüfen und nur auffällige melden</td>
 </tr>
 </tbody>
 </table>
@@ -2198,29 +2322,18 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu Funktionen und Kontrollstrukturen in R.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>In welcher der folgenden Situationen ist es am sinnvollsten, eine <strong>eigene Funktion</strong> zu schreiben?</p>
-<div id="webex-1b92e2d0d975bf80727e988111fbae24" class="webex-radiogroup" data-answer="alIVAkkDSAA5">
-<label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie berechnen einmalig den Mittelwert einer Spalte mit <code>mean(daten$score)</code>.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie laden ein Paket mit <code>library(tidyverse)</code> zu Beginn Ihres Skripts.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie prüfen in drei verschiedenen Datensätzen, ob numerische Werte innerhalb eines bestimmten Bereichs liegen, wobei sich der Bereich je nach Datensatz unterscheidet.</span></label><label><input type="radio" autocomplete="off" name="1b92e2d0d975bf80727e988111fbae24"><span>Sie lesen eine einzelne CSV-Datei mit <code>read.csv2()</code> ein.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Eine eigene Funktion ist dann sinnvoll, wenn die gleiche Logik mehrfach mit unterschiedlichen Parametern angewendet wird. Die Bereichsprüfung in drei Datensätzen mit je unterschiedlichen Grenzen ist ein klassischer Fall: Die Prüflogik bleibt gleich, aber die Parameter (Bereichsgrenzen) variieren — genau das lässt sich elegant als Funktion mit Argumenten lösen. Die anderen Situationen sind einmalige, einfache Operationen, für die keine eigene Funktion nötig ist.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Betrachten Sie folgenden Code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(daten)) {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (daten[i] <span class="sc">&gt;</span> <span class="dv">100</span>) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>(ergebnis, <span class="st">"auffällig"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>(ergebnis, <span class="st">"unauffällig"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(daten)) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (daten[i] <span class="sc">&gt;</span> <span class="dv">100</span>) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>(ergebnis, <span class="st">"auffällig"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ergebnis <span class="ot">&lt;-</span> <span class="fu">c</span>(ergebnis, <span class="st">"unauffällig"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Was beschreibt die Funktion dieses Codes am besten?</p>
-<div id="webex-33a575cb927e3eb85849fc29993f03b5" class="webex-radiogroup" data-answer="aANNBBsFT1Jk">
-<label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er entfernt alle Werte über 100 aus dem Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er erstellt einen neuen Vektor, der für jeden Wert in <code>daten</code> angibt, ob er über 100 liegt (“auffällig”) oder nicht (“unauffällig”).</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er berechnet den Mittelwert aller Werte über 100 im Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="33a575cb927e3eb85849fc29993f03b5"><span>Er ersetzt alle Werte über 100 in <code>daten</code> durch den Text “auffällig”.</span></label>
+<div id="webex-ac474df66cf3c35c5ea7e7969c151c96" class="webex-radiogroup" data-answer="OlMYBhhUSgZr">
+<label><input type="radio" autocomplete="off" name="ac474df66cf3c35c5ea7e7969c151c96"><span>Er entfernt alle Werte über 100 aus dem Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="ac474df66cf3c35c5ea7e7969c151c96"><span>Er erstellt einen neuen Vektor, der für jeden Wert in <code>daten</code> angibt, ob er über 100 liegt (“auffällig”) oder nicht (“unauffällig”).</span></label><label><input type="radio" autocomplete="off" name="ac474df66cf3c35c5ea7e7969c151c96"><span>Er berechnet den Mittelwert aller Werte über 100 im Vektor <code>daten</code>.</span></label><label><input type="radio" autocomplete="off" name="ac474df66cf3c35c5ea7e7969c151c96"><span>Er ersetzt alle Werte über 100 in <code>daten</code> durch den Text “auffällig”.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2230,15 +2343,30 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie haben in Ihrem R-Skript denselben Codeblock an fünf verschiedenen Stellen kopiert, der jeweils prüft, ob Werte in einem bestimmten Bereich liegen. Welche Aussagen zum <strong>DRY-Prinzip</strong> (Don’t Repeat Yourself) sind korrekt?</p>
-<div id="webex-48a6ebd30f37266a6ce215d7ce876028" class="webex-checkboxgroup" data-answer="bwlNB0lSSANt">
-<label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Wenn ein Fehler in der Prüflogik gefunden wird, muss er bei kopiertem Code an allen fünf Stellen korrigiert werden — eine Funktion erfordert nur eine Korrektur.</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Eine eigene Funktion macht die Prüfkriterien explizit sichtbar, weil sie als Argumente definiert werden (z. B. <code>min</code> und <code>max</code>).</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Das DRY-Prinzip besagt, dass jede Codezeile nur einmal im gesamten Skript vorkommen darf.</span></label><label><input type="checkbox" autocomplete="off" name="48a6ebd30f37266a6ce215d7ce876028"><span>Funktionen verlangsamen die Ausführung von R erheblich und sollten daher nur bei sehr komplexen Berechnungen eingesetzt werden.</span></label>
+<div id="webex-c1e34e9d0ceddd1e989ae8c7a62d7000" class="webex-checkboxgroup" data-answer="OABJAhhVFVRt">
+<label><input type="checkbox" autocomplete="off" name="c1e34e9d0ceddd1e989ae8c7a62d7000"><span>Wenn ein Fehler in der Prüflogik gefunden wird, muss er bei kopiertem Code an allen fünf Stellen korrigiert werden — eine Funktion erfordert nur eine Korrektur.</span></label><label><input type="checkbox" autocomplete="off" name="c1e34e9d0ceddd1e989ae8c7a62d7000"><span>Eine eigene Funktion macht die Prüfkriterien explizit sichtbar, weil sie als Argumente definiert werden (z. B. <code>min</code> und <code>max</code>).</span></label><label><input type="checkbox" autocomplete="off" name="c1e34e9d0ceddd1e989ae8c7a62d7000"><span>Das DRY-Prinzip besagt, dass jede Codezeile nur einmal im gesamten Skript vorkommen darf.</span></label><label><input type="checkbox" autocomplete="off" name="c1e34e9d0ceddd1e989ae8c7a62d7000"><span>Funktionen verlangsamen die Ausführung von R erheblich und sollten daher nur bei sehr komplexen Berechnungen eingesetzt werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Das DRY-Prinzip bedeutet, dass wiederholte Logik in eine Funktion ausgelagert werden soll — so muss ein Fehler nur an einer Stelle korrigiert werden, und die Prüfkriterien (z. B. Minimal- und Maximalwert) werden als Argumente explizit dokumentiert. Falsch ist, dass jede Codezeile nur einmal vorkommen darf — das DRY-Prinzip bezieht sich auf wiederholte <em>Logik</em>, nicht auf einzelne Zeilen. Ebenso falsch ist, dass Funktionen R erheblich verlangsamen — der Overhead ist vernachlässigbar, und die Vorteile für Wartbarkeit und Lesbarkeit überwiegen deutlich.</p>
 </div>
 </div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>In welcher der folgenden Situationen ist es am sinnvollsten, eine <strong>eigene Funktion</strong> zu schreiben?</p>
+<div id="webex-84714ebc99807f9f6faf3400c59c4a7f" class="webex-radiogroup" data-answer="YwQbARhUTlNk">
+<label><input type="radio" autocomplete="off" name="84714ebc99807f9f6faf3400c59c4a7f"><span>Sie berechnen einmalig den Mittelwert einer Spalte mit <code>mean(daten$score)</code>.</span></label><label><input type="radio" autocomplete="off" name="84714ebc99807f9f6faf3400c59c4a7f"><span>Sie laden ein Paket mit <code>library(tidyverse)</code> zu Beginn Ihres Skripts.</span></label><label><input type="radio" autocomplete="off" name="84714ebc99807f9f6faf3400c59c4a7f"><span>Sie prüfen in drei verschiedenen Datensätzen, ob numerische Werte innerhalb eines bestimmten Bereichs liegen, wobei sich der Bereich je nach Datensatz unterscheidet.</span></label><label><input type="radio" autocomplete="off" name="84714ebc99807f9f6faf3400c59c4a7f"><span>Sie lesen eine einzelne CSV-Datei mit <code>read.csv2()</code> ein.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Eine eigene Funktion ist dann sinnvoll, wenn die gleiche Logik mehrfach mit unterschiedlichen Parametern angewendet wird. Die Bereichsprüfung in drei Datensätzen mit je unterschiedlichen Grenzen ist ein klassischer Fall: Die Prüflogik bleibt gleich, aber die Parameter (Bereichsgrenzen) variieren — genau das lässt sich elegant als Funktion mit Argumenten lösen. Die anderen Situationen sind einmalige, einfache Operationen, für die keine eigene Funktion nötig ist.</p>
+</div>
+</div>
 <div id="qwebr-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
 <div class="quarto-figure quarto-figure-center">
