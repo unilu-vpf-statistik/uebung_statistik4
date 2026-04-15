@@ -68,29 +68,40 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```{webr-r}
 # Herunterladen des Datensatzes
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
-download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
+download.file(paste0(base_url, "WM_Fragebögen_NEU.csv"), "WM_Fragebögen_NEU.csv")
 
 # Laden der benötigten Pakete
 library(dplyr)
 library(ggplot2)
 
 # Daten einlesen
-wm_daten <- read.csv2("WM_Fragebögen.csv")
+# Pre/Post-Datensatz: _t1 = Baseline, _t2 = nach Intervention.
+wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
 
 # --- Aufgabe 1: Einfache Regression ---
-modell1 <- lm(wm_score ~ age, data = wm_daten)
+# Wie gut sagt der Schlaf nach der Intervention den WM-Score nach
+# der Intervention vorher?
+modell1 <- lm(wm_score_t2 ~ sleep_hours_t2, data = wm_daten)
 summary(modell1)
-# Wie interpretieren Sie den Koeffizienten für age?
+# Wie interpretieren Sie den Koeffizienten für sleep_hours_t2?
 
 # --- Aufgabe 2: Scatterplot mit Regressionslinie ---
-ggplot(wm_daten, aes(x = age, y = wm_score)) +
+ggplot(wm_daten, aes(x = sleep_hours_t2, y = wm_score_t2)) +
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", se = TRUE) +
-  labs(x = "Alter", y = "WM-Score") +
+  labs(x = "Schlafdauer nach Intervention (h)",
+       y = "WM-Score nach Intervention") +
   theme_minimal()
 
-# --- Aufgabe 3: Residualdiagnostik ---
-plot(modell1)
+# --- Aufgabe 3: Multiple Regression mit Baseline-Kontrolle ---
+# Wenn wir den WM-Score VOR der Intervention (wm_score_t1) als
+# zusätzlichen Prädiktor aufnehmen, kontrollieren wir für die
+# individuelle WM-Kapazität. Wie verändert sich der Schlaf-Effekt?
+modell2 <- lm(wm_score_t2 ~ sleep_hours_t2 + wm_score_t1, data = wm_daten)
+summary(modell2)
+
+# --- Aufgabe 4: Residualdiagnostik ---
+plot(modell2)
 # Was sagen die Diagnostik-Plots über die Modellannahmen?
 ```
 

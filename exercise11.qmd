@@ -67,8 +67,8 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```{webr-r}
 # Herunterladen der Datensätze
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
-download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
-download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
+download.file(paste0(base_url, "WM_Fragebögen_NEU.csv"), "WM_Fragebögen_NEU.csv")
+download.file(paste0(base_url, "Lab_Kodierung_NEU.dat"), "Lab_Kodierung_NEU.dat")
 
 # Laden der benötigten Pakete
 library(dplyr)
@@ -76,8 +76,10 @@ library(ggplot2)
 library(stringr)
 
 # Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)
-wm_daten <- read.csv2("WM_Fragebögen.csv")
-lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
+# Datensätze mit Pre/Post-Messung — wir vergleichen die Gruppen NACH
+# der Intervention, also auf wm_score_t2.
+wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
+lab_daten <- read.table("Lab_Kodierung_NEU.dat", header = TRUE, sep = "\t")
 
 lab_daten <- lab_daten |>
   mutate(
@@ -97,30 +99,37 @@ lab_daten <- lab_daten |>
 wm_daten <- wm_daten |>
   left_join(lab_daten |> select(id, gruppe), by = "id")
 
-# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe ---
+# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe (Post) ---
 wm_daten |>
   group_by(gruppe) |>
   summarise(
     n = n(),
-    M = mean(wm_score, na.rm = TRUE),
-    SD = sd(wm_score, na.rm = TRUE),
-    Mdn = median(wm_score, na.rm = TRUE)
+    M = mean(wm_score_t2, na.rm = TRUE),
+    SD = sd(wm_score_t2, na.rm = TRUE),
+    Mdn = median(wm_score_t2, na.rm = TRUE)
   )
 
 # --- Aufgabe 2: Boxplot zur visuellen Prüfung ---
-ggplot(wm_daten, aes(x = gruppe, y = wm_score)) +
+ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +
   geom_boxplot() +
-  labs(x = "Gruppe", y = "WM-Score") +
+  labs(x = "Gruppe", y = "WM-Score nach Intervention") +
   theme_minimal()
 
 # --- Aufgabe 3: ANOVA (base R) ---
-modell <- aov(wm_score ~ gruppe, data = wm_daten)
+# Vergleich der Gruppen nach der Intervention.
+modell <- aov(wm_score_t2 ~ gruppe, data = wm_daten)
 summary(modell)
 
 # Effektgrösse η² berechnen
 ss <- summary(modell)[[1]][["Sum Sq"]]
 eta_sq <- ss[1] / sum(ss)
 round(eta_sq, 3)
+
+# --- Aufgabe 4: Baseline-Vergleich zur Kontrolle ---
+# Wichtig: Vor der Intervention sollten sich die Gruppen NICHT
+# unterscheiden (Randomisierungs-Check). Vergleichen Sie wm_score_t1.
+modell_baseline <- aov(wm_score_t1 ~ gruppe, data = wm_daten)
+summary(modell_baseline)
 ```
 
 ------------------------------------------------------------------------

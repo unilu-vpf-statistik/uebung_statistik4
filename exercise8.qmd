@@ -60,8 +60,8 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ```{webr-r}
 # Herunterladen der Datensätze
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
-download.file(paste0(base_url, "WM_Fragebögen.csv"), "WM_Fragebögen.csv")
-download.file(paste0(base_url, "Lab_Kodierung.dat"), "Lab_Kodierung.dat")
+download.file(paste0(base_url, "WM_Fragebögen_NEU.csv"), "WM_Fragebögen_NEU.csv")
+download.file(paste0(base_url, "Lab_Kodierung_NEU.dat"), "Lab_Kodierung_NEU.dat")
 
 # Laden der benötigten Pakete
 library(dplyr)
@@ -69,8 +69,9 @@ library(ggplot2)
 library(stringr)
 
 # Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)
-wm_daten <- read.csv2("WM_Fragebögen.csv")
-lab_daten <- read.table("Lab_Kodierung.dat", header = TRUE, sep = "\t")
+# Datensätze mit Pre/Post-Messung — _t1 = Baseline, _t2 = nach Intervention.
+wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
+lab_daten <- read.table("Lab_Kodierung_NEU.dat", header = TRUE, sep = "\t")
 
 lab_daten <- lab_daten |>
   mutate(
@@ -91,26 +92,28 @@ wm_daten <- wm_daten |>
   left_join(lab_daten |> select(id, gruppe), by = "id")
 
 # --- Aufgabe 1: Histogramm ---
-# Verteilung von wm_score:
-ggplot(wm_daten, aes(x = wm_score)) +
+# Verteilung von wm_score_t2 (nach der Intervention):
+ggplot(wm_daten, aes(x = wm_score_t2)) +
   geom_histogram(bins = 15, fill = "steelblue", color = "white") +
-  labs(title = "Verteilung WM-Score", x = "WM-Score", y = "Häufigkeit") +
+  labs(title = "Verteilung WM-Score (Post)",
+       x = "WM-Score nach Intervention", y = "Häufigkeit") +
   theme_minimal()
 
 # --- Aufgabe 2: Boxplot nach Gruppe ---
-# Gruppenvergleich:
-ggplot(wm_daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +
+# Gruppenvergleich nach der Intervention:
+ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2, fill = gruppe)) +
   geom_boxplot() +
-  labs(title = "WM-Score nach Gruppe", x = "Gruppe", y = "WM-Score") +
+  labs(title = "WM-Score nach Gruppe (Post)",
+       x = "Gruppe", y = "WM-Score nach Intervention") +
   theme_minimal()
 
 # --- Aufgabe 3: stat_summary() — Mittelwert mit CI ---
 # Denselben Gruppenvergleich als Mittelwert mit Konfidenzintervall:
-ggplot(wm_daten, aes(x = gruppe, y = wm_score)) +
+ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +
   stat_summary(fun.data = mean_cl_normal, geom = "pointrange", size = 0.8) +
-  labs(title = "Mittelwerte mit 95%-CI",
+  labs(title = "Mittelwerte mit 95%-CI (Post)",
        x = "Gruppe",
-       y = "WM-Score (M ± 95%-CI)") +
+       y = "WM-Score Post (M ± 95%-CI)") +
   theme_minimal()
 
 # Reflexion: Vergleichen Sie Aufgabe 2 und 3 —
