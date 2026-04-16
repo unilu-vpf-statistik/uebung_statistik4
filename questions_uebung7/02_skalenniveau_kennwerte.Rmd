@@ -1,33 +1,38 @@
 Question
 ========
-Sie möchten deskriptive Kennwerte für mehrere numerische Variablen gleichzeitig berechnen. Betrachten Sie folgenden Code:
+Sie möchten deskriptive Kennwerte (M, SD) für mehrere numerische Variablen gleichzeitig berechnen — eine Zeile pro Variable. Betrachten Sie folgenden Code:
 
 ```r
-daten |>
-  group_by(gruppe) |>
-  summarise(across(
-    where(is.numeric),
-    list(M = mean, SD = sd),
-    .names = "{.col}_{.fn}"
-  ))
+wm_daten |>
+  pivot_longer(
+    cols = c(wm_score_t1, stress_rating_t1, sleep_hours_t1),
+    names_to = "variable",
+    values_to = "wert"
+  ) |>
+  group_by(variable) |>
+  summarise(
+    N  = sum(!is.na(wert)),
+    M  = mean(wert, na.rm = TRUE),
+    SD = sd(wert, na.rm = TRUE)
+  )
 ```
 
-Was bewirkt dieser Code?
+Was beschreibt die Funktion von `pivot_longer()` in diesem Workflow am besten?
 
 Answerlist
 ----------
-* Er berechnet Mittelwert und SD für alle numerischen Spalten im Datensatz, getrennt nach der Variable `gruppe`.
-* Er berechnet Mittelwert und SD nur für die erste numerische Spalte im Datensatz.
-* Er filtert alle nicht-numerischen Spalten aus dem Datensatz und gibt den reduzierten Datensatz zurück.
-* Er berechnet Mittelwert und SD für den gesamten Datensatz ohne Gruppierung.
+* `pivot_longer()` stapelt die drei Variablen untereinander in eine einzige Spalte `wert` und speichert den ursprünglichen Variablennamen in der Spalte `variable` — so kann anschliessend mit `group_by(variable)` pro Variable zusammengefasst werden.
+* `pivot_longer()` berechnet für jede der drei Variablen automatisch Mittelwert und Standardabweichung und gibt das Ergebnis als lange Tabelle zurück.
+* `pivot_longer()` filtert alle Variablen aus dem Datensatz, die nicht in `cols` angegeben sind, und gibt nur die drei genannten Spalten zurück.
+* `pivot_longer()` gruppiert die Daten nach den drei Variablen, sodass `summarise()` die Kennwerte pro Variable berechnen kann.
 
 Solution
 ========
-Der Code nutzt `group_by(gruppe)`, um die Daten nach Gruppen aufzuteilen, und `across(where(is.numeric), ...)`, um die Funktionen `mean` und `sd` auf alle numerischen Spalten gleichzeitig anzuwenden. Das Argument `.names = "{.col}_{.fn}"` erzeugt Spaltennamen im Format `variablenname_M` und `variablenname_SD`. `across()` wendet die Funktionen nicht nur auf die erste Spalte an, sondern auf alle, die das Kriterium `where(is.numeric)` erfüllen. Der Code filtert keine Spalten aus dem Datensatz und die Gruppierung durch `group_by()` wird nicht ignoriert.
+`pivot_longer()` transformiert die Datenstruktur von *breit* nach *lang*: Die drei Spalten (`wm_score_t1`, `stress_rating_t1`, `sleep_hours_t1`) werden in zwei neue Spalten umgewandelt — `variable` (enthält den Variablennamen) und `wert` (enthält den zugehörigen Messwert). Jede Zeile im Originaldatensatz wird dadurch zu drei Zeilen. Erst dieser Umformungsschritt ermöglicht es, mit `group_by(variable)` nach Variablen zu gruppieren und mit `summarise()` die Kennwerte pro Variable zu berechnen. `pivot_longer()` berechnet selbst keine Kennwerte — das übernimmt `summarise()`. Die Funktion filtert auch keine Spalten im engeren Sinne, sondern strukturiert sie um. Die Gruppierung geschieht nicht durch `pivot_longer()`, sondern durch `group_by()`.
 
 Meta-information
 ================
-exname: across_deskription
+exname: pivot_longer_deskription
 extype: schoice
 exsolution: 1000
 exshuffle: FALSE
