@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gidon Frischkorn">
+
+<title>Datensätze – Übungen - VL: Statistik IV</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Übungen - VL: Statistik IV</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Übungen</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Funktionsübersicht.html"> 
+<span class="menu-text">Funktionsübersicht</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./datensaetze.html" aria-current="page"> 
+<span class="menu-text">Datensätze</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Checklisten.html"> 
+<span class="menu-text">Checklisten</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Hilfe &amp; Kontakt</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Datensätze</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 8</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 9</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 10</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 11</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise12.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung 12</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exam_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Übung: Klausur</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#überblick" id="toc-überblick" class="nav-link active" data-scroll-target="#überblick">Überblick</a></li>
+  <li><a href="#datensätze-im-überblick" id="toc-datensätze-im-überblick" class="nav-link" data-scroll-target="#datensätze-im-überblick">Datensätze im Überblick</a></li>
+  <li><a href="#codebook" id="toc-codebook" class="nav-link" data-scroll-target="#codebook">Codebook</a>
+  <ul class="collapse">
+  <li><a href="#personen--und-kontextvariablen" id="toc-personen--und-kontextvariablen" class="nav-link" data-scroll-target="#personen--und-kontextvariablen">Personen- und Kontextvariablen</a></li>
+  <li><a href="#zielvariablen-im-_neu-datensatz-jeweils-mit-suffix-_t1-_t2" id="toc-zielvariablen-im-_neu-datensatz-jeweils-mit-suffix-_t1-_t2" class="nav-link" data-scroll-target="#zielvariablen-im-_neu-datensatz-jeweils-mit-suffix-_t1-_t2">Zielvariablen (im <code>_NEU</code>-Datensatz jeweils mit Suffix <code>_t1</code> / <code>_t2</code>)</a></li>
+  <li><a href="#rohvariablen-der-hiwi-kodierung-lab_kodierung_neu.dat" id="toc-rohvariablen-der-hiwi-kodierung-lab_kodierung_neu.dat" class="nav-link" data-scroll-target="#rohvariablen-der-hiwi-kodierung-lab_kodierung_neu.dat">Rohvariablen der Hiwi-Kodierung (<code>Lab_Kodierung_NEU.dat</code>)</a></li>
+  </ul></li>
+  <li><a href="#wide-vs.-long-kurz-erklärt" id="toc-wide-vs.-long-kurz-erklärt" class="nav-link" data-scroll-target="#wide-vs.-long-kurz-erklärt">Wide vs.&nbsp;Long — kurz erklärt</a></li>
+  <li><a href="#welche-datei-verwende-ich-wann" id="toc-welche-datei-verwende-ich-wann" class="nav-link" data-scroll-target="#welche-datei-verwende-ich-wann">Welche Datei verwende ich wann?</a></li>
+  <li><a href="#typische-fehler-beim-umstieg-auf-die-_neu-dateien" id="toc-typische-fehler-beim-umstieg-auf-die-_neu-dateien" class="nav-link" data-scroll-target="#typische-fehler-beim-umstieg-auf-die-_neu-dateien">Typische Fehler beim Umstieg auf die <code>_NEU</code>-Dateien</a></li>
+  <li><a href="#changelog" id="toc-changelog" class="nav-link" data-scroll-target="#changelog">Changelog</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Datensätze</h1>
+<p class="subtitle lead">FS 2026</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gidon Frischkorn </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="überblick" class="level2">
+<h2 class="anchored" data-anchor-id="überblick">Überblick</h2>
+<p>Auf dieser Seite finden Sie eine zentrale Übersicht aller Datensätze, die in den Übungen verwendet werden: Studienkontext, Dateien, Codebook und Hinweise zum Datenformat.</p>
+<p>Die Übungen zur Statistik IV begleiten eine fiktive Studie zu Stress und Arbeitsgedächtnis. Bei rund 188 Teilnehmenden wurde vor und nach einer Intervention die Arbeitsgedächtniskapazität gemessen; zusätzlich wurden Schlafdauer und aktuelles Stress-Erleben erfasst. Die Personen wurden zufällig einer Stress- oder Kontrollgruppe zugewiesen.</p>
+<hr>
+</section>
+<section id="datensätze-im-überblick" class="level2">
+<h2 class="anchored" data-anchor-id="datensätze-im-überblick">Datensätze im Überblick</h2>
+<p>Im Lauf des Semesters arbeiten Sie mit zwei Generationen des Datensatzes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 15%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Datei</th>
+<th>Inhalt</th>
+<th>Format</th>
+<th>Verwendet in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>WM_Fragebögen.csv</code></td>
+<td>Erste Version: eine Erhebung pro Person</td>
+<td>CSV (wide)</td>
+<td>Übungen 1–6</td>
+</tr>
+<tr class="even">
+<td><code>Lab_Kodierung.dat</code></td>
+<td>Messy Hiwi-Kodierung zu erster Version</td>
+<td>TAB</td>
+<td>Übungen 3–5</td>
+</tr>
+<tr class="odd">
+<td><code>WM_Fragebögen_NEU.csv</code></td>
+<td>Pre/Post-Messung (<code>_t1</code>, <code>_t2</code>)</td>
+<td>CSV (wide)</td>
+<td>Übungen 7–12</td>
+</tr>
+<tr class="even">
+<td><code>Lab_Kodierung_NEU.dat</code></td>
+<td>Messy Hiwi-Kodierung zur Pre/Post-Version</td>
+<td>TAB</td>
+<td>Übungen 7–12</td>
+</tr>
+<tr class="odd">
+<td><code>df_analyse_NEU.csv</code></td>
+<td><strong>Analysefertig</strong> (bereinigt, tidy long mit <code>MZP</code>)</td>
+<td>CSV (long)</td>
+<td>Rückfall S11 / S12</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Download:</strong> Alle Dateien liegen im <a href="https://github.com/GidonFrischkorn/uebung_statistik4/tree/main/daten"><code>daten/</code>-Ordner des Kurs-Repositorys</a> und zusätzlich auf OLAT (<code>df_analyse_NEU.csv</code>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Warum zwei Versionen?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In den ersten fünf Übungen üben Sie Datenimport und Datenaufbereitung. Dafür ist der ursprüngliche Datensatz mit einer einzelnen Erhebung pro Person übersichtlicher.</p>
+<p>Ab Übung 7 geht es um Deskription, Visualisierung und inferenzstatistische Analysen. Die Pre/Post-Erhebung erlaubt dann konkretere Fragestellungen: Gruppenvergleiche nach der Intervention oder Veränderung zwischen <code>_t1</code> und <code>_t2</code>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="codebook" class="level2">
+<h2 class="anchored" data-anchor-id="codebook">Codebook</h2>
+<section id="personen--und-kontextvariablen" class="level3">
+<h3 class="anchored" data-anchor-id="personen--und-kontextvariablen">Personen- und Kontextvariablen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 15%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Skalenniveau</th>
+<th>Mögliche Werte</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>nominal (ID)</td>
+<td>1, 2, …</td>
+<td>Eindeutige Teilnehmer-ID</td>
+</tr>
+<tr class="even">
+<td><code>session_code</code></td>
+<td>nominal</td>
+<td><code>1/4</code> … <code>4/4</code></td>
+<td>Erhebungsbatch innerhalb einer Session</td>
+</tr>
+<tr class="odd">
+<td><code>gruppe</code></td>
+<td>nominal</td>
+<td><code>Stress</code>, <code>Kontrollgruppe</code></td>
+<td>Experimentelle Bedingung</td>
+</tr>
+<tr class="even">
+<td><code>device</code></td>
+<td>nominal</td>
+<td><code>Lab</code>, <code>Zuhause</code></td>
+<td>Erhebungskontext</td>
+</tr>
+<tr class="odd">
+<td><code>coder</code></td>
+<td>nominal</td>
+<td><code>AB</code>, <code>CD</code>, <code>EF</code></td>
+<td>Hiwi, der die Daten kodiert hat</td>
+</tr>
+<tr class="even">
+<td><code>age</code></td>
+<td>metrisch</td>
+<td>18–35 (plausibel)</td>
+<td>Alter in Jahren</td>
+</tr>
+<tr class="odd">
+<td><code>gender</code></td>
+<td>nominal</td>
+<td><code>f</code>, <code>m</code>, <code>div</code>, <code>na</code></td>
+<td>Selbstangabe</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="zielvariablen-im-_neu-datensatz-jeweils-mit-suffix-_t1-_t2" class="level3">
+<h3 class="anchored" data-anchor-id="zielvariablen-im-_neu-datensatz-jeweils-mit-suffix-_t1-_t2">Zielvariablen (im <code>_NEU</code>-Datensatz jeweils mit Suffix <code>_t1</code> / <code>_t2</code>)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 15%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Skalenniveau</th>
+<th>Range</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>wm_score</code></td>
+<td>metrisch</td>
+<td>0 – 40</td>
+<td>Arbeitsgedächtnis-Score</td>
+</tr>
+<tr class="even">
+<td><code>sleep_hours</code></td>
+<td>metrisch</td>
+<td>0 – 12 h</td>
+<td>Selbstberichtete Schlafdauer</td>
+</tr>
+<tr class="odd">
+<td><code>stress_rating</code></td>
+<td>metrisch (Skala)</td>
+<td>0 – 10</td>
+<td>Aktuelles Stress-Erleben</td>
+</tr>
+<tr class="even">
+<td><code>MZP</code></td>
+<td>nominal</td>
+<td><code>t1</code>, <code>t2</code></td>
+<td>Messzeitpunkt (nur in <code>df_analyse_NEU.csv</code>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rohvariablen-der-hiwi-kodierung-lab_kodierung_neu.dat" class="level3">
+<h3 class="anchored" data-anchor-id="rohvariablen-der-hiwi-kodierung-lab_kodierung_neu.dat">Rohvariablen der Hiwi-Kodierung (<code>Lab_Kodierung_NEU.dat</code>)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 35%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Bedeutung</th>
+<th>Typische Probleme</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id_raw</code></td>
+<td>Teilnehmer-ID, wie vom Hiwi eingegeben</td>
+<td>Leerzeichen, <code>ID-02</code>, <code>P17</code></td>
+</tr>
+<tr class="even">
+<td><code>group_raw</code></td>
+<td>Gruppenzuweisung</td>
+<td><code>CON</code>, <code>ctrl</code>, <code>stress</code>, <code>STRESS</code></td>
+</tr>
+<tr class="odd">
+<td><code>device_raw</code></td>
+<td>Erhebungskontext</td>
+<td><code>home</code>, <code>Zuhause</code>, <code>LAB</code></td>
+</tr>
+<tr class="even">
+<td><code>coder</code></td>
+<td>Kürzel des Hiwis</td>
+<td>Gross-/Kleinschreibung, Leerzeichen</td>
+</tr>
+<tr class="odd">
+<td><code>notes</code></td>
+<td>Freitextnotizen</td>
+<td>Hinweise auf Probleme, Duplikate</td>
+</tr>
+</tbody>
+</table>
+<p>Versteckte fehlende Werte kommen als <code>vergessen</code>, <code>nicht erhoben</code>, <code>k.A.</code>, <code>?</code> etc. vor — diese müssen bei der Aufbereitung zu echten <code>NA</code> umkodiert werden.</p>
+<hr>
+</section>
+</section>
+<section id="wide-vs.-long-kurz-erklärt" class="level2">
+<h2 class="anchored" data-anchor-id="wide-vs.-long-kurz-erklärt">Wide vs.&nbsp;Long — kurz erklärt</h2>
+<p>Die <code>_NEU</code>-Fragebogendatei liegt im <strong>wide format</strong> vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wide (WM_Fragebögen_NEU.csv):</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id  wm_score_t1  wm_score_t2  sleep_hours_t1  sleep_hours_t2  …</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1           26           31             7.9             8.1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  2           37           31             7.9              NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Für viele Analysen (Visualisierung mit ggplot2, Gruppierung nach Messzeitpunkt, Repeated-Measures-ANOVA) ist das <strong>long format</strong> praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte <code>MZP</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># long (df_analyse_NEU.csv):</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id  MZP  wm_score  sleep_hours  stress_rating</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t1         26          7.9           NA</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t2         NA          8.1          4.8</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  2  t1         37          7.9          3.8</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  2  t2         31           NA          7.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Die Umwandlung gelingt mit <code>tidyr::pivot_longer()</code>. Das Muster haben Sie in Übung 4 am Einzelmessungs-Datensatz gesehen.</p>
+<hr>
+</section>
+<section id="welche-datei-verwende-ich-wann" class="level2">
+<h2 class="anchored" data-anchor-id="welche-datei-verwende-ich-wann">Welche Datei verwende ich wann?</h2>
+<ul>
+<li><strong>Übungen 1–6</strong>: die ursprünglichen Dateien (<code>WM_Fragebögen.csv</code>, <code>Lab_Kodierung.dat</code>). In den webR-Konsolen auf der Website sind sie bereits integriert.</li>
+<li><strong>Übungen 7–12</strong>: die <code>_NEU</code>-Dateien. Ebenfalls in den webR-Konsolen vorbereitet; die Aufbereitungspipeline (Import, Merge, Recode) wird in jeder Übung inline gezeigt.</li>
+<li><strong><code>df_analyse_NEU.csv</code></strong>: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Enthält bereits eine <code>MZP</code>-Spalte im long format und lässt sich direkt einlesen:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_analyse <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="fu">here</span>(<span class="st">"daten"</span>, <span class="st">"df_analyse_NEU.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Wann zur Rückfalloption greifen?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Versuchen Sie in Übungen 11 und 12 zunächst, die Pipeline aus Übung 7 selbst anzuwenden. Wenn Sie nach etwa 15 Minuten keine lauffähige Aufbereitung haben, wechseln Sie auf <code>df_analyse_NEU.csv</code>, damit Sie an den statistischen Analysen weiterarbeiten können. Der Lerneffekt der Analyse-Übungen liegt nicht im erneuten Bereinigen.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="typische-fehler-beim-umstieg-auf-die-_neu-dateien" class="level2">
+<h2 class="anchored" data-anchor-id="typische-fehler-beim-umstieg-auf-die-_neu-dateien">Typische Fehler beim Umstieg auf die <code>_NEU</code>-Dateien</h2>
+<p>Nach dem Wechsel zum Pre/Post-Datensatz stolpern viele Studierende an denselben Stellen. Die folgenden Fehler sind nicht kritisch, kosten aber leicht Zeit.</p>
+<p><strong><code>Unknown column 'wm_score'</code></strong></p>
+<p>Die Zielvariablen heissen nicht mehr <code>wm_score</code>, <code>sleep_hours</code>, <code>stress_rating</code>, sondern tragen einen Suffix für den Messzeitpunkt: <code>wm_score_t1</code>, <code>wm_score_t2</code>, <code>sleep_hours_t1</code>, … Prüfen Sie mit <code>names(wm_daten)</code> oder <code>glimpse(wm_daten)</code>, welche Spalten tatsächlich vorliegen.</p>
+<p><strong>Code aus Übung 3–5 läuft nicht mehr</strong></p>
+<p>Die alte Pipeline in den Übungen 3–5 basiert auf dem ursprünglichen Datensatz ohne Pre/Post. Wenn Sie Code aus diesen Übungen in Übung 7+ übernehmen, müssen Sie Variablennamen und ggf. die Aufbereitungsschritte anpassen.</p>
+<p><strong>Duplikate in <code>Lab_Kodierung_NEU.dat</code></strong></p>
+<p>Die Hiwi-Tabelle enthält absichtlich einige doppelte Zeilen (erkennbar an der Notiz “Doppelter Eintrag?”). Vor dem Join mit der Fragebogentabelle: <code>distinct()</code> oder sichten und bewusst entscheiden.</p>
+<p><strong>Fehlende Werte stehen als Text drin</strong></p>
+<p>In <code>Lab_Kodierung_NEU.dat</code> kommen Einträge wie <code>"vergessen"</code>, <code>"k.A."</code>, <code>"?"</code> vor. R erkennt diese nicht automatisch als <code>NA</code>, weil sie in der <code>.dat</code>-Datei als normale Strings stehen. Beim Recoden zu echten <code>NA</code> konvertieren (<code>case_when(...)</code> oder <code>na_if()</code>).</p>
+<p><strong>Encoding-Probleme mit Umlauten (v.a. Windows)</strong></p>
+<p>Wenn Spaltennamen wie <code>"Ã¶"</code> statt <code>"ö"</code> erscheinen: <code>read.csv2(..., fileEncoding = "UTF-8")</code> setzen.</p>
+<hr>
+</section>
+<section id="changelog" class="level2">
+<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
+<p><strong>2026-04-17</strong>: Überarbeitete Simulationspipeline. Die <code>_NEU</code>-Dateien enthalten jetzt Pre/Post-Messungen für <code>wm_score</code>, <code>sleep_hours</code> und <code>stress_rating</code>. Zusätzlich bereitgestellt: <code>df_analyse_NEU.csv</code> (tidy long mit <code>MZP</code>).</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Gidon Frischkorn | Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/GidonFrischkorn">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
