@@ -3,6 +3,8 @@ project:
   output-dir: docs
   render:
     - "*.qmd"
+  resources:
+    - "daten/"
 
 website:
   title: "Übungen - VL: Statistik IV"
@@ -12,6 +14,8 @@ website:
         text: Übungen
       - href: Funktionsübersicht.qmd
         text: Funktionsübersicht
+      - href: datensaetze.qmd
+        text: Datensätze
       - href: Checklisten.qmd
         text: Checklisten
       - href: about.qmd

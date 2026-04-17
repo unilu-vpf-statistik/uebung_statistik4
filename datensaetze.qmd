@@ -1,0 +1,153 @@
+---
+title: "Datensätze"
+subtitle: "FS 2026"
+author: "Gidon Frischkorn"
+format:
+  html:
+    css: styles.css
+tbl-colwidths: [30, 35, 15, 20]
+---
+
+## Überblick
+
+Auf dieser Seite finden Sie eine zentrale Übersicht aller Datensätze, die in den Übungen verwendet werden: Studienkontext, Dateien, Codebook und Hinweise zum Datenformat.
+
+Die Übungen zur Statistik IV begleiten eine fiktive Studie zu Stress und Arbeitsgedächtnis. Bei rund 188 Teilnehmenden wurde vor und nach einer Intervention die Arbeitsgedächtniskapazität gemessen; zusätzlich wurden Schlafdauer und aktuelles Stress-Erleben erfasst. Die Personen wurden zufällig einer Stress- oder Kontrollgruppe zugewiesen.
+
+------------------------------------------------------------------------
+
+## Datensätze im Überblick
+
+Im Lauf des Semesters arbeiten Sie mit zwei Generationen des Datensatzes:
+
+| Datei | Inhalt | Format | Verwendet in |
+|-------|--------|--------|--------------|
+| `WM_Fragebögen.csv` | Erste Version: eine Erhebung pro Person | CSV (wide) | Übungen 1–6 |
+| `Lab_Kodierung.dat` | Messy Hiwi-Kodierung zu erster Version | TAB | Übungen 3–5 |
+| `WM_Fragebögen_NEU.csv` | Pre/Post-Messung (`_t1`, `_t2`) | CSV (wide) | Übungen 7–12 |
+| `Lab_Kodierung_NEU.dat` | Messy Hiwi-Kodierung zur Pre/Post-Version | TAB | Übungen 7–12 |
+| `df_analyse_NEU.csv` | **Analysefertig** (bereinigt, tidy long mit `MZP`) | CSV (long) | Rückfall S11 / S12 |
+
+**Download:** Alle Dateien liegen im [`daten/`-Ordner des Kurs-Repositorys](https://github.com/GidonFrischkorn/uebung_statistik4/tree/main/daten) und zusätzlich auf OLAT (`df_analyse_NEU.csv`).
+
+::: {.callout-note}
+## Warum zwei Versionen?
+
+In den ersten fünf Übungen üben Sie Datenimport und Datenaufbereitung. Dafür ist der ursprüngliche Datensatz mit einer einzelnen Erhebung pro Person übersichtlicher.
+
+Ab Übung 7 geht es um Deskription, Visualisierung und inferenzstatistische Analysen. Die Pre/Post-Erhebung erlaubt dann konkretere Fragestellungen: Gruppenvergleiche nach der Intervention oder Veränderung zwischen `_t1` und `_t2`.
+:::
+
+------------------------------------------------------------------------
+
+## Codebook
+
+### Personen- und Kontextvariablen
+
+| Variable | Skalenniveau | Mögliche Werte | Bedeutung |
+|------|------|------|------|
+| `id` | nominal (ID) | 1, 2, … | Eindeutige Teilnehmer-ID |
+| `session_code` | nominal | `1/4` … `4/4` | Erhebungsbatch innerhalb einer Session |
+| `gruppe` | nominal | `Stress`, `Kontrollgruppe` | Experimentelle Bedingung |
+| `device` | nominal | `Lab`, `Zuhause` | Erhebungskontext |
+| `coder` | nominal | `AB`, `CD`, `EF` | Hiwi, der die Daten kodiert hat |
+| `age` | metrisch | 18–35 (plausibel) | Alter in Jahren |
+| `gender` | nominal | `f`, `m`, `div`, `na` | Selbstangabe |
+
+### Zielvariablen (im `_NEU`-Datensatz jeweils mit Suffix `_t1` / `_t2`)
+
+| Variable | Skalenniveau | Range | Bedeutung |
+|------|------|------|------|
+| `wm_score` | metrisch | 0 – 40 | Arbeitsgedächtnis-Score |
+| `sleep_hours` | metrisch | 0 – 12 h | Selbstberichtete Schlafdauer |
+| `stress_rating` | metrisch (Skala) | 0 – 10 | Aktuelles Stress-Erleben |
+| `MZP` | nominal | `t1`, `t2` | Messzeitpunkt (nur in `df_analyse_NEU.csv`) |
+
+### Rohvariablen der Hiwi-Kodierung (`Lab_Kodierung_NEU.dat`)
+
+| Variable | Bedeutung | Typische Probleme |
+|------|------|------|
+| `id_raw` | Teilnehmer-ID, wie vom Hiwi eingegeben | Leerzeichen, `ID-02`, `P17` |
+| `group_raw` | Gruppenzuweisung | `CON`, `ctrl`, `stress`, `STRESS ` |
+| `device_raw` | Erhebungskontext | `home`, `Zuhause`, `LAB` |
+| `coder` | Kürzel des Hiwis | Gross-/Kleinschreibung, Leerzeichen |
+| `notes` | Freitextnotizen | Hinweise auf Probleme, Duplikate |
+
+Versteckte fehlende Werte kommen als `vergessen`, `nicht erhoben`, `k.A.`, `?` etc. vor — diese müssen bei der Aufbereitung zu echten `NA` umkodiert werden.
+
+------------------------------------------------------------------------
+
+## Wide vs. Long — kurz erklärt
+
+Die `_NEU`-Fragebogendatei liegt im **wide format** vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.
+
+```r
+# wide (WM_Fragebögen_NEU.csv):
+# id  wm_score_t1  wm_score_t2  sleep_hours_t1  sleep_hours_t2  …
+#  1           26           31             7.9             8.1
+#  2           37           31             7.9              NA
+```
+
+Für viele Analysen (Visualisierung mit ggplot2, Gruppierung nach Messzeitpunkt, Repeated-Measures-ANOVA) ist das **long format** praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte `MZP`.
+
+```r
+# long (df_analyse_NEU.csv):
+# id  MZP  wm_score  sleep_hours  stress_rating
+#  1  t1         26          7.9           NA
+#  1  t2         NA          8.1          4.8
+#  2  t1         37          7.9          3.8
+#  2  t2         31           NA          7.1
+```
+
+Die Umwandlung gelingt mit `tidyr::pivot_longer()`. Das Muster haben Sie in Übung 4 am Einzelmessungs-Datensatz gesehen.
+
+------------------------------------------------------------------------
+
+## Welche Datei verwende ich wann?
+
+- **Übungen 1–6**: die ursprünglichen Dateien (`WM_Fragebögen.csv`, `Lab_Kodierung.dat`). In den webR-Konsolen auf der Website sind sie bereits integriert.
+- **Übungen 7–12**: die `_NEU`-Dateien. Ebenfalls in den webR-Konsolen vorbereitet; die Aufbereitungspipeline (Import, Merge, Recode) wird in jeder Übung inline gezeigt.
+- **`df_analyse_NEU.csv`**: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Enthält bereits eine `MZP`-Spalte im long format und lässt sich direkt einlesen:
+
+```r
+library(here)
+df_analyse <- read.csv2(here("daten", "df_analyse_NEU.csv"))
+```
+
+::: {.callout-tip}
+## Wann zur Rückfalloption greifen?
+
+Versuchen Sie in Übungen 11 und 12 zunächst, die Pipeline aus Übung 7 selbst anzuwenden. Wenn Sie nach etwa 15 Minuten keine lauffähige Aufbereitung haben, wechseln Sie auf `df_analyse_NEU.csv`, damit Sie an den statistischen Analysen weiterarbeiten können. Der Lerneffekt der Analyse-Übungen liegt nicht im erneuten Bereinigen.
+:::
+
+------------------------------------------------------------------------
+
+## Typische Fehler beim Umstieg auf die `_NEU`-Dateien
+
+Nach dem Wechsel zum Pre/Post-Datensatz stolpern viele Studierende an denselben Stellen. Die folgenden Fehler sind nicht kritisch, kosten aber leicht Zeit.
+
+**`Unknown column 'wm_score'`**
+
+Die Zielvariablen heissen nicht mehr `wm_score`, `sleep_hours`, `stress_rating`, sondern tragen einen Suffix für den Messzeitpunkt: `wm_score_t1`, `wm_score_t2`, `sleep_hours_t1`, ... Prüfen Sie mit `names(wm_daten)` oder `glimpse(wm_daten)`, welche Spalten tatsächlich vorliegen.
+
+**Code aus Übung 3–5 läuft nicht mehr**
+
+Die alte Pipeline in den Übungen 3–5 basiert auf dem ursprünglichen Datensatz ohne Pre/Post. Wenn Sie Code aus diesen Übungen in Übung 7+ übernehmen, müssen Sie Variablennamen und ggf. die Aufbereitungsschritte anpassen.
+
+**Duplikate in `Lab_Kodierung_NEU.dat`**
+
+Die Hiwi-Tabelle enthält absichtlich einige doppelte Zeilen (erkennbar an der Notiz "Doppelter Eintrag?"). Vor dem Join mit der Fragebogentabelle: `distinct()` oder sichten und bewusst entscheiden.
+
+**Fehlende Werte stehen als Text drin**
+
+In `Lab_Kodierung_NEU.dat` kommen Einträge wie `"vergessen"`, `"k.A."`, `"?"` vor. R erkennt diese nicht automatisch als `NA`, weil sie in der `.dat`-Datei als normale Strings stehen. Beim Recoden zu echten `NA` konvertieren (`case_when(...)` oder `na_if()`).
+
+**Encoding-Probleme mit Umlauten (v.a. Windows)**
+
+Wenn Spaltennamen wie `"Ã¶"` statt `"ö"` erscheinen: `read.csv2(..., fileEncoding = "UTF-8")` setzen.
+
+------------------------------------------------------------------------
+
+## Changelog
+
+**2026-04-17**: Überarbeitete Simulationspipeline. Die `_NEU`-Dateien enthalten jetzt Pre/Post-Messungen für `wm_score`, `sleep_hours` und `stress_rating`. Zusätzlich bereitgestellt: `df_analyse_NEU.csv` (tidy long mit `MZP`).

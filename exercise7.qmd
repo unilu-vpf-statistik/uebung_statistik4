@@ -80,6 +80,9 @@ library(stringr)
 # Hinweis: Ab dieser Übung verwenden wir die aktualisierten Datensätze
 # mit Pre/Post-Messung (Suffix _NEU). Die Zielvariablen sind nun jeweils
 # zweimal erhoben: vor der Intervention (_t1) und nach der Intervention (_t2).
+# Die Spalten heissen also wm_score_t1 / wm_score_t2, sleep_hours_t1 /
+# sleep_hours_t2 usw. — nicht mehr nur wm_score. Siehe Seite "Datensätze"
+# für den vollständigen Codebook.
 wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
 lab_daten <- read.table("Lab_Kodierung_NEU.dat", header = TRUE, sep = "\t")
 

@@ -6,14 +6,14 @@ Eine Studentin erstellt ihren Analysebericht als Quarto-Dokument (.qmd). Sie hat
 ```r
 library(dplyr)
 library(ggplot2)
-daten <- read.csv2(here::here("daten", "WM_Fragebögen.csv"))
+daten <- read.csv2(here::here("daten", "WM_Fragebögen_NEU.csv"))
 ```
 
 **Chunk 2 (Deskription):**
 ```r
 daten |>
   group_by(Experimentalgruppe) |>
-  summarise(M = mean(wm_score, na.rm = TRUE), SD = sd(wm_score, na.rm = TRUE))
+  summarise(M = mean(wm_score_t2, na.rm = TRUE), SD = sd(wm_score_t2, na.rm = TRUE))
 ```
 
 **Fliesstext zwischen Chunk 2 und 3:**
@@ -21,7 +21,7 @@ daten |>
 
 **Chunk 3 (Grafik):**
 ```r
-ggplot(daten, aes(x = Experimentalgruppe, y = wm_score)) + geom_boxplot()
+ggplot(daten, aes(x = Experimentalgruppe, y = wm_score_t2)) + geom_boxplot()
 ```
 
 Welche Aussagen sind **korrekt**?

@@ -4,6 +4,14 @@ subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 ---
 
+::: {.callout-note}
+## Neu ab Sitzung 7: aktualisierte Datensätze
+
+Die Datensätze wurden auf eine Pre/Post-Erhebung erweitert (Suffix `_t1` / `_t2`). Übungen 1–6 bleiben unverändert, Übungen 7–12 nutzen die neuen `_NEU`-Dateien. Für Übungen 11 und 12 steht zusätzlich `df_analyse_NEU.csv` als analysefertige Rückfalloption bereit (auf OLAT und im Kurs-Repo).
+
+Details, Codebook und typische Umstiegsfehler: Seite [Datensätze](datensaetze.qmd).
+:::
+
 ## Willkommen
 
 Auf dieser Website finden Sie die Übungen zur Vorlesung **Statistik IV** im Frühlingssemester 2026. Die Übungen begleiten die Vorlesung und helfen Ihnen dabei, den gesamten Datenanalyseprozess mit R reproduzierbar umzusetzen.
