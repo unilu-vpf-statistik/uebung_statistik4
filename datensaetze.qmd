@@ -26,7 +26,7 @@ Im Lauf des Semesters arbeiten Sie mit zwei Generationen des Datensatzes:
 | `Lab_Kodierung.dat` | Messy Hiwi-Kodierung zu erster Version | TAB | Übungen 3–5 |
 | `WM_Fragebögen_NEU.csv` | Pre/Post-Messung (`_t1`, `_t2`) | CSV (wide) | Übungen 7–12 |
 | `Lab_Kodierung_NEU.dat` | Messy Hiwi-Kodierung zur Pre/Post-Version | TAB | Übungen 7–12 |
-| `df_analyse_NEU.csv` | **Analysefertig** (bereinigt, tidy long mit `MZP`) | CSV (long) | Rückfall S11 / S12 |
+| `df_analyse_NEU.csv` | **Analysefertig** (bereinigt, wide mit `_t1`/`_t2`) | CSV (wide) | Rückfall S11 / S12 |
 
 **Download:** Alle Dateien liegen im [`daten/`-Ordner des Kurs-Repositorys](https://github.com/GidonFrischkorn/uebung_statistik4/tree/main/daten) und zusätzlich auf OLAT (`df_analyse_NEU.csv`).
 
@@ -48,7 +48,7 @@ Ab Übung 7 geht es um Deskription, Visualisierung und inferenzstatistische Anal
 |------|------|------|------|
 | `id` | nominal (ID) | 1, 2, … | Eindeutige Teilnehmer-ID |
 | `session_code` | nominal | `1/4` … `4/4` | Erhebungsbatch innerhalb einer Session |
-| `gruppe` | nominal | `Stress`, `Kontrollgruppe` | Experimentelle Bedingung |
+| `gruppe` | nominal | `Stress`, `KG` | Experimentelle Bedingung |
 | `device` | nominal | `Lab`, `Zuhause` | Erhebungskontext |
 | `coder` | nominal | `AB`, `CD`, `EF` | Hiwi, der die Daten kodiert hat |
 | `age` | metrisch | 18–35 (plausibel) | Alter in Jahren |
@@ -61,7 +61,6 @@ Ab Übung 7 geht es um Deskription, Visualisierung und inferenzstatistische Anal
 | `wm_score` | metrisch | 0 – 40 | Arbeitsgedächtnis-Score |
 | `sleep_hours` | metrisch | 0 – 12 h | Selbstberichtete Schlafdauer |
 | `stress_rating` | metrisch (Skala) | 0 – 10 | Aktuelles Stress-Erleben |
-| `MZP` | nominal | `t1`, `t2` | Messzeitpunkt (nur in `df_analyse_NEU.csv`) |
 
 ### Rohvariablen der Hiwi-Kodierung (`Lab_Kodierung_NEU.dat`)
 
@@ -79,27 +78,35 @@ Versteckte fehlende Werte kommen als `vergessen`, `nicht erhoben`, `k.A.`, `?` e
 
 ## Wide vs. Long — kurz erklärt
 
-Die `_NEU`-Fragebogendatei liegt im **wide format** vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.
+Alle Pre/Post-Dateien (`WM_Fragebögen_NEU.csv` und `df_analyse_NEU.csv`) liegen im **wide format** vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.
 
 ```r
-# wide (WM_Fragebögen_NEU.csv):
+# wide:
 # id  wm_score_t1  wm_score_t2  sleep_hours_t1  sleep_hours_t2  …
-#  1           26           31             7.9             8.1
+#  1           26           NA             7.9             8.1
 #  2           37           31             7.9              NA
 ```
 
-Für viele Analysen (Visualisierung mit ggplot2, Gruppierung nach Messzeitpunkt, Repeated-Measures-ANOVA) ist das **long format** praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte `MZP`.
+Für bestimmte Analysen (etwa vergleichende Reporting-Tabellen oder Visualisierung nach Messzeitpunkt) ist das **long format** praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte `MZP`.
 
 ```r
-# long (df_analyse_NEU.csv):
+# long (bei Bedarf aus wide erzeugen):
+library(tidyr)
+df_long <- df_analyse |>
+  pivot_longer(
+    cols          = c(starts_with("wm_score_"),
+                      starts_with("sleep_hours_"),
+                      starts_with("stress_rating_")),
+    names_to      = c(".value", "MZP"),
+    names_pattern = "(.+)_(t[12])$"
+  )
+
 # id  MZP  wm_score  sleep_hours  stress_rating
 #  1  t1         26          7.9           NA
 #  1  t2         NA          8.1          4.8
-#  2  t1         37          7.9          3.8
-#  2  t2         31           NA          7.1
 ```
 
-Die Umwandlung gelingt mit `tidyr::pivot_longer()`. Das Muster haben Sie in Übung 4 am Einzelmessungs-Datensatz gesehen.
+Für ANOVA und Regression mit Baseline-Kontrolle (S11/S12) ist wide direkt nutzbar; für deskriptive Pre/Post-Tabellen oder facettierte Plots lohnt sich der `pivot_longer()`-Schritt.
 
 ------------------------------------------------------------------------
 
@@ -107,7 +114,7 @@ Die Umwandlung gelingt mit `tidyr::pivot_longer()`. Das Muster haben Sie in Übu
 
 - **Übungen 1–6**: die ursprünglichen Dateien (`WM_Fragebögen.csv`, `Lab_Kodierung.dat`). In den webR-Konsolen auf der Website sind sie bereits integriert.
 - **Übungen 7–12**: die `_NEU`-Dateien. Ebenfalls in den webR-Konsolen vorbereitet; die Aufbereitungspipeline (Import, Merge, Recode) wird in jeder Übung inline gezeigt.
-- **`df_analyse_NEU.csv`**: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Enthält bereits eine `MZP`-Spalte im long format und lässt sich direkt einlesen:
+- **`df_analyse_NEU.csv`**: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Bereits bereinigt und im gleichen wide format wie die inline-Pipeline in Übung 7. Direkt einlesbar:
 
 ```r
 library(here)
@@ -150,4 +157,4 @@ Wenn Spaltennamen wie `"Ã¶"` statt `"ö"` erscheinen: `read.csv2(..., fileEnco
 
 ## Changelog
 
-**2026-04-17**: Überarbeitete Simulationspipeline. Die `_NEU`-Dateien enthalten jetzt Pre/Post-Messungen für `wm_score`, `sleep_hours` und `stress_rating`. Zusätzlich bereitgestellt: `df_analyse_NEU.csv` (tidy long mit `MZP`).
+**2026-04-17**: Überarbeitete Simulationspipeline. Die `_NEU`-Dateien enthalten jetzt Pre/Post-Messungen für `wm_score`, `sleep_hours` und `stress_rating`. Zusätzlich bereitgestellt: `df_analyse_NEU.csv` (bereinigt, wide mit `_t1`/`_t2`).

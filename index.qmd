@@ -7,7 +7,7 @@ author: "Gidon Frischkorn"
 ::: {.callout-note}
 ## Neu ab Sitzung 7: aktualisierte Datensätze
 
-Die Datensätze wurden auf eine Pre/Post-Erhebung erweitert (Suffix `_t1` / `_t2`). Übungen 1–6 bleiben unverändert, Übungen 7–12 nutzen die neuen `_NEU`-Dateien. Für Übungen 11 und 12 steht zusätzlich `df_analyse_NEU.csv` als analysefertige Rückfalloption bereit (auf OLAT und im Kurs-Repo).
+Die Datensätze wurden auf eine Pre/Post-Erhebung erweitert (Suffix `_t1` / `_t2`). Übungen 1–6 bleiben unverändert, Übungen 7–12 nutzen die neuen `_NEU`-Dateien. Für Übungen 11 und 12 steht zusätzlich `df_analyse_NEU.csv` als bereinigter Analyse-Datensatz bereit (auf OLAT und im Kurs-Repo).
 
 Details, Codebook und typische Umstiegsfehler: Seite [Datensätze](datensaetze.qmd).
 :::

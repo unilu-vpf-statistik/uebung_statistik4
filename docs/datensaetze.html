@@ -360,8 +360,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><code>df_analyse_NEU.csv</code></td>
-<td><strong>Analysefertig</strong> (bereinigt, tidy long mit <code>MZP</code>)</td>
-<td>CSV (long)</td>
+<td><strong>Analysefertig</strong> (bereinigt, wide mit <code>_t1</code>/<code>_t2</code>)</td>
+<td>CSV (wide)</td>
 <td>Rückfall S11 / S12</td>
 </tr>
 </tbody>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td><code>gruppe</code></td>
 <td>nominal</td>
-<td><code>Stress</code>, <code>Kontrollgruppe</code></td>
+<td><code>Stress</code>, <code>KG</code></td>
 <td>Experimentelle Bedingung</td>
 </tr>
 <tr class="even">
@@ -484,12 +484,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0 – 10</td>
 <td>Aktuelles Stress-Erleben</td>
 </tr>
-<tr class="even">
-<td><code>MZP</code></td>
-<td>nominal</td>
-<td><code>t1</code>, <code>t2</code></td>
-<td>Messzeitpunkt (nur in <code>df_analyse_NEU.csv</code>)</td>
-</tr>
 </tbody>
 </table>
 </section>
@@ -542,19 +536,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="wide-vs.-long-kurz-erklärt" class="level2">
 <h2 class="anchored" data-anchor-id="wide-vs.-long-kurz-erklärt">Wide vs.&nbsp;Long — kurz erklärt</h2>
-<p>Die <code>_NEU</code>-Fragebogendatei liegt im <strong>wide format</strong> vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wide (WM_Fragebögen_NEU.csv):</span></span>
+<p>Alle Pre/Post-Dateien (<code>WM_Fragebögen_NEU.csv</code> und <code>df_analyse_NEU.csv</code>) liegen im <strong>wide format</strong> vor: pro Person eine Zeile, die beiden Messzeitpunkte stehen als separate Spalten nebeneinander.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wide:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id  wm_score_t1  wm_score_t2  sleep_hours_t1  sleep_hours_t2  …</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1           26           31             7.9             8.1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1           26           NA             7.9             8.1</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  2           37           31             7.9              NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Für viele Analysen (Visualisierung mit ggplot2, Gruppierung nach Messzeitpunkt, Repeated-Measures-ANOVA) ist das <strong>long format</strong> praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte <code>MZP</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># long (df_analyse_NEU.csv):</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id  MZP  wm_score  sleep_hours  stress_rating</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t1         26          7.9           NA</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t2         NA          8.1          4.8</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  2  t1         37          7.9          3.8</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  2  t2         31           NA          7.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Die Umwandlung gelingt mit <code>tidyr::pivot_longer()</code>. Das Muster haben Sie in Übung 4 am Einzelmessungs-Datensatz gesehen.</p>
+<p>Für bestimmte Analysen (etwa vergleichende Reporting-Tabellen oder Visualisierung nach Messzeitpunkt) ist das <strong>long format</strong> praktischer: pro Person × Messzeitpunkt eine Zeile, mit einer zusätzlichen Spalte <code>MZP</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># long (bei Bedarf aus wide erzeugen):</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_analyse <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols          =</span> <span class="fu">c</span>(<span class="fu">starts_with</span>(<span class="st">"wm_score_"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">starts_with</span>(<span class="st">"sleep_hours_"</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">starts_with</span>(<span class="st">"stress_rating_"</span>)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to      =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"MZP"</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"(.+)_(t[12])$"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># id  MZP  wm_score  sleep_hours  stress_rating</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t1         26          7.9           NA</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  1  t2         NA          8.1          4.8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Für ANOVA und Regression mit Baseline-Kontrolle (S11/S12) ist wide direkt nutzbar; für deskriptive Pre/Post-Tabellen oder facettierte Plots lohnt sich der <code>pivot_longer()</code>-Schritt.</p>
 <hr>
 </section>
 <section id="welche-datei-verwende-ich-wann" class="level2">
@@ -562,7 +564,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Übungen 1–6</strong>: die ursprünglichen Dateien (<code>WM_Fragebögen.csv</code>, <code>Lab_Kodierung.dat</code>). In den webR-Konsolen auf der Website sind sie bereits integriert.</li>
 <li><strong>Übungen 7–12</strong>: die <code>_NEU</code>-Dateien. Ebenfalls in den webR-Konsolen vorbereitet; die Aufbereitungspipeline (Import, Merge, Recode) wird in jeder Übung inline gezeigt.</li>
-<li><strong><code>df_analyse_NEU.csv</code></strong>: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Enthält bereits eine <code>MZP</code>-Spalte im long format und lässt sich direkt einlesen:</li>
+<li><strong><code>df_analyse_NEU.csv</code></strong>: Rückfalloption für Übungen 11 und 12, wenn die Datenaufbereitung Sie zu viel Zeit kostet. Bereits bereinigt und im gleichen wide format wie die inline-Pipeline in Übung 7. Direkt einlesbar:</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_analyse <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="fu">here</span>(<span class="st">"daten"</span>, <span class="st">"df_analyse_NEU.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -598,7 +600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="changelog" class="level2">
 <h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
-<p><strong>2026-04-17</strong>: Überarbeitete Simulationspipeline. Die <code>_NEU</code>-Dateien enthalten jetzt Pre/Post-Messungen für <code>wm_score</code>, <code>sleep_hours</code> und <code>stress_rating</code>. Zusätzlich bereitgestellt: <code>df_analyse_NEU.csv</code> (tidy long mit <code>MZP</code>).</p>
+<p><strong>2026-04-17</strong>: Überarbeitete Simulationspipeline. Die <code>_NEU</code>-Dateien enthalten jetzt Pre/Post-Messungen für <code>wm_score</code>, <code>sleep_hours</code> und <code>stress_rating</code>. Zusätzlich bereitgestellt: <code>df_analyse_NEU.csv</code> (bereinigt, wide mit <code>_t1</code>/<code>_t2</code>).</p>
 
 
 </section>

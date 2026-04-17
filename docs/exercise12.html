@@ -2205,40 +2205,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu Regression und Vorhersagen.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie rechnen ein Regressionsmodell mit Interaktion und erhalten folgenden Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter <span class="sc">*</span> gruppe, <span class="at">data =</span> daten)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre><code>Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)       10.20      5.89    1.73   0.087
-alter              1.05      0.35    3.00   0.003 **
-gruppeEG           8.40      8.34    1.01   0.317
-alter:gruppeEG    -0.48      0.50   -0.96   0.340</code></pre>
-<p>Welche Aussage zur Interpretation des <strong>Interaktionsterms</strong> <code>alter:gruppeEG</code> ist korrekt?</p>
-<div id="webex-77d8f8123fa98bb360856ac3db44e9e6" class="webex-radiogroup" data-answer="bAZICEoIHQJu">
-<label><input type="radio" autocomplete="off" name="77d8f8123fa98bb360856ac3db44e9e6"><span>Der Interaktionsterm ist nicht signifikant (p = .340), also ist der Zusammenhang zwischen Alter und WM-Score in beiden Gruppen vergleichbar — die Steigung unterscheidet sich nicht bedeutsam.</span></label><label><input type="radio" autocomplete="off" name="77d8f8123fa98bb360856ac3db44e9e6"><span>Der Koeffizient <code>alter = 1.05</code> ist der durchschnittliche Alterseffekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="77d8f8123fa98bb360856ac3db44e9e6"><span>Der negative Wert von -0.48 bedeutet, dass Alter in der EG einen negativen Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="77d8f8123fa98bb360856ac3db44e9e6"><span>Da der Interaktionsterm nicht signifikant ist, sollten <code>alter</code> und <code>gruppeEG</code> aus dem Modell entfernt werden.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Der Interaktionsterm <code>alter:gruppeEG</code> testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist, dass <code>alter = 1.05</code> der Durchschnitt über beide Gruppen sei — es ist der Alterseffekt in der Referenzgruppe (KG). Falsch ist auch, dass der negative Wert von -0.48 auf einen negativen Zusammenhang in der EG hinweise: -0.48 ist die Differenz der Steigungen (EG vs.&nbsp;KG) — der Effekt in der EG beträgt 1.05 - 0.48 = 0.57 und bleibt positiv, nur schwächer. Falsch ist ausserdem, dass ein nicht-signifikanter Interaktionsterm das Entfernen der Haupteffekte rechtfertige — nur die Interaktion kann entfernt werden, die Haupteffekte bleiben im Modell.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie vergleichen ein einfaches und ein erweitertes Regressionsmodell:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter, <span class="at">data =</span> daten)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter <span class="sc">+</span> stress <span class="sc">+</span> schlaf, <span class="at">data =</span> daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter, <span class="at">data =</span> daten)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter <span class="sc">+</span> stress <span class="sc">+</span> schlaf, <span class="at">data =</span> daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>modell1</code> hat R² = .067, <code>modell2</code> hat R² = .142. Sie führen einen Modellvergleich durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis of Variance Table</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: wm_score ~ alter</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: wm_score ~ alter + stress + schlaf</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   Res.Df   RSS  Df Sum of Sq    F  Pr(&gt;F)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1     98 13392</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2     96 12314  2     1078  4.21  0.018 *</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis of Variance Table</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: wm_score ~ alter</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: wm_score ~ alter + stress + schlaf</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   Res.Df   RSS  Df Sum of Sq    F  Pr(&gt;F)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1     98 13392</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2     96 12314  2     1078  4.21  0.018 *</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Was lässt sich aus diesem Vergleich schliessen?</p>
-<div id="webex-46074ace70363850bd8b5574fe0c2270" class="webex-checkboxgroup" data-answer="bwccBhhQT1Vq">
-<label><input type="checkbox" autocomplete="off" name="46074ace70363850bd8b5574fe0c2270"><span>Das erweiterte Modell (mit Stress und Schlaf) erklärt signifikant mehr Varianz als das einfache Modell (p = .018), daher ist die Aufnahme der zusätzlichen Prädiktoren gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="46074ace70363850bd8b5574fe0c2270"><span>Da R² von .067 auf .142 gestiegen ist, hat sich die erklärte Varianz mehr als verdoppelt — die Prädiktoren Stress und Schlaf tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="46074ace70363850bd8b5574fe0c2270"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="46074ace70363850bd8b5574fe0c2270"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .142 immer noch niedrig ist.</span></label>
+<div id="webex-59badd845a19c4a6ab9af44e4cf4f6c8" class="webex-checkboxgroup" data-answer="bghOUEhVFARo">
+<label><input type="checkbox" autocomplete="off" name="59badd845a19c4a6ab9af44e4cf4f6c8"><span>Das erweiterte Modell (mit Stress und Schlaf) erklärt signifikant mehr Varianz als das einfache Modell (p = .018), daher ist die Aufnahme der zusätzlichen Prädiktoren gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="59badd845a19c4a6ab9af44e4cf4f6c8"><span>Da R² von .067 auf .142 gestiegen ist, hat sich die erklärte Varianz mehr als verdoppelt — die Prädiktoren Stress und Schlaf tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="59badd845a19c4a6ab9af44e4cf4f6c8"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="59badd845a19c4a6ab9af44e4cf4f6c8"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .142 immer noch niedrig ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2256,12 +2236,32 @@ alter           0.82      0.31    2.65   0.009 **
 Residual standard error: 12.1 on 98 degrees of freedom
 Multiple R-squared: 0.067, Adjusted R-squared: 0.057</code></pre>
 <p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-aa011612e1d64227cf950e20a6d28996" class="webex-checkboxgroup" data-answer="OlAcAB0HHQI4">
-<label><input type="checkbox" autocomplete="off" name="aa011612e1d64227cf950e20a6d28996"><span>Die Zeile <code>alter</code> zeigt: Pro zusätzliches Lebensjahr steigt der WM-Score im Durchschnitt um 0.82 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .009).</span></label><label><input type="checkbox" autocomplete="off" name="aa011612e1d64227cf950e20a6d28996"><span>Der Wert <code>Multiple R-squared: 0.067</code> bedeutet, dass das Modell 6.7% der Varianz im WM-Score erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="aa011612e1d64227cf950e20a6d28996"><span>Der <code>(Intercept)</code> von 12.50 ist der vorhergesagte WM-Score für eine Person mit Alter = 0, was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="aa011612e1d64227cf950e20a6d28996"><span>Der <code>Std. Error</code> von 0.31 für Alter gibt die Standardabweichung der Variable Alter im Datensatz an.</span></label>
+<div id="webex-62b8e3cdc4a3690aeeba5462c41f5354" class="webex-checkboxgroup" data-answer="bQNOCUkCT1Q+">
+<label><input type="checkbox" autocomplete="off" name="62b8e3cdc4a3690aeeba5462c41f5354"><span>Die Zeile <code>alter</code> zeigt: Pro zusätzliches Lebensjahr steigt der WM-Score im Durchschnitt um 0.82 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .009).</span></label><label><input type="checkbox" autocomplete="off" name="62b8e3cdc4a3690aeeba5462c41f5354"><span>Der Wert <code>Multiple R-squared: 0.067</code> bedeutet, dass das Modell 6.7% der Varianz im WM-Score erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="62b8e3cdc4a3690aeeba5462c41f5354"><span>Der <code>(Intercept)</code> von 12.50 ist der vorhergesagte WM-Score für eine Person mit Alter = 0, was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="62b8e3cdc4a3690aeeba5462c41f5354"><span>Der <code>Std. Error</code> von 0.31 für Alter gibt die Standardabweichung der Variable Alter im Datensatz an.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Koeffizient <code>Estimate = 0.82</code> für Alter beschreibt die Steigung: Pro Jahr Altersunterschied ändert sich der WM-Score im Schnitt um 0.82 Punkte. R² = .067 bedeutet, dass nur 6.7% der Varianz durch Alter erklärt werden. Der Intercept (12.50) ist der vorhergesagte Wert bei x = 0 — bei Alter = 0 inhaltlich nicht sinnvoll interpretierbar, aber mathematisch notwendig. Falsch ist hingegen: Der Standardfehler (<code>Std. Error = 0.31</code>) ist nicht die Streuung der Variable Alter, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 0.82 geschätzt wurde.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie rechnen ein Regressionsmodell mit Interaktion und erhalten folgenden Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score <span class="sc">~</span> alter <span class="sc">*</span> gruppe, <span class="at">data =</span> daten)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)       10.20      5.89    1.73   0.087
+alter              1.05      0.35    3.00   0.003 **
+gruppeEG           8.40      8.34    1.01   0.317
+alter:gruppeEG    -0.48      0.50   -0.96   0.340</code></pre>
+<p>Welche Aussage zur Interpretation des <strong>Interaktionsterms</strong> <code>alter:gruppeEG</code> ist korrekt?</p>
+<div id="webex-548249d7fb4583eb324c45d6e1d5984e" class="webex-radiogroup" data-answer="bgUUAhgJSAc7">
+<label><input type="radio" autocomplete="off" name="548249d7fb4583eb324c45d6e1d5984e"><span>Der Interaktionsterm ist nicht signifikant (p = .340), also ist der Zusammenhang zwischen Alter und WM-Score in beiden Gruppen vergleichbar — die Steigung unterscheidet sich nicht bedeutsam.</span></label><label><input type="radio" autocomplete="off" name="548249d7fb4583eb324c45d6e1d5984e"><span>Der Koeffizient <code>alter = 1.05</code> ist der durchschnittliche Alterseffekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="548249d7fb4583eb324c45d6e1d5984e"><span>Der negative Wert von -0.48 bedeutet, dass Alter in der EG einen negativen Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="548249d7fb4583eb324c45d6e1d5984e"><span>Da der Interaktionsterm nicht signifikant ist, sollten <code>alter</code> und <code>gruppeEG</code> aus dem Modell entfernt werden.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Der Interaktionsterm <code>alter:gruppeEG</code> testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist, dass <code>alter = 1.05</code> der Durchschnitt über beide Gruppen sei — es ist der Alterseffekt in der Referenzgruppe (KG). Falsch ist auch, dass der negative Wert von -0.48 auf einen negativen Zusammenhang in der EG hinweise: -0.48 ist die Differenz der Steigungen (EG vs.&nbsp;KG) — der Effekt in der EG beträgt 1.05 - 0.48 = 0.57 und bleibt positiv, nur schwächer. Falsch ist ausserdem, dass ein nicht-signifikanter Interaktionsterm das Entfernen der Haupteffekte rechtfertige — nur die Interaktion kann entfernt werden, die Haupteffekte bleiben im Modell.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
