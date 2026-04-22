@@ -124,47 +124,52 @@ str(df_plot)
 head(df_plot)
 
 # --- Aufgabe 1: Histogramm (Long) ---
-# Verteilung von wm pro Messzeitpunkt:
-ggplot(df_plot, aes(x = wm, fill = MZP)) +
-  geom_histogram(bins = 15, position = position_dodge()) +
-  labs(title = "Verteilung WM-Score nach Messzeitpunkt",
-       x = "WM-Score", y = "Häufigkeit", fill = "Messzeitpunkt") +
-  theme_minimal()
+# Erstellen Sie ein Histogramm von `wm` aus `df_plot`, eingefärbt
+# nach Messzeitpunkt (`fill = MZP`). Verwenden Sie
+# `position = position_dodge()`, damit die Balken nebeneinander
+# statt übereinander stehen.
+#
+# Frage: Was zeigt die Verteilungsform pro Messzeitpunkt?
+
+# Ihr Code hier:
+
+
 
 # --- Aufgabe 2: Boxplot (Long) ---
-# Gruppenvergleich × Messzeitpunkt:
-ggplot(df_plot |> filter(!is.na(gruppe)),
-       aes(x = MZP, y = wm, fill = gruppe)) +
-  geom_boxplot() +
-  labs(title = "WM-Score nach Messzeitpunkt und Gruppe",
-       x = "Messzeitpunkt", y = "WM-Score", fill = "Gruppe") +
-  theme_minimal()
+# Erstellen Sie einen Boxplot aus `df_plot` mit Messzeitpunkt
+# auf der x-Achse (`x = MZP`), `wm` auf der y-Achse und
+# `fill = gruppe`. Filtern Sie fehlende Gruppen heraus.
+#
+# Frage: Welchen Unterschied macht die zusätzliche Gruppierung
+# (`fill = gruppe`) gegenüber Aufgabe 1?
+
+# Ihr Code hier:
+
+
 
 # --- Aufgabe 3: Streudiagramm (Wide!) ---
-# Stabilität der individuellen WM-Leistung von T1 zu T2:
-ggplot(df_analyse |> filter(!is.na(gruppe)),
-       aes(x = wm_score_t1, y = wm_score_t2, color = gruppe)) +
-  geom_point(alpha = 0.6) +
-  labs(title = "WM-Score: Baseline vs. Post",
-       x = "WM-Score T1 (Baseline)",
-       y = "WM-Score T2 (nach Intervention)",
-       color = "Gruppe") +
-  theme_minimal()
+# Erstellen Sie ein Streudiagramm aus `df_analyse` (nicht
+# df_plot!) mit `wm_score_t1` auf der x-Achse, `wm_score_t2`
+# auf der y-Achse und `color = gruppe`.
+#
+# Frage: Wie stabil ist die WM-Leistung zwischen T1 und T2?
+
+# Ihr Code hier:
+
+
 
 # --- Aufgabe 4 (Vertiefung): Kombinierter Plot ---
-# Boxplot (links) + Jitter (Mitte) + Mittelwert mit CI (rechts).
-# Nur Baseline, damit die Schichten sichtbar bleiben.
-ggplot(df_analyse |> filter(!is.na(gruppe)),
-       aes(x = gruppe, y = wm_score_t1)) +
-  geom_boxplot(width = 0.15, alpha = 0.6,
-               position = position_nudge(x = -0.2)) +
-  geom_jitter(width = 0.08, alpha = 0.5) +
-  stat_summary(fun.data = mean_cl_normal, geom = "pointrange",
-               color = "red", size = 0.7,
-               position = position_nudge(x = 0.2)) +
-  labs(title = "WM-Score Baseline: Box + Jitter + Mittelwert mit 95%-CI",
-       x = "Gruppe", y = "WM-Score T1") +
-  theme_minimal()
+# Bauen Sie einen Plot aus drei Schichten auf:
+#   - Boxplot, schmal (width = 0.15) und nach links verschoben
+#     (position = position_nudge(x = -0.2))
+#   - geom_jitter() zentriert (width = 0.08, alpha = 0.5)
+#   - stat_summary(fun.data = mean_cl_normal, geom = "pointrange")
+#     in rot und nach rechts verschoben
+# Für `aes(x = gruppe, y = wm_score_t1)` auf df_analyse.
+
+# Ihr Code hier:
+
+
 
 # Reflexion: Warum brauchten Aufgaben 1 und 2 df_plot (Long),
 # während Aufgabe 3 df_analyse (Wide) verlangt? Welche Variablen
