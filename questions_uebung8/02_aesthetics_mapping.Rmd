@@ -1,0 +1,21 @@
+Question
+========
+Welche der folgenden Aussagen zum Umgang mit **Aesthetics** in ggplot2 sind korrekt?
+
+Answerlist
+----------
+* Eine Aesthetic, die **von einer Variable gesteuert** werden soll (z. B. Farbe pro Gruppe), gehört innerhalb von `aes(...)`; ein fester Wert (z. B. alle Punkte blau) gehört ausserhalb von `aes(...)`.
+* `geom_point(aes(color = "blue"))` ist der korrekte Weg, um alle Punkte blau zu färben, weil der Farbwert innerhalb von `aes(...)` stehen muss.
+* Die Aesthetic `shape` in einem Scatterplot eignet sich besonders, wenn Farbe bereits anderweitig belegt ist oder die Grafik schwarz-weiss gedruckt werden soll.
+* Dieselben Daten können mit `fill = gruppe` im Boxplot und `color = gruppe` im Histogramm gezeigt werden — die Wahl richtet sich nach der geometrischen Form (Fläche vs. Linie), nicht nach dem Datentyp.
+
+Solution
+========
+Aesthetics, die von einer Variable abhängen, müssen **innerhalb** von `aes(...)` stehen — nur dann koppelt ggplot2 die visuelle Eigenschaft an Werte der Variable. Feste Werte (z. B. einheitliche Farbe) stehen **ausserhalb** von `aes(...)`. Die zweite Aussage ist deshalb falsch: `aes(color = "blue")` würde `"blue"` als kategoriale Variable interpretieren und eine (unsinnige) Legende erzeugen; korrekt wäre `geom_point(color = "blue")`. Die Aussage zu `shape` ist richtig — Symbolformen sind nützlich, wenn Farbe nicht verfügbar ist oder die Grafik schwarz-weiss reproduziert wird. Ebenso korrekt ist, dass sich die Wahl zwischen `fill` (Fläche) und `color` (Linie/Rand) nach der Geometrie richtet: Boxplots haben Flächen (`fill`), Histogramm-Linien oder Scatter-Punkte werden über `color` eingefärbt.
+
+Meta-information
+================
+exname: aesthetics_mapping
+extype: mchoice
+exsolution: 1011
+exshuffle: FALSE

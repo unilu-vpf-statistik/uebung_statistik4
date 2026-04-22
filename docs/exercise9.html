@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gidon Frischkorn">
 
-<title>Übung 9 - Datenvisualisierung: Vertiefung (Selbststudium) – Übungen - VL: Statistik IV</title>
+<title>Übung 9 - Datenvisualisierung II: Vertiefung (Selbststudium) – Übungen - VL: Statistik IV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen_NEU.csv\"), \"WM_Fragebögen_NEU.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung_NEU.dat\"), \"Lab_Kodierung_NEU.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\n# Datensätze mit Pre/Post-Messung — _t1 = Baseline, _t2 = nach Intervention.\nwm_daten <- read.csv2(\"WM_Fragebögen_NEU.csv\")\nlab_daten <- read.table(\"Lab_Kodierung_NEU.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe A1: Facettiertes Histogramm ---\n# Erstellen Sie ein Histogramm für wm_score_t2, facettiert nach gruppe:\nggplot(wm_daten, aes(x = wm_score_t2)) +\n  geom_histogram(bins = 12, fill = \"steelblue\", color = \"white\") +\n  facet_wrap(~gruppe) +\n  labs(title = \"WM-Score nach Intervention, nach Gruppe\",\n       x = \"WM-Score (Post)\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# --- Aufgabe A2: Reflexion ---\n# Vergleichen Sie die Verteilungen: Haben die Gruppen\n# ähnliche Verteilungsformen? Wo unterscheiden sie sich?","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# --- Aufgabe B1: Boxplot mit Theme und Beschriftung ---\n# Erstellen Sie einen Boxplot für wm_score_t2 nach gruppe,\n# mit theme_bw() und vollständiger Beschriftung:\nggplot(wm_daten, aes(x = gruppe, y = wm_score_t2, fill = gruppe)) +\n  geom_boxplot() +\n  labs(\n    title = \"WM-Score nach Intervention nach Versuchsgruppe\",\n    x = \"Versuchsgruppe\",\n    y = \"Working-Memory-Score nach Intervention (Punkte)\",\n    fill = \"Gruppe\"\n  ) +\n  theme_bw()\n\n# --- Aufgabe B2: Theme-Vergleich ---\n# Ersetzen Sie theme_bw() durch theme_classic() —\n# was ändert sich am Erscheinungsbild?\n\n# --- Aufgabe B3: ggsave (Syntax-Demonstration) ---\n# So würden Sie die Grafik exportieren (funktioniert\n# nicht in webR, aber merken Sie sich die Syntax):\n# ggsave(\"wm_boxplot.pdf\", width = 15, height = 10, units = \"cm\", dpi = 300)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"df_analyse_NEU.csv\"), \"df_analyse_NEU.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(stringr)\nlibrary(ggplot2)\n\n# Analysedatensatz einlesen (wie in Übung 8)\ndf_analyse <- read.csv2(\"df_analyse_NEU.csv\")\n\n# Tidy-Umwandlung (analog zur Übung 8)\ndf_plot <- df_analyse |>\n  pivot_longer(cols = ends_with(\"t1\") | ends_with(\"t2\")) |>\n  mutate(MZP     = str_split_i(name, \"_\", 3),\n         measure = str_split_i(name, \"_\", 1)) |>\n  select(-name) |>\n  pivot_wider(names_from = measure, values_from = value) |>\n  filter(!is.na(gruppe))\n\n# --- Aufgabe A1: Facettiertes Histogramm mit facet_wrap ---\nggplot(df_plot, aes(x = wm)) +\n  geom_histogram(bins = 12, fill = \"steelblue\", color = \"white\") +\n  facet_wrap(~gruppe) +\n  labs(title = \"WM-Score nach Gruppe\",\n       x = \"WM-Score\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# --- Aufgabe A2: facet_grid mit zwei Faktoren ---\n# Gruppe (Zeile) × Messzeitpunkt (Spalte):\nggplot(df_plot, aes(x = wm)) +\n  geom_histogram(bins = 12, fill = \"steelblue\", color = \"white\") +\n  facet_grid(gruppe ~ MZP) +\n  labs(title = \"WM-Score nach Gruppe × Messzeitpunkt\",\n       x = \"WM-Score\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# --- Aufgabe A3: scales = \"free_y\" ---\n# Was ändert sich, wenn die y-Achsen pro Panel frei skaliert werden?\nggplot(df_plot, aes(x = wm)) +\n  geom_histogram(bins = 12, fill = \"steelblue\", color = \"white\") +\n  facet_wrap(~gruppe, scales = \"free_y\") +\n  labs(title = \"WM-Score nach Gruppe (freie y-Achsen)\",\n       x = \"WM-Score\", y = \"Häufigkeit\") +\n  theme_minimal()\n\n# Reflexion: Welche Plot-Variante erlaubt den direkten Vergleich\n# der Gruppen-Grössen? Wann hilft \"free_y\", wann führt es in die Irre?","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# --- Aufgabe B1: Boxplot mit Theme, Beschriftung und Farbpalette ---\nggplot(df_plot, aes(x = gruppe, y = wm, fill = gruppe)) +\n  geom_boxplot() +\n  scale_fill_brewer(palette = \"Set2\") +\n  labs(\n    title = \"WM-Score nach Versuchsgruppe\",\n    x = \"Versuchsgruppe\",\n    y = \"Working-Memory-Score (Punkte)\",\n    fill = \"Gruppe\",\n    caption = \"Daten: WM-Studie FS2026\"\n  ) +\n  theme_bw()\n\n# --- Aufgabe B2: Theme-Vergleich ---\n# Ersetzen Sie theme_bw() durch theme_classic() —\n# was ändert sich am Erscheinungsbild (Gitterlinien, Rahmen)?\n\n# --- Aufgabe B3: Farbpaletten-Vergleich ---\n# Probieren Sie scale_fill_viridis_d() statt scale_fill_brewer() aus.\n# Welche Palette ist für Farbfehlsichtigkeit geeigneter?\n\n# --- Aufgabe B4: ggsave (Syntax-Demonstration) ---\n# So würden Sie die Grafik exportieren (funktioniert\n# nicht in webR, aber merken Sie sich die Syntax):\n# ggsave(\"wm_boxplot.pdf\", width = 15, height = 10, units = \"cm\", dpi = 300)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1819,13 +1819,18 @@ globalThis.qwebrExecuteCode = async function (
    
   <ul>
   <li><a href="#welcher-diagrammtyp-für-welche-daten" id="toc-welcher-diagrammtyp-für-welche-daten" class="nav-link active" data-scroll-target="#welcher-diagrammtyp-für-welche-daten">Welcher Diagrammtyp für welche Daten?</a></li>
-  <li><a href="#irreführende-grafiken-erkennen" id="toc-irreführende-grafiken-erkennen" class="nav-link" data-scroll-target="#irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</a></li>
+  <li><a href="#irreführende-grafiken-erkennen" id="toc-irreführende-grafiken-erkennen" class="nav-link" data-scroll-target="#irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</a>
+  <ul class="collapse">
+  <li><a href="#lesebeispiel-abgeschnittene-y-achse" id="toc-lesebeispiel-abgeschnittene-y-achse" class="nav-link" data-scroll-target="#lesebeispiel-abgeschnittene-y-achse">Lesebeispiel: abgeschnittene y-Achse</a></li>
+  </ul></li>
   <li><a href="#facettierung-mehrere-panels-für-vergleiche" id="toc-facettierung-mehrere-panels-für-vergleiche" class="nav-link" data-scroll-target="#facettierung-mehrere-panels-für-vergleiche">Facettierung: Mehrere Panels für Vergleiche</a>
   <ul class="collapse">
   <li><a href="#facet_wrap-ein-faktor" id="toc-facet_wrap-ein-faktor" class="nav-link" data-scroll-target="#facet_wrap-ein-faktor"><code>facet_wrap()</code> — ein Faktor</a></li>
   <li><a href="#facet_grid-zwei-faktoren" id="toc-facet_grid-zwei-faktoren" class="nav-link" data-scroll-target="#facet_grid-zwei-faktoren"><code>facet_grid()</code> — zwei Faktoren</a></li>
+  <li><a href="#achsen-skalen-scales-free-oder-free_y" id="toc-achsen-skalen-scales-free-oder-free_y" class="nav-link" data-scroll-target="#achsen-skalen-scales-free-oder-free_y">Achsen-Skalen: <code>scales = "free"</code> oder <code>"free_y"</code></a></li>
   <li><a href="#entscheidung" id="toc-entscheidung" class="nav-link" data-scroll-target="#entscheidung">Entscheidung</a></li>
   </ul></li>
+  <li><a href="#farbskalen-barrierearmut" id="toc-farbskalen-barrierearmut" class="nav-link" data-scroll-target="#farbskalen-barrierearmut">Farbskalen &amp; Barrierearmut</a></li>
   <li><a href="#publikationsreife-grafiken" id="toc-publikationsreife-grafiken" class="nav-link" data-scroll-target="#publikationsreife-grafiken">Publikationsreife Grafiken</a>
   <ul class="collapse">
   <li><a href="#themes-erscheinungsbild-ändern" id="toc-themes-erscheinungsbild-ändern" class="nav-link" data-scroll-target="#themes-erscheinungsbild-ändern">Themes: Erscheinungsbild ändern</a></li>
@@ -1838,6 +1843,7 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#aufgabe-a-facettierung-ausprobieren" id="toc-aufgabe-a-facettierung-ausprobieren" class="nav-link" data-scroll-target="#aufgabe-a-facettierung-ausprobieren">Aufgabe A: Facettierung ausprobieren</a></li>
   <li><a href="#aufgabe-b-publikationsfertige-grafik" id="toc-aufgabe-b-publikationsfertige-grafik" class="nav-link" data-scroll-target="#aufgabe-b-publikationsfertige-grafik">Aufgabe B: Publikationsfertige Grafik</a></li>
   </ul></li>
+  <li><a href="#weiterführende-materialien" id="toc-weiterführende-materialien" class="nav-link" data-scroll-target="#weiterführende-materialien">Weiterführende Materialien</a></li>
   </ul>
 </nav>
     </div>
@@ -2130,7 +2136,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Übung 9 - Datenvisualisierung: Vertiefung (Selbststudium)</h1>
+<h1 class="title">Übung 9 - Datenvisualisierung II: Vertiefung (Selbststudium)</h1>
 <p class="subtitle lead">FS 2026</p>
 </div>
 
@@ -2164,7 +2170,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9). In der Vorlesung haben Sie die <strong>Grammar of Graphics</strong>, <strong>Geome</strong>, <strong><code>stat_summary()</code></strong> und die <strong>CI-Interpretation</strong> kennengelernt. Die folgenden Themen sind ebenfalls <strong>prüfungsrelevant</strong> und werden hier im Selbststudium behandelt.</p>
+<p>Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9). In der Vorlesung und in <a href="./exercise8.html">Übung 8</a> haben Sie die <strong>Grammar of Graphics</strong>, die wichtigsten <strong>Geome</strong>, <strong>Aesthetics</strong> sowie die Logik der <strong>Verteilungsplots</strong> (<code>stat_summary()</code>, kombinierter Plot) kennengelernt. Die folgenden Themen sind ebenfalls <strong>prüfungsrelevant</strong> und werden hier im Selbststudium behandelt.</p>
 </div>
 </div>
 <section id="welcher-diagrammtyp-für-welche-daten" class="level2">
@@ -2201,12 +2207,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tr>
 <tr class="even">
 <td>1 kategorial × 1 metrisch</td>
-<td>Boxplot</td>
-<td><code>geom_boxplot()</code></td>
+<td>Boxplot / Jitter</td>
+<td><code>geom_boxplot()</code>, <code>geom_jitter()</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Entscheidungshilfe:</strong> Fragen Sie sich zuerst: <em>Wie viele Variablen möchte ich zeigen?</em> Dann: <em>Welches Skalenniveau haben sie?</em> Die Antwort bestimmt den Diagrammtyp. Ein häufiger Fehler ist, einen Balkenplot für metrische Daten zu verwenden — dabei geht die gesamte Verteilungsinformation verloren.</p>
+<p><strong>Entscheidungshilfe:</strong> Fragen Sie sich zuerst: <em>Wie viele Variablen möchte ich zeigen?</em> Dann: <em>Welches Skalenniveau haben sie?</em> Die Antwort bestimmt den Diagrammtyp. Ein häufiger Fehler ist, einen Balkenplot mit Mittelwerten für metrische Daten zu verwenden — dabei geht die gesamte Verteilungsinformation verloren. Die Faustregel aus der Vorlesung: <strong>Verteilung zeigen statt Mittelwert</strong> — Boxplot oder Jitter liefern mehr Information als ein Balken.</p>
 </section>
 <section id="irreführende-grafiken-erkennen" class="level2">
 <h2 class="anchored" data-anchor-id="irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</h2>
@@ -2217,7 +2223,16 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><p><strong>Fehlende Beschriftung</strong>: Ohne Achsentitel, Einheiten und Legende ist eine Grafik nicht interpretierbar. Variablennamen wie <code>wm_score_t2</code> sind keine geeigneten Achsenbeschriftungen — stattdessen: „Working-Memory-Score nach Intervention (Punkte)“.</p></li>
 <li><p><strong>Ungeeigneter Diagrammtyp</strong>: Tortendiagramme sind für Vergleiche schlecht geeignet, weil Menschen Winkel schlechter vergleichen als Längen. Ein Balkendiagramm zeigt dieselbe Information deutlich klarer.</p></li>
 </ol>
-<p><strong>Reflexionsfrage:</strong> <em>Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken) irreführend? Was fehlt?</em></p>
+<section id="lesebeispiel-abgeschnittene-y-achse" class="level3">
+<h3 class="anchored" data-anchor-id="lesebeispiel-abgeschnittene-y-achse">Lesebeispiel: abgeschnittene y-Achse</h3>
+<p>Stellen Sie sich zwei Gruppen mit Mittelwerten 28 und 26 vor (WM-Score). Derselbe Unterschied wirkt in zwei Balkendiagrammen sehr unterschiedlich:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Irreführend: y-Achse startet bei 25 — Balken optisch doppelt so hoch</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ehrlich: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Reflexionsfrage:</strong> Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) <strong>doppelt</strong> irreführend? Was fehlt — und was wird übertrieben?</p>
+</section>
 </section>
 <section id="facettierung-mehrere-panels-für-vergleiche" class="level2">
 <h2 class="anchored" data-anchor-id="facettierung-mehrere-panels-für-vergleiche">Facettierung: Mehrere Panels für Vergleiche</h2>
@@ -2225,18 +2240,26 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="facet_wrap-ein-faktor" class="level3">
 <h3 class="anchored" data-anchor-id="facet_wrap-ein-faktor"><code>facet_wrap()</code> — ein Faktor</h3>
 <p><code>facet_wrap(~var)</code> erzeugt ein Panel pro Ausprägung. Die Panels fliessen von links nach rechts (wie Textumbruch). Mit <code>ncol</code> können Sie die Anzahl Spalten steuern.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gruppe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gruppe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Wann sinnvoll:</strong> Verteilungen vergleichen, &gt;3 Gruppen, zeitliche Verläufe.</p>
 </section>
 <section id="facet_grid-zwei-faktoren" class="level3">
 <h3 class="anchored" data-anchor-id="facet_grid-zwei-faktoren"><code>facet_grid()</code> — zwei Faktoren</h3>
 <p><code>facet_grid(zeile ~ spalte)</code> erzeugt ein Matrix-Layout: Zeilen entsprechen einer Variable, Spalten einer anderen. So werden <strong>Interaktionen</strong> zwischen zwei Faktoren direkt sichtbar.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geschlecht <span class="sc">~</span> gruppe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geschlecht <span class="sc">~</span> gruppe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Wann sinnvoll:</strong> Zwei Gruppierungsvariablen, Interaktionsmuster sichtbar machen.</p>
+</section>
+<section id="achsen-skalen-scales-free-oder-free_y" class="level3">
+<h3 class="anchored" data-anchor-id="achsen-skalen-scales-free-oder-free_y">Achsen-Skalen: <code>scales = "free"</code> oder <code>"free_y"</code></h3>
+<p>Standardmässig teilen alle Facetten <strong>dieselbe Achsenskala</strong>, was den direkten Vergleich erlaubt. Manchmal unterscheiden sich die Variablenbereiche aber so stark, dass in einzelnen Panels fast nichts zu sehen wäre — dann hilft <code>scales = "free_y"</code> (nur y-Achse frei) oder <code>scales = "free"</code> (beide Achsen frei):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gruppe, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Achtung</strong>: Freie Skalen machen <strong>Niveauvergleiche zwischen Panels unmöglich</strong> — nutzen Sie sie nur, wenn die Form der Verteilung (nicht die Höhe) interessiert. Bei Gruppenvergleichen im selben Maßstab lieber die Default-Einstellung beibehalten.</p>
 </section>
 <section id="entscheidung" class="level3">
 <h3 class="anchored" data-anchor-id="entscheidung">Entscheidung</h3>
@@ -2264,10 +2287,26 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <td>Nur 2–3 Gruppen</td>
 <td>Farbe (<code>fill</code>) reicht oft</td>
 </tr>
+<tr class="even">
+<td>Sehr unterschiedliche Wertebereiche</td>
+<td><code>scales = "free_y"</code> — aber vorsichtig</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Grundregel:</strong> Komplexität nur hinzufügen, wenn sie Information hinzufügt — nicht als Dekoration.</p>
 </section>
+</section>
+<section id="farbskalen-barrierearmut" class="level2">
+<h2 class="anchored" data-anchor-id="farbskalen-barrierearmut">Farbskalen &amp; Barrierearmut</h2>
+<p>Die Default-Farbpalette von ggplot2 ist nicht für alle Leserinnen und Leser gut unterscheidbar. Für publikationsreife Grafiken lohnt es sich, eine <strong>bewusst gewählte</strong> Farbpalette zu verwenden:</p>
+<ul>
+<li><code>scale_color_brewer(palette = "Set2")</code> bzw. <code>scale_fill_brewer(...)</code> — aus dem ColorBrewer-Projekt, für kategoriale Variablen mit wenigen Ausprägungen gut geeignet.</li>
+<li><code>scale_color_viridis_d()</code> bzw. <code>scale_fill_viridis_d()</code> — farbfehlsichtigkeits-freundlich und gut in Schwarz-Weiss reproduzierbar; besonders für ordinal oder kontinuierlich interpretierbare Kategorien.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> gruppe, <span class="at">y =</span> wm_score_t1, <span class="at">fill =</span> gruppe)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Daumenregel</strong>: ca. 8% der Männer und 0.5% der Frauen haben eine Rot-Grün-Schwäche. Paletten wie <code>viridis</code> oder ColorBrewer-Paletten mit dem Zusatz <em>colorblind-safe</em> vermeiden dieses Problem.</p>
 </section>
 <section id="publikationsreife-grafiken" class="level2">
 <h2 class="anchored" data-anchor-id="publikationsreife-grafiken">Publikationsreife Grafiken</h2>
@@ -2304,21 +2343,21 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tr>
 </tbody>
 </table>
-<p>Für wissenschaftliche Arbeiten eignen sich <code>theme_bw()</code> oder <code>theme_minimal()</code> am besten.</p>
+<p>Für wissenschaftliche Arbeiten eignen sich <code>theme_bw()</code>, <code>theme_minimal()</code> oder <code>theme_classic()</code> am besten.</p>
 </section>
 <section id="beschriftung-labs" class="level3">
 <h3 class="anchored" data-anchor-id="beschriftung-labs">Beschriftung: <code>labs()</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> <span class="fu">labs</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"WM-Score nach Versuchsgruppe"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Versuchsgruppe"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Working-Memory-Score (Punkte)"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Daten: WM-Studie 2024"</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> <span class="fu">labs</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"WM-Score nach Versuchsgruppe"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Versuchsgruppe"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Working-Memory-Score (Punkte)"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Daten: WM-Studie 2024"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Regeln:</strong> Keine Variablennamen als Achsenlabels. Einheiten in Klammern angeben. Legende mit aussagekräftigen Labels.</p>
 </section>
 <section id="export-ggsave" class="level3">
 <h3 class="anchored" data-anchor-id="export-ggsave">Export: <code>ggsave()</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"abbildungen/wm_boxplot.pdf"</span>, <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"abbildungen/wm_boxplot.pdf"</span>, <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 60%">
@@ -2348,6 +2387,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>Aussagekräftiger Titel</li>
 <li>Achsenbeschriftung mit Einheiten (nicht Rohvariablennamen)</li>
 <li>Sauberes Theme (kein grauer Default-Hintergrund)</li>
+<li>Bewusst gewählte Farbpalette (ColorBrewer oder viridis)</li>
 <li>Legende klar beschriftet</li>
 <li>Richtige Auflösung und Grösse für das Zielmedium</li>
 </ol>
@@ -2358,20 +2398,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>In einem Diagramm werden Mittelwerte mit 95%-Konfidenzintervallen (CI) dargestellt. Die CIs zweier Gruppen überlappen sich leicht. Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-4a789e3aa1bb32cc3992bb1379c73260" class="webex-checkboxgroup" data-answer="b1AbCBVVH1A8">
-<label><input type="checkbox" autocomplete="off" name="4a789e3aa1bb32cc3992bb1379c73260"><span>Überlappende Konfidenzintervalle bedeuten <strong>nicht</strong> automatisch, dass der Unterschied nicht signifikant ist — ein statistischer Test ist nötig.</span></label><label><input type="checkbox" autocomplete="off" name="4a789e3aa1bb32cc3992bb1379c73260"><span>Wenn sich die CIs überlappen, kann man sicher schliessen, dass kein signifikanter Unterschied zwischen den Gruppen besteht.</span></label><label><input type="checkbox" autocomplete="off" name="4a789e3aa1bb32cc3992bb1379c73260"><span>Konfidenzintervalle zeigen den Bereich, in dem 95% der einzelnen Messwerte liegen.</span></label><label><input type="checkbox" autocomplete="off" name="4a789e3aa1bb32cc3992bb1379c73260"><span>Ein Konfidenzintervall beschreibt die Unsicherheit der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
-<div id="webex-cbaf98023d6a38bfe2a74498644b96a6" class="webex-radiogroup" data-answer="OFJNVhUJHAJu">
-<label><input type="radio" autocomplete="off" name="cbaf98023d6a38bfe2a74498644b96a6"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="cbaf98023d6a38bfe2a74498644b96a6"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="cbaf98023d6a38bfe2a74498644b96a6"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="cbaf98023d6a38bfe2a74498644b96a6"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
+<div id="webex-8732411ce1ca16f47cbba278d84568fb" class="webex-radiogroup" data-answer="YwcfAhgAHVM4">
+<label><input type="radio" autocomplete="off" name="8732411ce1ca16f47cbba278d84568fb"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="8732411ce1ca16f47cbba278d84568fb"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="8732411ce1ca16f47cbba278d84568fb"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="8732411ce1ca16f47cbba278d84568fb"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2381,12 +2410,34 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
-<div id="webex-9e54d041ca1061b8824daffc8e8f8585" class="webex-checkboxgroup" data-answer="YlUZBUgBGAE+">
-<label><input type="checkbox" autocomplete="off" name="9e54d041ca1061b8824daffc8e8f8585"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="9e54d041ca1061b8824daffc8e8f8585"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="9e54d041ca1061b8824daffc8e8f8585"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="9e54d041ca1061b8824daffc8e8f8585"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
+<div id="webex-228dca40458aeff53812214e2a481518" class="webex-checkboxgroup" data-answer="aQIUVU9QGABp">
+<label><input type="checkbox" autocomplete="off" name="228dca40458aeff53812214e2a481518"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="228dca40458aeff53812214e2a481518"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="228dca40458aeff53812214e2a481518"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="228dca40458aeff53812214e2a481518"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie “rt_ms” sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
+<div id="webex-5a05a6edde998cda7075c2da8e517231" class="webex-radiogroup" data-answer="blEcBE0GSVQ5">
+<label><input type="radio" autocomplete="off" name="5a05a6edde998cda7075c2da8e517231"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="5a05a6edde998cda7075c2da8e517231"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="5a05a6edde998cda7075c2da8e517231"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="5a05a6edde998cda7075c2da8e517231"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
+<div id="webex-968a6975fd3abf0345e291d4963a43c4" class="webex-checkboxgroup" data-answer="YgYUUBoIGwU7">
+<label><input type="checkbox" autocomplete="off" name="968a6975fd3abf0345e291d4963a43c4"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="968a6975fd3abf0345e291d4963a43c4"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="968a6975fd3abf0345e291d4963a43c4"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="968a6975fd3abf0345e291d4963a43c4"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.</p>
 </div>
 </div>
 <section id="aufgabe-a-facettierung-ausprobieren" class="level3">
@@ -2398,6 +2449,17 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h3 class="anchored" data-anchor-id="aufgabe-b-publikationsfertige-grafik">Aufgabe B: Publikationsfertige Grafik</h3>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="weiterführende-materialien" class="level2">
+<h2 class="anchored" data-anchor-id="weiterführende-materialien">Weiterführende Materialien</h2>
+<p>Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese (sorgfältig ausgewählten) Referenzen:</p>
+<ul>
+<li><strong><a href="https://r-graph-gallery.com/ggplot2-package.html">R Graph Gallery — ggplot2-Übersicht</a></strong>: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.</li>
+<li><strong><a href="https://r-graph-gallery.com/223-faceting-with-ggplot2.html">R Graph Gallery — Faceting</a></strong>: Kompakte Einführung in <code>facet_wrap</code>, <code>facet_grid</code> und das <code>scales</code>-Argument mit direkten Code-Beispielen.</li>
+<li><strong><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">RStudio ggplot2-Cheatsheet</a></strong>: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.</li>
+<li><strong><a href="https://r4ds.hadley.nz/data-visualize">R for Data Science — Data Visualize</a></strong>: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.</li>
+</ul>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2406,7 +2468,6 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

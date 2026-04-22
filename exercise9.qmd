@@ -1,5 +1,5 @@
 ---
-title: "Übung 9 - Datenvisualisierung: Vertiefung (Selbststudium)"
+title: "Übung 9 - Datenvisualisierung II: Vertiefung (Selbststudium)"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 format:
@@ -24,7 +24,7 @@ shuffled_questions <- sample(exam_files)
 ::: {.callout-note}
 ## Selbststudium
 
-Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9). In der Vorlesung haben Sie die **Grammar of Graphics**, **Geome**, **`stat_summary()`** und die **CI-Interpretation** kennengelernt. Die folgenden Themen sind ebenfalls **prüfungsrelevant** und werden hier im Selbststudium behandelt.
+Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9). In der Vorlesung und in [Übung 8](exercise8.qmd) haben Sie die **Grammar of Graphics**, die wichtigsten **Geome**, **Aesthetics** sowie die Logik der **Verteilungsplots** (`stat_summary()`, kombinierter Plot) kennengelernt. Die folgenden Themen sind ebenfalls **prüfungsrelevant** und werden hier im Selbststudium behandelt.
 :::
 
 ## Welcher Diagrammtyp für welche Daten?
@@ -36,9 +36,9 @@ Die Wahl des Diagrammtyps ist keine Geschmacksfrage — sie folgt aus dem **Skal
 | 1 metrisch | Histogramm | `geom_histogram()` |
 | 1 kategorial | Balkendiagramm | `geom_bar()` |
 | 2 metrisch × metrisch | Scatterplot | `geom_point()` |
-| 1 kategorial × 1 metrisch | Boxplot | `geom_boxplot()` |
+| 1 kategorial × 1 metrisch | Boxplot / Jitter | `geom_boxplot()`, `geom_jitter()` |
 
-**Entscheidungshilfe:** Fragen Sie sich zuerst: *Wie viele Variablen möchte ich zeigen?* Dann: *Welches Skalenniveau haben sie?* Die Antwort bestimmt den Diagrammtyp. Ein häufiger Fehler ist, einen Balkenplot für metrische Daten zu verwenden — dabei geht die gesamte Verteilungsinformation verloren.
+**Entscheidungshilfe:** Fragen Sie sich zuerst: *Wie viele Variablen möchte ich zeigen?* Dann: *Welches Skalenniveau haben sie?* Die Antwort bestimmt den Diagrammtyp. Ein häufiger Fehler ist, einen Balkenplot mit Mittelwerten für metrische Daten zu verwenden — dabei geht die gesamte Verteilungsinformation verloren. Die Faustregel aus der Vorlesung: **Verteilung zeigen statt Mittelwert** — Boxplot oder Jitter liefern mehr Information als ein Balken.
 
 ## Irreführende Grafiken erkennen
 
@@ -52,7 +52,19 @@ Eine Grafik kann technisch korrekt sein und trotzdem in die Irre führen. Vier h
 
 4. **Ungeeigneter Diagrammtyp**: Tortendiagramme sind für Vergleiche schlecht geeignet, weil Menschen Winkel schlechter vergleichen als Längen. Ein Balkendiagramm zeigt dieselbe Information deutlich klarer.
 
-**Reflexionsfrage:** *Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken) irreführend? Was fehlt?*
+### Lesebeispiel: abgeschnittene y-Achse
+
+Stellen Sie sich zwei Gruppen mit Mittelwerten 28 und 26 vor (WM-Score). Derselbe Unterschied wirkt in zwei Balkendiagrammen sehr unterschiedlich:
+
+```r
+# Irreführend: y-Achse startet bei 25 — Balken optisch doppelt so hoch
+ggplot(...) + geom_col() + coord_cartesian(ylim = c(25, 30))
+
+# Ehrlich: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert
+ggplot(...) + geom_col() + coord_cartesian(ylim = c(0, 30))
+```
+
+**Reflexionsfrage:** Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) **doppelt** irreführend? Was fehlt — und was wird übertrieben?
 
 ## Facettierung: Mehrere Panels für Vergleiche
 
@@ -82,6 +94,18 @@ ggplot(daten, aes(x = wm_score_t2)) +
 
 **Wann sinnvoll:** Zwei Gruppierungsvariablen, Interaktionsmuster sichtbar machen.
 
+### Achsen-Skalen: `scales = "free"` oder `"free_y"`
+
+Standardmässig teilen alle Facetten **dieselbe Achsenskala**, was den direkten Vergleich erlaubt. Manchmal unterscheiden sich die Variablenbereiche aber so stark, dass in einzelnen Panels fast nichts zu sehen wäre — dann hilft `scales = "free_y"` (nur y-Achse frei) oder `scales = "free"` (beide Achsen frei):
+
+```r
+ggplot(daten, aes(x = wm_score_t2)) +
+  geom_histogram(bins = 12) +
+  facet_wrap(~gruppe, scales = "free_y")
+```
+
+**Achtung**: Freie Skalen machen **Niveauvergleiche zwischen Panels unmöglich** — nutzen Sie sie nur, wenn die Form der Verteilung (nicht die Höhe) interessiert. Bei Gruppenvergleichen im selben Maßstab lieber die Default-Einstellung beibehalten.
+
 ### Entscheidung
 
 | Situation | Empfehlung |
@@ -89,8 +113,24 @@ ggplot(daten, aes(x = wm_score_t2)) +
 | 1 Faktor, viele Ausprägungen | `facet_wrap()` |
 | 2 Faktoren, Matrix-Vergleich | `facet_grid()` |
 | Nur 2–3 Gruppen | Farbe (`fill`) reicht oft |
+| Sehr unterschiedliche Wertebereiche | `scales = "free_y"` — aber vorsichtig |
 
 **Grundregel:** Komplexität nur hinzufügen, wenn sie Information hinzufügt — nicht als Dekoration.
+
+## Farbskalen & Barrierearmut
+
+Die Default-Farbpalette von ggplot2 ist nicht für alle Leserinnen und Leser gut unterscheidbar. Für publikationsreife Grafiken lohnt es sich, eine **bewusst gewählte** Farbpalette zu verwenden:
+
+- `scale_color_brewer(palette = "Set2")` bzw. `scale_fill_brewer(...)` — aus dem ColorBrewer-Projekt, für kategoriale Variablen mit wenigen Ausprägungen gut geeignet.
+- `scale_color_viridis_d()` bzw. `scale_fill_viridis_d()` — farbfehlsichtigkeits-freundlich und gut in Schwarz-Weiss reproduzierbar; besonders für ordinal oder kontinuierlich interpretierbare Kategorien.
+
+```r
+ggplot(daten, aes(x = gruppe, y = wm_score_t1, fill = gruppe)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2")
+```
+
+**Daumenregel**: ca. 8% der Männer und 0.5% der Frauen haben eine Rot-Grün-Schwäche. Paletten wie `viridis` oder ColorBrewer-Paletten mit dem Zusatz *colorblind-safe* vermeiden dieses Problem.
 
 ## Publikationsreife Grafiken
 
@@ -105,7 +145,7 @@ Eine Grafik, die Sie in der explorativen Analyse erstellen, ist noch kein fertig
 | `theme_minimal()` | Minimalistisch, wenig visuelle Ablenkung |
 | `theme_classic()` | Klassisch, keine Gitterlinien (wie in Lehrbüchern) |
 
-Für wissenschaftliche Arbeiten eignen sich `theme_bw()` oder `theme_minimal()` am besten.
+Für wissenschaftliche Arbeiten eignen sich `theme_bw()`, `theme_minimal()` oder `theme_classic()` am besten.
 
 ### Beschriftung: `labs()`
 
@@ -136,8 +176,9 @@ ggsave("abbildungen/wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi 
 1. Aussagekräftiger Titel
 2. Achsenbeschriftung mit Einheiten (nicht Rohvariablennamen)
 3. Sauberes Theme (kein grauer Default-Hintergrund)
-4. Legende klar beschriftet
-5. Richtige Auflösung und Grösse für das Zielmedium
+4. Bewusst gewählte Farbpalette (ColorBrewer oder viridis)
+5. Legende klar beschriftet
+6. Richtige Auflösung und Grösse für das Zielmedium
 
 ## Übungen
 
@@ -153,78 +194,96 @@ exams2forms(shuffled_questions, mathjax = TRUE)
 ### Aufgabe A: Facettierung ausprobieren
 
 ```{webr-r}
-# Herunterladen der Datensätze
+# Herunterladen des Datensatzes
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
-download.file(paste0(base_url, "WM_Fragebögen_NEU.csv"), "WM_Fragebögen_NEU.csv")
-download.file(paste0(base_url, "Lab_Kodierung_NEU.dat"), "Lab_Kodierung_NEU.dat")
+download.file(paste0(base_url, "df_analyse_NEU.csv"), "df_analyse_NEU.csv")
 
 # Laden der benötigten Pakete
 library(dplyr)
-library(ggplot2)
+library(tidyr)
 library(stringr)
+library(ggplot2)
 
-# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)
-# Datensätze mit Pre/Post-Messung — _t1 = Baseline, _t2 = nach Intervention.
-wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
-lab_daten <- read.table("Lab_Kodierung_NEU.dat", header = TRUE, sep = "\t")
+# Analysedatensatz einlesen (wie in Übung 8)
+df_analyse <- read.csv2("df_analyse_NEU.csv")
 
-lab_daten <- lab_daten |>
-  mutate(
-    id = id_raw |>
-      trimws() |>
-      str_remove("ID-") |>
-      str_remove("P") |>
-      as.integer(),
-    gruppe = case_when(
-      group_raw %in% c("Kontrollgruppe", "Kontrolle",
-                       "CON", "control", "ctrl") ~ "KG",
-      group_raw == "Stress"                      ~ "Stress",
-      .default = NA_character_
-    )
-  )
+# Tidy-Umwandlung (analog zur Übung 8)
+df_plot <- df_analyse |>
+  pivot_longer(cols = ends_with("t1") | ends_with("t2")) |>
+  mutate(MZP     = str_split_i(name, "_", 3),
+         measure = str_split_i(name, "_", 1)) |>
+  select(-name) |>
+  pivot_wider(names_from = measure, values_from = value) |>
+  filter(!is.na(gruppe))
 
-wm_daten <- wm_daten |>
-  left_join(lab_daten |> select(id, gruppe), by = "id")
-
-# --- Aufgabe A1: Facettiertes Histogramm ---
-# Erstellen Sie ein Histogramm für wm_score_t2, facettiert nach gruppe:
-ggplot(wm_daten, aes(x = wm_score_t2)) +
+# --- Aufgabe A1: Facettiertes Histogramm mit facet_wrap ---
+ggplot(df_plot, aes(x = wm)) +
   geom_histogram(bins = 12, fill = "steelblue", color = "white") +
   facet_wrap(~gruppe) +
-  labs(title = "WM-Score nach Intervention, nach Gruppe",
-       x = "WM-Score (Post)", y = "Häufigkeit") +
+  labs(title = "WM-Score nach Gruppe",
+       x = "WM-Score", y = "Häufigkeit") +
   theme_minimal()
 
-# --- Aufgabe A2: Reflexion ---
-# Vergleichen Sie die Verteilungen: Haben die Gruppen
-# ähnliche Verteilungsformen? Wo unterscheiden sie sich?
+# --- Aufgabe A2: facet_grid mit zwei Faktoren ---
+# Gruppe (Zeile) × Messzeitpunkt (Spalte):
+ggplot(df_plot, aes(x = wm)) +
+  geom_histogram(bins = 12, fill = "steelblue", color = "white") +
+  facet_grid(gruppe ~ MZP) +
+  labs(title = "WM-Score nach Gruppe × Messzeitpunkt",
+       x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal()
+
+# --- Aufgabe A3: scales = "free_y" ---
+# Was ändert sich, wenn die y-Achsen pro Panel frei skaliert werden?
+ggplot(df_plot, aes(x = wm)) +
+  geom_histogram(bins = 12, fill = "steelblue", color = "white") +
+  facet_wrap(~gruppe, scales = "free_y") +
+  labs(title = "WM-Score nach Gruppe (freie y-Achsen)",
+       x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal()
+
+# Reflexion: Welche Plot-Variante erlaubt den direkten Vergleich
+# der Gruppen-Grössen? Wann hilft "free_y", wann führt es in die Irre?
 ```
 
 ### Aufgabe B: Publikationsfertige Grafik
 
 ```{webr-r}
-# --- Aufgabe B1: Boxplot mit Theme und Beschriftung ---
-# Erstellen Sie einen Boxplot für wm_score_t2 nach gruppe,
-# mit theme_bw() und vollständiger Beschriftung:
-ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2, fill = gruppe)) +
+# --- Aufgabe B1: Boxplot mit Theme, Beschriftung und Farbpalette ---
+ggplot(df_plot, aes(x = gruppe, y = wm, fill = gruppe)) +
   geom_boxplot() +
+  scale_fill_brewer(palette = "Set2") +
   labs(
-    title = "WM-Score nach Intervention nach Versuchsgruppe",
+    title = "WM-Score nach Versuchsgruppe",
     x = "Versuchsgruppe",
-    y = "Working-Memory-Score nach Intervention (Punkte)",
-    fill = "Gruppe"
+    y = "Working-Memory-Score (Punkte)",
+    fill = "Gruppe",
+    caption = "Daten: WM-Studie FS2026"
   ) +
   theme_bw()
 
 # --- Aufgabe B2: Theme-Vergleich ---
 # Ersetzen Sie theme_bw() durch theme_classic() —
-# was ändert sich am Erscheinungsbild?
+# was ändert sich am Erscheinungsbild (Gitterlinien, Rahmen)?
 
-# --- Aufgabe B3: ggsave (Syntax-Demonstration) ---
+# --- Aufgabe B3: Farbpaletten-Vergleich ---
+# Probieren Sie scale_fill_viridis_d() statt scale_fill_brewer() aus.
+# Welche Palette ist für Farbfehlsichtigkeit geeigneter?
+
+# --- Aufgabe B4: ggsave (Syntax-Demonstration) ---
 # So würden Sie die Grafik exportieren (funktioniert
 # nicht in webR, aber merken Sie sich die Syntax):
 # ggsave("wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi = 300)
 ```
+
+## Weiterführende Materialien
+
+Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese (sorgfältig ausgewählten) Referenzen:
+
+- **[R Graph Gallery — ggplot2-Übersicht](https://r-graph-gallery.com/ggplot2-package.html)**: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.
+- **[R Graph Gallery — Faceting](https://r-graph-gallery.com/223-faceting-with-ggplot2.html)**: Kompakte Einführung in `facet_wrap`, `facet_grid` und das `scales`-Argument mit direkten Code-Beispielen.
+- **[RStudio ggplot2-Cheatsheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)**: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.
+- **[R for Data Science — Data Visualize](https://r4ds.hadley.nz/data-visualize)**: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.
 
 ------------------------------------------------------------------------
 

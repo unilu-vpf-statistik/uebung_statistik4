@@ -1,5 +1,5 @@
 ---
-title: "Übung 8 - Datenvisualisierung I: Grundlagen ggplot2"
+title: "Übung 8 - Datenvisualisierung I: Grammar of Graphics & Verteilungen"
 subtitle: "FS 2026"
 author: "Gidon Frischkorn"
 format:
@@ -21,34 +21,66 @@ exam_files <- list.files(here("questions_uebung8"), pattern = "*.Rmd", full.name
 shuffled_questions <- sample(exam_files)
 ```
 
-## Wiederholung & Vertiefung: Grundlagen ggplot2
+## Grammar of Graphics: Eine Grafik wächst in Schichten
 
-In dieser Übung beschäftigen wir uns mit der **Grammar of Graphics** — dem Schichtprinzip, das ggplot2 zugrunde liegt. Ziel ist nicht das Auswendiglernen von Funktionen, sondern das Verständnis der Logik: **Daten → Mapping → Geometrie**.
+In dieser Übung geht es nicht um das Auswendiglernen von Funktionen, sondern um die Logik hinter ggplot2: Eine Grafik ist ein **Satz aus Entscheidungen** — jede Schicht beantwortet eine Frage.
 
-### Das Schichtprinzip
+### Die fünf Schichten
 
-Ein ggplot2-Diagramm besteht aus unabhängigen Schichten:
+1. **Daten** (`ggplot(data = ...)`): Welcher Datensatz?
+2. **Mapping** (`aes(x = ..., y = ..., fill = ...)`): Welche Variable → welche visuelle Eigenschaft?
+3. **Geometrie** (`+ geom_xxx()`): Welche Form (Punkte, Balken, Boxplot, Histogramm)?
+4. **Beschriftung** (`+ labs(...)`): Titel, Achsenbeschriftung, Einheiten.
+5. **Theme** (`+ theme_minimal()`): Erscheinungsbild — was, nicht wie.
 
-1. **Daten**: Welcher Datensatz?
-2. **Aesthetics (`aes()`)**: Welche Variable → welche visuelle Eigenschaft (x, y, Farbe, Grösse)?
-3. **Geometrie (`geom_*()`)**: Welche Form (Punkte, Balken, Boxplot, Histogramm)?
-4. **Statistische Transformation (`stat_*()`)**: Rohdaten oder Zusammenfassungen?
-5. **Theme**: Erscheinungsbild
+### Aesthetics: mehr als nur x und y
 
-### Von Rohdaten zu Zusammenfassungen: `stat_summary()`
+Mit `aes()` bilden Sie Variablen auf visuelle Eigenschaften ab — `x`, `y`, `color`, `fill`, `shape`. **Wichtig**: Eine Aesthetic, die von einer **Variable** abhängt, gehört *innerhalb* von `aes()`. Ein **fester Wert** (z. B. alle Punkte blau) gehört *ausserhalb*:
 
-Geome wie `geom_boxplot()` oder `geom_histogram()` zeigen die **Rohdaten** in verschiedenen Formen. Manchmal möchten wir aber statistische **Zusammenfassungen** direkt im Plot darstellen — zum Beispiel den Gruppenmittelwert mit Konfidenzintervall.
+```r
+# Variable steuert Farbe → innerhalb aes()
+ggplot(daten, aes(x = gruppe, y = wm_score_t1, fill = gruppe)) + geom_boxplot()
 
-`stat_summary()` berechnet Zusammenfassungen und stellt sie als Geom dar:
+# Feste Farbe für alle → ausserhalb aes()
+ggplot(daten, aes(x = gruppe, y = wm_score_t1)) + geom_boxplot(fill = "steelblue")
+```
 
-- `stat_summary(fun = mean, geom = "point")` → ein Punkt pro Gruppe (Mittelwert)
-- `stat_summary(fun.data = mean_cl_normal, geom = "pointrange")` → Mittelwert + 95%-CI
+## Verteilungen sichtbar machen
 
-Das Konfidenzintervall zeigt die **Präzision der Schätzung** des Populationsmittelwerts. Wichtig: CI-Überlappung zwischen Gruppen bedeutet **nicht** automatisch, dass der Unterschied nicht signifikant ist.
+Kennwerte wie Mittelwert und SD komprimieren Daten auf wenige Zahlen und **verschweigen die Form** der Verteilung. Anscombe's Quartett und bimodale Verteilungen zeigen: identische Kennwerte können sehr unterschiedliche Datenbilder erzeugen. Darum kombinieren wir mehrere Schichten.
+
+### Drei Blickwinkel auf eine Verteilung
+
+| Geom | Was es zeigt | Grenze |
+|------|-------------|--------|
+| `geom_histogram()` | Häufigkeiten in Bins | Bin-abhängig |
+| `geom_density()` | geglättete Verteilung | glättet Bimodalität weg |
+| `geom_jitter()` | jede Beobachtung einzeln | unübersichtlich bei grossem N |
+
+### `stat_summary()`: Zusammenfassung als eigene Schicht
+
+Mit `stat_summary()` lässt ggplot Daten erst **zusammenfassen** und dann darstellen:
+
+- `stat_summary(fun = mean, geom = "point")` → ein Punkt pro Gruppe (Mittelwert).
+- `stat_summary(fun.data = mean_cl_normal, geom = "pointrange")` → Mittelwert + 95%-Konfidenzintervall.
+
+Das CI zeigt die **Präzision der Mittelwertsschätzung**, **nicht** die Streuung der Einzelwerte. Überlappende CIs bedeuten **nicht** automatisch „kein Unterschied" — das ist Thema in [Übung 11 (ANOVA)](exercise11.qmd).
+
+### Kombinierter Plot: drei Schichten in einem Bild
+
+Boxplot (Kennwerte), Jitter (Rohdaten), `stat_summary` (Schätzung + Unsicherheit) liefern gemeinsam ein vollständiges Verteilungsbild. Mit `position_nudge(x = ...)` verschieben wir die einzelnen Schichten sauber nebeneinander:
+
+```r
+ggplot(daten, aes(x = gruppe, y = wm_score_t1)) +
+  geom_boxplot(width = 0.15, position = position_nudge(x = -0.2)) +
+  geom_jitter(width = 0.08, alpha = 0.5) +
+  stat_summary(fun.data = mean_cl_normal, geom = "pointrange",
+               color = "red", position = position_nudge(x = 0.2))
+```
 
 ## Übungen
 
-Beantworten Sie die folgenden Fragen zur Datenvisualisierung mit ggplot2.
+Beantworten Sie zunächst die folgenden Fragen zur Logik von ggplot2 und zur Interpretation kombinierter Verteilungsplots.
 
 ```{r print_questions}
 #| echo: false
@@ -57,75 +89,92 @@ Beantworten Sie die folgenden Fragen zur Datenvisualisierung mit ggplot2.
 exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
+### Praktische Aufgabe: Drei Plots, drei Datenformate
+
+Die folgenden Aufgaben greifen die Logik aus der Vorlesung auf: **unterschiedliche Plottypen benötigen unterschiedliche Datenformate.** Histogramm und Boxplot mit Messzeitpunkt als Aesthetic brauchen das **Long-Format** (`df_plot`); das Streudiagramm mit T1 × T2 auf zwei Achsen braucht das **Wide-Format** (`df_analyse`).
+
 ```{webr-r}
-# Herunterladen der Datensätze
+# Herunterladen des Datensatzes
 base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
-download.file(paste0(base_url, "WM_Fragebögen_NEU.csv"), "WM_Fragebögen_NEU.csv")
-download.file(paste0(base_url, "Lab_Kodierung_NEU.dat"), "Lab_Kodierung_NEU.dat")
+download.file(paste0(base_url, "df_analyse_NEU.csv"), "df_analyse_NEU.csv")
 
 # Laden der benötigten Pakete
 library(dplyr)
-library(ggplot2)
+library(tidyr)
 library(stringr)
+library(ggplot2)
 
-# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)
-# Datensätze mit Pre/Post-Messung — _t1 = Baseline, _t2 = nach Intervention.
-wm_daten <- read.csv2("WM_Fragebögen_NEU.csv")
-lab_daten <- read.table("Lab_Kodierung_NEU.dat", header = TRUE, sep = "\t")
+# Analysedatensatz einlesen (wie in Sitzung 7 erarbeitet)
+df_analyse <- read.csv2("df_analyse_NEU.csv")
 
-lab_daten <- lab_daten |>
+# --- Aufgabe 0: Tidy-Umwandlung (Code vorgegeben) ---
+# Wir bringen df_analyse (Wide-Format) in ein Long-Format,
+# damit Messzeitpunkt als eigene Variable verfügbar wird.
+df_plot <- df_analyse |>
+  pivot_longer(cols = ends_with("t1") | ends_with("t2")) |>
   mutate(
-    id = id_raw |>
-      trimws() |>
-      str_remove("ID-") |>
-      str_remove("P") |>
-      as.integer(),
-    gruppe = case_when(
-      group_raw %in% c("Kontrollgruppe", "Kontrolle",
-                       "CON", "control", "ctrl") ~ "KG",
-      group_raw == "Stress"                      ~ "Stress",
-      .default = NA_character_
-    )
-  )
+    MZP     = str_split_i(name, "_", 3),
+    measure = str_split_i(name, "_", 1)
+  ) |>
+  select(-name) |>
+  pivot_wider(names_from = measure, values_from = value)
 
-wm_daten <- wm_daten |>
-  left_join(lab_daten |> select(id, gruppe), by = "id")
+# Inspizieren Sie df_plot — welche neue Spalte ist dazugekommen?
+str(df_plot)
+head(df_plot)
 
-# --- Aufgabe 1: Histogramm ---
-# Verteilung von wm_score_t2 (nach der Intervention):
-ggplot(wm_daten, aes(x = wm_score_t2)) +
-  geom_histogram(bins = 15, fill = "steelblue", color = "white") +
-  labs(title = "Verteilung WM-Score (Post)",
-       x = "WM-Score nach Intervention", y = "Häufigkeit") +
+# --- Aufgabe 1: Histogramm (Long) ---
+# Verteilung von wm pro Messzeitpunkt:
+ggplot(df_plot, aes(x = wm, fill = MZP)) +
+  geom_histogram(bins = 15, position = position_dodge()) +
+  labs(title = "Verteilung WM-Score nach Messzeitpunkt",
+       x = "WM-Score", y = "Häufigkeit", fill = "Messzeitpunkt") +
   theme_minimal()
 
-# --- Aufgabe 2: Boxplot nach Gruppe ---
-# Gruppenvergleich nach der Intervention:
-ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2, fill = gruppe)) +
+# --- Aufgabe 2: Boxplot (Long) ---
+# Gruppenvergleich × Messzeitpunkt:
+ggplot(df_plot |> filter(!is.na(gruppe)),
+       aes(x = MZP, y = wm, fill = gruppe)) +
   geom_boxplot() +
-  labs(title = "WM-Score nach Gruppe (Post)",
-       x = "Gruppe", y = "WM-Score nach Intervention") +
+  labs(title = "WM-Score nach Messzeitpunkt und Gruppe",
+       x = "Messzeitpunkt", y = "WM-Score", fill = "Gruppe") +
   theme_minimal()
 
-# --- Aufgabe 3: stat_summary() — Mittelwert mit CI ---
-# Denselben Gruppenvergleich als Mittelwert mit Konfidenzintervall:
-ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +
-  stat_summary(fun.data = mean_cl_normal, geom = "pointrange", size = 0.8) +
-  labs(title = "Mittelwerte mit 95%-CI (Post)",
-       x = "Gruppe",
-       y = "WM-Score Post (M ± 95%-CI)") +
+# --- Aufgabe 3: Streudiagramm (Wide!) ---
+# Stabilität der individuellen WM-Leistung von T1 zu T2:
+ggplot(df_analyse |> filter(!is.na(gruppe)),
+       aes(x = wm_score_t1, y = wm_score_t2, color = gruppe)) +
+  geom_point(alpha = 0.6) +
+  labs(title = "WM-Score: Baseline vs. Post",
+       x = "WM-Score T1 (Baseline)",
+       y = "WM-Score T2 (nach Intervention)",
+       color = "Gruppe") +
   theme_minimal()
 
-# Reflexion: Vergleichen Sie Aufgabe 2 und 3 —
-# Was zeigt der Boxplot, was der Pointrange-Plot?
-# Überlappen sich die CIs? Was können Sie daraus
-# schliessen — und was nicht?
+# --- Aufgabe 4 (Vertiefung): Kombinierter Plot ---
+# Boxplot (links) + Jitter (Mitte) + Mittelwert mit CI (rechts).
+# Nur Baseline, damit die Schichten sichtbar bleiben.
+ggplot(df_analyse |> filter(!is.na(gruppe)),
+       aes(x = gruppe, y = wm_score_t1)) +
+  geom_boxplot(width = 0.15, alpha = 0.6,
+               position = position_nudge(x = -0.2)) +
+  geom_jitter(width = 0.08, alpha = 0.5) +
+  stat_summary(fun.data = mean_cl_normal, geom = "pointrange",
+               color = "red", size = 0.7,
+               position = position_nudge(x = 0.2)) +
+  labs(title = "WM-Score Baseline: Box + Jitter + Mittelwert mit 95%-CI",
+       x = "Gruppe", y = "WM-Score T1") +
+  theme_minimal()
+
+# Reflexion: Warum brauchten Aufgaben 1 und 2 df_plot (Long),
+# während Aufgabe 3 df_analyse (Wide) verlangt? Welche Variablen
+# werden jeweils auf welche Aesthetics abgebildet?
 ```
 
 ::: {.callout-tip}
 ## Weiter vertiefen
 
-Diagrammtyp-Auswahl, irreführende Grafiken, Facettierung und publikationsreife Grafiken finden Sie in **[Übung 9 (Selbststudium)](exercise9.qmd)**.
+Diagrammtyp-Auswahl, irreführende Grafiken, Facettierung, Farbskalen und publikationsreife Grafiken finden Sie in **[Übung 9 (Selbststudium)](exercise9.qmd)**.
 :::
 
 ------------------------------------------------------------------------

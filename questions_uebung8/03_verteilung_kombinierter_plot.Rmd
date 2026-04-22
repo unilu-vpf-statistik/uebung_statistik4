@@ -1,0 +1,21 @@
+Question
+========
+Eine Grafik kombiniert drei Schichten: einen **Boxplot** (links versetzt), eine **Punktewolke** (`geom_jitter()` in der Mitte) und einen **Mittelwert mit 95%-Konfidenzintervall** (`stat_summary(fun.data = mean_cl_normal, ...)`, rechts versetzt). Welche Aussagen zu den Informationen der **einzelnen Schichten** sind korrekt?
+
+Answerlist
+----------
+* Der Boxplot zeigt Median, Quartile und Ausreisser — er komprimiert die Verteilung auf fünf Kennwerte, macht aber die Form (z. B. bimodale Verteilungen) nicht sichtbar.
+* Die Punktewolke (`geom_jitter()`) zeigt **jede einzelne Beobachtung** und macht Stichprobengrösse und Verteilungsform auf einen Blick erkennbar.
+* Das Konfidenzintervall aus `stat_summary()` zeigt den Bereich, in dem **95% der einzelnen Messwerte** liegen.
+* Wenn Median (im Boxplot) und Mittelwert (aus `stat_summary()`) deutlich auseinanderliegen, ist das ein Hinweis auf eine **schiefe Verteilung**.
+
+Solution
+========
+Der kombinierte Plot macht drei komplementäre Informationen gleichzeitig sichtbar. Der Boxplot bündelt die Verteilung auf fünf robuste Kennwerte — er ist kompakt und vergleichbar, verdeckt aber die Form der Verteilung (bimodale oder schiefe Verteilungen können hinter ähnlichen Boxplots stecken). Die Punktewolke ergänzt das, indem sie jede Beobachtung zeigt — Stichprobengrösse, Ausreisser und Verteilungsform werden direkt sichtbar. Das Konfidenzintervall aus `stat_summary()` beschreibt jedoch die **Präzision der Schätzung des Mittelwerts**, nicht die Streuung der Einzelwerte — die dritte Aussage ist deshalb falsch (das wäre ein Vorhersageintervall). Die vierte Aussage ist korrekt: Wenn Median und Mittelwert sichtbar auseinanderliegen, deutet das auf Schiefe hin — einer der Gründe, beide Kennwerte in einem Plot zu zeigen.
+
+Meta-information
+================
+exname: verteilung_kombinierter_plot
+extype: mchoice
+exsolution: 1101
+exshuffle: FALSE
