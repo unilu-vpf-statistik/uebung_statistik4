@@ -283,6 +283,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fehlende-werte" id="toc-fehlende-werte" class="nav-link" data-scroll-target="#fehlende-werte">Fehlende Werte</a></li>
   <li><a href="#ausreisser" id="toc-ausreisser" class="nav-link" data-scroll-target="#ausreisser">Ausreisser</a></li>
   </ul></li>
+  <li><a href="#checkliste-8-grafik-konzipieren-ggplot2" id="toc-checkliste-8-grafik-konzipieren-ggplot2" class="nav-link" data-scroll-target="#checkliste-8-grafik-konzipieren-ggplot2">Checkliste 8: Grafik konzipieren (<code>ggplot2</code>)</a>
+  <ul class="collapse">
+  <li><a href="#ebene-1-plottyp-wählen" id="toc-ebene-1-plottyp-wählen" class="nav-link" data-scroll-target="#ebene-1-plottyp-wählen">Ebene 1: Plottyp wählen</a></li>
+  <li><a href="#ebene-2-aesthetics-abbilden" id="toc-ebene-2-aesthetics-abbilden" class="nav-link" data-scroll-target="#ebene-2-aesthetics-abbilden">Ebene 2: Aesthetics abbilden</a></li>
+  <li><a href="#ebene-3-verteilung-vollständig-zeigen" id="toc-ebene-3-verteilung-vollständig-zeigen" class="nav-link" data-scroll-target="#ebene-3-verteilung-vollständig-zeigen">Ebene 3: Verteilung vollständig zeigen</a></li>
+  </ul></li>
+  <li><a href="#checkliste-9-grafik-publikationsreif-machen" id="toc-checkliste-9-grafik-publikationsreif-machen" class="nav-link" data-scroll-target="#checkliste-9-grafik-publikationsreif-machen">Checkliste 9: Grafik publikationsreif machen</a>
+  <ul class="collapse">
+  <li><a href="#ebene-1-irreführung-vermeiden" id="toc-ebene-1-irreführung-vermeiden" class="nav-link" data-scroll-target="#ebene-1-irreführung-vermeiden">Ebene 1: Irreführung vermeiden</a></li>
+  <li><a href="#ebene-2-facettierung-sinnvoll-einsetzen" id="toc-ebene-2-facettierung-sinnvoll-einsetzen" class="nav-link" data-scroll-target="#ebene-2-facettierung-sinnvoll-einsetzen">Ebene 2: Facettierung sinnvoll einsetzen</a></li>
+  <li><a href="#ebene-3-beschriftung-farben" id="toc-ebene-3-beschriftung-farben" class="nav-link" data-scroll-target="#ebene-3-beschriftung-farben">Ebene 3: Beschriftung &amp; Farben</a></li>
+  <li><a href="#ebene-4-theme-export" id="toc-ebene-4-theme-export" class="nav-link" data-scroll-target="#ebene-4-theme-export">Ebene 4: Theme &amp; Export</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -503,6 +516,130 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><label><input type="checkbox"><strong>Ausreisser dokumentieren</strong>: Anzahl, betroffene Fälle, betroffene Variablen</label></li>
 <li><label><input type="checkbox"><strong>Entscheidung begründen</strong>: Ausreisser entfernen, winsorisieren oder beibehalten — immer dokumentieren</label></li>
 </ul>
+<hr>
+</section>
+</section>
+<section id="checkliste-8-grafik-konzipieren-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-8-grafik-konzipieren-ggplot2">Checkliste 8: Grafik konzipieren (<code>ggplot2</code>)</h2>
+<p>Bevor Sie <code>ggplot()</code> tippen, treffen Sie Entscheidungen über Daten, Geom und Schichten. Die Grammar of Graphics macht diese Entscheidungen explizit.</p>
+<section id="ebene-1-plottyp-wählen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-1-plottyp-wählen">Ebene 1: Plottyp wählen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Variablen zählen</strong>: Wie viele Variablen sollen dargestellt werden (1, 2 oder 3+)?</label></li>
+<li><label><input type="checkbox"><strong>Skalenniveau identifizieren</strong>: Für jede Variable metrisch oder kategorial?</label></li>
+<li><label><input type="checkbox"><strong>Passendes Geom wählen</strong> (siehe Entscheidungstabelle unten)</label></li>
+<li><label><input type="checkbox"><strong>Datenformat prüfen</strong>: Long-Format für kategoriale Aesthetic (z. B. <code>fill = MZP</code>), Wide-Format für zwei metrische Achsen (z. B. <code>x = wm_score_t1</code>, <code>y = wm_score_t2</code>)</label></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variablen</th>
+<th>Diagrammtyp</th>
+<th>Geom</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 metrisch</td>
+<td>Histogramm / Dichte</td>
+<td><code>geom_histogram()</code>, <code>geom_density()</code></td>
+</tr>
+<tr class="even">
+<td>1 kategorial</td>
+<td>Balkendiagramm (Häufigkeit)</td>
+<td><code>geom_bar()</code></td>
+</tr>
+<tr class="odd">
+<td>2 metrisch</td>
+<td>Streudiagramm</td>
+<td><code>geom_point()</code></td>
+</tr>
+<tr class="even">
+<td>1 kategorial × 1 metrisch</td>
+<td>Boxplot / Jitter</td>
+<td><code>geom_boxplot()</code>, <code>geom_jitter()</code></td>
+</tr>
+<tr class="odd">
+<td>1 kategorial × 1 metrisch (Mittelwert)</td>
+<td>Balken aus Daten</td>
+<td><code>geom_col()</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ebene-2-aesthetics-abbilden" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-2-aesthetics-abbilden">Ebene 2: Aesthetics abbilden</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Variablen auf visuelle Kanäle abbilden</strong>: Welche Variable → welches Kanal (<code>x</code>, <code>y</code>, <code>color</code>, <code>fill</code>, <code>shape</code>)?</label></li>
+<li><label><input type="checkbox"><strong>Variablen-Aesthetics innerhalb <code>aes()</code></strong>: <code>aes(fill = gruppe)</code> — Farbe hängt von Variable ab</label></li>
+<li><label><input type="checkbox"><strong>Feste Werte ausserhalb <code>aes()</code></strong>: <code>geom_boxplot(fill = "steelblue")</code> — alle Boxen gleich</label></li>
+<li><label><input type="checkbox"><strong>Mehr als 2–3 Gruppen?</strong>: Facettierung erwägen statt zusätzlicher Farbe (siehe Checkliste 9)</label></li>
+</ul>
+</section>
+<section id="ebene-3-verteilung-vollständig-zeigen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-3-verteilung-vollständig-zeigen">Ebene 3: Verteilung vollständig zeigen</h3>
+<p>Faustregel: <em>Kennwerte verschweigen die Form.</em> Mittelwert und SD alleine können unterschiedliche Verteilungen identisch aussehen lassen (Anscombe’s Quartett, bimodale Verteilungen).</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Rohdaten sichtbar machen</strong>: <code>geom_jitter()</code> — jede Einzelbeobachtung</label></li>
+<li><label><input type="checkbox"><strong>Kennwerte ergänzen</strong>: <code>geom_boxplot()</code> — Median, Quartile, Ausreisser</label></li>
+<li><label><input type="checkbox"><strong>Schätzung mit Unsicherheit</strong>: <code>stat_summary(fun.data = mean_cl_normal, geom = "pointrange")</code> — Mittelwert + 95%-CI</label></li>
+<li><label><input type="checkbox"><strong>Schichten sauber positionieren</strong>: <code>position_nudge(x = ...)</code> verschiebt einzelne Schichten nebeneinander</label></li>
+<li><label><input type="checkbox"><strong>CI korrekt interpretieren</strong>: Das 95%-CI zeigt die Präzision der Mittelwertsschätzung, <strong>nicht</strong> die Streuung der Einzelwerte. Überlappende CIs bedeuten <strong>nicht</strong> automatisch „kein Unterschied”.</label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drei Schichten in einem Bild</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> gruppe, <span class="at">y =</span> wm_score_t1)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_normal, <span class="at">geom =</span> <span class="st">"pointrange"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="checkliste-9-grafik-publikationsreif-machen" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-9-grafik-publikationsreif-machen">Checkliste 9: Grafik publikationsreif machen</h2>
+<p>Eine explorative Grafik ist noch kein fertiges Ergebnis. Vor dem Einbinden in Bericht oder Paper: Irreführung vermeiden, Beschriftung prüfen, Theme wählen, exportieren.</p>
+<section id="ebene-1-irreführung-vermeiden" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-1-irreführung-vermeiden">Ebene 1: Irreführung vermeiden</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>y-Achse bei 0 beginnen</strong> (bei <code>geom_col()</code>): Abgeschnittene Balken übertreiben Unterschiede optisch</label></li>
+<li><label><input type="checkbox"><strong>Keine 3D-Effekte</strong>: Verzerren Flächen, liefern keine Zusatzinformation</label></li>
+<li><label><input type="checkbox"><strong>Keine Tortendiagramme für Vergleiche</strong>: Winkel werden schlechter gelesen als Längen → Balken sind klarer</label></li>
+<li><label><input type="checkbox"><strong>Balken-Mittelwerte mit Fehlerbalken oder durch Verteilungsplot ersetzt</strong>: Rohe Mittelwertsbalken verschweigen die Streuung</label></li>
+</ul>
+</section>
+<section id="ebene-2-facettierung-sinnvoll-einsetzen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-2-facettierung-sinnvoll-einsetzen">Ebene 2: Facettierung sinnvoll einsetzen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Mehr als 3 Gruppen oder Interaktion zweier Faktoren?</strong>: <code>facet_wrap(~var)</code> oder <code>facet_grid(zeile ~ spalte)</code> statt weiterer Farbkanäle</label></li>
+<li><label><input type="checkbox"><strong>Achsenskala bewusst wählen</strong>: Default (gleiche Skala) erlaubt Niveauvergleich. <code>scales = "free_y"</code> nur, wenn die <strong>Form</strong> der Verteilung (nicht die Höhe) im Fokus steht</label></li>
+<li><label><input type="checkbox"><strong>Komplexität prüfen</strong>: Fügt die Facettierung Information hinzu oder ist sie nur Dekoration?</label></li>
+</ul>
+</section>
+<section id="ebene-3-beschriftung-farben" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-3-beschriftung-farben">Ebene 3: Beschriftung &amp; Farben</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Aussagekräftiger Titel</strong>: Keine Variablennamen wie <code>wm_score_t2</code>, sondern z. B. <code>"Working-Memory-Score nach Intervention"</code></label></li>
+<li><label><input type="checkbox"><strong>Achsenlabels mit Einheiten</strong>: <code>labs(y = "Working-Memory-Score (Punkte)")</code></label></li>
+<li><label><input type="checkbox"><strong>Legendentitel setzen</strong>: <code>labs(fill = "Versuchsgruppe")</code> statt Rohvariablenname</label></li>
+<li><label><input type="checkbox"><strong>Farbpalette bewusst wählen</strong>: <code>scale_fill_brewer(palette = "Set2")</code> oder <code>scale_fill_viridis_d()</code></label></li>
+<li><label><input type="checkbox"><strong>Barrierearmut prüfen</strong>: Ist die Palette colorblind-safe? In Schwarz-Weiss unterscheidbar?</label></li>
+</ul>
+</section>
+<section id="ebene-4-theme-export" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-4-theme-export">Ebene 4: Theme &amp; Export</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Kein grauer Default-Hintergrund</strong>: <code>theme_bw()</code>, <code>theme_minimal()</code> oder <code>theme_classic()</code> verwenden</label></li>
+<li><label><input type="checkbox"><strong>Format zum Zielmedium passend</strong>: PDF (Vektor) für Paper/Poster; PNG (Raster) für Präsentation/Web</label></li>
+<li><label><input type="checkbox"><strong>Export mit expliziten Massen</strong>: Grösse und Auflösung nicht dem Default überlassen</label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export mit definierten Massen und Auflösung</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"abbildungen"</span>, <span class="st">"wm_boxplot.pdf"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

@@ -293,6 +293,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#tidy-data-tidyr" id="toc-tidy-data-tidyr" class="nav-link" data-scroll-target="#tidy-data-tidyr">Tidy Data (<code>tidyr</code>)</a></li>
   <li><a href="#datensätze-zusammenführen-dplyr" id="toc-datensätze-zusammenführen-dplyr" class="nav-link" data-scroll-target="#datensätze-zusammenführen-dplyr">Datensätze zusammenführen (<code>dplyr</code>)</a></li>
+  <li><a href="#datenvisualisierung-ggplot2" id="toc-datenvisualisierung-ggplot2" class="nav-link" data-scroll-target="#datenvisualisierung-ggplot2">Datenvisualisierung (<code>ggplot2</code>)</a>
+  <ul class="collapse">
+  <li><a href="#grundlagen-schichten-eines-plots" id="toc-grundlagen-schichten-eines-plots" class="nav-link" data-scroll-target="#grundlagen-schichten-eines-plots">Grundlagen: Schichten eines Plots</a></li>
+  <li><a href="#geome-welche-form-für-welche-daten" id="toc-geome-welche-form-für-welche-daten" class="nav-link" data-scroll-target="#geome-welche-form-für-welche-daten">Geome — welche Form für welche Daten?</a></li>
+  <li><a href="#zusammenfassung-als-eigene-schicht" id="toc-zusammenfassung-als-eigene-schicht" class="nav-link" data-scroll-target="#zusammenfassung-als-eigene-schicht">Zusammenfassung als eigene Schicht</a></li>
+  <li><a href="#anordnung-position" id="toc-anordnung-position" class="nav-link" data-scroll-target="#anordnung-position">Anordnung &amp; Position</a></li>
+  <li><a href="#facettierung-mehrere-panels" id="toc-facettierung-mehrere-panels" class="nav-link" data-scroll-target="#facettierung-mehrere-panels">Facettierung: Mehrere Panels</a></li>
+  <li><a href="#farbskalen-barrierearmut" id="toc-farbskalen-barrierearmut" class="nav-link" data-scroll-target="#farbskalen-barrierearmut">Farbskalen &amp; Barrierearmut</a></li>
+  <li><a href="#themes-erscheinungsbild" id="toc-themes-erscheinungsbild" class="nav-link" data-scroll-target="#themes-erscheinungsbild">Themes: Erscheinungsbild</a></li>
+  <li><a href="#achsen-export" id="toc-achsen-export" class="nav-link" data-scroll-target="#achsen-export">Achsen &amp; Export</a></li>
+  </ul></li>
   <li><a href="#nützliche-hilfsfunktionen" id="toc-nützliche-hilfsfunktionen" class="nav-link" data-scroll-target="#nützliche-hilfsfunktionen">Nützliche Hilfsfunktionen</a></li>
   </ul></li>
   </ul>
@@ -909,6 +920,288 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispiel: Zwei Datensätze über ID verbinden</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>daten_komplett <span class="ot">&lt;-</span> <span class="fu">left_join</span>(fragebogen, lab_daten, <span class="at">by =</span> <span class="st">"id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
+</section>
+<section id="datenvisualisierung-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="datenvisualisierung-ggplot2">Datenvisualisierung (<code>ggplot2</code>)</h2>
+<p>Eine <code>ggplot</code>-Grafik wächst in Schichten: Daten → Mapping (<code>aes</code>) → Geom → Beschriftung → Theme. Schichten werden mit <code>+</code> verknüpft. Für die Funktionen zur Datenaufbereitung vor dem Plotten (<code>pivot_longer()</code>, <code>filter()</code>, <code>mutate()</code> etc.) siehe die Sektionen <em>Daten Aufbereiten</em> und <em>Tidy Data</em> weiter oben.</p>
+<section id="grundlagen-schichten-eines-plots" class="level3">
+<h3 class="anchored" data-anchor-id="grundlagen-schichten-eines-plots">Grundlagen: Schichten eines Plots</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ggplot(data, aes(...))</code></td>
+<td>Initialisiert einen Plot und legt Daten + Aesthetics fest</td>
+<td><code>ggplot(daten, aes(x = gruppe, y = wm_score_t1))</code></td>
+</tr>
+<tr class="even">
+<td><code>aes(...)</code></td>
+<td>Bildet Variablen auf visuelle Eigenschaften ab (<code>x</code>, <code>y</code>, <code>color</code>, <code>fill</code>, <code>shape</code>)</td>
+<td><code>aes(x = gruppe, fill = geschlecht)</code></td>
+</tr>
+<tr class="odd">
+<td><code>labs(...)</code></td>
+<td>Titel, Achsenbeschriftung, Legende, Caption</td>
+<td>Siehe unten</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Merkregel:</strong> Variablen-abhängige Aesthetics gehören <em>innerhalb</em> <code>aes()</code>; feste Werte (z. B. <code>fill = "steelblue"</code>) <em>ausserhalb</em>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aussagekräftige Beschriftung statt Variablennamen</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">labs</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title   =</span> <span class="st">"WM-Score nach Versuchsgruppe"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x       =</span> <span class="st">"Versuchsgruppe"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y       =</span> <span class="st">"Working-Memory-Score (Punkte)"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill    =</span> <span class="st">"Gruppe"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Daten: WM-Studie FS2026"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="geome-welche-form-für-welche-daten" class="level3">
+<h3 class="anchored" data-anchor-id="geome-welche-form-für-welche-daten">Geome — welche Form für welche Daten?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Geeignet für</th>
+<th>Zeigt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>geom_histogram()</code></td>
+<td>1 metrische Variable</td>
+<td>Häufigkeiten pro Bin</td>
+</tr>
+<tr class="even">
+<td><code>geom_density()</code></td>
+<td>1 metrische Variable</td>
+<td>Geglättete Verteilung</td>
+</tr>
+<tr class="odd">
+<td><code>geom_boxplot()</code></td>
+<td>1 kategoriale × 1 metrische</td>
+<td>Median, Quartile, Ausreisser</td>
+</tr>
+<tr class="even">
+<td><code>geom_jitter()</code></td>
+<td>1 kategoriale × 1 metrische</td>
+<td>Jede Einzelbeobachtung</td>
+</tr>
+<tr class="odd">
+<td><code>geom_point()</code></td>
+<td>2 metrische Variablen</td>
+<td>Streudiagramm</td>
+</tr>
+<tr class="even">
+<td><code>geom_bar()</code></td>
+<td>1 kategoriale Variable</td>
+<td>Zählt Fälle pro Kategorie</td>
+</tr>
+<tr class="odd">
+<td><code>geom_col()</code></td>
+<td>1 kategoriale × 1 metrische</td>
+<td>Balkenhöhe <em>aus den Daten</em> (z. B. Mittelwerte)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Entscheidungsfrage:</strong> Wie viele Variablen mit welchem Skalenniveau? → Wähle das passende Geom. Verteilung zeigen (<code>boxplot</code>/<code>jitter</code>) ist meist informativer als ein Balken mit Mittelwert.</p>
+</section>
+<section id="zusammenfassung-als-eigene-schicht" class="level3">
+<h3 class="anchored" data-anchor-id="zusammenfassung-als-eigene-schicht">Zusammenfassung als eigene Schicht</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Typische Argumente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>stat_summary()</code></td>
+<td>Aggregiert Daten pro Gruppe und zeichnet das Ergebnis</td>
+<td><code>fun = mean</code>, <code>fun.data = mean_cl_normal</code>, <code>geom = "pointrange"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Mit <code>fun.data = mean_cl_normal</code> zeichnet <code>stat_summary()</code> Mittelwert + 95%-Konfidenzintervall. Das CI zeigt die Präzision der Mittelwertsschätzung, <strong>nicht</strong> die Streuung der Einzelwerte.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinierter Plot: Kennwerte + Rohdaten + Schätzung mit Unsicherheit</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> gruppe, <span class="at">y =</span> wm_score_t1)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_normal, <span class="at">geom =</span> <span class="st">"pointrange"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="anordnung-position" class="level3">
+<h3 class="anchored" data-anchor-id="anordnung-position">Anordnung &amp; Position</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>position_nudge(x, y)</code></td>
+<td>Verschiebt eine Schicht um einen festen Betrag</td>
+<td><code>position_nudge(x = -0.2)</code></td>
+</tr>
+<tr class="even">
+<td><code>position_dodge(width)</code></td>
+<td>Stellt Gruppen nebeneinander statt übereinander</td>
+<td><code>geom_histogram(position = position_dodge())</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="facettierung-mehrere-panels" class="level3">
+<h3 class="anchored" data-anchor-id="facettierung-mehrere-panels">Facettierung: Mehrere Panels</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>facet_wrap(~var)</code></td>
+<td>Ein Panel pro Ausprägung, fliessend angeordnet</td>
+<td><code>facet_wrap(~gruppe)</code></td>
+</tr>
+<tr class="even">
+<td><code>facet_grid(zeile ~ spalte)</code></td>
+<td>Matrix-Layout für zwei Faktoren</td>
+<td><code>facet_grid(geschlecht ~ gruppe)</code></td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Freie y-Achse: nur verwenden, wenn die Form (nicht die Höhe)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># der Verteilung interessiert — sonst sind Niveauvergleiche irreführend.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> wm_score_t2)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gruppe, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="farbskalen-barrierearmut" class="level3">
+<h3 class="anchored" data-anchor-id="farbskalen-barrierearmut">Farbskalen &amp; Barrierearmut</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scale_fill_brewer(palette)</code> / <code>scale_color_brewer(palette)</code></td>
+<td>ColorBrewer-Paletten für kategoriale Variablen (z. B. <code>"Set2"</code>)</td>
+</tr>
+<tr class="even">
+<td><code>scale_fill_viridis_d()</code> / <code>scale_color_viridis_d()</code></td>
+<td>Farbfehlsichtigkeits-freundlich, auch in Schwarz-Weiss lesbar</td>
+</tr>
+</tbody>
+</table>
+<p>Default-Farben sind nicht für alle Leserinnen und Leser gut unterscheidbar. Für Publikationen immer eine bewusst gewählte, colorblind-safe Palette verwenden.</p>
+</section>
+<section id="themes-erscheinungsbild" class="level3">
+<h3 class="anchored" data-anchor-id="themes-erscheinungsbild">Themes: Erscheinungsbild</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>theme_minimal()</code></td>
+<td>Minimalistisch, wenig visuelle Ablenkung</td>
+</tr>
+<tr class="even">
+<td><code>theme_bw()</code></td>
+<td>Weisser Hintergrund, dezente Gitterlinien</td>
+</tr>
+<tr class="odd">
+<td><code>theme_classic()</code></td>
+<td>Klassisch, keine Gitterlinien (Lehrbuch-Stil)</td>
+</tr>
+</tbody>
+</table>
+<p>Der Default <code>theme_gray()</code> (grauer Hintergrund) ist zum Explorieren OK, für Berichte aber ungeeignet.</p>
+</section>
+<section id="achsen-export" class="level3">
+<h3 class="anchored" data-anchor-id="achsen-export">Achsen &amp; Export</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>coord_cartesian(xlim, ylim)</code></td>
+<td>Zoomt auf einen Achsenausschnitt, ohne Daten zu verwerfen</td>
+<td><code>coord_cartesian(ylim = c(0, 30))</code></td>
+</tr>
+<tr class="even">
+<td><code>ggsave(filename, ...)</code></td>
+<td>Speichert den letzten Plot in Datei</td>
+<td>Siehe unten</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Faustregel:</strong> Bei <code>geom_col()</code> die y-Achse bei 0 beginnen lassen — abgeschnittene Balken übertreiben Unterschiede und zählen zu den häufigen irreführenden Grafiken.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF = Vektor (Paper), PNG = Raster (Präsentation/Web)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"abbildungen/wm_boxplot.pdf"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
 </section>
 <section id="nützliche-hilfsfunktionen" class="level2">
 <h2 class="anchored" data-anchor-id="nützliche-hilfsfunktionen">Nützliche Hilfsfunktionen</h2>

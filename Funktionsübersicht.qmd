@@ -195,6 +195,120 @@ daten_komplett <- left_join(fragebogen, lab_daten, by = "id")
 
 ---
 
+## Datenvisualisierung (`ggplot2`)
+
+Eine `ggplot`-Grafik wächst in Schichten: Daten → Mapping (`aes`) → Geom → Beschriftung → Theme. Schichten werden mit `+` verknüpft. Für die Funktionen zur Datenaufbereitung vor dem Plotten (`pivot_longer()`, `filter()`, `mutate()` etc.) siehe die Sektionen *Daten Aufbereiten* und *Tidy Data* weiter oben.
+
+### Grundlagen: Schichten eines Plots
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `ggplot(data, aes(...))` | Initialisiert einen Plot und legt Daten + Aesthetics fest | `ggplot(daten, aes(x = gruppe, y = wm_score_t1))` |
+| `aes(...)` | Bildet Variablen auf visuelle Eigenschaften ab (`x`, `y`, `color`, `fill`, `shape`) | `aes(x = gruppe, fill = geschlecht)` |
+| `labs(...)` | Titel, Achsenbeschriftung, Legende, Caption | Siehe unten |
+
+**Merkregel:** Variablen-abhängige Aesthetics gehören *innerhalb* `aes()`; feste Werte (z. B. `fill = "steelblue"`) *ausserhalb*.
+
+```r
+# Aussagekräftige Beschriftung statt Variablennamen
+plot + labs(
+  title   = "WM-Score nach Versuchsgruppe",
+  x       = "Versuchsgruppe",
+  y       = "Working-Memory-Score (Punkte)",
+  fill    = "Gruppe",
+  caption = "Daten: WM-Studie FS2026"
+)
+```
+
+### Geome — welche Form für welche Daten?
+
+| Funktion | Geeignet für | Zeigt |
+|---|---|---|
+| `geom_histogram()` | 1 metrische Variable | Häufigkeiten pro Bin |
+| `geom_density()` | 1 metrische Variable | Geglättete Verteilung |
+| `geom_boxplot()` | 1 kategoriale × 1 metrische | Median, Quartile, Ausreisser |
+| `geom_jitter()` | 1 kategoriale × 1 metrische | Jede Einzelbeobachtung |
+| `geom_point()` | 2 metrische Variablen | Streudiagramm |
+| `geom_bar()` | 1 kategoriale Variable | Zählt Fälle pro Kategorie |
+| `geom_col()` | 1 kategoriale × 1 metrische | Balkenhöhe *aus den Daten* (z. B. Mittelwerte) |
+
+**Entscheidungsfrage:** Wie viele Variablen mit welchem Skalenniveau? → Wähle das passende Geom. Verteilung zeigen (`boxplot`/`jitter`) ist meist informativer als ein Balken mit Mittelwert.
+
+### Zusammenfassung als eigene Schicht
+
+| Funktion | Beschreibung | Typische Argumente |
+|---|---|---|
+| `stat_summary()` | Aggregiert Daten pro Gruppe und zeichnet das Ergebnis | `fun = mean`, `fun.data = mean_cl_normal`, `geom = "pointrange"` |
+
+Mit `fun.data = mean_cl_normal` zeichnet `stat_summary()` Mittelwert + 95%-Konfidenzintervall. Das CI zeigt die Präzision der Mittelwertsschätzung, **nicht** die Streuung der Einzelwerte.
+
+```r
+# Kombinierter Plot: Kennwerte + Rohdaten + Schätzung mit Unsicherheit
+ggplot(daten, aes(x = gruppe, y = wm_score_t1)) +
+  geom_boxplot(width = 0.15, position = position_nudge(x = -0.2)) +
+  geom_jitter(width = 0.08, alpha = 0.5) +
+  stat_summary(fun.data = mean_cl_normal, geom = "pointrange",
+               color = "red", position = position_nudge(x = 0.2))
+```
+
+### Anordnung & Position
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `position_nudge(x, y)` | Verschiebt eine Schicht um einen festen Betrag | `position_nudge(x = -0.2)` |
+| `position_dodge(width)` | Stellt Gruppen nebeneinander statt übereinander | `geom_histogram(position = position_dodge())` |
+
+### Facettierung: Mehrere Panels
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `facet_wrap(~var)` | Ein Panel pro Ausprägung, fliessend angeordnet | `facet_wrap(~gruppe)` |
+| `facet_grid(zeile ~ spalte)` | Matrix-Layout für zwei Faktoren | `facet_grid(geschlecht ~ gruppe)` |
+
+```r
+# Freie y-Achse: nur verwenden, wenn die Form (nicht die Höhe)
+# der Verteilung interessiert — sonst sind Niveauvergleiche irreführend.
+ggplot(daten, aes(x = wm_score_t2)) +
+  geom_histogram(bins = 12) +
+  facet_wrap(~gruppe, scales = "free_y")
+```
+
+### Farbskalen & Barrierearmut
+
+| Funktion | Beschreibung |
+|---|---|
+| `scale_fill_brewer(palette)` / `scale_color_brewer(palette)` | ColorBrewer-Paletten für kategoriale Variablen (z. B. `"Set2"`) |
+| `scale_fill_viridis_d()` / `scale_color_viridis_d()` | Farbfehlsichtigkeits-freundlich, auch in Schwarz-Weiss lesbar |
+
+Default-Farben sind nicht für alle Leserinnen und Leser gut unterscheidbar. Für Publikationen immer eine bewusst gewählte, colorblind-safe Palette verwenden.
+
+### Themes: Erscheinungsbild
+
+| Funktion | Beschreibung |
+|---|---|
+| `theme_minimal()` | Minimalistisch, wenig visuelle Ablenkung |
+| `theme_bw()` | Weisser Hintergrund, dezente Gitterlinien |
+| `theme_classic()` | Klassisch, keine Gitterlinien (Lehrbuch-Stil) |
+
+Der Default `theme_gray()` (grauer Hintergrund) ist zum Explorieren OK, für Berichte aber ungeeignet.
+
+### Achsen & Export
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `coord_cartesian(xlim, ylim)` | Zoomt auf einen Achsenausschnitt, ohne Daten zu verwerfen | `coord_cartesian(ylim = c(0, 30))` |
+| `ggsave(filename, ...)` | Speichert den letzten Plot in Datei | Siehe unten |
+
+**Faustregel:** Bei `geom_col()` die y-Achse bei 0 beginnen lassen — abgeschnittene Balken übertreiben Unterschiede und zählen zu den häufigen irreführenden Grafiken.
+
+```r
+# PDF = Vektor (Paper), PNG = Raster (Präsentation/Web)
+ggsave("abbildungen/wm_boxplot.pdf",
+       width = 15, height = 10, units = "cm", dpi = 300)
+```
+
+---
+
 ## Nützliche Hilfsfunktionen
 
 | Funktion | Beschreibung |

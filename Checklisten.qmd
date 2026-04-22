@@ -163,3 +163,89 @@ Prüfen und begründet umgehen mit fehlenden Werten und extremen Beobachtungen.
 - [ ] **IQR-Methode**: Werte unterhalb Q1 − 1.5×IQR oder oberhalb Q3 + 1.5×IQR
 - [ ] **Ausreisser dokumentieren**: Anzahl, betroffene Fälle, betroffene Variablen
 - [ ] **Entscheidung begründen**: Ausreisser entfernen, winsorisieren oder beibehalten — immer dokumentieren
+
+---
+
+## Checkliste 8: Grafik konzipieren (`ggplot2`)
+
+Bevor Sie `ggplot()` tippen, treffen Sie Entscheidungen über Daten, Geom und Schichten. Die Grammar of Graphics macht diese Entscheidungen explizit.
+
+### Ebene 1: Plottyp wählen
+
+- [ ] **Variablen zählen**: Wie viele Variablen sollen dargestellt werden (1, 2 oder 3+)?
+- [ ] **Skalenniveau identifizieren**: Für jede Variable metrisch oder kategorial?
+- [ ] **Passendes Geom wählen** (siehe Entscheidungstabelle unten)
+- [ ] **Datenformat prüfen**: Long-Format für kategoriale Aesthetic (z. B. `fill = MZP`), Wide-Format für zwei metrische Achsen (z. B. `x = wm_score_t1`, `y = wm_score_t2`)
+
+| Variablen | Diagrammtyp | Geom |
+|---|---|---|
+| 1 metrisch | Histogramm / Dichte | `geom_histogram()`, `geom_density()` |
+| 1 kategorial | Balkendiagramm (Häufigkeit) | `geom_bar()` |
+| 2 metrisch | Streudiagramm | `geom_point()` |
+| 1 kategorial × 1 metrisch | Boxplot / Jitter | `geom_boxplot()`, `geom_jitter()` |
+| 1 kategorial × 1 metrisch (Mittelwert) | Balken aus Daten | `geom_col()` |
+
+### Ebene 2: Aesthetics abbilden
+
+- [ ] **Variablen auf visuelle Kanäle abbilden**: Welche Variable → welches Kanal (`x`, `y`, `color`, `fill`, `shape`)?
+- [ ] **Variablen-Aesthetics innerhalb `aes()`**: `aes(fill = gruppe)` — Farbe hängt von Variable ab
+- [ ] **Feste Werte ausserhalb `aes()`**: `geom_boxplot(fill = "steelblue")` — alle Boxen gleich
+- [ ] **Mehr als 2–3 Gruppen?**: Facettierung erwägen statt zusätzlicher Farbe (siehe Checkliste 9)
+
+### Ebene 3: Verteilung vollständig zeigen
+
+Faustregel: *Kennwerte verschweigen die Form.* Mittelwert und SD alleine können unterschiedliche Verteilungen identisch aussehen lassen (Anscombe's Quartett, bimodale Verteilungen).
+
+- [ ] **Rohdaten sichtbar machen**: `geom_jitter()` — jede Einzelbeobachtung
+- [ ] **Kennwerte ergänzen**: `geom_boxplot()` — Median, Quartile, Ausreisser
+- [ ] **Schätzung mit Unsicherheit**: `stat_summary(fun.data = mean_cl_normal, geom = "pointrange")` — Mittelwert + 95%-CI
+- [ ] **Schichten sauber positionieren**: `position_nudge(x = ...)` verschiebt einzelne Schichten nebeneinander
+- [ ] **CI korrekt interpretieren**: Das 95%-CI zeigt die Präzision der Mittelwertsschätzung, **nicht** die Streuung der Einzelwerte. Überlappende CIs bedeuten **nicht** automatisch „kein Unterschied".
+
+```r
+# Drei Schichten in einem Bild
+ggplot(daten, aes(x = gruppe, y = wm_score_t1)) +
+  geom_boxplot(width = 0.15, position = position_nudge(x = -0.2)) +
+  geom_jitter(width = 0.08, alpha = 0.5) +
+  stat_summary(fun.data = mean_cl_normal, geom = "pointrange",
+               color = "red", position = position_nudge(x = 0.2))
+```
+
+---
+
+## Checkliste 9: Grafik publikationsreif machen
+
+Eine explorative Grafik ist noch kein fertiges Ergebnis. Vor dem Einbinden in Bericht oder Paper: Irreführung vermeiden, Beschriftung prüfen, Theme wählen, exportieren.
+
+### Ebene 1: Irreführung vermeiden
+
+- [ ] **y-Achse bei 0 beginnen** (bei `geom_col()`): Abgeschnittene Balken übertreiben Unterschiede optisch
+- [ ] **Keine 3D-Effekte**: Verzerren Flächen, liefern keine Zusatzinformation
+- [ ] **Keine Tortendiagramme für Vergleiche**: Winkel werden schlechter gelesen als Längen → Balken sind klarer
+- [ ] **Balken-Mittelwerte mit Fehlerbalken oder durch Verteilungsplot ersetzt**: Rohe Mittelwertsbalken verschweigen die Streuung
+
+### Ebene 2: Facettierung sinnvoll einsetzen
+
+- [ ] **Mehr als 3 Gruppen oder Interaktion zweier Faktoren?**: `facet_wrap(~var)` oder `facet_grid(zeile ~ spalte)` statt weiterer Farbkanäle
+- [ ] **Achsenskala bewusst wählen**: Default (gleiche Skala) erlaubt Niveauvergleich. `scales = "free_y"` nur, wenn die **Form** der Verteilung (nicht die Höhe) im Fokus steht
+- [ ] **Komplexität prüfen**: Fügt die Facettierung Information hinzu oder ist sie nur Dekoration?
+
+### Ebene 3: Beschriftung & Farben
+
+- [ ] **Aussagekräftiger Titel**: Keine Variablennamen wie `wm_score_t2`, sondern z. B. `"Working-Memory-Score nach Intervention"`
+- [ ] **Achsenlabels mit Einheiten**: `labs(y = "Working-Memory-Score (Punkte)")`
+- [ ] **Legendentitel setzen**: `labs(fill = "Versuchsgruppe")` statt Rohvariablenname
+- [ ] **Farbpalette bewusst wählen**: `scale_fill_brewer(palette = "Set2")` oder `scale_fill_viridis_d()`
+- [ ] **Barrierearmut prüfen**: Ist die Palette colorblind-safe? In Schwarz-Weiss unterscheidbar?
+
+### Ebene 4: Theme & Export
+
+- [ ] **Kein grauer Default-Hintergrund**: `theme_bw()`, `theme_minimal()` oder `theme_classic()` verwenden
+- [ ] **Format zum Zielmedium passend**: PDF (Vektor) für Paper/Poster; PNG (Raster) für Präsentation/Web
+- [ ] **Export mit expliziten Massen**: Grösse und Auflösung nicht dem Default überlassen
+
+```r
+# Export mit definierten Massen und Auflösung
+ggsave(here("abbildungen", "wm_boxplot.pdf"),
+       width = 15, height = 10, units = "cm", dpi = 300)
+```
