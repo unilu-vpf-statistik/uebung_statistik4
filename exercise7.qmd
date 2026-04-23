@@ -40,7 +40,7 @@ In dieser Übung beschäftigen wir uns mit der Berechnung und Interpretation **d
 
 R trifft bei deskriptiven Funktionen bestimmte **Standardeinstellungen**, die man kennen sollte:
 
-- **`sd()` rechnet mit N−1**: R berechnet die *Stichprobenschätzung* der Standardabweichung (Division durch N−1), nicht den deskriptiven Wert (Division durch N). Das ist die richtige Wahl für inferentielle Analysen — keine manuelle Korrektur nötig. Gleiches gilt für `var()`.
+- **`sd()` rechnet mit N−1**: R berechnet die *Schätzung* der Standardabweichung in der Population auf Basis der Stichprobe (Division durch N−1), nicht d ie *beobachtete* (oder empirische) Standardabweichung in der Stichprobe (Division durch N). Das ist die richtige Wahl für inferentielle Analysen — keine manuelle Korrektur nötig. Gleiches gilt für `var()`.
 
 - **NA-Propagation**: `mean(x)` gibt `NA` zurück, sobald *ein einziger* fehlender Wert vorliegt. R zwingt uns damit zu einer bewussten Entscheidung: Mit `na.rm = TRUE` schliessen wir fehlende Werte explizit aus. Das gilt für `mean()`, `sd()`, `median()`, `var()`, `min()`, `max()` und `sum()`.
 

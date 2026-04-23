@@ -28,7 +28,7 @@ Im Lauf des Semesters arbeiten Sie mit zwei Generationen des Datensatzes:
 | `Lab_Kodierung_NEU.dat` | Messy Hiwi-Kodierung zur Pre/Post-Version | TAB | Übungen 7–12 |
 | `df_analyse_NEU.csv` | **Analysefertig** (bereinigt, wide mit `_t1`/`_t2`) | CSV (wide) | Rückfall S11 / S12 |
 
-**Download:** Alle Dateien liegen im [`daten/`-Ordner des Kurs-Repositorys](https://github.com/GidonFrischkorn/uebung_statistik4/tree/main/daten) und zusätzlich auf OLAT (`df_analyse_NEU.csv`).
+**Download:** Alle Dateien sind via OLAT zugänglich.
 
 ::: {.callout-note}
 ## Warum zwei Versionen?
