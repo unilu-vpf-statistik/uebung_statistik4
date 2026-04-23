@@ -3,17 +3,17 @@ Question
 Eine Kollegin zeigt Ihnen folgenden Code aus ihrem Analyseskript. Sie hat die gleiche Validierungslogik in drei Varianten kopiert:
 
 ```r
-# Prüfung wm_score
-ausserhalb_wm <- daten$wm_score < 0 | daten$wm_score > 100
+# Prüfung wm_score_t2
+ausserhalb_wm <- daten$wm_score_t2 < 0 | daten$wm_score_t2 > 100
 cat("WM: ", sum(ausserhalb_wm, na.rm = TRUE), "Werte ausserhalb\n")
 
-# Prüfung stress
-ausserhalb_stress <- daten$stress < 1 | daten$stress > 10
+# Prüfung stress_rating_t2
+ausserhalb_stress <- daten$stress_rating_t2 < 1 | daten$stress_rating_t2 > 10
 cat("Stress: ", sum(ausserhalb_stress, na.rm = TRUE), "Werte ausserhalb\n")
 
-# Prüfung alter
-ausserhalb_alter <- daten$alter < 18 | daten$alter > 65
-cat("Alter: ", sum(ausserhalb_alter, na.rm = TRUE), "Werte ausserhalb\n")
+# Prüfung age
+ausserhalb_age <- daten$age < 16 | daten$age > 35
+cat("Age: ", sum(ausserhalb_age, na.rm = TRUE), "Werte ausserhalb\n")
 ```
 
 Welche Aussagen zu diesem Code sind **korrekt**?

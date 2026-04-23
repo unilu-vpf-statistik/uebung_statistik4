@@ -1,35 +1,40 @@
 Question
 ========
-Bevor Sie eine ANOVA rechnen, prüfen Sie die Modellannahmen. Sie führen folgenden Code aus:
+Bevor Sie die ANOVA berichten, prüfen Sie die Modellannahmen **visuell**:
 
 ```r
-# Schritt 1: Bartlett-Test (Varianzhomogenität)
-bartlett.test(wm_score ~ gruppe, data = daten)
-# Bartlett test of homogeneity of variances
-# Bartlett's K-squared = 5.62, df = 1, p-value = 0.018
+library(afex)
+library(performance)
 
-# Schritt 2: QQ-Plot der Residuen
-modell <- aov(wm_score ~ gruppe, data = daten)
-plot(modell, which = 2)
-# (QQ-Plot zeigt Punkte nahe an der Diagonale)
+modell <- aov_ez(id = "id", dv = "wm_score_t2",
+                 between = "gruppe", data = wm_daten)
+check_model(modell)
 ```
 
-Was ist der geeignetste nächste Schritt?
+Die Diagnoseplots zeigen folgendes Bild:
+
+- **QQ-Plot der Residuen**: Punkte liegen nahe an der Referenzlinie, keine auffällige Abweichung von der Normalverteilung.
+- **Residuen vs. Fitted**: Die Streuung ist zwischen den beiden Gruppen leicht unterschiedlich, aber kein klarer Trichter.
+- **Einflussreiche Beobachtungen**: Alle Cook's-Distance-Werte liegen unter dem Schwellenwert, keine Ausreisser.
+
+Die beiden Gruppen haben vergleichbare Gruppengrössen (n_KG ≈ n_Stress ≈ 50).
+
+Was ist die **angemessenste Schlussfolgerung**?
 
 Answerlist
 ----------
-* Die ANOVA kann ohne Anpassung durchgeführt werden, weil der QQ-Plot unauffällig ist.
-* Der Bartlett-Test ist signifikant (p = .018), daher sind die Varianzen in den Gruppen ungleich. Eine **Welch-ANOVA** (`oneway.test()`) ist angemessener, da sie keine gleichen Varianzen voraussetzt.
-* Die Daten müssen transformiert werden (z. B. logarithmieren), bevor eine Analyse durchgeführt werden kann.
-* Der signifikante Bartlett-Test bedeutet, dass die Normalverteilungsannahme verletzt ist und ein Kruskal-Wallis-Test verwendet werden muss.
+* Die visuelle Diagnose zeigt keine gravierenden Verletzungen. Die ANOVA ist gegenüber leichten Abweichungen von der Varianzhomogenität robust, besonders bei vergleichbaren Gruppengrössen — die Analyse kann wie geplant berichtet werden. Bei deutlicher Heteroskedastizität wäre die Welch-ANOVA (`oneway.test()`) eine Alternative.
+* Die visuelle Diagnose reicht nicht aus. Erst nachdem `shapiro.test()` und `bartlett.test()` formell durchgeführt wurden und beide nicht signifikant sind, dürfen die Annahmen als erfüllt gelten.
+* Da die Residuenstreuung zwischen den Gruppen leicht unterschiedlich ist, müssen die Daten log-transformiert werden, bevor die Analyse interpretiert wird.
+* `check_model()` ist eine rein visuelle Darstellung ohne Aussagekraft — Entscheidungen über das weitere Vorgehen sollten ausschliesslich auf formellen Signifikanztests basieren.
 
 Solution
 ========
-Der Bartlett-Test prüft die Varianzhomogenität — ein signifikantes Ergebnis (p = .018) zeigt, dass die Streuung in den Gruppen unterschiedlich ist. Die Lösung ist eine Welch-ANOVA (`oneway.test(wm_score ~ gruppe, data = daten)`), die keine gleichen Varianzen voraussetzt. Der QQ-Plot zeigt, dass die Normalverteilung der Residuen unauffällig ist — deshalb ist ein Kruskal-Wallis-Test nicht nötig. Eine Datentransformation wäre ein unverhältnismässig starker Eingriff, wenn das einzige Problem unterschiedliche Varianzen sind. Die Antwort, dass die ANOVA ohne Anpassung durchgeführt werden könne, ignoriert das Problem der ungleichen Varianzen, obwohl der QQ-Plot zwar unauffällig ist.
+`check_model()` liefert eine visuelle Prüfung der zentralen ANOVA-Annahmen. Bei grossem N wird jeder formelle Test (Shapiro, Bartlett) tendenziell signifikant, bei kleinem N findet er dagegen nichts — visuelle Diagnose ist deshalb informativer und robuster (Anschluss an Sitzung 5). Die ANOVA ist zudem gegenüber leichten Abweichungen der Varianzhomogenität robust, solange die Gruppengrössen vergleichbar sind. Im geschilderten Szenario gibt es keinen Grund, von der regulären ANOVA abzuweichen; die Welch-ANOVA (`oneway.test()`) wäre erst bei deutlicher Heteroskedastizität angebracht. Falsch sind: Eine Datentransformation wäre ein unverhältnismässiger Eingriff ohne klare Rechtfertigung; und `check_model()` ist in diesem Kurs explizit als Entscheidungsgrundlage konzipiert — nicht als Beiwerk.
 
 Meta-information
 ================
-exname: annahmen_workflow
+exname: check_model_workflow
 extype: schoice
-exsolution: 0100
+exsolution: 1000
 exshuffle: FALSE

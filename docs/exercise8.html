@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Übung 8 - Datenvisualisierung I: Grammar of Graphics &amp; Verteilungen – Übungen - VL: Statistik IV</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-89e0b2e130be7f0792bf1dcfa2d39495.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -2235,9 +2233,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie zunächst die folgenden Fragen zur Logik von ggplot2 und zur Interpretation kombinierter Verteilungsplots.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>In einem Diagramm werden Mittelwerte mit 95%-Konfidenzintervallen (CI) dargestellt. Die CIs zweier Gruppen überlappen sich leicht. Welche Aussagen sind <strong>korrekt</strong>?</p>
+<div id="webex-36e34bbad350d794f46ca1a8d171c79b" class="webex-checkboxgroup" data-answer="aAdJAxhSTlA5">
+<label><input type="checkbox" autocomplete="off" name="36e34bbad350d794f46ca1a8d171c79b"><span>Überlappende Konfidenzintervalle bedeuten <strong>nicht</strong> automatisch, dass der Unterschied nicht signifikant ist — ein statistischer Test ist nötig.</span></label><label><input type="checkbox" autocomplete="off" name="36e34bbad350d794f46ca1a8d171c79b"><span>Wenn sich die CIs überlappen, kann man sicher schliessen, dass kein signifikanter Unterschied zwischen den Gruppen besteht.</span></label><label><input type="checkbox" autocomplete="off" name="36e34bbad350d794f46ca1a8d171c79b"><span>Konfidenzintervalle zeigen den Bereich, in dem 95% der einzelnen Messwerte liegen.</span></label><label><input type="checkbox" autocomplete="off" name="36e34bbad350d794f46ca1a8d171c79b"><span>Ein Konfidenzintervall beschreibt die Unsicherheit der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Eine Grafik kombiniert drei Schichten: einen <strong>Boxplot</strong> (links versetzt), eine <strong>Punktewolke</strong> (<code>geom_jitter()</code> in der Mitte) und einen <strong>Mittelwert mit 95%-Konfidenzintervall</strong> (<code>stat_summary(fun.data = mean_cl_normal, ...)</code>, rechts versetzt). Welche Aussagen zu den Informationen der <strong>einzelnen Schichten</strong> sind korrekt?</p>
-<div id="webex-ca2ba570d05ac3c8e97d8db898fc7bbb" class="webex-checkboxgroup" data-answer="OFAeU00FGwE5">
-<label><input type="checkbox" autocomplete="off" name="ca2ba570d05ac3c8e97d8db898fc7bbb"><span>Der Boxplot zeigt Median, Quartile und Ausreisser — er komprimiert die Verteilung auf fünf Kennwerte, macht aber die Form (z. B. bimodale Verteilungen) nicht sichtbar.</span></label><label><input type="checkbox" autocomplete="off" name="ca2ba570d05ac3c8e97d8db898fc7bbb"><span>Die Punktewolke (<code>geom_jitter()</code>) zeigt <strong>jede einzelne Beobachtung</strong> und macht Stichprobengrösse und Verteilungsform auf einen Blick erkennbar.</span></label><label><input type="checkbox" autocomplete="off" name="ca2ba570d05ac3c8e97d8db898fc7bbb"><span>Das Konfidenzintervall aus <code>stat_summary()</code> zeigt den Bereich, in dem <strong>95% der einzelnen Messwerte</strong> liegen.</span></label><label><input type="checkbox" autocomplete="off" name="ca2ba570d05ac3c8e97d8db898fc7bbb"><span>Wenn Median (im Boxplot) und Mittelwert (aus <code>stat_summary()</code>) deutlich auseinanderliegen, ist das ein Hinweis auf eine <strong>schiefe Verteilung</strong>.</span></label>
+<div id="webex-a30cbad53803b7486d079e13eba50bfb" class="webex-checkboxgroup" data-answer="OgIcUk5RSARu">
+<label><input type="checkbox" autocomplete="off" name="a30cbad53803b7486d079e13eba50bfb"><span>Der Boxplot zeigt Median, Quartile und Ausreisser — er komprimiert die Verteilung auf fünf Kennwerte, macht aber die Form (z. B. bimodale Verteilungen) nicht sichtbar.</span></label><label><input type="checkbox" autocomplete="off" name="a30cbad53803b7486d079e13eba50bfb"><span>Die Punktewolke (<code>geom_jitter()</code>) zeigt <strong>jede einzelne Beobachtung</strong> und macht Stichprobengrösse und Verteilungsform auf einen Blick erkennbar.</span></label><label><input type="checkbox" autocomplete="off" name="a30cbad53803b7486d079e13eba50bfb"><span>Das Konfidenzintervall aus <code>stat_summary()</code> zeigt den Bereich, in dem <strong>95% der einzelnen Messwerte</strong> liegen.</span></label><label><input type="checkbox" autocomplete="off" name="a30cbad53803b7486d079e13eba50bfb"><span>Wenn Median (im Boxplot) und Mittelwert (aus <code>stat_summary()</code>) deutlich auseinanderliegen, ist das ein Hinweis auf eine <strong>schiefe Verteilung</strong>.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2247,8 +2256,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>Logik von ggplot2</strong> (Grammar of Graphics) sind korrekt?</p>
-<div id="webex-9d58b33c7e88a9005845881ef5bb6f4b" class="webex-checkboxgroup" data-answer="YlUZCE4CH1Nq">
-<label><input type="checkbox" autocomplete="off" name="9d58b33c7e88a9005845881ef5bb6f4b"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label><label><input type="checkbox" autocomplete="off" name="9d58b33c7e88a9005845881ef5bb6f4b"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="9d58b33c7e88a9005845881ef5bb6f4b"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="9d58b33c7e88a9005845881ef5bb6f4b"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label>
+<div id="webex-e96daae023ef0fe54ff5503c3417b954" class="webex-checkboxgroup" data-answer="PggaVE1QSQBv">
+<label><input type="checkbox" autocomplete="off" name="e96daae023ef0fe54ff5503c3417b954"><span>Ein ggplot2-Diagramm besteht aus Schichten: Daten werden auf visuelle Eigenschaften (Aesthetics) abgebildet, und die geometrische Darstellung (Geom) bestimmt die Diagrammform.</span></label><label><input type="checkbox" autocomplete="off" name="e96daae023ef0fe54ff5503c3417b954"><span>In ggplot2 wählt man zuerst den Diagrammtyp, und das Programm ordnet dann automatisch die passenden Variablen zu.</span></label><label><input type="checkbox" autocomplete="off" name="e96daae023ef0fe54ff5503c3417b954"><span>Aesthetics (<code>aes()</code>) definieren, welche Variable auf welche visuelle Eigenschaft (z. B. x-Achse, Farbe, Grösse) abgebildet wird.</span></label><label><input type="checkbox" autocomplete="off" name="e96daae023ef0fe54ff5503c3417b954"><span>ggplot2 kann pro Diagramm nur eine einzige geometrische Schicht darstellen — mehrere Geome in einem Plot sind nicht möglich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2258,23 +2267,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Aussagen zum Umgang mit <strong>Aesthetics</strong> in ggplot2 sind korrekt?</p>
-<div id="webex-d8439a0d19a1c057b564b1df30a0ce56" class="webex-checkboxgroup" data-answer="PwkYAxVQHFVs">
-<label><input type="checkbox" autocomplete="off" name="d8439a0d19a1c057b564b1df30a0ce56"><span>Eine Aesthetic, die <strong>von einer Variable gesteuert</strong> werden soll (z. B. Farbe pro Gruppe), gehört innerhalb von <code>aes(...)</code>; ein fester Wert (z. B. alle Punkte blau) gehört ausserhalb von <code>aes(...)</code>.</span></label><label><input type="checkbox" autocomplete="off" name="d8439a0d19a1c057b564b1df30a0ce56"><span><code>geom_point(aes(color = "blue"))</code> ist der korrekte Weg, um alle Punkte blau zu färben, weil der Farbwert innerhalb von <code>aes(...)</code> stehen muss.</span></label><label><input type="checkbox" autocomplete="off" name="d8439a0d19a1c057b564b1df30a0ce56"><span>Die Aesthetic <code>shape</code> in einem Scatterplot eignet sich besonders, wenn Farbe bereits anderweitig belegt ist oder die Grafik schwarz-weiss gedruckt werden soll.</span></label><label><input type="checkbox" autocomplete="off" name="d8439a0d19a1c057b564b1df30a0ce56"><span>Dieselben Daten können mit <code>fill = gruppe</code> im Boxplot und <code>color = gruppe</code> im Histogramm gezeigt werden — die Wahl richtet sich nach der geometrischen Form (Fläche vs.&nbsp;Linie), nicht nach dem Datentyp.</span></label>
+<div id="webex-ca9e11d356fdfe3aee6a63256e5ee373" class="webex-checkboxgroup" data-answer="OFAVVR0ASAJo">
+<label><input type="checkbox" autocomplete="off" name="ca9e11d356fdfe3aee6a63256e5ee373"><span>Eine Aesthetic, die <strong>von einer Variable gesteuert</strong> werden soll (z. B. Farbe pro Gruppe), gehört innerhalb von <code>aes(...)</code>; ein fester Wert (z. B. alle Punkte blau) gehört ausserhalb von <code>aes(...)</code>.</span></label><label><input type="checkbox" autocomplete="off" name="ca9e11d356fdfe3aee6a63256e5ee373"><span><code>geom_point(aes(color = "blue"))</code> ist der korrekte Weg, um alle Punkte blau zu färben, weil der Farbwert innerhalb von <code>aes(...)</code> stehen muss.</span></label><label><input type="checkbox" autocomplete="off" name="ca9e11d356fdfe3aee6a63256e5ee373"><span>Die Aesthetic <code>shape</code> in einem Scatterplot eignet sich besonders, wenn Farbe bereits anderweitig belegt ist oder die Grafik schwarz-weiss gedruckt werden soll.</span></label><label><input type="checkbox" autocomplete="off" name="ca9e11d356fdfe3aee6a63256e5ee373"><span>Dieselben Daten können mit <code>fill = gruppe</code> im Boxplot und <code>color = gruppe</code> im Histogramm gezeigt werden — die Wahl richtet sich nach der geometrischen Form (Fläche vs.&nbsp;Linie), nicht nach dem Datentyp.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Aesthetics, die von einer Variable abhängen, müssen <strong>innerhalb</strong> von <code>aes(...)</code> stehen — nur dann koppelt ggplot2 die visuelle Eigenschaft an Werte der Variable. Feste Werte (z. B. einheitliche Farbe) stehen <strong>ausserhalb</strong> von <code>aes(...)</code>. Die zweite Aussage ist deshalb falsch: <code>aes(color = "blue")</code> würde <code>"blue"</code> als kategoriale Variable interpretieren und eine (unsinnige) Legende erzeugen; korrekt wäre <code>geom_point(color = "blue")</code>. Die Aussage zu <code>shape</code> ist richtig — Symbolformen sind nützlich, wenn Farbe nicht verfügbar ist oder die Grafik schwarz-weiss reproduziert wird. Ebenso korrekt ist, dass sich die Wahl zwischen <code>fill</code> (Fläche) und <code>color</code> (Linie/Rand) nach der Geometrie richtet: Boxplots haben Flächen (<code>fill</code>), Histogramm-Linien oder Scatter-Punkte werden über <code>color</code> eingefärbt.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>In einem Diagramm werden Mittelwerte mit 95%-Konfidenzintervallen (CI) dargestellt. Die CIs zweier Gruppen überlappen sich leicht. Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-55a7257d067e2778e804176e267dd22b" class="webex-checkboxgroup" data-answer="bgRNBx4FG1Vt">
-<label><input type="checkbox" autocomplete="off" name="55a7257d067e2778e804176e267dd22b"><span>Überlappende Konfidenzintervalle bedeuten <strong>nicht</strong> automatisch, dass der Unterschied nicht signifikant ist — ein statistischer Test ist nötig.</span></label><label><input type="checkbox" autocomplete="off" name="55a7257d067e2778e804176e267dd22b"><span>Wenn sich die CIs überlappen, kann man sicher schliessen, dass kein signifikanter Unterschied zwischen den Gruppen besteht.</span></label><label><input type="checkbox" autocomplete="off" name="55a7257d067e2778e804176e267dd22b"><span>Konfidenzintervalle zeigen den Bereich, in dem 95% der einzelnen Messwerte liegen.</span></label><label><input type="checkbox" autocomplete="off" name="55a7257d067e2778e804176e267dd22b"><span>Ein Konfidenzintervall beschreibt die Unsicherheit der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Eine leichte Überlappung der CIs bedeutet nicht automatisch, dass kein signifikanter Unterschied vorliegt — tatsächlich kann bei ca. 50% Überlappung der Unterschied durchaus signifikant sein. Ein statistischer Test ist zur Beurteilung nötig. Ein Konfidenzintervall beschreibt die Präzision der Schätzung des Populationsmittelwerts, nicht die Streuung der Einzelwerte. Falsch ist die Aussage, dass CIs den Bereich zeigen, in dem 95% der Messwerte liegen — das wäre ein Vorhersageintervall, nicht ein Konfidenzintervall.</p>
 </div>
 </div>
 <section id="praktische-aufgabe-drei-plots-drei-datenformate" class="level3">

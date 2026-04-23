@@ -1,6 +1,6 @@
 Question
 ========
-Nach einer signifikanten ANOVA mit 3 Gruppen führen Sie Post-hoc-Vergleiche mit `emmeans` durch:
+In einer hypothetischen Studie (nicht dem Stress-WM-Projekt) wurden drei experimentelle Bedingungen verglichen: eine Experimentalgruppe (EG), eine Kontrollgruppe (KG) und eine Wartekontrollgruppe (WG). Nach einer signifikanten ANOVA führen Sie Post-hoc-Vergleiche mit `emmeans` durch:
 
 ```r
 emmeans(anova_ergebnis, pairwise ~ gruppe, adjust = "bonferroni")

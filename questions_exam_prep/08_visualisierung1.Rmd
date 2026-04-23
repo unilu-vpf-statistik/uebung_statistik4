@@ -3,13 +3,13 @@ Question
 Betrachten Sie folgenden ggplot2-Code:
 
 ```r
-ggplot(daten, aes(x = gruppe, y = wm_score, fill = gruppe)) +
+ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2, fill = gruppe)) +
   geom_boxplot() +
   geom_jitter(width = 0.2, alpha = 0.3) +
   labs(
-    title = "WM-Score nach Experimentalgruppe",
+    title = "WM-Score nach Experimentalgruppe (Post-Intervention)",
     x = "Gruppe",
-    y = "Working Memory Score"
+    y = "Working Memory Score (t2)"
   ) +
   theme_minimal()
 ```

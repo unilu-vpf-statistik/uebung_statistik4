@@ -3,14 +3,14 @@ Question
 Sie erstellen eine Grafik für eine wissenschaftliche Publikation. Betrachten Sie folgenden Code:
 
 ```r
-p1 <- ggplot(daten, aes(x = alter, y = wm_score)) +
+p1 <- ggplot(wm_daten, aes(x = age, y = wm_score_t2)) +
   geom_point(alpha = 0.4) +
   geom_smooth(method = "lm") +
   facet_wrap(~gruppe) +
   labs(x = "Alter (Jahre)", y = "WM-Score (Punkte)") +
   theme_bw()
 
-ggsave("ergebnisse/scatter_alter_wm.pdf",
+ggsave("ergebnisse/scatter_age_wm.pdf",
        plot = p1, width = 18, height = 10, units = "cm", dpi = 300)
 ```
 

@@ -1,33 +1,35 @@
 Question
 ========
-Sie rechnen ein Regressionsmodell mit Interaktion und erhalten folgenden Output:
+Sie rechnen ein Interaktionsmodell für Projektfrage Q3 („Moderiert Stress den Schlaf-Effekt?") und erhalten folgenden Output:
 
 ```r
-modell <- lm(wm_score ~ alter * gruppe, data = daten)
+modell <- lm(wm_score_t2 ~ sleep_hours_t2 * gruppe + wm_score_t1,
+             data = wm_daten)
 summary(modell)
 ```
 
 ```
 Coefficients:
-                Estimate Std. Error t value Pr(>|t|)
-(Intercept)       10.20      5.89    1.73   0.087
-alter              1.05      0.35    3.00   0.003 **
-gruppeEG           8.40      8.34    1.01   0.317
-alter:gruppeEG    -0.48      0.50   -0.96   0.340
+                             Estimate Std. Error t value Pr(>|t|)
+(Intercept)                    13.45       6.12    2.20    .030 *
+sleep_hours_t2                  2.02       0.55    3.67   <.001 ***
+gruppeStress                    4.18       3.28    1.27    .207
+wm_score_t1                     0.61       0.09    6.78   <.001 ***
+sleep_hours_t2:gruppeStress    -0.52       0.41   -1.27    .208
 ```
 
-Welche Aussage zur Interpretation des **Interaktionsterms** `alter:gruppeEG` ist korrekt?
+Welche Aussage zur Interpretation des **Interaktionsterms** `sleep_hours_t2:gruppeStress` ist korrekt?
 
 Answerlist
 ----------
-* Der Interaktionsterm ist nicht signifikant (p = .340), also ist der Zusammenhang zwischen Alter und WM-Score in beiden Gruppen vergleichbar — die Steigung unterscheidet sich nicht bedeutsam.
-* Der Koeffizient `alter = 1.05` ist der durchschnittliche Alterseffekt über beide Gruppen gemittelt.
-* Der negative Wert von -0.48 bedeutet, dass Alter in der EG einen negativen Zusammenhang mit dem WM-Score hat.
-* Da der Interaktionsterm nicht signifikant ist, sollten `alter` und `gruppeEG` aus dem Modell entfernt werden.
+* Der Interaktionsterm ist nicht signifikant (p = .208). Der Zusammenhang zwischen Schlaf und WM-Score unterscheidet sich nicht bedeutsam zwischen KG und Stressgruppe — die beiden Steigungen sind statistisch vergleichbar.
+* Der Koeffizient `sleep_hours_t2 = 2.02` ist der durchschnittliche Schlaf-Effekt über beide Gruppen gemittelt.
+* Der negative Wert −0.52 zeigt, dass Schlaf in der Stressgruppe einen *negativen* Zusammenhang mit dem WM-Score hat.
+* Durch Centering von `sleep_hours_t2` um den Mittelwert würde sich der Interaktionskoeffizient `sleep_hours_t2:gruppeStress` ändern — erst dann wäre eine sinnvolle Interpretation möglich.
 
 Solution
 ========
-Der Interaktionsterm `alter:gruppeEG` testet, ob sich die Steigung des Alterseffekts zwischen KG und EG unterscheidet. Bei p = .340 ist dieser Unterschied nicht signifikant — der Alterseffekt ist in beiden Gruppen vergleichbar. Falsch ist, dass `alter = 1.05` der Durchschnitt über beide Gruppen sei — es ist der Alterseffekt in der Referenzgruppe (KG). Falsch ist auch, dass der negative Wert von -0.48 auf einen negativen Zusammenhang in der EG hinweise: -0.48 ist die Differenz der Steigungen (EG vs. KG) — der Effekt in der EG beträgt 1.05 - 0.48 = 0.57 und bleibt positiv, nur schwächer. Falsch ist ausserdem, dass ein nicht-signifikanter Interaktionsterm das Entfernen der Haupteffekte rechtfertige — nur die Interaktion kann entfernt werden, die Haupteffekte bleiben im Modell.
+Der Interaktionsterm `sleep_hours_t2:gruppeStress` testet, ob sich die *Steigung* des Schlaf-Effekts zwischen KG und Stressgruppe unterscheidet. Bei p = .208 ist dieser Unterschied nicht signifikant — der Schlaf-Effekt ist in beiden Gruppen vergleichbar. Falsch ist: `sleep_hours_t2 = 2.02` ist nicht der Durchschnitt über beide Gruppen, sondern der Schlaf-Effekt in der Referenzgruppe (KG, da alphabetisch erste Gruppe). Ebenfalls falsch: Der Wert −0.52 zeigt keinen negativen Zusammenhang in der Stressgruppe — er ist die *Differenz* der Steigungen (Stress vs. KG). Der Effekt in der Stressgruppe beträgt 2.02 − 0.52 = 1.50 und bleibt positiv, nur schwächer. Falsch ist ausserdem: Centering verändert nur den Intercept und die Haupteffekte der zentrierten Variablen (S12 F17); der Interaktionskoeffizient bleibt identisch.
 
 Meta-information
 ================

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Übung 7 - Deskriptive Statistik berechnen – Übungen - VL: Statistik IV</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-89e0b2e130be7f0792bf1dcfa2d39495.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -2222,36 +2220,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1    NA  64.1  NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-7ead1c37606eb81c9b7dc4b85f37e537" class="webex-checkboxgroup" data-answer="bFRNVR1THwdr">
-<label><input type="checkbox" autocomplete="off" name="7ead1c37606eb81c9b7dc4b85f37e537"><span>Der Output zeigt <code>NA</code> für Mittelwert und SD, weil die Variable <code>wm_score</code> fehlende Werte enthält und <code>mean()</code> sowie <code>sd()</code> standardmässig <code>NA</code> zurückgeben, wenn fehlende Werte vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="7ead1c37606eb81c9b7dc4b85f37e537"><span>Das Problem lässt sich lösen, indem in den Funktionen das Argument <code>na.rm = TRUE</code> gesetzt wird (z. B. <code>mean(wm_score, na.rm = TRUE)</code>).</span></label><label><input type="checkbox" autocomplete="off" name="7ead1c37606eb81c9b7dc4b85f37e537"><span>Der Median zeigt einen Wert (64.1), weil <code>median()</code> fehlende Werte automatisch ignoriert.</span></label><label><input type="checkbox" autocomplete="off" name="7ead1c37606eb81c9b7dc4b85f37e537"><span>Das <code>NA</code> im Output bedeutet, dass die Variable <code>wm_score</code> keine numerischen Werte enthält und deshalb kein Mittelwert berechnet werden kann.</span></label>
+<div id="webex-b93dc47764ae6767eb79f4e7eed022d1" class="webex-checkboxgroup" data-answer="OQgfVU8EGwdr">
+<label><input type="checkbox" autocomplete="off" name="b93dc47764ae6767eb79f4e7eed022d1"><span>Der Output zeigt <code>NA</code> für Mittelwert und SD, weil die Variable <code>wm_score</code> fehlende Werte enthält und <code>mean()</code> sowie <code>sd()</code> standardmässig <code>NA</code> zurückgeben, wenn fehlende Werte vorhanden sind.</span></label><label><input type="checkbox" autocomplete="off" name="b93dc47764ae6767eb79f4e7eed022d1"><span>Das Problem lässt sich lösen, indem in den Funktionen das Argument <code>na.rm = TRUE</code> gesetzt wird (z. B. <code>mean(wm_score, na.rm = TRUE)</code>).</span></label><label><input type="checkbox" autocomplete="off" name="b93dc47764ae6767eb79f4e7eed022d1"><span>Der Median zeigt einen Wert (64.1), weil <code>median()</code> fehlende Werte automatisch ignoriert.</span></label><label><input type="checkbox" autocomplete="off" name="b93dc47764ae6767eb79f4e7eed022d1"><span>Das <code>NA</code> im Output bedeutet, dass die Variable <code>wm_score</code> keine numerischen Werte enthält und deshalb kein Mittelwert berechnet werden kann.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>In R geben <code>mean()</code> und <code>sd()</code> standardmässig <code>NA</code> zurück, sobald ein einziger fehlender Wert in den Daten vorliegt. Die Lösung ist das Argument <code>na.rm = TRUE</code>, das fehlende Werte vor der Berechnung ausschliesst. Falsch ist, dass <code>median()</code> fehlende Werte automatisch ignoriert — auch <code>median()</code> gibt bei fehlenden Werten <code>NA</code> zurück. Dass im Beispiel ein Wert erscheint, kann z. B. daran liegen, dass die Spalte in einer Version ohne NAs vorlag oder der Output nur illustrativ ist. Ebenso falsch ist, dass <code>NA</code> bedeute, die Variable sei nicht numerisch — <code>NA</code> entsteht hier durch fehlende Werte, nicht durch einen falschen Datentyp.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie möchten deskriptive Kennwerte (M, SD) für mehrere numerische Variablen gleichzeitig berechnen — eine Zeile pro Variable. Betrachten Sie folgenden Code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wm_daten <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(wm_score_t1, stress_rating_t1, sleep_hours_t1),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"wert"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N  =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(wert)),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">M  =</span> <span class="fu">mean</span>(wert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(wert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Was beschreibt die Funktion von <code>pivot_longer()</code> in diesem Workflow am besten?</p>
-<div id="webex-a52f646bcad2434bf7f2b9e1b087e695" class="webex-radiogroup" data-answer="OgQeVhoEGlI+">
-<label><input type="radio" autocomplete="off" name="a52f646bcad2434bf7f2b9e1b087e695"><span><code>pivot_longer()</code> stapelt die drei Variablen untereinander in eine einzige Spalte <code>wert</code> und speichert den ursprünglichen Variablennamen in der Spalte <code>variable</code> — so kann anschliessend mit <code>group_by(variable)</code> pro Variable zusammengefasst werden.</span></label><label><input type="radio" autocomplete="off" name="a52f646bcad2434bf7f2b9e1b087e695"><span><code>pivot_longer()</code> berechnet für jede der drei Variablen automatisch Mittelwert und Standardabweichung und gibt das Ergebnis als lange Tabelle zurück.</span></label><label><input type="radio" autocomplete="off" name="a52f646bcad2434bf7f2b9e1b087e695"><span><code>pivot_longer()</code> filtert alle Variablen aus dem Datensatz, die nicht in <code>cols</code> angegeben sind, und gibt nur die drei genannten Spalten zurück.</span></label><label><input type="radio" autocomplete="off" name="a52f646bcad2434bf7f2b9e1b087e695"><span><code>pivot_longer()</code> gruppiert die Daten nach den drei Variablen, sodass <code>summarise()</code> die Kennwerte pro Variable berechnen kann.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p><code>pivot_longer()</code> transformiert die Datenstruktur von <em>breit</em> nach <em>lang</em>: Die drei Spalten (<code>wm_score_t1</code>, <code>stress_rating_t1</code>, <code>sleep_hours_t1</code>) werden in zwei neue Spalten umgewandelt — <code>variable</code> (enthält den Variablennamen) und <code>wert</code> (enthält den zugehörigen Messwert). Jede Zeile im Originaldatensatz wird dadurch zu drei Zeilen. Erst dieser Umformungsschritt ermöglicht es, mit <code>group_by(variable)</code> nach Variablen zu gruppieren und mit <code>summarise()</code> die Kennwerte pro Variable zu berechnen. <code>pivot_longer()</code> berechnet selbst keine Kennwerte — das übernimmt <code>summarise()</code>. Die Funktion filtert auch keine Spalten im engeren Sinne, sondern strukturiert sie um. Die Gruppierung geschieht nicht durch <code>pivot_longer()</code>, sondern durch <code>group_by()</code>.</p>
 </div>
 </div>
 <div class="webex-question">
@@ -2263,12 +2237,36 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 1 EG        52  65.1  64.8  12.3
 2 KG        48  58.2  57.9  13.1</code></pre>
 <p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-3f616f6c8a17cbd403d3db38ace0c9a4" class="webex-checkboxgroup" data-answer="aFcaABpWGlJl">
-<label><input type="checkbox" autocomplete="off" name="3f616f6c8a17cbd403d3db38ace0c9a4"><span>Die EG zeigt einen höheren mittleren WM-Score als die KG, aber ob dieser Unterschied statistisch bedeutsam ist, lässt sich allein aus deskriptiven Kennwerten nicht beurteilen.</span></label><label><input type="checkbox" autocomplete="off" name="3f616f6c8a17cbd403d3db38ace0c9a4"><span>Da M und Mdn in beiden Gruppen nahe beieinander liegen, gibt es keinen Hinweis auf stark schiefe Verteilungen innerhalb der Gruppen.</span></label><label><input type="checkbox" autocomplete="off" name="3f616f6c8a17cbd403d3db38ace0c9a4"><span>Die KG hat eine kleinere Stichprobe (n = 48), daher sind ihre Kennwerte automatisch weniger valide als die der EG.</span></label><label><input type="checkbox" autocomplete="off" name="3f616f6c8a17cbd403d3db38ace0c9a4"><span>Die SD-Werte sind in beiden Gruppen ähnlich (12.3 vs.&nbsp;13.1), was auf vergleichbare Streuung in beiden Gruppen hindeutet — eine wichtige Voraussetzung für spätere Gruppenvergleiche (z. B. ANOVA).</span></label>
+<div id="webex-0cd68079e2ef09fb562755807e72eebd" class="webex-checkboxgroup" data-answer="a1JIBxQAGwg4">
+<label><input type="checkbox" autocomplete="off" name="0cd68079e2ef09fb562755807e72eebd"><span>Die EG zeigt einen höheren mittleren WM-Score als die KG, aber ob dieser Unterschied statistisch bedeutsam ist, lässt sich allein aus deskriptiven Kennwerten nicht beurteilen.</span></label><label><input type="checkbox" autocomplete="off" name="0cd68079e2ef09fb562755807e72eebd"><span>Da M und Mdn in beiden Gruppen nahe beieinander liegen, gibt es keinen Hinweis auf stark schiefe Verteilungen innerhalb der Gruppen.</span></label><label><input type="checkbox" autocomplete="off" name="0cd68079e2ef09fb562755807e72eebd"><span>Die KG hat eine kleinere Stichprobe (n = 48), daher sind ihre Kennwerte automatisch weniger valide als die der EG.</span></label><label><input type="checkbox" autocomplete="off" name="0cd68079e2ef09fb562755807e72eebd"><span>Die SD-Werte sind in beiden Gruppen ähnlich (12.3 vs.&nbsp;13.1), was auf vergleichbare Streuung in beiden Gruppen hindeutet — eine wichtige Voraussetzung für spätere Gruppenvergleiche (z. B. ANOVA).</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Mittelwertsunterschied (65.1 vs.&nbsp;58.2) ist deskriptiv sichtbar, aber ob er signifikant ist, erfordert einen inferenzstatistischen Test — Deskription bereitet die Inferenz vor. Dass M ≈ Mdn in beiden Gruppen gilt, spricht gegen starke Schiefe, was für die Wahl des Mittelwerts als Lagemass spricht. Die ähnlichen SD-Werte deuten auf vergleichbare Varianzen hin — eine Voraussetzung (Varianzhomogenität) für die klassische ANOVA. Falsch ist, dass eine kleinere Stichprobe die Kennwerte automatisch weniger valide macht — die Schätzungen sind weniger präzise (grösserer Standardfehler), aber nicht zwangsläufig weniger valide.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie möchten deskriptive Kennwerte (M, SD) für mehrere numerische Variablen gleichzeitig berechnen — eine Zeile pro Variable. Betrachten Sie folgenden Code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wm_daten <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(wm_score_t1, stress_rating_t1, sleep_hours_t1),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"wert"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N  =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(wert)),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">M  =</span> <span class="fu">mean</span>(wert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(wert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Was beschreibt die Funktion von <code>pivot_longer()</code> in diesem Workflow am besten?</p>
+<div id="webex-877d189cc4bdb998e2f332eba78fe01f" class="webex-radiogroup" data-answer="YwYbVB0IFVM+">
+<label><input type="radio" autocomplete="off" name="877d189cc4bdb998e2f332eba78fe01f"><span><code>pivot_longer()</code> stapelt die drei Variablen untereinander in eine einzige Spalte <code>wert</code> und speichert den ursprünglichen Variablennamen in der Spalte <code>variable</code> — so kann anschliessend mit <code>group_by(variable)</code> pro Variable zusammengefasst werden.</span></label><label><input type="radio" autocomplete="off" name="877d189cc4bdb998e2f332eba78fe01f"><span><code>pivot_longer()</code> berechnet für jede der drei Variablen automatisch Mittelwert und Standardabweichung und gibt das Ergebnis als lange Tabelle zurück.</span></label><label><input type="radio" autocomplete="off" name="877d189cc4bdb998e2f332eba78fe01f"><span><code>pivot_longer()</code> filtert alle Variablen aus dem Datensatz, die nicht in <code>cols</code> angegeben sind, und gibt nur die drei genannten Spalten zurück.</span></label><label><input type="radio" autocomplete="off" name="877d189cc4bdb998e2f332eba78fe01f"><span><code>pivot_longer()</code> gruppiert die Daten nach den drei Variablen, sodass <code>summarise()</code> die Kennwerte pro Variable berechnen kann.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p><code>pivot_longer()</code> transformiert die Datenstruktur von <em>breit</em> nach <em>lang</em>: Die drei Spalten (<code>wm_score_t1</code>, <code>stress_rating_t1</code>, <code>sleep_hours_t1</code>) werden in zwei neue Spalten umgewandelt — <code>variable</code> (enthält den Variablennamen) und <code>wert</code> (enthält den zugehörigen Messwert). Jede Zeile im Originaldatensatz wird dadurch zu drei Zeilen. Erst dieser Umformungsschritt ermöglicht es, mit <code>group_by(variable)</code> nach Variablen zu gruppieren und mit <code>summarise()</code> die Kennwerte pro Variable zu berechnen. <code>pivot_longer()</code> berechnet selbst keine Kennwerte — das übernimmt <code>summarise()</code>. Die Funktion filtert auch keine Spalten im engeren Sinne, sondern strukturiert sie um. Die Gruppierung geschieht nicht durch <code>pivot_longer()</code>, sondern durch <code>group_by()</code>.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
