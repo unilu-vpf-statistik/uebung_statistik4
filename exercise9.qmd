@@ -44,7 +44,7 @@ Die Wahl des Diagrammtyps ist keine Geschmacksfrage — sie folgt aus dem **Skal
 
 Eine Grafik kann technisch korrekt sein und trotzdem in die Irre führen. Vier häufige Designfehler:
 
-1. **Abgeschnittene y-Achse**: Wenn die y-Achse nicht bei 0 beginnt, wirken selbst kleine Unterschiede dramatisch gross. Besonders problematisch bei Balkendiagrammen, weil die Balkenfläche den Effekt zusätzlich übertreibt.
+1. **Abgeschnittene y-Achse**: Eine y-Achse, die nicht bei 0 beginnt, ist nicht automatisch irreführend — `ggplot2` schneidet die Achse standardmässig auf den Wertebereich zu, und bei Scatterplots oder Linienplots ist das oft sinnvoll. Problematisch wird es, wenn dadurch kleine Unterschiede visuell dramatisiert werden, **ohne dass die Gesamtstreuung der Daten erkennbar bleibt**. Besonders bei Balkendiagrammen ist eine abgeschnittene Achse kritisch, weil die Balkenfläche den Effekt zusätzlich übertreibt. Die entscheidende Frage ist: *Wird der visuelle Eindruck dem tatsächlichen Effekt gerecht — im Verhältnis zur Variabilität der Daten?*
 
 2. **3D-Effekte**: Dreidimensionale Darstellungen verzerren die Wahrnehmung von Flächen und Höhen. Sie fügen keine Information hinzu, machen aber das Ablesen schwieriger. In wissenschaftlichen Publikationen sind 3D-Effekte grundsätzlich unangemessen.
 
@@ -52,7 +52,7 @@ Eine Grafik kann technisch korrekt sein und trotzdem in die Irre führen. Vier h
 
 4. **Ungeeigneter Diagrammtyp**: Tortendiagramme sind für Vergleiche schlecht geeignet, weil Menschen Winkel schlechter vergleichen als Längen. Ein Balkendiagramm zeigt dieselbe Information deutlich klarer.
 
-### Lesebeispiel: abgeschnittene y-Achse
+### Lesebeispiel: abgeschnittene y-Achse bei Balkendiagrammen
 
 Stellen Sie sich zwei Gruppen mit Mittelwerten 28 und 26 vor (WM-Score). Derselbe Unterschied wirkt in zwei Balkendiagrammen sehr unterschiedlich:
 
@@ -60,9 +60,11 @@ Stellen Sie sich zwei Gruppen mit Mittelwerten 28 und 26 vor (WM-Score). Derselb
 # Irreführend: y-Achse startet bei 25 — Balken optisch doppelt so hoch
 ggplot(...) + geom_col() + coord_cartesian(ylim = c(25, 30))
 
-# Ehrlich: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert
+# Besser: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert
 ggplot(...) + geom_col() + coord_cartesian(ylim = c(0, 30))
 ```
+
+**Wichtig:** Bei einem Scatterplot oder Boxplot, der die individuellen Datenpunkte und deren Streuung zeigt, wäre ein Zoom auf den Wertebereich unproblematisch — die Variabilität der Daten bleibt sichtbar. Bei einem Barplot fehlt diese Information, weshalb die abgeschnittene Achse dort besonders kritisch ist.
 
 **Reflexionsfrage:** Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) **doppelt** irreführend? Was fehlt — und was wird übertrieben?
 

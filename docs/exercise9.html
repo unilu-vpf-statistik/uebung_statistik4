@@ -1823,7 +1823,7 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#welcher-diagrammtyp-für-welche-daten" id="toc-welcher-diagrammtyp-für-welche-daten" class="nav-link active" data-scroll-target="#welcher-diagrammtyp-für-welche-daten">Welcher Diagrammtyp für welche Daten?</a></li>
   <li><a href="#irreführende-grafiken-erkennen" id="toc-irreführende-grafiken-erkennen" class="nav-link" data-scroll-target="#irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</a>
   <ul class="collapse">
-  <li><a href="#lesebeispiel-abgeschnittene-y-achse" id="toc-lesebeispiel-abgeschnittene-y-achse" class="nav-link" data-scroll-target="#lesebeispiel-abgeschnittene-y-achse">Lesebeispiel: abgeschnittene y-Achse</a></li>
+  <li><a href="#lesebeispiel-abgeschnittene-y-achse-bei-balkendiagrammen" id="toc-lesebeispiel-abgeschnittene-y-achse-bei-balkendiagrammen" class="nav-link" data-scroll-target="#lesebeispiel-abgeschnittene-y-achse-bei-balkendiagrammen">Lesebeispiel: abgeschnittene y-Achse bei Balkendiagrammen</a></li>
   </ul></li>
   <li><a href="#facettierung-mehrere-panels-für-vergleiche" id="toc-facettierung-mehrere-panels-für-vergleiche" class="nav-link" data-scroll-target="#facettierung-mehrere-panels-für-vergleiche">Facettierung: Mehrere Panels für Vergleiche</a>
   <ul class="collapse">
@@ -2221,19 +2221,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h2 class="anchored" data-anchor-id="irreführende-grafiken-erkennen">Irreführende Grafiken erkennen</h2>
 <p>Eine Grafik kann technisch korrekt sein und trotzdem in die Irre führen. Vier häufige Designfehler:</p>
 <ol type="1">
-<li><p><strong>Abgeschnittene y-Achse</strong>: Wenn die y-Achse nicht bei 0 beginnt, wirken selbst kleine Unterschiede dramatisch gross. Besonders problematisch bei Balkendiagrammen, weil die Balkenfläche den Effekt zusätzlich übertreibt.</p></li>
+<li><p><strong>Abgeschnittene y-Achse</strong>: Eine y-Achse, die nicht bei 0 beginnt, ist nicht automatisch irreführend — <code>ggplot2</code> schneidet die Achse standardmässig auf den Wertebereich zu, und bei Scatterplots oder Linienplots ist das oft sinnvoll. Problematisch wird es, wenn dadurch kleine Unterschiede visuell dramatisiert werden, <strong>ohne dass die Gesamtstreuung der Daten erkennbar bleibt</strong>. Besonders bei Balkendiagrammen ist eine abgeschnittene Achse kritisch, weil die Balkenfläche den Effekt zusätzlich übertreibt. Die entscheidende Frage ist: <em>Wird der visuelle Eindruck dem tatsächlichen Effekt gerecht — im Verhältnis zur Variabilität der Daten?</em></p></li>
 <li><p><strong>3D-Effekte</strong>: Dreidimensionale Darstellungen verzerren die Wahrnehmung von Flächen und Höhen. Sie fügen keine Information hinzu, machen aber das Ablesen schwieriger. In wissenschaftlichen Publikationen sind 3D-Effekte grundsätzlich unangemessen.</p></li>
 <li><p><strong>Fehlende Beschriftung</strong>: Ohne Achsentitel, Einheiten und Legende ist eine Grafik nicht interpretierbar. Variablennamen wie <code>wm_score_t2</code> sind keine geeigneten Achsenbeschriftungen — stattdessen: „Working-Memory-Score nach Intervention (Punkte)“.</p></li>
 <li><p><strong>Ungeeigneter Diagrammtyp</strong>: Tortendiagramme sind für Vergleiche schlecht geeignet, weil Menschen Winkel schlechter vergleichen als Längen. Ein Balkendiagramm zeigt dieselbe Information deutlich klarer.</p></li>
 </ol>
-<section id="lesebeispiel-abgeschnittene-y-achse" class="level3">
-<h3 class="anchored" data-anchor-id="lesebeispiel-abgeschnittene-y-achse">Lesebeispiel: abgeschnittene y-Achse</h3>
+<section id="lesebeispiel-abgeschnittene-y-achse-bei-balkendiagrammen" class="level3">
+<h3 class="anchored" data-anchor-id="lesebeispiel-abgeschnittene-y-achse-bei-balkendiagrammen">Lesebeispiel: abgeschnittene y-Achse bei Balkendiagrammen</h3>
 <p>Stellen Sie sich zwei Gruppen mit Mittelwerten 28 und 26 vor (WM-Score). Derselbe Unterschied wirkt in zwei Balkendiagrammen sehr unterschiedlich:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Irreführend: y-Achse startet bei 25 — Balken optisch doppelt so hoch</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ehrlich: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Besser: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Wichtig:</strong> Bei einem Scatterplot oder Boxplot, der die individuellen Datenpunkte und deren Streuung zeigt, wäre ein Zoom auf den Wertebereich unproblematisch — die Variabilität der Daten bleibt sichtbar. Bei einem Barplot fehlt diese Information, weshalb die abgeschnittene Achse dort besonders kritisch ist.</p>
 <p><strong>Reflexionsfrage:</strong> Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) <strong>doppelt</strong> irreführend? Was fehlt — und was wird übertrieben?</p>
 </section>
 </section>
@@ -2420,20 +2421,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
-<div id="webex-bd7a31ca6e9b2759c304b037f424abb9" class="webex-checkboxgroup" data-answer="OVQbUB8AT1Fr">
-<label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie “rt_ms” sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
-<div id="webex-61a0d9350530d2bf209564772dfa8ac9" class="webex-radiogroup" data-answer="bQFNAEgIHwVt">
-<label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
+<div id="webex-dd9068fca521d2362f74511667d11eba" class="webex-radiogroup" data-answer="P1QVABoJSlM8">
+<label><input type="radio" autocomplete="off" name="dd9068fca521d2362f74511667d11eba"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="dd9068fca521d2362f74511667d11eba"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="dd9068fca521d2362f74511667d11eba"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="dd9068fca521d2362f74511667d11eba"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2442,24 +2432,35 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-7bb133c05ea4eabe871ea90d38ba0026" class="webex-radiogroup" data-answer="bFJOAB8DTwBo">
-<label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+<p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
+<div id="webex-31789f6e4261e1f164751cf65b4f8ecd" class="webex-checkboxgroup" data-answer="aAEbCRVXGlVp">
+<label><input type="checkbox" autocomplete="off" name="31789f6e4261e1f164751cf65b4f8ecd"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="31789f6e4261e1f164751cf65b4f8ecd"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="31789f6e4261e1f164751cf65b4f8ecd"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="31789f6e4261e1f164751cf65b4f8ecd"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+<p>Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie “rt_ms” sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.</p>
 </div>
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-bf8c83667068d482bdc8adab65cd0165" class="webex-checkboxgroup" data-answer="OVYUUhQCGgZq">
-<label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+<div id="webex-2917b9b8bef98cd60b1701dee9c2bbf5" class="webex-checkboxgroup" data-answer="aQkdBk4ITgg/">
+<label><input type="checkbox" autocomplete="off" name="2917b9b8bef98cd60b1701dee9c2bbf5"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="2917b9b8bef98cd60b1701dee9c2bbf5"><span>Ein Balkendiagramm, dessen y-Achse nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden, ohne dass die Streuung der Daten sichtbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="2917b9b8bef98cd60b1701dee9c2bbf5"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="2917b9b8bef98cd60b1701dee9c2bbf5"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.</p>
+<p>Bei Balkendiagrammen ist eine abgeschnittene y-Achse besonders problematisch, weil die Balkenfläche kleine Unterschiede visuell stark übertreibt — und gleichzeitig keine Streuung der Daten sichtbar ist. Bei Diagrammtypen, die individuelle Datenpunkte oder Verteilungen zeigen (z.B. Boxplots, Scatterplots), ist ein Zoom auf den Wertebereich hingegen oft sinnvoll, weil die Variabilität der Daten erkennbar bleibt. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
+<div id="webex-77eeff1d3ad817df4016d605a769a496" class="webex-radiogroup" data-answer="bAdJVEpWHVRu">
+<label><input type="radio" autocomplete="off" name="77eeff1d3ad817df4016d605a769a496"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="77eeff1d3ad817df4016d605a769a496"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="77eeff1d3ad817df4016d605a769a496"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="77eeff1d3ad817df4016d605a769a496"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
 </div>
 </div>
 <section id="aufgabe-a-facettierung-ausprobieren" class="level3">

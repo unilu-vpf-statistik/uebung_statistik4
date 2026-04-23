@@ -23,36 +23,69 @@ shuffled_questions <- sample(exam_files)
 
 ## Wiederholung & Vertiefung: Reproduzierbare Berichte mit Quarto
 
-In dieser Übung beschäftigen wir uns mit **Quarto** als Werkzeug für reproduzierbare Ergebnisberichte. Ein Quarto-Dokument vereint Text, R-Code und Ergebnisse in einer einzigen Datei — der Bericht **ist** die Analyse.
+In den bisherigen Sitzungen haben Sie gelernt, Daten zu importieren, aufzubereiten, deskriptiv zusammenzufassen ([Übung 7](exercise7.qmd)) und zu visualisieren ([Übung 8](exercise8.qmd)). Die Ergebnisse standen dabei immer in der R-Konsole oder im Plots-Panel. In dieser Übung geht es um den letzten Schritt: **Wie kommen die Ergebnisse in einen Bericht?**
 
 ### Das Problem: Copy-Paste-Workflow
 
-R → Screenshot → Word → Daten ändern → **alles nochmal**. Fehlerquellen: falsche Versionen, nicht aktualisierte Tabellen, fehlende Nachvollziehbarkeit.
+R → Screenshot → Word → Daten ändern → **alles nochmal**. Fehlerquellen: falsche Versionen, nicht aktualisierte Tabellen, fehlende Nachvollziehbarkeit. Stellen Sie sich vor, Sie müssen nach der Analyse 3 Fälle ausschliessen — jede Zahl und jeder Plot im Word-Dokument muss manuell aktualisiert werden.
 
 ### Die Lösung: Quarto-Dokumente
 
-Ein Quarto-Dokument (.qmd) besteht aus drei Bausteinen:
+Ein Quarto-Dokument (.qmd) vereint Text, R-Code und Ergebnisse in einer einzigen Datei — der Bericht **ist** die Analyse. Beim **Rendern** wird der Code ausgeführt und ein fertiges Dokument (HTML, PDF oder Word) erzeugt. Ändern sich die Daten, genügt ein Klick auf „Render", und alle Ergebnisse aktualisieren sich automatisch.
+
+### Drei Bausteine eines Quarto-Dokuments
 
 | Baustein | Funktion | Beispiel |
 |---|---|---|
-| **YAML-Header** | Metadaten | Titel, Autor, Ausgabeformat |
-| **Markdown** | Formatierter Text | Überschriften, Listen, Fett/Kursiv |
-| **Code-Chunks** | R-Code | Analysen, Grafiken, Tabellen |
+| **YAML-Header** | Metadaten (zwischen `---`) | Titel, Autor, Ausgabeformat |
+| **Text (Markdown)** | Formatierter Text | Überschriften, Listen, Fett/Kursiv |
+| **Code-Chunks** | R-Code in abgegrenzten Blöcken | Analysen, Grafiken, Tabellen |
+
+### Visual Editor und Source Editor
+
+RStudio bietet zwei Ansichten für Quarto-Dokumente:
+
+- **Visual Editor**: WYSIWYG-Ansicht — Überschriften sehen wie Überschriften aus, fett ist fett. Toolbar für Formatierung (wie Word). Gut zum Einstieg.
+- **Source Editor**: Zeigt den Quellcode direkt — YAML, Markdown-Syntax (`## Überschrift`, `**fett**`), Code-Chunks mit Backticks. Wichtig für Fehlersuche und präzise Kontrolle.
+
+Beide Ansichten bearbeiten **dasselbe Dokument** — Umschalten jederzeit über den Button oben links im Editor. Im Visual Editor formatieren Sie wie in Word; im Source Editor sehen Sie die Syntax dahinter.
 
 ### Chunk-Optionen
 
+Chunk-Optionen stehen am Anfang eines Chunks mit `#|`:
+
 | Option | Wirkung |
 |---|---|
-| `echo: true` | Code wird angezeigt |
+| `echo: true` | Code wird angezeigt (Default) |
 | `echo: false` | Code wird verborgen, Ergebnisse bleiben |
 | `eval: false` | Code wird angezeigt, aber nicht ausgeführt |
 | `message: false` | Meldungen werden unterdrückt |
 
-**Verbergen ≠ Löschen**: Auch bei `echo: false` bleibt der Code im Quelldokument erhalten.
+**Verbergen ≠ Löschen**: Auch bei `echo: false` bleibt der Code im Quelldokument erhalten. Die Zielgruppe bestimmt die Darstellung — nicht den Inhalt.
+
+### Inline-Code
+
+R-Ausdrücke lassen sich direkt im Fliesstext einbetten. Beim Rendern wird der Ausdruck berechnet und als Zahl eingefügt — dieselbe Logik wie `summarise()` in [Übung 7](exercise7.qmd), jetzt direkt im Text:
+
+Im Quarto-Quelltext schreiben Sie den R-Ausdruck mit Backtick, `r`, Leerzeichen und dem R-Ausdruck, abgeschlossen mit einem Backtick. **Quellcode-Beispiel:**
+
+```{r}
+#| echo: false
+#| output: asis
+cat("
+<div style='background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 8px 12px; font-family: monospace; font-size: 0.9em;'>
+Der Mittelwert betrug <code>&#96;r round(mean(daten$wm_score_t1, na.rm = TRUE), 1)&#96;</code> Punkte.
+</div>
+")
+```
+
+Beim Rendern wird der Ausdruck berechnet und als Zahl eingefügt:
+
+**Gerenderter Text:** „Der Mittelwert betrug 62.3 Punkte."
 
 ### Ausführungsreihenfolge
 
-Chunks werden **strikt von oben nach unten** ausgeführt. Datenimport und Pakete gehören an den Anfang des Dokuments.
+Chunks werden **strikt von oben nach unten** ausgeführt. Datenimport und Pakete gehören an den Anfang des Dokuments. Häufiger Fehler: Eine Variable in einem späteren Chunk erstellt, aber in einem früheren verwendet → `object not found`.
 
 ## Übungen
 
@@ -65,19 +98,95 @@ Beantworten Sie die folgenden Fragen zu reproduzierbaren Berichten mit Quarto.
 exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
+### Praktische Aufgabe: Berichtscode vorbereiten
+
+Die folgenden Aufgaben bereiten den R-Code vor, den Sie in einem Quarto-Dokument als Code-Chunks verwenden würden. Sie arbeiten mit demselben Datensatz (`df_analyse_NEU.csv`) und denselben Methoden wie in [Übung 7](exercise7.qmd) und [Übung 8](exercise8.qmd).
+
 ```{webr-r}
-# In dieser Übung geht es primär um konzeptuelle Fragen zu Quarto.
-# Nutzen Sie diese Konsole, um R-Code auszuprobieren.
+# Herunterladen des Datensatzes
+base_url <- "https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/"
+download.file(paste0(base_url, "df_analyse_NEU.csv"), "df_analyse_NEU.csv")
 
-# Beispiel: Inline-Code simulieren
-mittelwert <- mean(c(5.2, 6.1, 4.8, 7.3, 5.9))
-cat("Der Mittelwert beträgt", round(mittelwert, 1), "Punkte.\n")
+# Laden der benötigten Pakete
+library(dplyr)
+library(ggplot2)
 
-# In einem Quarto-Dokument koennten Sie im Fliesstext schreiben:
-# "Der Mittelwert betraegt [r round(mittelwert, 1)] Punkte."
-# (mit Backticks statt eckigen Klammern um den R-Ausdruck)
-# Beim Rendern wird der R-Ausdruck automatisch durch das Ergebnis ersetzt.
+# Analysedatensatz einlesen
+daten <- read.csv2("df_analyse_NEU.csv")
+
+# --- Aufgabe 1: Deskriptive Statistik (wie in S7) ---
+# Berechnen Sie Mittelwert und SD von wm_score_t1 pro Gruppe.
+# In einem Quarto-Bericht wäre das Chunk 2 (nach dem Import).
+
+daten |>
+  filter(!is.na(gruppe)) |>
+  group_by(gruppe) |>
+  summarise(
+    M  = mean(wm_score_t1, na.rm = TRUE),
+    SD = sd(wm_score_t1, na.rm = TRUE)
+  )
+
+# --- Aufgabe 2: Inline-Code üben ---
+# In Quarto können Sie R-Ausdrücke direkt im Fliesstext einbetten.
+# Die Syntax dafür ist: Backtick, r, Leerzeichen, R-Ausdruck, Backtick.
+# Berechnen Sie hier den Wert, den der Inline-Code einsetzen würde:
+
+kg_daten <- daten |> filter(gruppe == "KG")
+m_kg <- round(mean(kg_daten$wm_score_t1, na.rm = TRUE), 1)
+cat("Inline-Code-Ergebnis:", m_kg, "Punkte\n")
+
+# In einem Quarto-Dokument müssten Sie diesen Wert nicht
+# manuell berechnen — der Inline-Code erledigt das automatisch.
+# Ändern sich die Daten, aktualisiert sich die Zahl beim Rendern.
+
+# --- Aufgabe 3: Plot erstellen (wie in S8) ---
+# Erstellen Sie einen Boxplot von wm_score_t1 nach gruppe.
+# In einem Quarto-Bericht wäre das Chunk 3 mit echo: false,
+# sodass nur der Plot im Bericht erscheint.
+
+# Ihr Code hier:
+
+
+
+# --- Aufgabe 4: Berichtsstruktur planen ---
+# Stellen Sie sich vor, Sie erstellen einen Quarto-Bericht
+# mit drei Chunks. Welcher Code gehört in welchen Chunk?
+# Ordnen Sie zu:
+#
+# Chunk 1 (Setup):     library(...) + read.csv2(...)
+# Chunk 2 (Analyse):   group_by(...) |> summarise(...)
+# Chunk 3 (Plot):      ggplot(...) + geom_boxplot(...)
+#
+# Welche Chunk-Optionen würden Sie jeweils setzen?
+# - Chunk 1: message: false (Paketmeldungen unterdrücken)
+# - Chunk 2: echo: ??? (Code zeigen oder verbergen?)
+# - Chunk 3: echo: false (nur Plot zeigen)
+#
+# Die Antwort hängt von der Zielgruppe ab:
+# - Für Kolleg*innen/Prüfung: echo: true überall
+# - Für Auftraggeber: echo: false überall
 ```
+
+::: {.callout-tip}
+## Quarto in RStudio ausprobieren
+
+Die webR-Konsole oben eignet sich zum Üben des R-Codes. Um ein **echtes Quarto-Dokument** zu erstellen, arbeiten Sie in RStudio:
+
+1. **File → New File → Quarto Document** — Titel und Format wählen.
+2. Zwischen **Visual Editor** und **Source Editor** wechseln (Button oben links).
+3. Code-Chunks einfügen: grüner Insert-Button oder **Ctrl+Alt+I**.
+4. **Render** klicken — das Ergebnis öffnet sich im Viewer.
+
+Verwenden Sie den Code aus den Aufgaben oben als Vorlage für Ihre Chunks.
+:::
+
+::: {.callout-note}
+## Weiterführende Materialien
+
+- **[Introduction to Quarto](https://kpuka.ca/resources/quarto_intro.html)** — Kompakte Einführung mit Schwerpunkt Visual/Source Editor und Code-Chunks.
+- **[Intro to Quarto (Data Vis Using R)](https://data-vis-using-r.info/03_intro_to_quarto/intro_to_quarto.html)** — Schritt-für-Schritt-Aufbau eines Quarto-Dokuments mit Fokus auf die Dokumentstruktur.
+- **[Quarto: The Definitive Guide](https://quarto-tdg.org/)** — Umfassendes Nachschlagewerk für alle Quarto-Funktionen.
+:::
 
 ------------------------------------------------------------------------
 

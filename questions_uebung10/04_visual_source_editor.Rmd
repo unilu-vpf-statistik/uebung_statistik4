@@ -1,0 +1,21 @@
+Question
+========
+Welche Aussagen zum **Visual Editor** und **Source Editor** in RStudio sind korrekt?
+
+Answerlist
+----------
+* Im Visual Editor wird Markdown-Text formatiert angezeigt (Überschriften, Fett, Listen), während im Source Editor die Markdown-Syntax sichtbar ist (z. B. `## Überschrift`, `**fett**`).
+* Der Visual Editor und der Source Editor bearbeiten unterschiedliche Dateien — Änderungen im Visual Editor werden nicht im Source Editor übernommen.
+* Der Source Editor ist besonders nützlich für die Fehlersuche, weil dort YAML-Header, Chunk-Grenzen und Inline-Code direkt sichtbar sind.
+* Im Visual Editor können keine Code-Chunks eingefügt werden — dafür muss man in den Source Editor wechseln.
+
+Solution
+========
+Korrekt sind Aussagen 1 und 3. Der Visual Editor zeigt den Markdown-Text formatiert an (WYSIWYG), während der Source Editor die Rohsyntax zeigt — beide Ansichten bearbeiten jedoch **dasselbe Dokument** (Aussage 2 ist falsch). Der Source Editor ist besonders hilfreich bei der Fehlersuche, weil YAML-Fehler, fehlende Chunk-Grenzen oder falsche Inline-Code-Syntax dort direkt erkennbar sind. Aussage 4 ist falsch: Im Visual Editor können Code-Chunks über den grünen Insert-Button oder das Tastenkürzel Ctrl+Alt+I eingefügt werden.
+
+Meta-information
+================
+exname: visual_source_editor
+extype: mchoice
+exsolution: 1010
+exshuffle: FALSE
