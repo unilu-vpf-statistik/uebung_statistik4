@@ -1840,12 +1840,13 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#export-ggsave" id="toc-export-ggsave" class="nav-link" data-scroll-target="#export-ggsave">Export: <code>ggsave()</code></a></li>
   <li><a href="#checkliste-ist-meine-grafik-fertig" id="toc-checkliste-ist-meine-grafik-fertig" class="nav-link" data-scroll-target="#checkliste-ist-meine-grafik-fertig">Checkliste: Ist meine Grafik fertig?</a></li>
   </ul></li>
+  <li><a href="#video-erklärungen" id="toc-video-erklärungen" class="nav-link" data-scroll-target="#video-erklärungen">Video-Erklärungen</a></li>
+  <li><a href="#weiterführende-materialien" id="toc-weiterführende-materialien" class="nav-link" data-scroll-target="#weiterführende-materialien">Weiterführende Materialien</a></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a>
   <ul class="collapse">
   <li><a href="#aufgabe-a-facettierung-ausprobieren" id="toc-aufgabe-a-facettierung-ausprobieren" class="nav-link" data-scroll-target="#aufgabe-a-facettierung-ausprobieren">Aufgabe A: Facettierung ausprobieren</a></li>
   <li><a href="#aufgabe-b-publikationsfertige-grafik" id="toc-aufgabe-b-publikationsfertige-grafik" class="nav-link" data-scroll-target="#aufgabe-b-publikationsfertige-grafik">Aufgabe B: Publikationsfertige Grafik</a></li>
   </ul></li>
-  <li><a href="#weiterführende-materialien" id="toc-weiterführende-materialien" class="nav-link" data-scroll-target="#weiterführende-materialien">Weiterführende Materialien</a></li>
   </ul>
 </nav>
     </div>
@@ -2395,36 +2396,33 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ol>
 </section>
 </section>
+<section id="video-erklärungen" class="level2">
+<h2 class="anchored" data-anchor-id="video-erklärungen">Video-Erklärungen</h2>
+<p>Die folgenden kurzen Videos erklären zentrale Themen dieser Übung anschaulich:</p>
+<ul>
+<li><strong>Facettierung:</strong> <a href="https://www.youtube.com/watch?v=sxknFa1rprY">Faceting in ggplot2</a></li>
+<li><strong>Plots speichern:</strong> <a href="https://www.youtube.com/watch?v=AvJ0EC9Bvmg">Saving plots with ggsave</a></li>
+<li><strong>Themes:</strong> <a href="https://www.youtube.com/watch?v=185exr5W9jQ">Themes in ggplot2</a> — <em>Hinweis: Dieses Video ist länger und geht über die prüfungsrelevanten Inhalte hinaus. Konzentrieren Sie sich auf die Abschnitte zu den Standard-Themes (<code>theme_bw()</code>, <code>theme_minimal()</code>, <code>theme_classic()</code>).</em></li>
+</ul>
+</section>
+<section id="weiterführende-materialien" class="level2">
+<h2 class="anchored" data-anchor-id="weiterführende-materialien">Weiterführende Materialien</h2>
+<p>Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese Referenzen. ggplot2 ist ein sehr mächtiges Paket, dass auch komplexe Grafiken und Animationen unterstützt. Die Referenzen gehen also über die Inhalte der Vorlesung hinaus, liefern Ihnen aber einen guten Ausgangspunkt um tiefer in die Erstellung von Plots mit ggplot2 einzusteigen:</p>
+<ul>
+<li><strong><a href="https://r-graph-gallery.com/ggplot2-package.html">R Graph Gallery — ggplot2-Übersicht</a></strong>: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.</li>
+<li><strong><a href="https://r-graph-gallery.com/223-faceting-with-ggplot2.html">R Graph Gallery — Faceting</a></strong>: Kompakte Einführung in <code>facet_wrap</code>, <code>facet_grid</code> und das <code>scales</code>-Argument mit direkten Code-Beispielen.</li>
+<li><strong><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">RStudio ggplot2-Cheatsheet</a></strong>: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.</li>
+<li><strong><a href="https://r4ds.hadley.nz/data-visualize">R for Data Science — Data Visualize</a></strong>: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.</li>
+</ul>
+</section>
 <section id="übungen" class="level2">
 <h2 class="anchored" data-anchor-id="übungen">Übungen</h2>
 <p>Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
-<div id="webex-c568db4bf6415598470c5c9f7c089c5c" class="webex-radiogroup" data-answer="OAUaCEhTGFI7">
-<label><input type="radio" autocomplete="off" name="c568db4bf6415598470c5c9f7c089c5c"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="c568db4bf6415598470c5c9f7c089c5c"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="c568db4bf6415598470c5c9f7c089c5c"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="c568db4bf6415598470c5c9f7c089c5c"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-1949e9d4e839004ffb30549a8bc6999a" class="webex-checkboxgroup" data-answer="agkYCEkISAQ4">
-<label><input type="checkbox" autocomplete="off" name="1949e9d4e839004ffb30549a8bc6999a"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="1949e9d4e839004ffb30549a8bc6999a"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="1949e9d4e839004ffb30549a8bc6999a"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="1949e9d4e839004ffb30549a8bc6999a"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
-<div id="webex-3433da258fb0b877305f7d3a7e394100" class="webex-checkboxgroup" data-answer="aAQfAkhQHgVl">
-<label><input type="checkbox" autocomplete="off" name="3433da258fb0b877305f7d3a7e394100"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="3433da258fb0b877305f7d3a7e394100"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="3433da258fb0b877305f7d3a7e394100"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="3433da258fb0b877305f7d3a7e394100"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
+<div id="webex-bd7a31ca6e9b2759c304b037f424abb9" class="webex-checkboxgroup" data-answer="OVQbUB8AT1Fr">
+<label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="bd7a31ca6e9b2759c304b037f424abb9"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2433,13 +2431,35 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
+<div id="webex-61a0d9350530d2bf209564772dfa8ac9" class="webex-radiogroup" data-answer="bQFNAEgIHwVt">
+<label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="61a0d9350530d2bf209564772dfa8ac9"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-48e5ec97ed8cdd2d79ce9f14731fd2d4" class="webex-radiogroup" data-answer="bwhJBElTFQc4">
-<label><input type="radio" autocomplete="off" name="48e5ec97ed8cdd2d79ce9f14731fd2d4"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="48e5ec97ed8cdd2d79ce9f14731fd2d4"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="48e5ec97ed8cdd2d79ce9f14731fd2d4"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="48e5ec97ed8cdd2d79ce9f14731fd2d4"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+<div id="webex-7bb133c05ea4eabe871ea90d38ba0026" class="webex-radiogroup" data-answer="bFJOAB8DTwBo">
+<label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="7bb133c05ea4eabe871ea90d38ba0026"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
+<div id="webex-bf8c83667068d482bdc8adab65cd0165" class="webex-checkboxgroup" data-answer="OVYUUhQCGgZq">
+<label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Eine y-Achse, die nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="bf8c83667068d482bdc8adab65cd0165"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Eine abgeschnittene y-Achse kann kleine Unterschiede visuell stark übertreiben und so einen falschen Eindruck erzeugen. Fehlende Achsenbeschriftungen und Einheiten machen es unmöglich, die Grafik korrekt zu interpretieren. Ein schlichtes Theme ohne Hintergrundfarbe ist hingegen kein Fehler — im Gegenteil, schlichte Themes sind oft lesbarer als überladene Designs. Ebenso ist die Wahl eines Scatterplots statt eines Tortendiagramms kein Fehler: Tortendiagramme sind für Vergleiche oft ungeeigneter als andere Diagrammtypen, weil Menschen Winkel schlecht vergleichen können.</p>
 </div>
 </div>
 <section id="aufgabe-a-facettierung-ausprobieren" class="level3">
@@ -2451,17 +2471,6 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h3 class="anchored" data-anchor-id="aufgabe-b-publikationsfertige-grafik">Aufgabe B: Publikationsfertige Grafik</h3>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-</section>
-<section id="weiterführende-materialien" class="level2">
-<h2 class="anchored" data-anchor-id="weiterführende-materialien">Weiterführende Materialien</h2>
-<p>Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese (sorgfältig ausgewählten) Referenzen:</p>
-<ul>
-<li><strong><a href="https://r-graph-gallery.com/ggplot2-package.html">R Graph Gallery — ggplot2-Übersicht</a></strong>: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.</li>
-<li><strong><a href="https://r-graph-gallery.com/223-faceting-with-ggplot2.html">R Graph Gallery — Faceting</a></strong>: Kompakte Einführung in <code>facet_wrap</code>, <code>facet_grid</code> und das <code>scales</code>-Argument mit direkten Code-Beispielen.</li>
-<li><strong><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">RStudio ggplot2-Cheatsheet</a></strong>: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.</li>
-<li><strong><a href="https://r4ds.hadley.nz/data-visualize">R for Data Science — Data Visualize</a></strong>: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.</li>
-</ul>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2470,6 +2479,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -180,6 +180,23 @@ ggsave("abbildungen/wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi 
 5. Legende klar beschriftet
 6. Richtige Auflösung und Grösse für das Zielmedium
 
+## Video-Erklärungen
+
+Die folgenden kurzen Videos erklären zentrale Themen dieser Übung anschaulich:
+
+- **Facettierung:** [Faceting in ggplot2](https://www.youtube.com/watch?v=sxknFa1rprY)
+- **Plots speichern:** [Saving plots with ggsave](https://www.youtube.com/watch?v=AvJ0EC9Bvmg)
+- **Themes:** [Themes in ggplot2](https://www.youtube.com/watch?v=185exr5W9jQ) — *Hinweis: Dieses Video ist länger und geht über die prüfungsrelevanten Inhalte hinaus. Konzentrieren Sie sich auf die Abschnitte zu den Standard-Themes (`theme_bw()`, `theme_minimal()`, `theme_classic()`).*
+
+## Weiterführende Materialien
+
+Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese Referenzen. ggplot2 ist ein sehr mächtiges Paket, dass auch komplexe Grafiken und Animationen unterstützt. Die Referenzen gehen also über die Inhalte der Vorlesung hinaus, liefern Ihnen aber einen guten Ausgangspunkt um tiefer in die Erstellung von Plots mit ggplot2 einzusteigen:
+
+- **[R Graph Gallery — ggplot2-Übersicht](https://r-graph-gallery.com/ggplot2-package.html)**: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.
+- **[R Graph Gallery — Faceting](https://r-graph-gallery.com/223-faceting-with-ggplot2.html)**: Kompakte Einführung in `facet_wrap`, `facet_grid` und das `scales`-Argument mit direkten Code-Beispielen.
+- **[RStudio ggplot2-Cheatsheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)**: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.
+- **[R for Data Science — Data Visualize](https://r4ds.hadley.nz/data-visualize)**: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.
+
 ## Übungen
 
 Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.
@@ -275,15 +292,6 @@ ggplot(df_plot, aes(x = gruppe, y = wm, fill = gruppe)) +
 # nicht in webR, aber merken Sie sich die Syntax):
 # ggsave("wm_boxplot.pdf", width = 15, height = 10, units = "cm", dpi = 300)
 ```
-
-## Weiterführende Materialien
-
-Wenn Sie einzelne Themen vertiefen möchten, lohnen sich diese (sorgfältig ausgewählten) Referenzen:
-
-- **[R Graph Gallery — ggplot2-Übersicht](https://r-graph-gallery.com/ggplot2-package.html)**: Alle gängigen Geome mit minimalen Code-Beispielen — gut zum Nachschlagen und Stöbern.
-- **[R Graph Gallery — Faceting](https://r-graph-gallery.com/223-faceting-with-ggplot2.html)**: Kompakte Einführung in `facet_wrap`, `facet_grid` und das `scales`-Argument mit direkten Code-Beispielen.
-- **[RStudio ggplot2-Cheatsheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)**: Die zentrale Übersichtskarte zu Geomen, Aesthetics und Themes — sehr nützlich, um die Grammar of Graphics kompakt vor Augen zu haben.
-- **[R for Data Science — Data Visualize](https://r4ds.hadley.nz/data-visualize)**: Hadley Wickhams Einführungskapitel — auch als konzeptuelle Lektüre (nicht nur als Code-Rezept) lesbar.
 
 ------------------------------------------------------------------------
 
