@@ -2265,6 +2265,21 @@ Figure&nbsp;1: Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anz
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Besser: y-Achse startet bei 0 — Unterschied sichtbar, aber nicht dramatisiert</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Die folgende Abbildung zeigt <strong>denselben Mittelwertsunterschied</strong> (28 vs.&nbsp;26) in drei Darstellungen. Links der dramatisierte Balkenplot, in der Mitte die kalibrierte Variante mit Nullpunkt — rechts ein Boxplot, der die Streuung der Einzelwerte sichtbar lässt und dadurch auch mit Zoom nicht irreführt.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-misleading-yaxis" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Drei Plots nebeneinander mit identischen Daten. Links: Balkenplot mit y-Achse 25-30, zwei Balken wirken sehr unterschiedlich hoch. Mitte: Balkenplot mit y-Achse 0-30, Unterschied sichtbar aber moderat. Rechts: Boxplot mit erkennbarer Streuung beider Gruppen.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-misleading-yaxis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="exercise9_files/figure-html/fig-misleading-yaxis-1.png" class="img-fluid figure-img" alt="Drei Plots nebeneinander mit identischen Daten. Links: Balkenplot mit y-Achse 25-30, zwei Balken wirken sehr unterschiedlich hoch. Mitte: Balkenplot mit y-Achse 0-30, Unterschied sichtbar aber moderat. Rechts: Boxplot mit erkennbarer Streuung beider Gruppen." width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-misleading-yaxis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Derselbe Gruppenunterschied (M = 28 vs.&nbsp;26) in drei Darstellungen. Der Balkenplot links dramatisiert den Effekt durch die abgeschnittene y-Achse. Mittig wird derselbe Effekt kalibriert dargestellt. Der Boxplot rechts zeigt die Streuung der Einzelwerte und bleibt auch mit Zoom informativ.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p><strong>Wichtig:</strong> Bei einem Scatterplot oder Boxplot, der die individuellen Datenpunkte und deren Streuung zeigt, wäre ein Zoom auf den Wertebereich unproblematisch — die Variabilität der Daten bleibt sichtbar. Bei einem Barplot fehlt diese Information, weshalb die abgeschnittene Achse dort besonders kritisch ist.</p>
 <p><strong>Reflexionsfrage:</strong> Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) <strong>doppelt</strong> irreführend? Was fehlt — und was wird übertrieben?</p>
 </section>
@@ -2287,6 +2302,21 @@ Figure&nbsp;1: Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anz
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(geschlecht <span class="sc">~</span> gruppe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Wann sinnvoll:</strong> Zwei Gruppierungsvariablen, Interaktionsmuster sichtbar machen.</p>
+<p>Der visuelle Unterschied der beiden Funktionen wird im direkten Vergleich klar: <code>facet_wrap()</code> bricht eine <strong>einzelne</strong> Gruppierung in Zeilen um (wie Text), während <code>facet_grid()</code> zwei Gruppierungen in einer <strong>Matrix</strong> anordnet, in der Zeilen und Spalten je eine eigene Bedeutung haben.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-facet-comparison" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Links: facet_wrap mit drei Panels nebeneinander (je eine Gruppe). Rechts: facet_grid als 2x3-Matrix (Zeilen: Geschlecht, Spalten: Gruppe), jedes Panel zeigt ein Histogramm.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facet-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="exercise9_files/figure-html/fig-facet-comparison-1.png" class="img-fluid figure-img" alt="Links: facet_wrap mit drei Panels nebeneinander (je eine Gruppe). Rechts: facet_grid als 2x3-Matrix (Zeilen: Geschlecht, Spalten: Gruppe), jedes Panel zeigt ein Histogramm." width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <code>facet_wrap()</code> links erzeugt ein Panel pro Ausprägung einer Variable. <code>facet_grid()</code> rechts spannt eine Matrix aus zwei Variablen auf — Interaktionsmuster zwischen Zeilen- und Spalten-Variable werden direkt sichtbar.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="achsen-skalen-scales-free-oder-free_y" class="level3">
 <h3 class="anchored" data-anchor-id="achsen-skalen-scales-free-oder-free_y">Achsen-Skalen: <code>scales = "free"</code> oder <code>"free_y"</code></h3>
@@ -2341,6 +2371,21 @@ Figure&nbsp;1: Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anz
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(daten, <span class="fu">aes</span>(<span class="at">x =</span> gruppe, <span class="at">y =</span> wm_score_t1, <span class="at">fill =</span> gruppe)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Die folgende Abbildung vergleicht drei Paletten an <strong>denselben Daten</strong>: die ggplot2-Default-Palette, ColorBrewer <code>Set2</code> und <code>viridis</code>. In der unteren Reihe sind die Plots in Graustufen umgewandelt — ein guter Test dafür, ob eine Palette robust ist: <code>viridis</code> behält auch dann noch unterscheidbare Helligkeitsstufen, während die Defaults in Graustufen kaum mehr unterscheidbar sind.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-palette-comparison" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Sechs Boxplots in zwei Zeilen und drei Spalten: Die drei Spalten zeigen drei Farbpaletten (Default, Set2, viridis). Die obere Zeile ist in Farbe, die untere in Graustufen.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-palette-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="exercise9_files/figure-html/fig-palette-comparison-1.png" class="img-fluid figure-img" alt="Sechs Boxplots in zwei Zeilen und drei Spalten: Die drei Spalten zeigen drei Farbpaletten (Default, Set2, viridis). Die obere Zeile ist in Farbe, die untere in Graustufen." width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-palette-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Drei Farbpaletten auf identischen Daten — oben in Farbe, unten in Graustufen. <code>viridis</code> behält systematische Helligkeitsunterschiede, was sie sowohl für Farbfehlsichtigkeit als auch für Schwarz-Weiss-Druck geeignet macht.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p><strong>Daumenregel</strong>: ca. 8% der Männer und 0.5% der Frauen haben eine Rot-Grün-Schwäche. Paletten wie <code>viridis</code> oder ColorBrewer-Paletten mit dem Zusatz <em>colorblind-safe</em> vermeiden dieses Problem.</p>
 </section>
 <section id="publikationsreife-grafiken" class="level2">
@@ -2452,9 +2497,31 @@ Figure&nbsp;1: Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anz
 <p>Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
+<div id="webex-91029f5032d9e287b482db609e38d633" class="webex-checkboxgroup" data-answer="YgEcAxVXGQBu">
+<label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie “rt_ms” sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
+<div id="webex-fe0c848688f26fce77ce3839626312df" class="webex-radiogroup" data-answer="PVUcUxQFFAZl">
+<label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-ca59a8dbeebb6ed4b7ab2d8192eed4f3" class="webex-checkboxgroup" data-answer="OFEZCE0JSFI4">
-<label><input type="checkbox" autocomplete="off" name="ca59a8dbeebb6ed4b7ab2d8192eed4f3"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="ca59a8dbeebb6ed4b7ab2d8192eed4f3"><span>Ein Balkendiagramm, dessen y-Achse nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden, ohne dass die Streuung der Daten sichtbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="ca59a8dbeebb6ed4b7ab2d8192eed4f3"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="ca59a8dbeebb6ed4b7ab2d8192eed4f3"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+<div id="webex-932a0883577ba56a30e020297f6a583e" class="webex-checkboxgroup" data-answer="YgMeUBwJFANo">
+<label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Ein Balkendiagramm, dessen y-Achse nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden, ohne dass die Streuung der Daten sichtbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2464,34 +2531,12 @@ Figure&nbsp;1: Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anz
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-4256a72b01e636dc7562ba4214022711" class="webex-radiogroup" data-answer="bwIZB00HHlJt">
-<label><input type="radio" autocomplete="off" name="4256a72b01e636dc7562ba4214022711"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="4256a72b01e636dc7562ba4214022711"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="4256a72b01e636dc7562ba4214022711"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="4256a72b01e636dc7562ba4214022711"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+<div id="webex-30faaed42e5d6c701ffa424421cc1db4" class="webex-radiogroup" data-answer="aABKUE1VSARv">
+<label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
-<div id="webex-cfbdf636c8a63b739bc0dffb15bf2b4c" class="webex-radiogroup" data-answer="OFZOVEoHHwY+">
-<label><input type="radio" autocomplete="off" name="cfbdf636c8a63b739bc0dffb15bf2b4c"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="cfbdf636c8a63b739bc0dffb15bf2b4c"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="cfbdf636c8a63b739bc0dffb15bf2b4c"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="cfbdf636c8a63b739bc0dffb15bf2b4c"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
-<div id="webex-5c6382afe2650cb862f9b9d6fac9cba5" class="webex-checkboxgroup" data-answer="blMaAhQDTVY4">
-<label><input type="checkbox" autocomplete="off" name="5c6382afe2650cb862f9b9d6fac9cba5"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="5c6382afe2650cb862f9b9d6fac9cba5"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="5c6382afe2650cb862f9b9d6fac9cba5"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="5c6382afe2650cb862f9b9d6fac9cba5"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Publikationsreife Grafiken zeichnen sich durch klare Achsenbeschriftungen mit Einheiten, eine verständliche Legende und ein schlichtes Design aus. Rohvariablennamen wie “rt_ms” sind für Leserinnen und Leser nicht informativ. Falsch ist, dass 3D-Effekte und Schatten professionell wirken — sie verzerren die Wahrnehmung und fügen keine Information hinzu. Ebenso falsch ist, dass möglichst viele Variablen in einen Plot gehören: Visuelle Komplexität sollte nur dann hinzugefügt werden, wenn sie der Informationsvermittlung dient, nicht als Dekoration.</p>
 </div>
 </div>
 <section id="aufgabe-a-facettierung-ausprobieren" class="level3">

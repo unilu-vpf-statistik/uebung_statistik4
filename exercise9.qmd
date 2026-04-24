@@ -84,6 +84,67 @@ ggplot(...) + geom_col() + coord_cartesian(ylim = c(25, 30))
 ggplot(...) + geom_col() + coord_cartesian(ylim = c(0, 30))
 ```
 
+Die folgende Abbildung zeigt **denselben Mittelwertsunterschied** (28 vs. 26) in drei Darstellungen. Links der dramatisierte Balkenplot, in der Mitte die kalibrierte Variante mit Nullpunkt — rechts ein Boxplot, der die Streuung der Einzelwerte sichtbar lässt und dadurch auch mit Zoom nicht irreführt.
+
+```{r fig-misleading-yaxis}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Derselbe Gruppenunterschied (M = 28 vs. 26) in drei Darstellungen. Der Balkenplot links dramatisiert den Effekt durch die abgeschnittene y-Achse. Mittig wird derselbe Effekt kalibriert dargestellt. Der Boxplot rechts zeigt die Streuung der Einzelwerte und bleibt auch mit Zoom informativ."
+#| fig-alt: "Drei Plots nebeneinander mit identischen Daten. Links: Balkenplot mit y-Achse 25-30, zwei Balken wirken sehr unterschiedlich hoch. Mitte: Balkenplot mit y-Achse 0-30, Unterschied sichtbar aber moderat. Rechts: Boxplot mit erkennbarer Streuung beider Gruppen."
+#| fig-width: 10
+#| fig-height: 3.6
+library(ggplot2)
+library(patchwork)
+
+set.seed(99)
+dat_bar <- data.frame(
+  gruppe = c("KG", "EG"),
+  wm     = c(26, 28)
+)
+dat_box <- data.frame(
+  gruppe = rep(c("KG", "EG"), each = 30),
+  wm     = c(rnorm(30, 26, 2.2), rnorm(30, 28, 2.0))
+)
+dat_box$gruppe <- factor(dat_box$gruppe, levels = c("KG", "EG"))
+dat_bar$gruppe <- factor(dat_bar$gruppe, levels = c("KG", "EG"))
+
+p_bad <- ggplot(dat_bar, aes(x = gruppe, y = wm, fill = gruppe)) +
+  geom_col(width = 0.6) +
+  coord_cartesian(ylim = c(25, 30)) +
+  scale_fill_manual(values = c("#a6bddb", "#2b8cbe")) +
+  labs(title = "❌ Balken, y-Achse 25-30",
+       subtitle = "Unterschied dramatisiert",
+       x = NULL, y = "WM-Score") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+p_good <- ggplot(dat_bar, aes(x = gruppe, y = wm, fill = gruppe)) +
+  geom_col(width = 0.6) +
+  coord_cartesian(ylim = c(0, 30)) +
+  scale_fill_manual(values = c("#a6bddb", "#2b8cbe")) +
+  labs(title = "✅ Balken, y-Achse ab 0",
+       subtitle = "Unterschied kalibriert",
+       x = NULL, y = "WM-Score") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+p_box <- ggplot(dat_box, aes(x = gruppe, y = wm, fill = gruppe)) +
+  geom_boxplot(width = 0.5, alpha = 0.8) +
+  geom_jitter(width = 0.12, alpha = 0.4, size = 1.2) +
+  scale_fill_manual(values = c("#a6bddb", "#2b8cbe")) +
+  labs(title = "✅ Boxplot",
+       subtitle = "Streuung bleibt sichtbar",
+       x = NULL, y = "WM-Score") +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+p_bad + p_good + p_box + plot_layout(nrow = 1)
+```
+
 **Wichtig:** Bei einem Scatterplot oder Boxplot, der die individuellen Datenpunkte und deren Streuung zeigt, wäre ein Zoom auf den Wertebereich unproblematisch — die Variabilität der Daten bleibt sichtbar. Bei einem Barplot fehlt diese Information, weshalb die abgeschnittene Achse dort besonders kritisch ist.
 
 **Reflexionsfrage:** Warum ist ein Barplot der Gruppenmittelwerte (ohne Fehlerbalken und mit abgeschnittener Achse) **doppelt** irreführend? Was fehlt — und was wird übertrieben?
@@ -115,6 +176,50 @@ ggplot(daten, aes(x = wm_score_t2)) +
 ```
 
 **Wann sinnvoll:** Zwei Gruppierungsvariablen, Interaktionsmuster sichtbar machen.
+
+Der visuelle Unterschied der beiden Funktionen wird im direkten Vergleich klar: `facet_wrap()` bricht eine **einzelne** Gruppierung in Zeilen um (wie Text), während `facet_grid()` zwei Gruppierungen in einer **Matrix** anordnet, in der Zeilen und Spalten je eine eigene Bedeutung haben.
+
+```{r fig-facet-comparison}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "`facet_wrap()` links erzeugt ein Panel pro Ausprägung einer Variable. `facet_grid()` rechts spannt eine Matrix aus zwei Variablen auf — Interaktionsmuster zwischen Zeilen- und Spalten-Variable werden direkt sichtbar."
+#| fig-alt: "Links: facet_wrap mit drei Panels nebeneinander (je eine Gruppe). Rechts: facet_grid als 2x3-Matrix (Zeilen: Geschlecht, Spalten: Gruppe), jedes Panel zeigt ein Histogramm."
+#| fig-width: 10
+#| fig-height: 4.5
+library(ggplot2)
+library(patchwork)
+
+set.seed(33)
+demo <- data.frame(
+  gruppe     = factor(rep(c("KG", "EG1", "EG2"), each = 100),
+                      levels = c("KG", "EG1", "EG2")),
+  geschlecht = factor(rep(rep(c("w", "m"), each = 50), 3)),
+  wm         = c(rnorm(50, 4.0, 0.6), rnorm(50, 4.1, 0.6),
+                 rnorm(50, 4.6, 0.6), rnorm(50, 4.8, 0.6),
+                 rnorm(50, 5.0, 0.6), rnorm(50, 5.3, 0.6))
+)
+
+p_wrap <- ggplot(demo, aes(x = wm)) +
+  geom_histogram(bins = 12, fill = "#2b8cbe", color = "white") +
+  facet_wrap(~gruppe) +
+  labs(title = "facet_wrap(~gruppe)",
+       subtitle = "1 Variable → Panels fliessen",
+       x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold"))
+
+p_grid <- ggplot(demo, aes(x = wm)) +
+  geom_histogram(bins = 12, fill = "#2b8cbe", color = "white") +
+  facet_grid(geschlecht ~ gruppe) +
+  labs(title = "facet_grid(geschlecht ~ gruppe)",
+       subtitle = "2 Variablen → Matrix-Layout",
+       x = "WM-Score", y = "Häufigkeit") +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold"))
+
+p_wrap + p_grid + plot_layout(widths = c(1, 1.1))
+```
 
 ### Achsen-Skalen: `scales = "free"` oder `"free_y"`
 
@@ -150,6 +255,59 @@ Die Default-Farbpalette von ggplot2 ist nicht für alle Leserinnen und Leser gut
 ggplot(daten, aes(x = gruppe, y = wm_score_t1, fill = gruppe)) +
   geom_boxplot() +
   scale_fill_brewer(palette = "Set2")
+```
+
+Die folgende Abbildung vergleicht drei Paletten an **denselben Daten**: die ggplot2-Default-Palette, ColorBrewer `Set2` und `viridis`. In der unteren Reihe sind die Plots in Graustufen umgewandelt — ein guter Test dafür, ob eine Palette robust ist: `viridis` behält auch dann noch unterscheidbare Helligkeitsstufen, während die Defaults in Graustufen kaum mehr unterscheidbar sind.
+
+```{r fig-palette-comparison}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Drei Farbpaletten auf identischen Daten — oben in Farbe, unten in Graustufen. `viridis` behält systematische Helligkeitsunterschiede, was sie sowohl für Farbfehlsichtigkeit als auch für Schwarz-Weiss-Druck geeignet macht."
+#| fig-alt: "Sechs Boxplots in zwei Zeilen und drei Spalten: Die drei Spalten zeigen drei Farbpaletten (Default, Set2, viridis). Die obere Zeile ist in Farbe, die untere in Graustufen."
+#| fig-width: 10
+#| fig-height: 5.5
+library(ggplot2)
+library(patchwork)
+
+set.seed(21)
+demo <- data.frame(
+  gruppe = factor(rep(c("KG", "EG1", "EG2", "EG3"), each = 40),
+                  levels = c("KG", "EG1", "EG2", "EG3")),
+  wm     = c(rnorm(40, 4.0, 0.6), rnorm(40, 4.5, 0.6),
+             rnorm(40, 5.0, 0.6), rnorm(40, 5.4, 0.6))
+)
+
+# Graustufen-Äquivalente (Perzeptuelle Helligkeit der Originalfarben)
+default_cols <- scales::hue_pal()(4)
+set2_cols    <- RColorBrewer::brewer.pal(4, "Set2")
+viridis_cols <- viridisLite::viridis(4)
+
+to_gray <- function(cols) {
+  rgb <- col2rgb(cols) / 255
+  lum <- 0.2126 * rgb["red", ] + 0.7152 * rgb["green", ] + 0.0722 * rgb["blue", ]
+  rgb(lum, lum, lum)
+}
+
+basis_plot <- function(title, fill_vals) {
+  ggplot(demo, aes(x = gruppe, y = wm, fill = gruppe)) +
+    geom_boxplot(width = 0.6) +
+    scale_fill_manual(values = fill_vals) +
+    labs(title = title, x = NULL, y = "WM-Score") +
+    theme_minimal(base_size = 10) +
+    theme(legend.position = "none",
+          plot.title = element_text(face = "bold", size = 10))
+}
+
+p1 <- basis_plot("Default (hue)", default_cols)
+p2 <- basis_plot("ColorBrewer Set2", set2_cols)
+p3 <- basis_plot("viridis", viridis_cols)
+
+p1g <- basis_plot("Default — Graustufen", to_gray(default_cols))
+p2g <- basis_plot("Set2 — Graustufen",    to_gray(set2_cols))
+p3g <- basis_plot("viridis — Graustufen", to_gray(viridis_cols))
+
+(p1 + p2 + p3) / (p1g + p2g + p3g)
 ```
 
 **Daumenregel**: ca. 8% der Männer und 0.5% der Frauen haben eine Rot-Grün-Schwäche. Paletten wie `viridis` oder ColorBrewer-Paletten mit dem Zusatz *colorblind-safe* vermeiden dieses Problem.
