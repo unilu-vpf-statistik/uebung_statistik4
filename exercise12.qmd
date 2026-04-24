@@ -35,6 +35,44 @@ In dieser Übung beschäftigen wir uns mit der **linearen Regression** als Veral
 | **b₁** (Steigung) | Veränderung in y pro Einheit x |
 | **e** (Fehler) | Nicht erklärte Abweichung |
 
+Der **Fehler e** lässt sich geometrisch zeigen: Für jeden Datenpunkt ist das **Residuum** der senkrechte Abstand zwischen dem beobachteten Wert und der Regressionslinie (dem vorhergesagten Wert). Die Regression wählt die Linie so, dass die Summe der quadrierten Residuen minimal wird ("Kleinste-Quadrate-Schätzung"). Das Verständnis dieser Abstände ist zentral für die spätere Modellprüfung in Aufgabe 4.
+
+```{r fig-residuen}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Residuen als senkrechte Abstände: Jeder Datenpunkt weicht um einen individuellen Betrag von der Regressionslinie ab — diese Abweichung ist das Residuum."
+#| fig-alt: "Scatterplot mit 15 Datenpunkten, einer blauen Regressionslinie und gepunkteten roten senkrechten Linien von jedem Punkt zur Regressionslinie. Die roten Linien visualisieren die Residuen."
+#| fig-width: 7
+#| fig-height: 4.2
+library(ggplot2)
+
+set.seed(7)
+n <- 15
+x <- seq(1, 10, length.out = n) + rnorm(n, 0, 0.2)
+y <- 2 + 0.8 * x + rnorm(n, 0, 1.3)
+dat <- data.frame(x = x, y = y)
+mod <- lm(y ~ x, data = dat)
+dat$y_hat <- predict(mod)
+
+ggplot(dat, aes(x = x, y = y)) +
+  geom_smooth(method = "lm", se = FALSE,
+              color = "#2c5d8f", linewidth = 0.9) +
+  geom_segment(aes(xend = x, yend = y_hat),
+               color = "firebrick", linewidth = 0.55, linetype = "dotted") +
+  geom_point(size = 2.6, alpha = 0.9) +
+  annotate("text", x = 9.7, y = 1.2,
+           label = "Residuum =\nbeobachtet − vorhergesagt",
+           color = "firebrick", size = 3.4, hjust = 1, vjust = 0,
+           lineheight = 0.95) +
+  annotate("text", x = 1.3, y = max(dat$y_hat) * 0.95,
+           label = "Regressionslinie\n(ŷ = b₀ + b₁·x)",
+           color = "#2c5d8f", size = 3.4, hjust = 0, vjust = 1,
+           lineheight = 0.95) +
+  labs(x = "Prädiktor (x)", y = "Zielvariable (y)") +
+  theme_minimal(base_size = 11)
+```
+
 ### Korrelation ≠ Kausalität
 
 Regression zeigt **Zusammenhang**, nicht **Ursache-Wirkung**. Ein signifikanter Koeffizient bedeutet nicht, dass x die Veränderung in y verursacht.

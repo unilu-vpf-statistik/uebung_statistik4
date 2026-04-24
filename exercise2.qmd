@@ -52,6 +52,30 @@ here()
 here("Daten_Roh", "daten.csv")
 ```
 
+Warum das so wichtig ist, macht der folgende Vergleich deutlich: Ein absoluter Pfad funktioniert nur auf genau dem Computer, auf dem er geschrieben wurde. Ein relativer Pfad (via `here()`) funktioniert überall, wo das Projekt geöffnet wird.
+
+```{mermaid}
+%%| label: fig-pfade-vergleich
+%%| fig-cap: "Absolute Pfade sind an einen Computer gebunden, relative Pfade via `here()` funktionieren überall."
+flowchart TB
+    subgraph abs["❌ Absoluter Pfad: /Users/anna/Projekt/daten.csv"]
+        direction LR
+        A1[Anna's Computer] -->|"findet Datei"| A2[✅ Analyse läuft]
+        A3[Bens Computer] -->|"Pfad existiert nicht"| A4[❌ Fehler]
+    end
+    subgraph rel["✅ Relativer Pfad: here('Daten', 'daten.csv')"]
+        direction LR
+        B1[Anna's Computer] -->|"findet Datei"| B2[✅ Analyse läuft]
+        B3[Bens Computer] -->|"findet Datei"| B4[✅ Analyse läuft]
+    end
+    abs ~~~ rel
+
+    style A4 fill:#fee,stroke:#c33
+    style A2 fill:#efe,stroke:#3a3
+    style B2 fill:#efe,stroke:#3a3
+    style B4 fill:#efe,stroke:#3a3
+```
+
 ## Praktische Übung
 
 Führen Sie die folgenden Aufgaben in **RStudio** durch. Nutzen Sie die webR-Konsole weiter unten, um `here()`-Ausdrücke schnell auszuprobieren.

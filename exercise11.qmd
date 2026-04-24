@@ -31,6 +31,68 @@ In dieser Übung beschäftigen wir uns mit der **ANOVA als Varianzzerlegungsmode
 - **SS_total = SS_between + SS_within**
 - **F = MS_between / MS_within**: Varianz zwischen Gruppen relativ zur Varianz innerhalb
 
+Die folgende Abbildung zeigt diese Zerlegung geometrisch: Die **blauen Segmente** sind die Abstände jedes Einzelwerts zum jeweiligen Gruppenmittelwert (= *within*, innerhalb der Gruppen). Die **roten Pfeile** sind die Abstände der Gruppenmittelwerte zum gemeinsamen Mittelwert aller Daten (= *between*, zwischen den Gruppen). Die F-Statistik setzt diese beiden Varianzanteile ins Verhältnis.
+
+```{r fig-varianzzerlegung}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände (blau) sind individuelle Abweichungen vom Gruppenmittelwert, Between-Abstände (rot) sind Abweichungen der Gruppenmittelwerte vom Grand Mean."
+#| fig-alt: "Punkteplot mit drei Gruppen auf der x-Achse. Jeder Datenpunkt ist durch eine blaue senkrechte Linie mit dem jeweiligen Gruppenmittelwert (schwarzer Querstrich) verbunden. Von jedem Gruppenmittelwert führt ein roter Pfeil zur gestrichelten horizontalen Linie des Grand Mean."
+#| fig-width: 8
+#| fig-height: 4.5
+library(ggplot2)
+library(dplyr)
+library(tibble)
+
+set.seed(11)
+dat <- tibble(
+  gruppe = factor(rep(c("KG", "EG1", "EG2"), each = 6),
+                  levels = c("KG", "EG1", "EG2")),
+  wert   = c(rnorm(6, 3.8, 0.45),
+             rnorm(6, 5.0, 0.50),
+             rnorm(6, 6.0, 0.45))
+) |>
+  mutate(x_num = as.numeric(gruppe),
+         x_jit = x_num + runif(n(), -0.12, 0.12)) |>
+  group_by(gruppe) |>
+  mutate(gr_mean = mean(wert)) |>
+  ungroup() |>
+  mutate(grand_mean = mean(wert))
+
+gm <- unique(dat$grand_mean)
+gruppen_mittel <- dat |> distinct(x_num, gr_mean) |> mutate(gm = gm)
+
+ggplot(dat, aes(x = x_jit, y = wert)) +
+  geom_hline(yintercept = gm, linetype = "dashed", color = "grey40") +
+  annotate("text", x = 3.45, y = gm, label = "Grand Mean",
+           hjust = 0, vjust = -0.4, color = "grey40", size = 3.3) +
+  geom_segment(aes(xend = x_jit, yend = gr_mean, color = "within"),
+               linewidth = 0.55) +
+  geom_segment(data = gruppen_mittel,
+               aes(x = x_num - 0.25, xend = x_num + 0.25,
+                   y = gr_mean, yend = gr_mean),
+               color = "black", linewidth = 1, inherit.aes = FALSE) +
+  geom_segment(data = gruppen_mittel,
+               aes(x = x_num + 0.30, xend = x_num + 0.30,
+                   y = gr_mean, yend = gm, color = "between"),
+               linewidth = 1.1,
+               arrow = arrow(length = unit(0.18, "cm"), ends = "both"),
+               inherit.aes = FALSE) +
+  geom_point(size = 2.3, alpha = 0.85) +
+  scale_x_continuous(breaks = 1:3, labels = levels(dat$gruppe),
+                     limits = c(0.5, 4.1)) +
+  scale_color_manual(
+    name = NULL,
+    values = c(within = "#2c5d8f", between = "firebrick"),
+    labels = c(within  = "within — innerhalb (blau)",
+               between = "between — zwischen (rot)")
+  ) +
+  labs(x = "Gruppe", y = "Messwert") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+```
+
 ### Signifikanz ≠ Relevanz
 
 | Kennwert | Aussage |

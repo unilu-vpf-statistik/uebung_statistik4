@@ -45,6 +45,71 @@ Häufige Verletzungen:
 - Spaltennamen sind Werte statt Variablennamen (z. B. `score_t1`, `score_t2`, `score_t3`)
 - Mehrere Variablen in einer Spalte (z. B. `"KG_m"` für Gruppe und Geschlecht)
 
+Das folgende Schema zeigt den Wechsel zwischen den beiden Formaten. Im **breiten Format** enthalten die Spaltennamen (`score_t1`, `score_t2`, `score_t3`) eine Information — nämlich den Messzeitpunkt. Im **langen Format** wird diese Information in eine eigene Spalte (`MZP`) ausgelagert. Die Umwandlung erfolgt mit `pivot_longer()` (breit → lang) bzw. `pivot_wider()` (lang → breit).
+
+```{r fig-pivot-tidy}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Umwandlung zwischen breitem und langem Datenformat. `pivot_longer()` dreht Spalten in Zeilen; `pivot_wider()` macht das Gegenteil."
+#| fig-alt: "Zwei stilisierte Tabellen nebeneinander: links das breite Format mit Spalten id, score_t1, score_t2, score_t3; rechts das lange Format mit Spalten id, MZP, score. Pfeile dazwischen beschriftet mit pivot_longer() und pivot_wider()."
+#| fig-width: 9
+#| fig-height: 3.2
+library(ggplot2)
+library(patchwork)
+library(dplyr)
+library(tidyr)
+library(tibble)
+
+tabelle_plot <- function(df, titel) {
+  spalten <- colnames(df)
+  kopf <- tibble(row = 0, col_idx = seq_along(spalten), val = spalten)
+  zellen <- df |>
+    mutate(across(everything(), as.character)) |>
+    mutate(row = row_number()) |>
+    pivot_longer(-row, names_to = "col", values_to = "val") |>
+    mutate(col_idx = match(col, spalten)) |>
+    select(row, col_idx, val)
+
+  bind_rows(kopf, zellen) |>
+    ggplot(aes(x = col_idx, y = -row)) +
+    geom_tile(aes(fill = row == 0), color = "grey40", linewidth = 0.4) +
+    geom_text(aes(label = val, fontface = ifelse(row == 0, "bold", "plain")), size = 3.6) +
+    scale_fill_manual(values = c("white", "#d9e4f2")) +
+    labs(title = titel) +
+    theme_void() +
+    theme(legend.position = "none",
+          plot.title = element_text(hjust = 0.5, size = 12, face = "bold"))
+}
+
+breit <- tribble(
+  ~id,  ~score_t1, ~score_t2, ~score_t3,
+  "P1",      4.2,      4.5,      5.1,
+  "P2",      3.8,      4.0,      4.3,
+  "P3",      5.0,      5.2,      5.5
+)
+lang <- breit |>
+  pivot_longer(-id, names_to = "MZP", values_to = "score") |>
+  slice(1:6)
+
+p_breit <- tabelle_plot(breit, "Breites Format")
+p_lang  <- tabelle_plot(lang,  "Langes Format")
+
+p_pfeil <- ggplot() +
+  annotate("segment", x = 0.1, xend = 0.9, y = 0.62, yend = 0.62,
+           arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.6) +
+  annotate("text", x = 0.5, y = 0.72, label = "pivot_longer()",
+           size = 3.8, fontface = "italic") +
+  annotate("segment", x = 0.9, xend = 0.1, y = 0.38, yend = 0.38,
+           arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.6) +
+  annotate("text", x = 0.5, y = 0.28, label = "pivot_wider()",
+           size = 3.8, fontface = "italic") +
+  xlim(0, 1) + ylim(0, 1) +
+  theme_void()
+
+p_breit + p_pfeil + p_lang + plot_layout(widths = c(3, 1.5, 3))
+```
+
 | Ziel | Funktion |
 |---|---|
 | Breites → langes Format | `pivot_longer()` |

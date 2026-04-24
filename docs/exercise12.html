@@ -2175,6 +2175,21 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tr>
 </tbody>
 </table>
+<p>Der <strong>Fehler e</strong> lässt sich geometrisch zeigen: Für jeden Datenpunkt ist das <strong>Residuum</strong> der senkrechte Abstand zwischen dem beobachteten Wert und der Regressionslinie (dem vorhergesagten Wert). Die Regression wählt die Linie so, dass die Summe der quadrierten Residuen minimal wird (“Kleinste-Quadrate-Schätzung”). Das Verständnis dieser Abstände ist zentral für die spätere Modellprüfung in Aufgabe 4.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-residuen" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatterplot mit 15 Datenpunkten, einer blauen Regressionslinie und gepunkteten roten senkrechten Linien von jedem Punkt zur Regressionslinie. Die roten Linien visualisieren die Residuen.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residuen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="exercise12_files/figure-html/fig-residuen-1.png" class="img-fluid figure-img" alt="Scatterplot mit 15 Datenpunkten, einer blauen Regressionslinie und gepunkteten roten senkrechten Linien von jedem Punkt zur Regressionslinie. Die roten Linien visualisieren die Residuen." width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residuen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Residuen als senkrechte Abstände: Jeder Datenpunkt weicht um einen individuellen Betrag von der Regressionslinie ab — diese Abweichung ist das Residuum.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="korrelation-kausalität" class="level3">
 <h3 class="anchored" data-anchor-id="korrelation-kausalität">Korrelation ≠ Kausalität</h3>
@@ -2205,10 +2220,31 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Beantworten Sie die folgenden Fragen zu Regression und Vorhersagen.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie führen eine einfache Regression für Projektfrage Q2 („Sagt Schlafdauer die WM-Leistung vorher?“) durch und erhalten folgenden <code>summary()</code>-Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)        42.31       6.14    6.89   &lt;.001 ***
+sleep_hours_t2      2.41       0.82    2.94    .004 **
+---
+Residual standard error: 11.8 on 98 degrees of freedom
+Multiple R-squared: 0.081, Adjusted R-squared: 0.072</code></pre>
+<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
+<div id="webex-11c965e5a22b457278cc729c559664c5" class="webex-checkboxgroup" data-answer="agBPCBoESQU8">
+<label><input type="checkbox" autocomplete="off" name="11c965e5a22b457278cc729c559664c5"><span>Die Zeile <code>sleep_hours_t2</code> zeigt: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Durchschnitt um 2.41 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .004).</span></label><label><input type="checkbox" autocomplete="off" name="11c965e5a22b457278cc729c559664c5"><span>Der Wert <code>Multiple R-squared: 0.081</code> bedeutet, dass das Modell 8.1% der Varianz im WM-Score (nach der Intervention) erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="11c965e5a22b457278cc729c559664c5"><span>Der <code>(Intercept)</code> von 42.31 ist der vorhergesagte WM-Score für eine Person mit <code>sleep_hours_t2 = 0</code> (also 0 Stunden Schlaf), was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="11c965e5a22b457278cc729c559664c5"><span>Der <code>Std. Error</code> von 0.82 für <code>sleep_hours_t2</code> gibt die Standardabweichung der Variable Schlafdauer im Datensatz an.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Der Koeffizient <code>Estimate = 2.41</code> für <code>sleep_hours_t2</code> beschreibt die Steigung: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Schnitt um 2.41 Punkte. R² = .081 bedeutet, dass 8.1% der Varianz durch Schlaf allein erklärt werden — in der Psychologie ein plausibler Wert für einen einzelnen Prädiktor. Der Intercept (42.31) ist der vorhergesagte WM-Wert bei <code>sleep_hours_t2 = 0</code> — inhaltlich nicht sinnvoll, aber mathematisch notwendig; Centering des Schlaf-Prädiktors (S12 F17) würde den Intercept sinnvoller interpretierbar machen. Falsch ist hingegen: Der Standardfehler (<code>Std. Error = 0.82</code>) ist nicht die Streuung der Variable Schlafdauer, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 2.41 geschätzt wurde.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Sie rechnen ein Interaktionsmodell für Projektfrage Q3 („Moderiert Stress den Schlaf-Effekt?“) und erhalten folgenden Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">*</span> gruppe <span class="sc">+</span> wm_score_t1,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> wm_daten)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">*</span> gruppe <span class="sc">+</span> wm_score_t1,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> wm_daten)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>Coefficients:
                              Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)                    13.45       6.12    2.20    .030 *
@@ -2217,8 +2253,8 @@ gruppeStress                    4.18       3.28    1.27    .207
 wm_score_t1                     0.61       0.09    6.78   &lt;.001 ***
 sleep_hours_t2:gruppeStress    -0.52       0.41   -1.27    .208</code></pre>
 <p>Welche Aussage zur Interpretation des <strong>Interaktionsterms</strong> <code>sleep_hours_t2:gruppeStress</code> ist korrekt?</p>
-<div id="webex-2c4ae27e8397f8e5da023237ea58780a" class="webex-radiogroup" data-answer="aVIYUUkCG1Vl">
-<label><input type="radio" autocomplete="off" name="2c4ae27e8397f8e5da023237ea58780a"><span>Der Interaktionsterm ist nicht signifikant (p = .208). Der Zusammenhang zwischen Schlaf und WM-Score unterscheidet sich nicht bedeutsam zwischen KG und Stressgruppe — die beiden Steigungen sind statistisch vergleichbar.</span></label><label><input type="radio" autocomplete="off" name="2c4ae27e8397f8e5da023237ea58780a"><span>Der Koeffizient <code>sleep_hours_t2 = 2.02</code> ist der durchschnittliche Schlaf-Effekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="2c4ae27e8397f8e5da023237ea58780a"><span>Der negative Wert −0.52 zeigt, dass Schlaf in der Stressgruppe einen <em>negativen</em> Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="2c4ae27e8397f8e5da023237ea58780a"><span>Durch Centering von <code>sleep_hours_t2</code> um den Mittelwert würde sich der Interaktionskoeffizient <code>sleep_hours_t2:gruppeStress</code> ändern — erst dann wäre eine sinnvolle Interpretation möglich.</span></label>
+<div id="webex-139992e598271d20e0902ded0152cebb" class="webex-radiogroup" data-answer="agIVCRUCSQVk">
+<label><input type="radio" autocomplete="off" name="139992e598271d20e0902ded0152cebb"><span>Der Interaktionsterm ist nicht signifikant (p = .208). Der Zusammenhang zwischen Schlaf und WM-Score unterscheidet sich nicht bedeutsam zwischen KG und Stressgruppe — die beiden Steigungen sind statistisch vergleichbar.</span></label><label><input type="radio" autocomplete="off" name="139992e598271d20e0902ded0152cebb"><span>Der Koeffizient <code>sleep_hours_t2 = 2.02</code> ist der durchschnittliche Schlaf-Effekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="139992e598271d20e0902ded0152cebb"><span>Der negative Wert −0.52 zeigt, dass Schlaf in der Stressgruppe einen <em>negativen</em> Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="139992e598271d20e0902ded0152cebb"><span>Durch Centering von <code>sleep_hours_t2</code> um den Mittelwert würde sich der Interaktionskoeffizient <code>sleep_hours_t2:gruppeStress</code> ändern — erst dann wäre eine sinnvolle Interpretation möglich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2228,11 +2264,11 @@ sleep_hours_t2:gruppeStress    -0.52       0.41   -1.27    .208</code></pre>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie vergleichen ein einfaches und ein ANCOVA-artiges Regressionsmodell, um Projektfrage Q2 auch mit Baseline-Kontrolle zu beantworten:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1 <span class="sc">+</span> gruppe,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1 <span class="sc">+</span> gruppe,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>modell1</code> hat R² = .081, <code>modell2</code> hat R² = .152. Sie führen einen formalen Modellvergleich durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>Analysis of Variance Table
 Model 1: wm_score_t2 ~ sleep_hours_t2
 Model 2: wm_score_t2 ~ sleep_hours_t2 + wm_score_t1 + gruppe
@@ -2240,33 +2276,12 @@ Model 2: wm_score_t2 ~ sleep_hours_t2 + wm_score_t1 + gruppe
 1     98 13392
 2     96 11672   2    1720.0  7.07   .001 **</code></pre>
 <p>Was lässt sich aus diesem Vergleich schliessen?</p>
-<div id="webex-1256dfffee1c7840d7ff2ab11d902e54" class="webex-checkboxgroup" data-answer="agMZB0hXSlY4">
-<label><input type="checkbox" autocomplete="off" name="1256dfffee1c7840d7ff2ab11d902e54"><span>Das erweiterte Modell erklärt signifikant mehr Varianz als das einfache Modell (p = .001) — die Aufnahme der Baseline-WM (<code>wm_score_t1</code>) und der Gruppenzugehörigkeit ist statistisch gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="1256dfffee1c7840d7ff2ab11d902e54"><span>Da R² von .081 auf .152 gestiegen ist, hat sich die erklärte Varianz fast verdoppelt — <code>wm_score_t1</code> und <code>gruppe</code> tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="1256dfffee1c7840d7ff2ab11d902e54"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — auch bei irrelevanten Variablen. Deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="1256dfffee1c7840d7ff2ab11d902e54"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .152 immer noch niedrig ist.</span></label>
+<div id="webex-08596143738527d4d1aca6808516fc6e" class="webex-checkboxgroup" data-answer="awkZCBoAGANq">
+<label><input type="checkbox" autocomplete="off" name="08596143738527d4d1aca6808516fc6e"><span>Das erweiterte Modell erklärt signifikant mehr Varianz als das einfache Modell (p = .001) — die Aufnahme der Baseline-WM (<code>wm_score_t1</code>) und der Gruppenzugehörigkeit ist statistisch gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="08596143738527d4d1aca6808516fc6e"><span>Da R² von .081 auf .152 gestiegen ist, hat sich die erklärte Varianz fast verdoppelt — <code>wm_score_t1</code> und <code>gruppe</code> tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="08596143738527d4d1aca6808516fc6e"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — auch bei irrelevanten Variablen. Deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="08596143738527d4d1aca6808516fc6e"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .152 immer noch niedrig ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Modellvergleich mit <code>anova()</code> zeigt, dass die zusätzlich erklärte Varianz durch die Baseline-WM (<code>wm_score_t1</code>) und die Gruppenzugehörigkeit (<code>gruppe</code>) statistisch signifikant ist (p = .001). R² stieg von 8.1% auf 15.2% — die zusätzlichen Prädiktoren tragen substanziell zur Vorhersage bei. Wichtig: R² steigt grundsätzlich immer bei mehr Prädiktoren, auch bei irrelevanten Variablen — deshalb braucht es den formalen Modellvergleich. Falsch ist: Dass R² = .152 „niedrig” sei, ist kein Grund, das Modell zu verwerfen. In der Psychologie sind solche Werte üblich, und die Modellwahl sollte sich am signifikanten Modellvergleich orientieren, nicht an einer willkürlichen R²-Schwelle.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
-<p>Sie führen eine einfache Regression für Projektfrage Q2 („Sagt Schlafdauer die WM-Leistung vorher?“) durch und erhalten folgenden <code>summary()</code>-Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre><code>Coefficients:
-                 Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)        42.31       6.14    6.89   &lt;.001 ***
-sleep_hours_t2      2.41       0.82    2.94    .004 **
----
-Residual standard error: 11.8 on 98 degrees of freedom
-Multiple R-squared: 0.081, Adjusted R-squared: 0.072</code></pre>
-<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-9d10265c7b500846e1bdfb2ecdf58600" class="webex-checkboxgroup" data-answer="YlUdAR4HGVNq">
-<label><input type="checkbox" autocomplete="off" name="9d10265c7b500846e1bdfb2ecdf58600"><span>Die Zeile <code>sleep_hours_t2</code> zeigt: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Durchschnitt um 2.41 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .004).</span></label><label><input type="checkbox" autocomplete="off" name="9d10265c7b500846e1bdfb2ecdf58600"><span>Der Wert <code>Multiple R-squared: 0.081</code> bedeutet, dass das Modell 8.1% der Varianz im WM-Score (nach der Intervention) erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="9d10265c7b500846e1bdfb2ecdf58600"><span>Der <code>(Intercept)</code> von 42.31 ist der vorhergesagte WM-Score für eine Person mit <code>sleep_hours_t2 = 0</code> (also 0 Stunden Schlaf), was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="9d10265c7b500846e1bdfb2ecdf58600"><span>Der <code>Std. Error</code> von 0.82 für <code>sleep_hours_t2</code> gibt die Standardabweichung der Variable Schlafdauer im Datensatz an.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Der Koeffizient <code>Estimate = 2.41</code> für <code>sleep_hours_t2</code> beschreibt die Steigung: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Schnitt um 2.41 Punkte. R² = .081 bedeutet, dass 8.1% der Varianz durch Schlaf allein erklärt werden — in der Psychologie ein plausibler Wert für einen einzelnen Prädiktor. Der Intercept (42.31) ist der vorhergesagte WM-Wert bei <code>sleep_hours_t2 = 0</code> — inhaltlich nicht sinnvoll, aber mathematisch notwendig; Centering des Schlaf-Prädiktors (S12 F17) würde den Intercept sinnvoller interpretierbar machen. Falsch ist hingegen: Der Standardfehler (<code>Std. Error = 0.82</code>) ist nicht die Streuung der Variable Schlafdauer, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 2.41 geschätzt wurde.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>

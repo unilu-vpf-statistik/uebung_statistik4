@@ -33,6 +33,26 @@ R → Screenshot → Word → Daten ändern → **alles nochmal**. Fehlerquellen
 
 Ein Quarto-Dokument (.qmd) vereint Text, R-Code und Ergebnisse in einer einzigen Datei — der Bericht **ist** die Analyse. Beim **Rendern** wird der Code ausgeführt und ein fertiges Dokument (HTML, PDF oder Word) erzeugt. Ändern sich die Daten, genügt ein Klick auf „Render", und alle Ergebnisse aktualisieren sich automatisch.
 
+```{mermaid}
+%%| label: fig-quarto-workflow
+%%| fig-cap: "Quarto-Rendering-Workflow: Eine einzige `.qmd`-Quelldatei wird zu beliebigen Ausgabeformaten — Code und Ergebnisse bleiben immer synchron."
+flowchart LR
+    QMD["<b>quelle.qmd</b><br>YAML + Text + Code-Chunks"] --> Knitr["knitr<br><i>führt R-Code aus</i>"]
+    Knitr --> MD["Zwischen-<br>dokument<br>(Markdown + Ergebnisse)"]
+    MD --> Pandoc["Pandoc<br><i>konvertiert</i>"]
+    Pandoc --> HTML["HTML"]
+    Pandoc --> PDF["PDF"]
+    Pandoc --> DOCX["Word"]
+
+    Daten["Daten ändern sich"] -.->|"erneut rendern"| QMD
+
+    style QMD   fill:#d9e4f2,stroke:#2c5d8f
+    style HTML  fill:#efe,stroke:#3a3
+    style PDF   fill:#efe,stroke:#3a3
+    style DOCX  fill:#efe,stroke:#3a3
+    style Daten fill:#fef3d9,stroke:#c89020
+```
+
 ### Drei Bausteine eines Quarto-Dokuments
 
 | Baustein | Funktion | Beispiel |

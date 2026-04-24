@@ -31,6 +31,26 @@ Diese Übung ergänzt die Präsenzsitzung zur Datenvisualisierung (Sitzung 8+9).
 
 Die Wahl des Diagrammtyps ist keine Geschmacksfrage — sie folgt aus dem **Skalenniveau** und der **Anzahl der Variablen**, die Sie darstellen möchten. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, während ein Boxplot den Vergleich einer metrischen Variable zwischen Gruppen ermöglicht. Ein Scatterplot eignet sich, wenn Sie den Zusammenhang zwischen zwei metrischen Variablen untersuchen wollen.
 
+Die folgende Entscheidungshilfe führt Sie in zwei Schritten zum passenden Diagrammtyp:
+
+```{mermaid}
+%%| label: fig-diagramm-entscheidung
+%%| fig-cap: "Entscheidungsbaum für die Wahl des Diagrammtyps: zuerst nach Anzahl der Variablen, dann nach Skalenniveau."
+flowchart TD
+    Start(["Welches Diagramm?"]) --> Anz{"Wie viele<br>Variablen?"}
+    Anz -->|"1 Variable"| Skala1{"Skalenniveau?"}
+    Anz -->|"2 Variablen"| Kombi{"Welche<br>Kombination?"}
+    Skala1 -->|"metrisch"| Hist["Histogramm<br><code>geom_histogram()</code>"]
+    Skala1 -->|"kategorial"| Bar["Balkendiagramm<br><code>geom_bar()</code>"]
+    Kombi -->|"metrisch × metrisch"| Scat["Scatterplot<br><code>geom_point()</code>"]
+    Kombi -->|"kategorial × metrisch"| Box["Boxplot / Jitter<br><code>geom_boxplot()</code>"]
+
+    style Hist fill:#d9e4f2,stroke:#2c5d8f
+    style Bar  fill:#d9e4f2,stroke:#2c5d8f
+    style Scat fill:#d9e4f2,stroke:#2c5d8f
+    style Box  fill:#d9e4f2,stroke:#2c5d8f
+```
+
 | Variablen | Diagrammtyp | Geom |
 |---|---|---|
 | 1 metrisch | Histogramm | `geom_histogram()` |
