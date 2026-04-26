@@ -26,6 +26,7 @@ Thumbs.db
 # knitr and R markdown
 *_cache/
 *_files/
+!docs/*_files/
 *.utf8.md
 *.knit.md
 
