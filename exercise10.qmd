@@ -118,9 +118,9 @@ Beantworten Sie die folgenden Fragen zu reproduzierbaren Berichten mit Quarto.
 exams2forms(shuffled_questions, mathjax = TRUE)
 ```
 
-### Praktische Aufgabe: Berichtscode vorbereiten
+### Praktische Aufgabe: Mini-Analysebericht in Quarto
 
-Die folgenden Aufgaben bereiten den R-Code vor, den Sie in einem Quarto-Dokument als Code-Chunks verwenden würden. Sie arbeiten mit demselben Datensatz (`df_analyse_NEU.csv`) und denselben Methoden wie in [Übung 7](exercise7.qmd) und [Übung 8](exercise8.qmd).
+Sie erstellen heute einen kurzen Quarto-Bericht, der Text, Deskriptivstatistik und einen Plot enthält. **Szenario:** Sie arbeiten in einem Forschungsprojekt, in dem ein Experiment zu Stress und Arbeitsgedächtnisleistung durchgeführt wurde. Datensatz: `df_analyse_NEU.csv` — denselben Methoden wie in [Übung 7](exercise7.qmd) und [Übung 8](exercise8.qmd).
 
 ```{webr-r}
 # Herunterladen des Datensatzes
@@ -159,23 +159,25 @@ cat("Inline-Code-Ergebnis:", m_kg, "Punkte\n")
 # manuell berechnen — der Inline-Code erledigt das automatisch.
 # Ändern sich die Daten, aktualisiert sich die Zahl beim Rendern.
 
-# --- Aufgabe 3: Plot erstellen (wie in S8) ---
-# Erstellen Sie einen Boxplot von wm_score_t1 nach gruppe.
+# --- Aufgabe 3: Plot erstellen (wie in S8/S9) ---
+# Erstellen Sie einen Scatterplot von wm_score_t1 (x-Achse)
+# gegen wm_score_t2 (y-Achse) — denselben Plot wie letzte Woche.
 # In einem Quarto-Bericht wäre das Chunk 3 mit echo: false,
 # sodass nur der Plot im Bericht erscheint.
 
 # Ihr Code hier:
-
-
+daten |>
+  ggplot(aes(x = wm_score_t1, y = wm_score_t2, color = gruppe)) +
+  geom_point() +
+  labs(x = "WM-Score T1", y = "WM-Score T2", color = "Gruppe")
 
 # --- Aufgabe 4: Berichtsstruktur planen ---
 # Stellen Sie sich vor, Sie erstellen einen Quarto-Bericht
 # mit drei Chunks. Welcher Code gehört in welchen Chunk?
-# Ordnen Sie zu:
 #
 # Chunk 1 (Setup):     library(...) + read.csv2(...)
 # Chunk 2 (Analyse):   group_by(...) |> summarise(...)
-# Chunk 3 (Plot):      ggplot(...) + geom_boxplot(...)
+# Chunk 3 (Plot):      ggplot(...) + geom_point(...)
 #
 # Welche Chunk-Optionen würden Sie jeweils setzen?
 # - Chunk 1: message: false (Paketmeldungen unterdrücken)
@@ -188,24 +190,31 @@ cat("Inline-Code-Ergebnis:", m_kg, "Punkte\n")
 ```
 
 ::: {.callout-tip}
-## Quarto in RStudio ausprobieren
+## Quarto in RStudio: Die vier Aufgaben
 
-Die webR-Konsole oben eignet sich zum Üben des R-Codes. Um ein **echtes Quarto-Dokument** zu erstellen, arbeiten Sie in RStudio:
+Die webR-Konsole eignet sich zum Üben des R-Codes. Den **echten Quarto-Bericht** erstellen Sie in RStudio:
 
-1. **File → New File → Quarto Document** — Titel und Format wählen.
-2. Zwischen **Visual Editor** und **Source Editor** wechseln (Button oben links).
-3. Code-Chunks einfügen: grüner Insert-Button oder **Ctrl+Alt+I**.
-4. **Render** klicken — das Ergebnis öffnet sich im Viewer.
-
-Verwenden Sie den Code aus den Aufgaben oben als Vorlage für Ihre Chunks.
+1. **Dokument erstellen**: File → New File → Quarto Document. Speichern Sie die Datei im **Projekt-Root**. Füllen Sie den YAML-Header mit Titel, Autor und `format: html`. Fügen Sie eine Überschrift und einen kurzen Einleitungssatz ein. Rendern Sie das Dokument.
+2. **Daten einlesen**: Fügen Sie einen Code-Chunk ein, der `df_analyse_NEU.csv` einliest. Überlegen Sie, welche Chunk-Optionen für diesen Chunk sinnvoll sind.
+3. **Deskriptive Statistik**: Fügen Sie einen zweiten Chunk ein, der Mittelwert und SD von `wm_score_t1` pro Gruppe berechnet. Berichten Sie einen der Mittelwerte mit Inline-Code im Fliesstext.
+4. **Plot einbetten**: Fügen Sie einen dritten Chunk mit dem Scatterplot `wm_score_t1` vs. `wm_score_t2` ein (Code aus Aufgabe 3 oben). Setzen Sie die Chunk-Optionen so, dass **nur der Plot** im Bericht erscheint.
 :::
 
 ::: {.callout-note}
 ## Weiterführende Materialien
 
+- **[Quarto Cheatsheet](https://rstudio.github.io/cheatsheets/html/quarto.html)** — Kompakte Übersicht über YAML-Optionen, Chunk-Optionen, Markdown-Syntax und Ausgabeformate auf einen Blick.
 - **[Introduction to Quarto](https://kpuka.ca/resources/quarto_intro.html)** — Kompakte Einführung mit Schwerpunkt Visual/Source Editor und Code-Chunks.
 - **[Intro to Quarto (Data Vis Using R)](https://data-vis-using-r.info/03_intro_to_quarto/intro_to_quarto.html)** — Schritt-für-Schritt-Aufbau eines Quarto-Dokuments mit Fokus auf die Dokumentstruktur.
 - **[Quarto: The Definitive Guide](https://quarto-tdg.org/)** — Umfassendes Nachschlagewerk für alle Quarto-Funktionen.
+:::
+
+::: {.callout-tip}
+## Ausblick: APA-Berichte mit Quarto
+
+Viele psychologische Seminar- und Abschlussarbeiten müssen im **APA-Format** eingereicht werden. Das Paket **[apaquarto](https://wjschne.github.io/apaquarto/)** erweitert Quarto um eine APA-7-Vorlage — inklusive automatischer Formatierung von Titelseite, Literaturverzeichnis und Statistik-Ausgaben.
+
+*Hinweis: Dies ist kein Prüfungsstoff, sondern ein Hinweis für künftige Arbeiten.*
 :::
 
 ------------------------------------------------------------------------
