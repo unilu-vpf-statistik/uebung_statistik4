@@ -372,7 +372,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"df_analyse_NEU.csv\"), \"df_analyse_NEU.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\n\n# Analysedatensatz einlesen\ndaten <- read.csv2(\"df_analyse_NEU.csv\")\n\n# --- Aufgabe 1: Deskriptive Statistik (wie in S7) ---\n# Berechnen Sie Mittelwert und SD von wm_score_t1 pro Gruppe.\n# In einem Quarto-Bericht wäre das Chunk 2 (nach dem Import).\n\ndaten |>\n  filter(!is.na(gruppe)) |>\n  group_by(gruppe) |>\n  summarise(\n    M  = mean(wm_score_t1, na.rm = TRUE),\n    SD = sd(wm_score_t1, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Inline-Code üben ---\n# In Quarto können Sie R-Ausdrücke direkt im Fliesstext einbetten.\n# Die Syntax dafür ist: Backtick, r, Leerzeichen, R-Ausdruck, Backtick.\n# Berechnen Sie hier den Wert, den der Inline-Code einsetzen würde:\n\nkg_daten <- daten |> filter(gruppe == \"KG\")\nm_kg <- round(mean(kg_daten$wm_score_t1, na.rm = TRUE), 1)\ncat(\"Inline-Code-Ergebnis:\", m_kg, \"Punkte\\n\")\n\n# In einem Quarto-Dokument müssten Sie diesen Wert nicht\n# manuell berechnen — der Inline-Code erledigt das automatisch.\n# Ändern sich die Daten, aktualisiert sich die Zahl beim Rendern.\n\n# --- Aufgabe 3: Plot erstellen (wie in S8) ---\n# Erstellen Sie einen Boxplot von wm_score_t1 nach gruppe.\n# In einem Quarto-Bericht wäre das Chunk 3 mit echo: false,\n# sodass nur der Plot im Bericht erscheint.\n\n# Ihr Code hier:\n\n\n\n# --- Aufgabe 4: Berichtsstruktur planen ---\n# Stellen Sie sich vor, Sie erstellen einen Quarto-Bericht\n# mit drei Chunks. Welcher Code gehört in welchen Chunk?\n# Ordnen Sie zu:\n#\n# Chunk 1 (Setup):     library(...) + read.csv2(...)\n# Chunk 2 (Analyse):   group_by(...) |> summarise(...)\n# Chunk 3 (Plot):      ggplot(...) + geom_boxplot(...)\n#\n# Welche Chunk-Optionen würden Sie jeweils setzen?\n# - Chunk 1: message: false (Paketmeldungen unterdrücken)\n# - Chunk 2: echo: ??? (Code zeigen oder verbergen?)\n# - Chunk 3: echo: false (nur Plot zeigen)\n#\n# Die Antwort hängt von der Zielgruppe ab:\n# - Für Kolleg*innen/Prüfung: echo: true überall\n# - Für Auftraggeber: echo: false überall","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"df_analyse_NEU.csv\"), \"df_analyse_NEU.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\n\n# Analysedatensatz einlesen\ndaten <- read.csv2(\"df_analyse_NEU.csv\")\n\n# --- Aufgabe 1: Deskriptive Statistik (wie in S7) ---\n# Berechnen Sie Mittelwert und SD von wm_score_t1 pro Gruppe.\n# In einem Quarto-Bericht wäre das Chunk 2 (nach dem Import).\n\ndaten |>\n  filter(!is.na(gruppe)) |>\n  group_by(gruppe) |>\n  summarise(\n    M  = mean(wm_score_t1, na.rm = TRUE),\n    SD = sd(wm_score_t1, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Inline-Code üben ---\n# In Quarto können Sie R-Ausdrücke direkt im Fliesstext einbetten.\n# Die Syntax dafür ist: Backtick, r, Leerzeichen, R-Ausdruck, Backtick.\n# Berechnen Sie hier den Wert, den der Inline-Code einsetzen würde:\n\nkg_daten <- daten |> filter(gruppe == \"KG\")\nm_kg <- round(mean(kg_daten$wm_score_t1, na.rm = TRUE), 1)\ncat(\"Inline-Code-Ergebnis:\", m_kg, \"Punkte\\n\")\n\n# In einem Quarto-Dokument müssten Sie diesen Wert nicht\n# manuell berechnen — der Inline-Code erledigt das automatisch.\n# Ändern sich die Daten, aktualisiert sich die Zahl beim Rendern.\n\n# --- Aufgabe 3: Plot erstellen (wie in S8/S9) ---\n# Erstellen Sie einen Scatterplot von wm_score_t1 (x-Achse)\n# gegen wm_score_t2 (y-Achse) — denselben Plot wie letzte Woche.\n# In einem Quarto-Bericht wäre das Chunk 3 mit echo: false,\n# sodass nur der Plot im Bericht erscheint.\n\n# Ihr Code hier:\ndaten |>\n  ggplot(aes(x = wm_score_t1, y = wm_score_t2, color = gruppe)) +\n  geom_point() +\n  labs(x = \"WM-Score T1\", y = \"WM-Score T2\", color = \"Gruppe\")\n\n# --- Aufgabe 4: Berichtsstruktur planen ---\n# Stellen Sie sich vor, Sie erstellen einen Quarto-Bericht\n# mit drei Chunks. Welcher Code gehört in welchen Chunk?\n#\n# Chunk 1 (Setup):     library(...) + read.csv2(...)\n# Chunk 2 (Analyse):   group_by(...) |> summarise(...)\n# Chunk 3 (Plot):      ggplot(...) + geom_point(...)\n#\n# Welche Chunk-Optionen würden Sie jeweils setzen?\n# - Chunk 1: message: false (Paketmeldungen unterdrücken)\n# - Chunk 2: echo: ??? (Code zeigen oder verbergen?)\n# - Chunk 3: echo: false (nur Plot zeigen)\n#\n# Die Antwort hängt von der Zielgruppe ab:\n# - Für Kolleg*innen/Prüfung: echo: true überall\n# - Für Auftraggeber: echo: false überall","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1798,7 +1798,7 @@ globalThis.qwebrExecuteCode = async function (
   </ul></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a>
   <ul class="collapse">
-  <li><a href="#praktische-aufgabe-berichtscode-vorbereiten" id="toc-praktische-aufgabe-berichtscode-vorbereiten" class="nav-link" data-scroll-target="#praktische-aufgabe-berichtscode-vorbereiten">Praktische Aufgabe: Berichtscode vorbereiten</a></li>
+  <li><a href="#praktische-aufgabe-mini-analysebericht-in-quarto" id="toc-praktische-aufgabe-mini-analysebericht-in-quarto" class="nav-link" data-scroll-target="#praktische-aufgabe-mini-analysebericht-in-quarto">Praktische Aufgabe: Mini-Analysebericht in Quarto</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2256,24 +2256,9 @@ Figure&nbsp;1: Quarto-Rendering-Workflow: Eine einzige <code>.qmd</code>-Quellda
 <p>Beantworten Sie die folgenden Fragen zu reproduzierbaren Berichten mit Quarto.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>In einem Quarto-Dokument stehen folgende drei Code-Chunks in dieser Reihenfolge:</p>
-<p><strong>Chunk 1:</strong> <code>ergebnis &lt;- mean(daten$score)</code></p>
-<p><strong>Chunk 2:</strong> <code>daten &lt;- read.csv2(here("daten", "studie.csv"))</code></p>
-<p><strong>Chunk 3:</strong> <code>print(ergebnis)</code></p>
-<p>Was passiert beim Rendern des Dokuments?</p>
-<div id="webex-06a5f766a02aabb7c621eb234bed7e46" class="webex-radiogroup" data-answer="awdNBUoHGgY8">
-<label><input type="radio" autocomplete="off" name="06a5f766a02aabb7c621eb234bed7e46"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label><label><input type="radio" autocomplete="off" name="06a5f766a02aabb7c621eb234bed7e46"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="06a5f766a02aabb7c621eb234bed7e46"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="06a5f766a02aabb7c621eb234bed7e46"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Quarto führt Code-Chunks strikt sequentiell von oben nach unten aus. In Chunk 1 wird das Objekt <code>daten</code> benötigt, das aber erst in Chunk 2 erstellt wird. Daher bricht das Rendern mit einem Fehler ab (“object ‘daten’ not found”). Die Lösung wäre, den Import-Chunk (Chunk 2) vor den Berechnungs-Chunk (Chunk 1) zu verschieben. Quarto erkennt Abhängigkeiten nicht automatisch und führt Chunks weder parallel noch in einer optimierten Reihenfolge aus.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche Aussagen zum <strong>Visual Editor</strong> und <strong>Source Editor</strong> in RStudio sind korrekt?</p>
-<div id="webex-6e83a4b9f2fc8a3c633d4fcd0dc12af1" class="webex-checkboxgroup" data-answer="bVQUA00FTgk7">
-<label><input type="checkbox" autocomplete="off" name="6e83a4b9f2fc8a3c633d4fcd0dc12af1"><span>Im Visual Editor wird Markdown-Text formatiert angezeigt (Überschriften, Fett, Listen), während im Source Editor die Markdown-Syntax sichtbar ist (z. B. <code>## Überschrift</code>, <code>**fett**</code>).</span></label><label><input type="checkbox" autocomplete="off" name="6e83a4b9f2fc8a3c633d4fcd0dc12af1"><span>Der Visual Editor und der Source Editor bearbeiten unterschiedliche Dateien — Änderungen im Visual Editor werden nicht im Source Editor übernommen.</span></label><label><input type="checkbox" autocomplete="off" name="6e83a4b9f2fc8a3c633d4fcd0dc12af1"><span>Der Source Editor ist besonders nützlich für die Fehlersuche, weil dort YAML-Header, Chunk-Grenzen und Inline-Code direkt sichtbar sind.</span></label><label><input type="checkbox" autocomplete="off" name="6e83a4b9f2fc8a3c633d4fcd0dc12af1"><span>Im Visual Editor können keine Code-Chunks eingefügt werden — dafür muss man in den Source Editor wechseln.</span></label>
+<div id="webex-2b489013f8a95dc5012362b8028c0302" class="webex-checkboxgroup" data-answer="aVMYCBUBHQM7">
+<label><input type="checkbox" autocomplete="off" name="2b489013f8a95dc5012362b8028c0302"><span>Im Visual Editor wird Markdown-Text formatiert angezeigt (Überschriften, Fett, Listen), während im Source Editor die Markdown-Syntax sichtbar ist (z. B. <code>## Überschrift</code>, <code>**fett**</code>).</span></label><label><input type="checkbox" autocomplete="off" name="2b489013f8a95dc5012362b8028c0302"><span>Der Visual Editor und der Source Editor bearbeiten unterschiedliche Dateien — Änderungen im Visual Editor werden nicht im Source Editor übernommen.</span></label><label><input type="checkbox" autocomplete="off" name="2b489013f8a95dc5012362b8028c0302"><span>Der Source Editor ist besonders nützlich für die Fehlersuche, weil dort YAML-Header, Chunk-Grenzen und Inline-Code direkt sichtbar sind.</span></label><label><input type="checkbox" autocomplete="off" name="2b489013f8a95dc5012362b8028c0302"><span>Im Visual Editor können keine Code-Chunks eingefügt werden — dafür muss man in den Source Editor wechseln.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2283,8 +2268,8 @@ Figure&nbsp;1: Quarto-Rendering-Workflow: Eine einzige <code>.qmd</code>-Quellda
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Welche Aussagen zur <strong>reproduzierbaren Ergebnisdokumentation</strong> mit Quarto sind korrekt?</p>
-<div id="webex-5881107f8f709c134ca46f02fba355ac" class="webex-checkboxgroup" data-answer="bgkUAR0BG1Zl">
-<label><input type="checkbox" autocomplete="off" name="5881107f8f709c134ca46f02fba355ac"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label><label><input type="checkbox" autocomplete="off" name="5881107f8f709c134ca46f02fba355ac"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="5881107f8f709c134ca46f02fba355ac"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="5881107f8f709c134ca46f02fba355ac"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label>
+<div id="webex-4a0836ec58af63eb6c7b221b8722c56a" class="webex-checkboxgroup" data-answer="b1AcCB8HSVNo">
+<label><input type="checkbox" autocomplete="off" name="4a0836ec58af63eb6c7b221b8722c56a"><span>In einem Quarto-Dokument sind Text, R-Code und Ergebnisse (Tabellen, Grafiken) in einer einzigen Datei integriert — Änderungen am Code aktualisieren die Ergebnisse automatisch beim Rendern.</span></label><label><input type="checkbox" autocomplete="off" name="4a0836ec58af63eb6c7b221b8722c56a"><span>Quarto-Dokumente können nur als HTML exportiert werden, nicht als PDF oder Word.</span></label><label><input type="checkbox" autocomplete="off" name="4a0836ec58af63eb6c7b221b8722c56a"><span>Der Copy-Paste-Workflow (R-Output → Screenshot → Word) ist fehleranfällig, weil bei Datenänderungen alle Ergebnisse manuell aktualisiert werden müssen.</span></label><label><input type="checkbox" autocomplete="off" name="4a0836ec58af63eb6c7b221b8722c56a"><span>In Quarto müssen alle Code-Chunks immer sichtbar sein — es ist nicht möglich, den Code zu verbergen und nur die Ergebnisse zu zeigen.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2293,18 +2278,33 @@ Figure&nbsp;1: Quarto-Rendering-Workflow: Eine einzige <code>.qmd</code>-Quellda
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>In einem Quarto-Dokument stehen folgende drei Code-Chunks in dieser Reihenfolge:</p>
+<p><strong>Chunk 1:</strong> <code>ergebnis &lt;- mean(daten$score)</code></p>
+<p><strong>Chunk 2:</strong> <code>daten &lt;- read.csv2(here("daten", "studie.csv"))</code></p>
+<p><strong>Chunk 3:</strong> <code>print(ergebnis)</code></p>
+<p>Was passiert beim Rendern des Dokuments?</p>
+<div id="webex-ece512cfd94bf98b035573410378b9d5" class="webex-radiogroup" data-answer="PlJJBR0CT1Y5">
+<label><input type="radio" autocomplete="off" name="ece512cfd94bf98b035573410378b9d5"><span>Es tritt ein Fehler auf, weil in Chunk 1 das Objekt <code>daten</code> verwendet wird, das erst in Chunk 2 erstellt wird — Quarto führt Chunks von oben nach unten aus.</span></label><label><input type="radio" autocomplete="off" name="ece512cfd94bf98b035573410378b9d5"><span>Das Dokument wird fehlerfrei gerendert, weil Quarto automatisch erkennt, welche Chunks zuerst ausgeführt werden müssen.</span></label><label><input type="radio" autocomplete="off" name="ece512cfd94bf98b035573410378b9d5"><span>Nur Chunk 3 wird ausgeführt, die anderen werden übersprungen.</span></label><label><input type="radio" autocomplete="off" name="ece512cfd94bf98b035573410378b9d5"><span>Quarto führt alle Chunks gleichzeitig (parallel) aus, daher spielt die Reihenfolge keine Rolle.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Quarto führt Code-Chunks strikt sequentiell von oben nach unten aus. In Chunk 1 wird das Objekt <code>daten</code> benötigt, das aber erst in Chunk 2 erstellt wird. Daher bricht das Rendern mit einem Fehler ab (“object ‘daten’ not found”). Die Lösung wäre, den Import-Chunk (Chunk 2) vor den Berechnungs-Chunk (Chunk 1) zu verschieben. Quarto erkennt Abhängigkeiten nicht automatisch und führt Chunks weder parallel noch in einer optimierten Reihenfolge aus.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Sie erstellen einen Analysebericht für eine Auftraggeberin, die keinen R-Code lesen kann, aber die Ergebnisse (Tabellen und Grafiken) sehen möchte. Welche Chunk-Option ist am geeignetsten?</p>
-<div id="webex-c22266f5f30b1657784d7e0f67a0d0eb" class="webex-radiogroup" data-answer="OAIeAxoGSgU7">
-<label><input type="radio" autocomplete="off" name="c22266f5f30b1657784d7e0f67a0d0eb"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label><label><input type="radio" autocomplete="off" name="c22266f5f30b1657784d7e0f67a0d0eb"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="c22266f5f30b1657784d7e0f67a0d0eb"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="c22266f5f30b1657784d7e0f67a0d0eb"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label>
+<div id="webex-aa8744ba50f2519aca70c4b3db59bdd4" class="webex-radiogroup" data-answer="OlEUBhgETlFo">
+<label><input type="radio" autocomplete="off" name="aa8744ba50f2519aca70c4b3db59bdd4"><span><code>echo: true</code> — damit der Code sichtbar ist und die Auftraggeberin die Analyse nachvollziehen kann.</span></label><label><input type="radio" autocomplete="off" name="aa8744ba50f2519aca70c4b3db59bdd4"><span><code>echo: false</code> — damit nur die Ergebnisse (Tabellen, Grafiken) angezeigt werden, der Code aber im Quelldokument erhalten bleibt.</span></label><label><input type="radio" autocomplete="off" name="aa8744ba50f2519aca70c4b3db59bdd4"><span>Den gesamten R-Code löschen und nur die Ergebnisse als Text einfügen — so ist das Dokument übersichtlicher.</span></label><label><input type="radio" autocomplete="off" name="aa8744ba50f2519aca70c4b3db59bdd4"><span><code>eval: false</code> — damit der Code zwar angezeigt, aber nicht ausgeführt wird.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Korrekt ist <code>echo: false</code>. Diese Option verbirgt den R-Code im gerenderten Dokument, sodass nur die Ergebnisse (Tabellen, Grafiken, Zahlen) angezeigt werden. Entscheidend ist: Der Code bleibt im Quelldokument (.qmd) erhalten und wird beim Rendern ausgeführt — Verbergen ist nicht Löschen. <code>echo: true</code> würde den Code anzeigen, was für eine nicht-technische Auftraggeberin ungeeignet ist. Das Löschen des Codes widerspricht dem Prinzip der Reproduzierbarkeit. <code>eval: false</code> würde den Code anzeigen, aber nicht ausführen — es gäbe also keine Ergebnisse im Bericht.</p>
 </div>
 </div>
-<section id="praktische-aufgabe-berichtscode-vorbereiten" class="level3">
-<h3 class="anchored" data-anchor-id="praktische-aufgabe-berichtscode-vorbereiten">Praktische Aufgabe: Berichtscode vorbereiten</h3>
-<p>Die folgenden Aufgaben bereiten den R-Code vor, den Sie in einem Quarto-Dokument als Code-Chunks verwenden würden. Sie arbeiten mit demselben Datensatz (<code>df_analyse_NEU.csv</code>) und denselben Methoden wie in <a href="./exercise7.html">Übung 7</a> und <a href="./exercise8.html">Übung 8</a>.</p>
+<section id="praktische-aufgabe-mini-analysebericht-in-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="praktische-aufgabe-mini-analysebericht-in-quarto">Praktische Aufgabe: Mini-Analysebericht in Quarto</h3>
+<p>Sie erstellen heute einen kurzen Quarto-Bericht, der Text, Deskriptivstatistik und einen Plot enthält. <strong>Szenario:</strong> Sie arbeiten in einem Forschungsprojekt, in dem ein Experiment zu Stress und Arbeitsgedächtnisleistung durchgeführt wurde. Datensatz: <code>df_analyse_NEU.csv</code> — denselben Methoden wie in <a href="./exercise7.html">Übung 7</a> und <a href="./exercise8.html">Übung 8</a>.</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2313,18 +2313,17 @@ Figure&nbsp;1: Quarto-Rendering-Workflow: Eine einzige <code>.qmd</code>-Quellda
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Quarto in RStudio ausprobieren
+<span class="screen-reader-only">Tip</span>Quarto in RStudio: Die vier Aufgaben
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Die webR-Konsole oben eignet sich zum Üben des R-Codes. Um ein <strong>echtes Quarto-Dokument</strong> zu erstellen, arbeiten Sie in RStudio:</p>
+<p>Die webR-Konsole eignet sich zum Üben des R-Codes. Den <strong>echten Quarto-Bericht</strong> erstellen Sie in RStudio:</p>
 <ol type="1">
-<li><strong>File → New File → Quarto Document</strong> — Titel und Format wählen.</li>
-<li>Zwischen <strong>Visual Editor</strong> und <strong>Source Editor</strong> wechseln (Button oben links).</li>
-<li>Code-Chunks einfügen: grüner Insert-Button oder <strong>Ctrl+Alt+I</strong>.</li>
-<li><strong>Render</strong> klicken — das Ergebnis öffnet sich im Viewer.</li>
+<li><strong>Dokument erstellen</strong>: File → New File → Quarto Document. Speichern Sie die Datei im <strong>Projekt-Root</strong>. Füllen Sie den YAML-Header mit Titel, Autor und <code>format: html</code>. Fügen Sie eine Überschrift und einen kurzen Einleitungssatz ein. Rendern Sie das Dokument.</li>
+<li><strong>Daten einlesen</strong>: Fügen Sie einen Code-Chunk ein, der <code>df_analyse_NEU.csv</code> einliest. Überlegen Sie, welche Chunk-Optionen für diesen Chunk sinnvoll sind.</li>
+<li><strong>Deskriptive Statistik</strong>: Fügen Sie einen zweiten Chunk ein, der Mittelwert und SD von <code>wm_score_t1</code> pro Gruppe berechnet. Berichten Sie einen der Mittelwerte mit Inline-Code im Fliesstext.</li>
+<li><strong>Plot einbetten</strong>: Fügen Sie einen dritten Chunk mit dem Scatterplot <code>wm_score_t1</code> vs.&nbsp;<code>wm_score_t2</code> ein (Code aus Aufgabe 3 oben). Setzen Sie die Chunk-Optionen so, dass <strong>nur der Plot</strong> im Bericht erscheint.</li>
 </ol>
-<p>Verwenden Sie den Code aus den Aufgaben oben als Vorlage für Ihre Chunks.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -2338,10 +2337,25 @@ Figure&nbsp;1: Quarto-Rendering-Workflow: Eine einzige <code>.qmd</code>-Quellda
 </div>
 <div class="callout-body-container callout-body">
 <ul>
+<li><strong><a href="https://rstudio.github.io/cheatsheets/html/quarto.html">Quarto Cheatsheet</a></strong> — Kompakte Übersicht über YAML-Optionen, Chunk-Optionen, Markdown-Syntax und Ausgabeformate auf einen Blick.</li>
 <li><strong><a href="https://kpuka.ca/resources/quarto_intro.html">Introduction to Quarto</a></strong> — Kompakte Einführung mit Schwerpunkt Visual/Source Editor und Code-Chunks.</li>
 <li><strong><a href="https://data-vis-using-r.info/03_intro_to_quarto/intro_to_quarto.html">Intro to Quarto (Data Vis Using R)</a></strong> — Schritt-für-Schritt-Aufbau eines Quarto-Dokuments mit Fokus auf die Dokumentstruktur.</li>
 <li><strong><a href="https://quarto-tdg.org/">Quarto: The Definitive Guide</a></strong> — Umfassendes Nachschlagewerk für alle Quarto-Funktionen.</li>
 </ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ausblick: APA-Berichte mit Quarto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Viele psychologische Seminar- und Abschlussarbeiten müssen im <strong>APA-Format</strong> eingereicht werden. Das Paket <strong><a href="https://wjschne.github.io/apaquarto/">apaquarto</a></strong> erweitert Quarto um eine APA-7-Vorlage — inklusive automatischer Formatierung von Titelseite, Literaturverzeichnis und Statistik-Ausgaben.</p>
+<p><em>Hinweis: Dies ist kein Prüfungsstoff, sondern ein Hinweis für künftige Arbeiten.</em></p>
 </div>
 </div>
 <hr>

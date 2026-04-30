@@ -2497,9 +2497,20 @@ Figure&nbsp;4: Drei Farbpaletten auf identischen Daten — oben in Farbe, unten 
 <p>Beantworten Sie die folgenden Fragen zu erweiterten Visualisierungstechniken.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
+<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
+<div id="webex-df0750696fbe3ea3955cc8179334ddfb" class="webex-radiogroup" data-answer="P1YcBhkAGglr">
+<label><input type="radio" autocomplete="off" name="df0750696fbe3ea3955cc8179334ddfb"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="df0750696fbe3ea3955cc8179334ddfb"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="df0750696fbe3ea3955cc8179334ddfb"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="df0750696fbe3ea3955cc8179334ddfb"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+</div>
+</div>
+<div class="webex-question">
+<div class="webex-check webex-box">
 <p>Welche Kriterien machen eine Grafik <strong>publikationsreif</strong>?</p>
-<div id="webex-91029f5032d9e287b482db609e38d633" class="webex-checkboxgroup" data-answer="YgEcAxVXGQBu">
-<label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="91029f5032d9e287b482db609e38d633"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
+<div id="webex-5d974e524ebfaef387a4d8393c338491" class="webex-checkboxgroup" data-answer="blQVBhhUGQJp">
+<label><input type="checkbox" autocomplete="off" name="5d974e524ebfaef387a4d8393c338491"><span>Die Verwendung von 3D-Effekten und Schatten, damit die Grafik professionell und ansprechend wirkt.</span></label><label><input type="checkbox" autocomplete="off" name="5d974e524ebfaef387a4d8393c338491"><span>Aussagekräftige Achsenbeschriftungen mit Einheiten (z. B. “Reaktionszeit (ms)”) statt Rohvariablennamen (z. B. “rt_ms”).</span></label><label><input type="checkbox" autocomplete="off" name="5d974e524ebfaef387a4d8393c338491"><span>Eine klare Legende und ein schlichtes Theme (z. B. <code>theme_minimal()</code>) ohne ablenkende Hintergrundfarben.</span></label><label><input type="checkbox" autocomplete="off" name="5d974e524ebfaef387a4d8393c338491"><span>Möglichst viele Variablen gleichzeitig im selben Plot darstellen, damit alle Informationen auf einen Blick verfügbar sind.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2508,20 +2519,9 @@ Figure&nbsp;4: Drei Farbpaletten auf identischen Daten — oben in Farbe, unten 
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
-<div id="webex-fe0c848688f26fce77ce3839626312df" class="webex-radiogroup" data-answer="PVUcUxQFFAZl">
-<label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="fe0c848688f26fce77ce3839626312df"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Welche der folgenden Gestaltungsfehler können dazu führen, dass eine Grafik <strong>irreführend</strong> wirkt?</p>
-<div id="webex-932a0883577ba56a30e020297f6a583e" class="webex-checkboxgroup" data-answer="YgMeUBwJFANo">
-<label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Ein Balkendiagramm, dessen y-Achse nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden, ohne dass die Streuung der Daten sichtbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="932a0883577ba56a30e020297f6a583e"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
+<div id="webex-bfd9b151a6d16423d568e9e37026eadb" class="webex-checkboxgroup" data-answer="OVZICE4AGQE8">
+<label><input type="checkbox" autocomplete="off" name="bfd9b151a6d16423d568e9e37026eadb"><span>Die Verwendung eines schlichten Themes ohne Hintergrundfarbe.</span></label><label><input type="checkbox" autocomplete="off" name="bfd9b151a6d16423d568e9e37026eadb"><span>Ein Balkendiagramm, dessen y-Achse nicht bei Null beginnt, wodurch kleine Unterschiede zwischen Gruppen visuell übertrieben werden, ohne dass die Streuung der Daten sichtbar ist.</span></label><label><input type="checkbox" autocomplete="off" name="bfd9b151a6d16423d568e9e37026eadb"><span>Fehlende Achsenbeschriftungen und Einheiten, sodass unklar bleibt, was dargestellt wird.</span></label><label><input type="checkbox" autocomplete="off" name="bfd9b151a6d16423d568e9e37026eadb"><span>Die Darstellung der Daten als Scatterplot statt als Tortendiagramm.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2530,13 +2530,13 @@ Figure&nbsp;4: Drei Farbpaletten auf identischen Daten — oben in Farbe, unten 
 </div>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie möchten den <strong>Zusammenhang</strong> zwischen zwei metrischen Variablen (Alter und Reaktionszeit) darstellen. Welcher Diagrammtyp ist am geeignetsten?</p>
-<div id="webex-30faaed42e5d6c701ffa424421cc1db4" class="webex-radiogroup" data-answer="aABKUE1VSARv">
-<label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Balkendiagramm, weil es Unterschiede klar sichtbar macht.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Scatterplot (Streudiagramm), weil er den Zusammenhang zwischen zwei metrischen Variablen als Punktwolke darstellt.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Histogramm, weil es die Verteilung beider Variablen gleichzeitig zeigt.</span></label><label><input type="radio" autocomplete="off" name="30faaed42e5d6c701ffa424421cc1db4"><span>Boxplot, weil er die Verteilung in beiden Gruppen vergleicht.</span></label>
+<p>Sie möchten die Verteilung einer metrischen Variable getrennt für 6 experimentelle Bedingungen darstellen. Welche Darstellungsstrategie ist am geeignetsten?</p>
+<div id="webex-436cdaef3ca89f7135b14f51c1e4b5f7" class="webex-radiogroup" data-answer="bwMaU0hQSVZu">
+<label><input type="radio" autocomplete="off" name="436cdaef3ca89f7135b14f51c1e4b5f7"><span>Alle 6 Bedingungen als überlagerte Histogramme in einem einzigen Plot mit verschiedenen Farben.</span></label><label><input type="radio" autocomplete="off" name="436cdaef3ca89f7135b14f51c1e4b5f7"><span>Sechs separate ggplot-Befehle, die jeweils als eigene Grafik gespeichert und einzeln betrachtet werden.</span></label><label><input type="radio" autocomplete="off" name="436cdaef3ca89f7135b14f51c1e4b5f7"><span><code>facet_wrap()</code>, um für jede Bedingung ein eigenes Panel zu erzeugen, das die Verteilungen bei gleichen Achsen vergleichbar macht.</span></label><label><input type="radio" autocomplete="off" name="436cdaef3ca89f7135b14f51c1e4b5f7"><span>Ein einzelnes Balkendiagramm mit den Mittelwerten der 6 Bedingungen, da Verteilungen bei vielen Gruppen unübersichtlich werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
-<p>Korrekt ist der Scatterplot. Wenn der Zusammenhang zwischen zwei metrischen Variablen dargestellt werden soll, ist ein Streudiagramm der geeignete Diagrammtyp — jeder Punkt repräsentiert eine Beobachtung mit ihren Werten auf beiden Variablen, und das Muster der Punktwolke zeigt die Art des Zusammenhangs (linear, kurvilinear, kein Zusammenhang). Ein Balkendiagramm eignet sich für Häufigkeiten kategorialer Variablen. Ein Histogramm zeigt die Verteilung einer einzelnen metrischen Variable, nicht den Zusammenhang zweier Variablen. Ein Boxplot vergleicht Verteilungen zwischen Gruppen (kategorial × metrisch), nicht den Zusammenhang zweier metrischer Variablen.</p>
+<p>Am geeignetsten ist <code>facet_wrap()</code>. Facettierung erzeugt für jede Bedingung ein eigenes Panel mit identischen Achsen, sodass die Verteilungen direkt vergleichbar sind. Sechs überlagerte Histogramme wären bei 6 Farben kaum lesbar — die Überlappung macht die einzelnen Verteilungen schwer erkennbar. Sechs separate Grafiken erschweren den Vergleich, weil die Achsen nicht automatisch gleich skaliert sind. Ein Balkendiagramm mit Mittelwerten verschleiert die Verteilungsform und geht damit an der Fragestellung vorbei.</p>
 </div>
 </div>
 <section id="aufgabe-a-facettierung-ausprobieren" class="level3">
