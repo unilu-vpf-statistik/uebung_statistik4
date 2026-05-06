@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen_NEU.csv\"), \"WM_Fragebögen_NEU.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung_NEU.dat\"), \"Lab_Kodierung_NEU.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\n# Datensätze mit Pre/Post-Messung — wir vergleichen die Gruppen NACH\n# der Intervention, also auf wm_score_t2.\nwm_daten <- read.csv2(\"WM_Fragebögen_NEU.csv\")\nlab_daten <- read.table(\"Lab_Kodierung_NEU.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe (Post) ---\nwm_daten |>\n  group_by(gruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score_t2, na.rm = TRUE),\n    SD = sd(wm_score_t2, na.rm = TRUE),\n    Mdn = median(wm_score_t2, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Boxplot zur visuellen Prüfung ---\nggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +\n  geom_boxplot() +\n  labs(x = \"Gruppe\", y = \"WM-Score nach Intervention\") +\n  theme_minimal()\n\n# --- Aufgabe 3: ANOVA (base R) ---\n# Vergleich der Gruppen nach der Intervention.\nmodell <- aov(wm_score_t2 ~ gruppe, data = wm_daten)\nsummary(modell)\n\n# Effektgrösse η² berechnen\nss <- summary(modell)[[1]][[\"Sum Sq\"]]\neta_sq <- ss[1] / sum(ss)\nround(eta_sq, 3)\n\n# --- Aufgabe 4: Baseline-Vergleich zur Kontrolle ---\n# Wichtig: Vor der Intervention sollten sich die Gruppen NICHT\n# unterscheiden (Randomisierungs-Check). Vergleichen Sie wm_score_t1.\nmodell_baseline <- aov(wm_score_t1 ~ gruppe, data = wm_daten)\nsummary(modell_baseline)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen_NEU.csv\"), \"WM_Fragebögen_NEU.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung_NEU.dat\"), \"Lab_Kodierung_NEU.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\n# Datensätze mit Pre/Post-Messung — wir vergleichen die Gruppen NACH\n# der Intervention, also auf wm_score_t2.\nwm_daten <- read.csv2(\"WM_Fragebögen_NEU.csv\")\nlab_daten <- read.table(\"Lab_Kodierung_NEU.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1: Deskriptive Übersicht nach Gruppe (Post) ---\nwm_daten |>\n  group_by(gruppe) |>\n  summarise(\n    n = n(),\n    M = mean(wm_score_t2, na.rm = TRUE),\n    SD = sd(wm_score_t2, na.rm = TRUE),\n    Mdn = median(wm_score_t2, na.rm = TRUE)\n  )\n\n# --- Aufgabe 2: Boxplot zur visuellen Prüfung ---\nggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +\n  geom_boxplot() +\n  labs(x = \"Gruppe\", y = \"WM-Score nach Intervention\",\n       title = \"Gruppenvergleich: Post-Messung\") +\n  theme_minimal()\n\n# --- Aufgabe 3: ANOVA mit afex ---\n# aov_ez() braucht eine Personen-ID, die abhängige Variable und den\n# Gruppierungsfaktor. Das Ergebnis enthält ges (generalisiertes η²).\nlibrary(afex)\nmodell <- aov_ez(id = \"id\", dv = \"wm_score_t2\",\n                 between = \"gruppe\", data = wm_daten)\n\nprint(modell)           # Ergebnistabelle: F, df, MSE, ges, p\nnice(modell, es = \"ges\")  # gleicher Output, aber formatiert\n\n# Frage: Wie gross ist ges? Welchem Effektbereich entspricht das?\n\n# --- Aufgabe 4: Annahmen prüfen ---\nlibrary(performance)\ncheck_model(modell, check = c(\"normality\", \"qq\", \"ncv\"))\n# QQ-Plot: Punkte nahe an der Linie = Normalverteilung ok\n# NCV-Panel: annähernd horizontale Linie = Varianzhomogenität ok\n# Frage: Gibt es sichtbare Verletzungen? Was würde bei starker Verletzung folgen?\n\n# --- Aufgabe 5: Post-hoc-Vergleiche ---\nlibrary(emmeans)\nemm <- emmeans(modell, ~ gruppe)\npairs(emm, adjust = \"tukey\")\n# Frage: Welche Gruppen unterscheiden sich signifikant?\n# Warum brauchen wir Post-hoc-Tests, wenn der F-Test bereits signifikant war?\n\n# --- Aufgabe 6: Baseline-Check (Randomisierungsprüfung) ---\n# Vor der Intervention sollten sich KG und Stressgruppe NICHT unterscheiden.\n# Ein signifikantes Ergebnis hier würde auf Probleme bei der Randomisierung hinweisen.\nmodell_t1 <- aov_ez(id = \"id\", dv = \"wm_score_t1\",\n                    between = \"gruppe\", data = wm_daten)\nprint(modell_t1)\n# Erwartung: F klein, p > .05, ges nahe 0","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1821,6 +1821,7 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#wiederholung-vertiefung-gruppenvergleiche-anova" id="toc-wiederholung-vertiefung-gruppenvergleiche-anova" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-gruppenvergleiche-anova">Wiederholung &amp; Vertiefung: Gruppenvergleiche &amp; ANOVA</a>
   <ul class="collapse">
   <li><a href="#varianzzerlegung" id="toc-varianzzerlegung" class="nav-link" data-scroll-target="#varianzzerlegung">Varianzzerlegung</a></li>
+  <li><a href="#das-modell-rechnen-afex" id="toc-das-modell-rechnen-afex" class="nav-link" data-scroll-target="#das-modell-rechnen-afex">Das Modell rechnen: afex</a></li>
   <li><a href="#signifikanz-relevanz" id="toc-signifikanz-relevanz" class="nav-link" data-scroll-target="#signifikanz-relevanz">Signifikanz ≠ Relevanz</a></li>
   <li><a href="#annahmen-prüfen" id="toc-annahmen-prüfen" class="nav-link" data-scroll-target="#annahmen-prüfen">Annahmen prüfen</a></li>
   <li><a href="#post-hoc-vergleiche" id="toc-post-hoc-vergleiche" class="nav-link" data-scroll-target="#post-hoc-vergleiche">Post-hoc-Vergleiche</a></li>
@@ -2144,15 +2145,16 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <section id="wiederholung-vertiefung-gruppenvergleiche-anova" class="level2">
 <h2 class="anchored" data-anchor-id="wiederholung-vertiefung-gruppenvergleiche-anova">Wiederholung &amp; Vertiefung: Gruppenvergleiche &amp; ANOVA</h2>
-<p>In dieser Übung beschäftigen wir uns mit der <strong>ANOVA als Varianzzerlegungsmodell</strong>. Ziel ist das Verständnis der Logik: Wie viel Varianz wird durch Gruppenzugehörigkeit erklärt?</p>
+<p>Die ANOVA fragt: Wie viel der gesamten Streuung in den Daten lässt sich durch Gruppenzugehörigkeit erklären?</p>
 <section id="varianzzerlegung" class="level3">
 <h3 class="anchored" data-anchor-id="varianzzerlegung">Varianzzerlegung</h3>
+<p>Jede Beobachtung setzt sich zusammen aus einem Gruppeneffekt und einer individuellen Abweichung davon. Formal:</p>
 <ul>
-<li><strong>Daten = Modell + Fehler</strong>: Jede Beobachtung = Gruppeneffekt + individuelle Abweichung</li>
-<li><strong>SS_total = SS_between + SS_within</strong></li>
-<li><strong>F = MS_between / MS_within</strong>: Varianz zwischen Gruppen relativ zur Varianz innerhalb</li>
+<li>SS_total = SS_between + SS_within</li>
+<li>F = MS_between / MS_within</li>
 </ul>
-<p>Die folgende Abbildung zeigt diese Zerlegung geometrisch: Die <strong>blauen Segmente</strong> sind die Abstände jedes Einzelwerts zum jeweiligen Gruppenmittelwert (= <em>within</em>, innerhalb der Gruppen). Die <strong>roten Pfeile</strong> sind die Abstände der Gruppenmittelwerte zum gemeinsamen Mittelwert aller Daten (= <em>between</em>, zwischen den Gruppen). Die F-Statistik setzt diese beiden Varianzanteile ins Verhältnis.</p>
+<p>F ist gross, wenn die Gruppen weit auseinanderliegen (MS_between gross) und die Streuung innerhalb der Gruppen gering ist (MS_within klein). F = 8 bedeutet: Die Varianz zwischen den Gruppen ist achtmal grösser als die Varianz innerhalb.</p>
+<p>Die Abbildung unten zeigt das geometrisch: Blaue Segmente = Abstand jedes Punkts zum Gruppenmittelwert (within). Rote Pfeile = Abstand des Gruppenmittelwerts zum Gesamtmittelwert (between).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-varianzzerlegung" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Punkteplot mit drei Gruppen auf der x-Achse. Jeder Datenpunkt ist durch eine blaue senkrechte Linie mit dem jeweiligen Gruppenmittelwert (schwarzer Querstrich) verbunden. Von jedem Gruppenmittelwert führt ein roter Pfeil zur gestrichelten horizontalen Linie des Grand Mean.">
@@ -2167,6 +2169,16 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 </div>
 </div>
 </div>
+</section>
+<section id="das-modell-rechnen-afex" class="level3">
+<h3 class="anchored" data-anchor-id="das-modell-rechnen-afex">Das Modell rechnen: afex</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modell)        <span class="co"># Ergebnistabelle mit Effektgrösse (ges)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nice</span>(modell, <span class="at">es =</span> <span class="st">"pes"</span>)  <span class="co"># alternativ: partial η²</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Der Output von <code>print()</code> hat vier Kernspalten: <code>df</code> (Zähler/Nenner), <code>MSE</code> (mittlere Fehlervarianz, Nenner der F-Statistik), <code>F</code> und <code>ges</code> (generalisiertes η²). Bei einfaktoriellen Between-Designs entspricht <code>ges</code> dem klassischen η² aus Statistik 2.</p>
 </section>
 <section id="signifikanz-relevanz" class="level3">
 <h3 class="anchored" data-anchor-id="signifikanz-relevanz">Signifikanz ≠ Relevanz</h3>
@@ -2183,23 +2195,53 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>p-Wert</strong></td>
-<td>Wie wahrscheinlich wäre das Ergebnis unter H₀?</td>
+<td>p-Wert</td>
+<td>Wie wahrscheinlich wäre dieses Ergebnis unter H₀?</td>
 </tr>
 <tr class="even">
-<td><strong>η²</strong></td>
-<td>Anteil erklärter Varianz (Effektgrösse)</td>
+<td>η² (ges/pes)</td>
+<td>Anteil erklärter Varianz — die Effektgrösse</td>
 </tr>
 <tr class="odd">
-<td><strong>Cohen’s d</strong></td>
-<td>Standardisierter Mittelwertsunterschied</td>
+<td>Cohen’s d</td>
+<td>Standardisierter Mittelwertsunterschied (zwei Gruppen)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Immer Effektgrösse berichten!</strong> Ein kleines p bei grossem N kann einen winzigen Effekt “signifikant” machen.</p>
+<p>Ein kleines p bei grossem N kann einen winzigen Effekt signifikant machen. Deshalb: Immer Effektgrösse berichten.</p>
+<p>Richtwerte für η² (aus der Formelsammlung):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>η²</th>
+<th>Effekt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>≈ .01</td>
+<td>klein</td>
+</tr>
+<tr class="even">
+<td>≈ .06</td>
+<td>mittel</td>
+</tr>
+<tr class="odd">
+<td>≈ .14</td>
+<td>gross</td>
+</tr>
+</tbody>
+</table>
+<p>η² = .13 liegt zwischen .06 und .14 — das ist ein mittlerer bis grosser Effekt. Werte zwischen den Schwellen werden entsprechend eingeordnet.</p>
 </section>
 <section id="annahmen-prüfen" class="level3">
 <h3 class="anchored" data-anchor-id="annahmen-prüfen">Annahmen prüfen</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"normality"</span>, <span class="st">"qq"</span>, <span class="st">"ncv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 43%">
@@ -2215,26 +2257,31 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 </thead>
 <tbody>
 <tr class="odd">
-<td>Normalverteilung</td>
-<td>QQ-Plot, Shapiro-Wilk</td>
-<td>Kruskal-Wallis (bei starker Verletzung)</td>
+<td>Normalverteilung der Residuen</td>
+<td>QQ-Plot + Dichteplot via <code>check_model(check = c("normality", "qq"))</code></td>
+<td>Kruskal-Wallis (bei kleinem n und starker Verletzung)</td>
 </tr>
 <tr class="even">
 <td>Varianzhomogenität</td>
-<td>Levene-Test</td>
-<td>Welch-ANOVA</td>
+<td>NCV-Panel via <code>check_model(check = "ncv")</code> — visuelles Äquivalent des Levene-Tests aus S2</td>
+<td>Welch-Test: <code>oneway.test(..., var.equal = FALSE)</code></td>
 </tr>
 <tr class="odd">
 <td>Unabhängigkeit</td>
-<td>Durch Design</td>
-<td>Anderes Modell (z. B. Messwiederholung)</td>
+<td>Studiendesign — nicht durch Plot prüfbar</td>
+<td>Anderes Modell (Messwiederholung, hierarchisch)</td>
 </tr>
 </tbody>
 </table>
+<p>ANOVA ist robust gegenüber moderaten Normabweichungen, wenn n ≥ 30 und die Gruppen ähnlich gross sind.</p>
 </section>
 <section id="post-hoc-vergleiche" class="level3">
 <h3 class="anchored" data-anchor-id="post-hoc-vergleiche">Post-hoc-Vergleiche</h3>
-<p>Die ANOVA sagt nur: “Irgendein Unterschied existiert.” Post-hoc-Tests (mit Bonferroni- oder Tukey-Korrektur) identifizieren, <strong>welche</strong> Gruppen sich unterscheiden.</p>
+<p>Die ANOVA sagt: irgendwo gibt es einen Unterschied. Sie sagt nicht wo. Bei mehr als zwei Gruppen braucht man Post-hoc-Tests.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modell, <span class="sc">~</span> gruppe)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tukey ist Standard bei ANOVA mit mehreren Gruppen. Bonferroni ist konservativer und passt besser bei wenigen, gezielten Vergleichen. Der Output zeigt für jedes Gruppenpaar: <code>estimate</code> (Mittelwertsdifferenz), <code>SE</code>, <code>t.ratio</code> und das adjustierte <code>p.value</code>.</p>
 </section>
 </section>
 <section id="übungen" class="level2">
@@ -2243,12 +2290,12 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Bevor Sie die ANOVA berichten, prüfen Sie die Modellannahmen <strong>visuell</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Die Diagnoseplots zeigen folgendes Bild:</p>
 <ul>
 <li><strong>QQ-Plot der Residuen</strong>: Punkte liegen nahe an der Referenzlinie, keine auffällige Abweichung von der Normalverteilung.</li>
@@ -2257,8 +2304,8 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 </ul>
 <p>Die beiden Gruppen haben vergleichbare Gruppengrössen (n_KG ≈ n_Stress ≈ 50).</p>
 <p>Was ist die <strong>angemessenste Schlussfolgerung</strong>?</p>
-<div id="webex-64972d0ebba46fb297fef0c1fc387ecd" class="webex-radiogroup" data-answer="bQUVBx5UHFU/">
-<label><input type="radio" autocomplete="off" name="64972d0ebba46fb297fef0c1fc387ecd"><span>Die visuelle Diagnose zeigt keine gravierenden Verletzungen. Die ANOVA ist gegenüber leichten Abweichungen von der Varianzhomogenität robust, besonders bei vergleichbaren Gruppengrössen — die Analyse kann wie geplant berichtet werden. Bei deutlicher Heteroskedastizität wäre die Welch-ANOVA (<code>oneway.test()</code>) eine Alternative.</span></label><label><input type="radio" autocomplete="off" name="64972d0ebba46fb297fef0c1fc387ecd"><span>Die visuelle Diagnose reicht nicht aus. Erst nachdem <code>shapiro.test()</code> und <code>bartlett.test()</code> formell durchgeführt wurden und beide nicht signifikant sind, dürfen die Annahmen als erfüllt gelten.</span></label><label><input type="radio" autocomplete="off" name="64972d0ebba46fb297fef0c1fc387ecd"><span>Da die Residuenstreuung zwischen den Gruppen leicht unterschiedlich ist, müssen die Daten log-transformiert werden, bevor die Analyse interpretiert wird.</span></label><label><input type="radio" autocomplete="off" name="64972d0ebba46fb297fef0c1fc387ecd"><span><code>check_model()</code> ist eine rein visuelle Darstellung ohne Aussagekraft — Entscheidungen über das weitere Vorgehen sollten ausschliesslich auf formellen Signifikanztests basieren.</span></label>
+<div id="webex-4c3d96357879847efe207ec3eec3122e" class="webex-radiogroup" data-answer="b1IfVBUGHwVq">
+<label><input type="radio" autocomplete="off" name="4c3d96357879847efe207ec3eec3122e"><span>Die visuelle Diagnose zeigt keine gravierenden Verletzungen. Die ANOVA ist gegenüber leichten Abweichungen von der Varianzhomogenität robust, besonders bei vergleichbaren Gruppengrössen — die Analyse kann wie geplant berichtet werden. Bei deutlicher Heteroskedastizität wäre die Welch-ANOVA (<code>oneway.test()</code>) eine Alternative.</span></label><label><input type="radio" autocomplete="off" name="4c3d96357879847efe207ec3eec3122e"><span>Die visuelle Diagnose reicht nicht aus. Erst nachdem <code>shapiro.test()</code> und <code>bartlett.test()</code> formell durchgeführt wurden und beide nicht signifikant sind, dürfen die Annahmen als erfüllt gelten.</span></label><label><input type="radio" autocomplete="off" name="4c3d96357879847efe207ec3eec3122e"><span>Da die Residuenstreuung zwischen den Gruppen leicht unterschiedlich ist, müssen die Daten log-transformiert werden, bevor die Analyse interpretiert wird.</span></label><label><input type="radio" autocomplete="off" name="4c3d96357879847efe207ec3eec3122e"><span><code>check_model()</code> ist eine rein visuelle Darstellung ohne Aussagekraft — Entscheidungen über das weitere Vorgehen sollten ausschliesslich auf formellen Signifikanztests basieren.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2268,10 +2315,10 @@ Figure&nbsp;1: Geometrische Varianzzerlegung bei drei Gruppen: Within-Abstände 
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie führen eine ANOVA mit <code>afex::aov_ez()</code> für Projektfrage Q1 durch und erhalten folgenden Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>modell</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>modell</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>Anova Table (Type 3 tests)
 
 Response: wm_score_t2
@@ -2280,8 +2327,8 @@ Response: wm_score_t2
 ---
 Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</code></pre>
 <p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-c69e00836d1c5e9e4e3f3071c8f75818" class="webex-checkboxgroup" data-answer="OAcVVRwBFAJr">
-<label><input type="checkbox" autocomplete="off" name="c69e00836d1c5e9e4e3f3071c8f75818"><span>Der Wert <code>ges = .079</code> ist das generalisierte η² — rund 8% der Varianz im WM-Score (nach der Intervention) werden durch die Gruppenzugehörigkeit erklärt. Bei einer einfaktoriellen Between-ANOVA entspricht <code>ges</code> dem klassischen η² aus Statistik 2.</span></label><label><input type="checkbox" autocomplete="off" name="c69e00836d1c5e9e4e3f3071c8f75818"><span>Das Ergebnis ist signifikant (p = .004) — daraus folgt, dass der Gruppenunterschied auch praktisch relevant und gross ist.</span></label><label><input type="checkbox" autocomplete="off" name="c69e00836d1c5e9e4e3f3071c8f75818"><span>Die Spalte <code>MSE</code> (156.2) gibt die mittlere Fehlervarianz innerhalb der Gruppen an und steht im Nenner der F-Statistik — sie entspricht dem <code>Mean Sq</code> der Residuen in der klassischen ANOVA-Tabelle aus Statistik 2 VL 5.</span></label><label><input type="checkbox" autocomplete="off" name="c69e00836d1c5e9e4e3f3071c8f75818"><span>Der Output zeigt, dass es zwei Gruppen gibt (Zähler-df = 1), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Kennwerte oder Post-hoc-Vergleiche mit <code>emmeans</code>.</span></label>
+<div id="webex-f8165161a66947c712c253ff0ea5681d" class="webex-checkboxgroup" data-answer="PQkdBhkAGgA8">
+<label><input type="checkbox" autocomplete="off" name="f8165161a66947c712c253ff0ea5681d"><span>Der Wert <code>ges = .079</code> ist das generalisierte η² — rund 8% der Varianz im WM-Score (nach der Intervention) werden durch die Gruppenzugehörigkeit erklärt. Bei einer einfaktoriellen Between-ANOVA entspricht <code>ges</code> dem klassischen η² aus Statistik 2.</span></label><label><input type="checkbox" autocomplete="off" name="f8165161a66947c712c253ff0ea5681d"><span>Das Ergebnis ist signifikant (p = .004) — daraus folgt, dass der Gruppenunterschied auch praktisch relevant und gross ist.</span></label><label><input type="checkbox" autocomplete="off" name="f8165161a66947c712c253ff0ea5681d"><span>Die Spalte <code>MSE</code> (156.2) gibt die mittlere Fehlervarianz innerhalb der Gruppen an und steht im Nenner der F-Statistik — sie entspricht dem <code>Mean Sq</code> der Residuen in der klassischen ANOVA-Tabelle aus Statistik 2 VL 5.</span></label><label><input type="checkbox" autocomplete="off" name="f8165161a66947c712c253ff0ea5681d"><span>Der Output zeigt, dass es zwei Gruppen gibt (Zähler-df = 1), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Kennwerte oder Post-hoc-Vergleiche mit <code>emmeans</code>.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2291,15 +2338,15 @@ Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</code></pre>
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>In einer hypothetischen Studie (nicht dem Stress-WM-Projekt) wurden drei experimentelle Bedingungen verglichen: eine Experimentalgruppe (EG), eine Kontrollgruppe (KG) und eine Wartekontrollgruppe (WG). Nach einer signifikanten ANOVA führen Sie Post-hoc-Vergleiche mit <code>emmeans</code> durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(anova_ergebnis, pairwise <span class="sc">~</span> gruppe, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Sie erhalten folgende Tabelle der paarweisen Vergleiche:</p>
 <pre><code> contrast  estimate   SE  df t.ratio p.value
  EG - KG       6.9 2.41  97   2.86  0.015
  EG - WG       2.1 2.38  97   0.88  1.000
  KG - WG      -4.8 2.44  97  -1.97  0.156</code></pre>
 <p>Welche Aussagen sind <strong>korrekt</strong>?</p>
-<div id="webex-90b3bab60e0698ebecc7e083c28b5bfe" class="webex-checkboxgroup" data-answer="YgFOAk5QTgZt">
-<label><input type="checkbox" autocomplete="off" name="90b3bab60e0698ebecc7e083c28b5bfe"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label><label><input type="checkbox" autocomplete="off" name="90b3bab60e0698ebecc7e083c28b5bfe"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label><label><input type="checkbox" autocomplete="off" name="90b3bab60e0698ebecc7e083c28b5bfe"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="90b3bab60e0698ebecc7e083c28b5bfe"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label>
+<div id="webex-c70d359b195b0caa7255c8327c9120e6" class="webex-checkboxgroup" data-answer="OAYcVR8EFVJs">
+<label><input type="checkbox" autocomplete="off" name="c70d359b195b0caa7255c8327c9120e6"><span>Das Argument <code>adjust = "bonferroni"</code> korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.</span></label><label><input type="checkbox" autocomplete="off" name="c70d359b195b0caa7255c8327c9120e6"><span>Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.</span></label><label><input type="checkbox" autocomplete="off" name="c70d359b195b0caa7255c8327c9120e6"><span>Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.</span></label><label><input type="checkbox" autocomplete="off" name="c70d359b195b0caa7255c8327c9120e6"><span>Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.</span></label>
 </div>
 </div>
 <div class="webex-solution">
