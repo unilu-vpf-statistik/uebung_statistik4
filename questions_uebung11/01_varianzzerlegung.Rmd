@@ -19,22 +19,22 @@ Response: wm_score_t2
 Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
 
-Welche Aussagen zur **Interpretation dieses Outputs** sind korrekt?
+Welche Aussagen zur **Interpretation dieses Outputs im Sinne der Varianzzerlegung** (Daten = Modell + Fehler) sind korrekt?
 
 Answerlist
 ----------
-* Der Wert `ges = .079` ist das generalisierte η² — rund 8% der Varianz im WM-Score (nach der Intervention) werden durch die Gruppenzugehörigkeit erklärt. Bei einer einfaktoriellen Between-ANOVA entspricht `ges` dem klassischen η² aus Statistik 2.
-* Das Ergebnis ist signifikant (p = .004) — daraus folgt, dass der Gruppenunterschied auch praktisch relevant und gross ist.
-* Die Spalte `MSE` (156.2) gibt die mittlere Fehlervarianz innerhalb der Gruppen an und steht im Nenner der F-Statistik — sie entspricht dem `Mean Sq` der Residuen in der klassischen ANOVA-Tabelle aus Statistik 2 VL 5.
-* Der Output zeigt, dass es zwei Gruppen gibt (Zähler-df = 1), aber er sagt nicht, welche Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Kennwerte oder Post-hoc-Vergleiche mit `emmeans`.
+* Der Wert `ges = .079` ist die **Effektgrösse η²** und gibt den Anteil der Varianz im WM-Score an, der durch die Gruppenzugehörigkeit (das *Modell*) erklärt wird — hier rund 8 %.
+* Die Spalte `MSE` (156.2) ist die **mittlere Varianz innerhalb der Gruppen** (*within*) und steht im Nenner der F-Statistik. Sie spiegelt den unerklärten *Fehler*-Anteil der Varianzzerlegung wider.
+* Da p = .004 deutlich unter .05 liegt, ist der Gruppenunterschied automatisch auch praktisch bedeutsam — die Effektgrösse muss in diesem Fall nicht mehr separat berichtet werden.
+* Der Output zeigt, dass es zwei Gruppen gibt (Zähler-df = 1), aber er sagt nicht, *welche* Gruppe den höheren WM-Score hat — dafür braucht man deskriptive Kennwerte oder Post-hoc-Vergleiche.
 
 Solution
 ========
-Die Spalte `ges` im `aov_ez()`-Output ist das *generalisierte η²*. Für einfaktorielle Between-Designs entspricht es numerisch dem klassischen η² aus Statistik 2 VL 5 — hier werden also rund 8% der Varianz erklärt. `MSE = 156.2` ist die Fehlervarianz innerhalb der Gruppen und steht im Nenner der F-Statistik. Der df-Ausdruck `1, 98` zeigt Zähler-Freiheitsgrade (Anzahl Gruppen − 1) und Nenner-Freiheitsgrade. Die Richtung des Effekts ist dem Output nicht direkt zu entnehmen. Falsch ist hingegen: Ein signifikanter p-Wert sagt nichts über die praktische Relevanz — dafür ist die Effektgrösse entscheidend. Bei grossem N können auch kleine Effekte signifikant werden.
+Die Varianzzerlegung der ANOVA folgt der Logik **Daten = Modell + Fehler**: `ges` (generalisiertes η²) ist der Anteil der Varianz, der durch das Modell (die Gruppenzugehörigkeit) erklärt wird — hier rund 8 %. `MSE = 156.2` ist die mittlere Varianz *innerhalb* der Gruppen und steht im Nenner der F-Statistik (F = MS_between / MS_within); sie repräsentiert den unerklärten Fehleranteil. Die Richtung des Effekts ist dem Output nicht direkt zu entnehmen, dafür sind deskriptive Kennwerte oder Post-hoc-Vergleiche nötig. Falsch ist hingegen die Aussage, der p-Wert mache eine separate Effektgrösse überflüssig: **Signifikanz ≠ Relevanz** — bei grossem N können auch kleine Effekte signifikant werden, deshalb sollte η² *immer* berichtet werden.
 
 Meta-information
 ================
 exname: aov_ez_output_lesen
 extype: mchoice
-exsolution: 1011
+exsolution: 1101
 exshuffle: FALSE

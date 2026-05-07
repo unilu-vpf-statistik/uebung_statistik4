@@ -1,6 +1,6 @@
 Question
 ========
-Bevor Sie die ANOVA berichten, prüfen Sie die Modellannahmen **visuell**:
+Bevor Sie die ANOVA berichten, prüfen Sie die Modellannahmen **visuell** mit `check_model()`:
 
 ```r
 library(afex)
@@ -11,11 +11,10 @@ modell <- aov_ez(id = "id", dv = "wm_score_t2",
 check_model(modell)
 ```
 
-Die Diagnoseplots zeigen folgendes Bild:
+In der Vorlesung haben wir uns bei `check_model()` auf zwei zentrale Diagnoseplots konzentriert:
 
-- **QQ-Plot der Residuen**: Punkte liegen nahe an der Referenzlinie, keine auffällige Abweichung von der Normalverteilung.
-- **Residuen vs. Fitted**: Die Streuung ist zwischen den beiden Gruppen leicht unterschiedlich, aber kein klarer Trichter.
-- **Einflussreiche Beobachtungen**: Alle Cook's-Distance-Werte liegen unter dem Schwellenwert, keine Ausreisser.
+- **QQ-Plot der Residuen** (Annahme: Normalverteilung der Residuen): Die Punkte liegen nahe an der Referenzlinie, keine systematische Abweichung in den Enden.
+- **Homogeneity of Variance** (Test auf *non-constant variances*): Die Linie verläuft annähernd waagerecht; die Streuung der Residuen ist über die Gruppen hinweg vergleichbar.
 
 Die beiden Gruppen haben vergleichbare Gruppengrössen (n_KG ≈ n_Stress ≈ 50).
 
@@ -23,14 +22,14 @@ Was ist die **angemessenste Schlussfolgerung**?
 
 Answerlist
 ----------
-* Die visuelle Diagnose zeigt keine gravierenden Verletzungen. Die ANOVA ist gegenüber leichten Abweichungen von der Varianzhomogenität robust, besonders bei vergleichbaren Gruppengrössen — die Analyse kann wie geplant berichtet werden. Bei deutlicher Heteroskedastizität wäre die Welch-ANOVA (`oneway.test()`) eine Alternative.
+* Die visuelle Diagnose zeigt keine Verletzung der Normalverteilung der Residuen (QQ-Plot) und keine Hinweise auf *non-constant variances* (Homogeneity-of-Variance-Plot). Die ANOVA kann wie geplant berichtet werden.
 * Die visuelle Diagnose reicht nicht aus. Erst nachdem `shapiro.test()` und `bartlett.test()` formell durchgeführt wurden und beide nicht signifikant sind, dürfen die Annahmen als erfüllt gelten.
-* Da die Residuenstreuung zwischen den Gruppen leicht unterschiedlich ist, müssen die Daten log-transformiert werden, bevor die Analyse interpretiert wird.
+* Da im QQ-Plot einzelne Punkte nicht *exakt* auf der Referenzlinie liegen, müssen die Daten log-transformiert werden, bevor die Analyse interpretiert wird.
 * `check_model()` ist eine rein visuelle Darstellung ohne Aussagekraft — Entscheidungen über das weitere Vorgehen sollten ausschliesslich auf formellen Signifikanztests basieren.
 
 Solution
 ========
-`check_model()` liefert eine visuelle Prüfung der zentralen ANOVA-Annahmen. Bei grossem N wird jeder formelle Test (Shapiro, Bartlett) tendenziell signifikant, bei kleinem N findet er dagegen nichts — visuelle Diagnose ist deshalb informativer und robuster (Anschluss an Sitzung 5). Die ANOVA ist zudem gegenüber leichten Abweichungen der Varianzhomogenität robust, solange die Gruppengrössen vergleichbar sind. Im geschilderten Szenario gibt es keinen Grund, von der regulären ANOVA abzuweichen; die Welch-ANOVA (`oneway.test()`) wäre erst bei deutlicher Heteroskedastizität angebracht. Falsch sind: Eine Datentransformation wäre ein unverhältnismässiger Eingriff ohne klare Rechtfertigung; und `check_model()` ist in diesem Kurs explizit als Entscheidungsgrundlage konzipiert — nicht als Beiwerk.
+In der Vorlesung haben wir bei `check_model()` zwei zentrale Plots besprochen: den **QQ-Plot** für die Annahme der Normalverteilung der Residuen und den **Homogeneity-of-Variance-Plot** für den Test auf *non-constant variances* (das visuelle Pendant zum Levene-Test). Liegen die Punkte im QQ-Plot nahe an der Referenzlinie und verläuft die Linie im Varianzplot annähernd waagerecht, sind die zentralen ANOVA-Annahmen erfüllt und die Analyse kann wie geplant berichtet werden. Falsch sind: Eine zusätzliche formelle Testung mit Shapiro-Wilk oder Bartlett ist nicht erforderlich (bei grossem N werden diese Tests tendenziell *immer* signifikant, bei kleinem N findet keiner etwas — die visuelle Diagnose ist deshalb informativer); eine Datentransformation wäre ein unverhältnismässiger Eingriff ohne klare Rechtfertigung; und `check_model()` ist in diesem Kurs explizit als Entscheidungsgrundlage konzipiert.
 
 Meta-information
 ================

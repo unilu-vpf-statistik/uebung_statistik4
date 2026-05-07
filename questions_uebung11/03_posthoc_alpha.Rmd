@@ -1,12 +1,13 @@
 Question
 ========
-In einer hypothetischen Studie (nicht dem Stress-WM-Projekt) wurden drei experimentelle Bedingungen verglichen: eine Experimentalgruppe (EG), eine Kontrollgruppe (KG) und eine Wartekontrollgruppe (WG). Nach einer signifikanten ANOVA führen Sie Post-hoc-Vergleiche mit `emmeans` durch:
+In einer hypothetischen Studie (nicht dem Stress-WM-Projekt) wurden drei experimentelle Bedingungen verglichen: eine Experimentalgruppe (EG), eine Kontrollgruppe (KG) und eine Wartekontrollgruppe (WG). Eine einfaktorielle ANOVA ergab einen signifikanten Gruppenunterschied (F(2, 97) = 4.91, p = .009).
+
+Die ANOVA sagt: *Irgendwo* unterscheiden sich die Gruppen — sie sagt aber nicht *welche*. Sie führen daher Post-hoc-Vergleiche mit Bonferroni-Korrektur durch:
 
 ```r
-emmeans(anova_ergebnis, pairwise ~ gruppe, adjust = "bonferroni")
+emm_gruppe <- emmeans(anova_ergebnis, . ~ gruppe)
+pairs(emm_gruppe, adjust = "bonferroni")
 ```
-
-Sie erhalten folgende Tabelle der paarweisen Vergleiche:
 
 ```
  contrast  estimate   SE  df t.ratio p.value
@@ -19,18 +20,18 @@ Welche Aussagen sind **korrekt**?
 
 Answerlist
 ----------
-* Das Argument `adjust = "bonferroni"` korrigiert die p-Werte nach oben, um die erhöhte Irrtumswahrscheinlichkeit bei mehreren Vergleichen auszugleichen.
-* Der Vergleich EG - WG zeigt p = 1.000, was bei der Bonferroni-Korrektur vorkommen kann, weil der korrigierte p-Wert auf 1 begrenzt wird.
-* Nur der Vergleich EG - KG ist signifikant (p = .015) — die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.
-* Da zwei der drei Vergleiche nicht signifikant sind, war die ANOVA vermutlich ein Zufallsergebnis und sollte nicht berichtet werden.
+* Die Bonferroni-Korrektur kontrolliert die Alpha-Fehler-Kumulierung bei mehreren Vergleichen, indem sie die p-Werte nach oben anpasst.
+* Aus der Tabelle lässt sich ablesen, *welche* Gruppen sich unterscheiden: Nur EG vs. KG ist signifikant (p = .015), die EG hat im Mittel einen um 6.9 Punkte höheren Score als die KG.
+* Da zwei der drei Vergleiche nicht signifikant sind, war die signifikante ANOVA vermutlich ein Zufallsergebnis und sollte verworfen werden.
+* Ohne Korrektur für multiples Testen würde die Wahrscheinlichkeit, *irgendeinen* Unterschied fälschlich als signifikant zu werten, mit der Anzahl der Vergleiche steigen.
 
 Solution
 ========
-Die Bonferroni-Korrektur multipliziert die p-Werte mit der Anzahl der Vergleiche (hier 3), um die Alpha-Fehler-Kumulierung zu kontrollieren. Dabei kann ein korrigierter p-Wert rechnerisch über 1 liegen — er wird dann auf 1.000 begrenzt. Aus der Tabelle geht hervor, dass nur der Vergleich EG vs. KG signifikant ist (p = .015), mit einem geschätzten Unterschied von 6.9 Punkten. Falsch ist: Eine signifikante ANOVA zeigt, dass irgendein Gruppenunterschied existiert — die Post-hoc-Tests spezifizieren, welcher. Dass nicht alle Paare signifikant sind, ist normal und kein Grund, die ANOVA als Zufallsergebnis zu verwerfen.
+Die ANOVA zeigt nur, *dass* irgendwo ein Gruppenunterschied existiert — Post-hoc-Vergleiche mit Bonferroni- oder Tukey-Korrektur identifizieren, *welche* Gruppen sich unterscheiden (siehe Vorlesung). Die Bonferroni-Korrektur passt die p-Werte nach oben an, um die Alpha-Fehler-Kumulierung bei mehreren Tests zu kontrollieren — ohne diese Korrektur würde die Wahrscheinlichkeit eines falsch-positiven Befundes mit jedem zusätzlichen Vergleich steigen. Aus der Tabelle ergibt sich, dass nur EG vs. KG signifikant unterschiedlich ist (p = .015, geschätzte Differenz 6.9 Punkte). Falsch ist: Dass nicht alle paarweisen Vergleiche signifikant sind, ist normal — eine signifikante ANOVA wird dadurch nicht entkräftet.
 
 Meta-information
 ================
 exname: emmeans_output_lesen
 extype: mchoice
-exsolution: 1110
+exsolution: 1101
 exshuffle: FALSE
