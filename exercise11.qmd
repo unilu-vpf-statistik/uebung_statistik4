@@ -23,15 +23,18 @@ shuffled_questions <- sample(exam_files)
 
 ## Wiederholung & Vertiefung: Gruppenvergleiche & ANOVA
 
-In dieser Übung beschäftigen wir uns mit der **ANOVA als Varianzzerlegungsmodell**. Ziel ist das Verständnis der Logik: Wie viel Varianz wird durch Gruppenzugehörigkeit erklärt?
+Die ANOVA fragt: Wie viel der gesamten Streuung in den Daten lässt sich durch Gruppenzugehörigkeit erklären?
 
 ### Varianzzerlegung
 
-- **Daten = Modell + Fehler**: Jede Beobachtung = Gruppeneffekt + individuelle Abweichung
-- **SS_total = SS_between + SS_within**
-- **F = MS_between / MS_within**: Varianz zwischen Gruppen relativ zur Varianz innerhalb
+Jede Beobachtung setzt sich zusammen aus einem Gruppeneffekt und einer individuellen Abweichung davon. Formal:
 
-Die folgende Abbildung zeigt diese Zerlegung geometrisch: Die **blauen Segmente** sind die Abstände jedes Einzelwerts zum jeweiligen Gruppenmittelwert (= *within*, innerhalb der Gruppen). Die **roten Pfeile** sind die Abstände der Gruppenmittelwerte zum gemeinsamen Mittelwert aller Daten (= *between*, zwischen den Gruppen). Die F-Statistik setzt diese beiden Varianzanteile ins Verhältnis.
+- SS_total = SS_between + SS_within
+- F = MS_between / MS_within
+
+F ist gross, wenn die Gruppen weit auseinanderliegen (MS_between gross) und die Streuung innerhalb der Gruppen gering ist (MS_within klein). F = 8 bedeutet: Die Varianz zwischen den Gruppen ist achtmal grösser als die Varianz innerhalb.
+
+Die Abbildung unten zeigt das geometrisch: Blaue Segmente = Abstand jedes Punkts zum Gruppenmittelwert (within). Rote Pfeile = Abstand des Gruppenmittelwerts zum Gesamtmittelwert (between).
 
 ```{r fig-varianzzerlegung}
 #| echo: false
@@ -93,27 +96,65 @@ ggplot(dat, aes(x = x_jit, y = wert)) +
   theme(legend.position = "bottom")
 ```
 
+### Das Modell rechnen: afex
+
+```r
+library(afex)
+modell <- aov_ez(id = "id", dv = "wm_score_t2",
+                 between = "gruppe", data = wm_daten)
+
+print(modell)        # Ergebnistabelle mit Effektgrösse (ges)
+nice(modell, es = "pes")  # alternativ: partial η²
+```
+
+Der Output von `print()` hat vier Kernspalten: `df` (Zähler/Nenner), `MSE` (mittlere Fehlervarianz, Nenner der F-Statistik), `F` und `ges` (generalisiertes η²). Bei einfaktoriellen Between-Designs entspricht `ges` dem klassischen η² aus Statistik 2.
+
 ### Signifikanz ≠ Relevanz
 
 | Kennwert | Aussage |
 |---|---|
-| **p-Wert** | Wie wahrscheinlich wäre das Ergebnis unter H₀? |
-| **η²** | Anteil erklärter Varianz (Effektgrösse) |
-| **Cohen's d** | Standardisierter Mittelwertsunterschied |
+| p-Wert | Wie wahrscheinlich wäre dieses Ergebnis unter H₀? |
+| η² (ges/pes) | Anteil erklärter Varianz — die Effektgrösse |
+| Cohen's d | Standardisierter Mittelwertsunterschied (zwei Gruppen) |
 
-**Immer Effektgrösse berichten!** Ein kleines p bei grossem N kann einen winzigen Effekt "signifikant" machen.
+Ein kleines p bei grossem N kann einen winzigen Effekt signifikant machen. Deshalb: Immer Effektgrösse berichten.
+
+Richtwerte für η² (aus der Formelsammlung):
+
+| η² | Effekt |
+|----|--------|
+| ≈ .01 | klein |
+| ≈ .06 | mittel |
+| ≈ .14 | gross |
+
+η² = .13 liegt zwischen .06 und .14 — das ist ein mittlerer bis grosser Effekt. Werte zwischen den Schwellen werden entsprechend eingeordnet.
 
 ### Annahmen prüfen
 
+```r
+library(performance)
+check_model(modell, check = c("normality", "qq", "ncv"))
+```
+
 | Annahme | Prüfung | Bei Verletzung |
 |---|---|---|
-| Normalverteilung | QQ-Plot, Shapiro-Wilk | Kruskal-Wallis (bei starker Verletzung) |
-| Varianzhomogenität | Levene-Test | Welch-ANOVA |
-| Unabhängigkeit | Durch Design | Anderes Modell (z. B. Messwiederholung) |
+| Normalverteilung der Residuen | QQ-Plot + Dichteplot via `check_model(check = c("normality", "qq"))` | Kruskal-Wallis (bei kleinem n und starker Verletzung) |
+| Varianzhomogenität | NCV-Panel via `check_model(check = "ncv")` — visuelles Äquivalent des Levene-Tests aus S2 | Welch-Test: `oneway.test(..., var.equal = FALSE)` |
+| Unabhängigkeit | Studiendesign — nicht durch Plot prüfbar | Anderes Modell (Messwiederholung, hierarchisch) |
+
+ANOVA ist robust gegenüber moderaten Normabweichungen, wenn n ≥ 30 und die Gruppen ähnlich gross sind.
 
 ### Post-hoc-Vergleiche
 
-Die ANOVA sagt nur: "Irgendein Unterschied existiert." Post-hoc-Tests (mit Bonferroni- oder Tukey-Korrektur) identifizieren, **welche** Gruppen sich unterscheiden.
+Die ANOVA sagt: irgendwo gibt es einen Unterschied. Sie sagt nicht wo. Bei mehr als zwei Gruppen braucht man Post-hoc-Tests.
+
+```r
+library(emmeans)
+emm <- emmeans(modell, ~ gruppe)
+pairs(emm, adjust = "tukey")
+```
+
+Tukey ist Standard bei ANOVA mit mehreren Gruppen. Bonferroni ist konservativer und passt besser bei wenigen, gezielten Vergleichen. Der Output zeigt für jedes Gruppenpaar: `estimate` (Mittelwertsdifferenz), `SE`, `t.ratio` und das adjustierte `p.value`.
 
 ## Übungen
 
@@ -174,24 +215,43 @@ wm_daten |>
 # --- Aufgabe 2: Boxplot zur visuellen Prüfung ---
 ggplot(wm_daten, aes(x = gruppe, y = wm_score_t2)) +
   geom_boxplot() +
-  labs(x = "Gruppe", y = "WM-Score nach Intervention") +
+  labs(x = "Gruppe", y = "WM-Score nach Intervention",
+       title = "Gruppenvergleich: Post-Messung") +
   theme_minimal()
 
-# --- Aufgabe 3: ANOVA (base R) ---
-# Vergleich der Gruppen nach der Intervention.
-modell <- aov(wm_score_t2 ~ gruppe, data = wm_daten)
-summary(modell)
+# --- Aufgabe 3: ANOVA mit afex ---
+# aov_ez() braucht eine Personen-ID, die abhängige Variable und den
+# Gruppierungsfaktor. Das Ergebnis enthält ges (generalisiertes η²).
+library(afex)
+modell <- aov_ez(id = "id", dv = "wm_score_t2",
+                 between = "gruppe", data = wm_daten)
 
-# Effektgrösse η² berechnen
-ss <- summary(modell)[[1]][["Sum Sq"]]
-eta_sq <- ss[1] / sum(ss)
-round(eta_sq, 3)
+print(modell)           # Ergebnistabelle: F, df, MSE, ges, p
+nice(modell, es = "ges")  # gleicher Output, aber formatiert
 
-# --- Aufgabe 4: Baseline-Vergleich zur Kontrolle ---
-# Wichtig: Vor der Intervention sollten sich die Gruppen NICHT
-# unterscheiden (Randomisierungs-Check). Vergleichen Sie wm_score_t1.
-modell_baseline <- aov(wm_score_t1 ~ gruppe, data = wm_daten)
-summary(modell_baseline)
+# Frage: Wie gross ist ges? Welchem Effektbereich entspricht das?
+
+# --- Aufgabe 4: Annahmen prüfen ---
+library(performance)
+check_model(modell, check = c("normality", "qq", "ncv"))
+# QQ-Plot: Punkte nahe an der Linie = Normalverteilung ok
+# NCV-Panel: annähernd horizontale Linie = Varianzhomogenität ok
+# Frage: Gibt es sichtbare Verletzungen? Was würde bei starker Verletzung folgen?
+
+# --- Aufgabe 5: Post-hoc-Vergleiche ---
+library(emmeans)
+emm <- emmeans(modell, ~ gruppe)
+pairs(emm, adjust = "tukey")
+# Frage: Welche Gruppen unterscheiden sich signifikant?
+# Warum brauchen wir Post-hoc-Tests, wenn der F-Test bereits signifikant war?
+
+# --- Aufgabe 6: Baseline-Check (Randomisierungsprüfung) ---
+# Vor der Intervention sollten sich KG und Stressgruppe NICHT unterscheiden.
+# Ein signifikantes Ergebnis hier würde auf Probleme bei der Randomisierung hinweisen.
+modell_t1 <- aov_ez(id = "id", dv = "wm_score_t1",
+                    between = "gruppe", data = wm_daten)
+print(modell_t1)
+# Erwartung: F klein, p > .05, ges nahe 0
 ```
 
 ------------------------------------------------------------------------
