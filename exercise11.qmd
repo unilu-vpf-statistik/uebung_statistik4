@@ -133,13 +133,14 @@ Richtwerte für η² (aus der Formelsammlung):
 
 ```r
 library(performance)
-check_model(modell, check = c("normality", "qq", "ncv"))
+check_model(modell, check = c("normality", "qq", "homogeneity"))
+check_homogeneity(modell)   # Levene-Test als Zahl
 ```
 
 | Annahme | Prüfung | Bei Verletzung |
 |---|---|---|
 | Normalverteilung der Residuen | QQ-Plot + Dichteplot via `check_model(check = c("normality", "qq"))` | Kruskal-Wallis (bei kleinem n und starker Verletzung) |
-| Varianzhomogenität | NCV-Panel via `check_model(check = "ncv")` — visuelles Äquivalent des Levene-Tests aus S2 | Welch-Test: `oneway.test(..., var.equal = FALSE)` |
+| Varianzhomogenität | Homogeneity-Panel via `check_model(check = "homogeneity")`; ergänzend `check_homogeneity(modell)` für Levene's Test | Welch-Test: `oneway.test(..., var.equal = FALSE)` |
 | Unabhängigkeit | Studiendesign — nicht durch Plot prüfbar | Anderes Modell (Messwiederholung, hierarchisch) |
 
 ANOVA ist robust gegenüber moderaten Normabweichungen, wenn n ≥ 30 und die Gruppen ähnlich gross sind.
@@ -233,9 +234,10 @@ nice(modell, es = "ges")  # gleicher Output, aber formatiert
 
 # --- Aufgabe 4: Annahmen prüfen ---
 library(performance)
-check_model(modell, check = c("normality", "qq", "ncv"))
+check_model(modell, check = c("normality", "qq", "homogeneity"))
 # QQ-Plot: Punkte nahe an der Linie = Normalverteilung ok
-# NCV-Panel: annähernd horizontale Linie = Varianzhomogenität ok
+# Homogeneity-Panel: annähernd horizontale Linie = Varianzhomogenität ok
+check_homogeneity(modell)  # Levene-Test als Zahl, ergänzend zum Plot
 # Frage: Gibt es sichtbare Verletzungen? Was würde bei starker Verletzung folgen?
 
 # --- Aufgabe 5: Post-hoc-Vergleiche ---
