@@ -404,7 +404,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Herunterladen des Datensatzes\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen_NEU.csv\"), \"WM_Fragebögen_NEU.csv\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\n\n# Daten einlesen\n# Pre/Post-Datensatz: _t1 = Baseline, _t2 = nach Intervention.\nwm_daten <- read.csv2(\"WM_Fragebögen_NEU.csv\")\n\n# --- Aufgabe 1: Einfache Regression ---\n# Wie gut sagt der Schlaf nach der Intervention den WM-Score nach\n# der Intervention vorher?\nmodell1 <- lm(wm_score_t2 ~ sleep_hours_t2, data = wm_daten)\nsummary(modell1)\n# Wie interpretieren Sie den Koeffizienten für sleep_hours_t2?\n\n# --- Aufgabe 2: Scatterplot mit Regressionslinie ---\nggplot(wm_daten, aes(x = sleep_hours_t2, y = wm_score_t2)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = TRUE) +\n  labs(x = \"Schlafdauer nach Intervention (h)\",\n       y = \"WM-Score nach Intervention\") +\n  theme_minimal()\n\n# --- Aufgabe 3: Multiple Regression mit Baseline-Kontrolle ---\n# Wenn wir den WM-Score VOR der Intervention (wm_score_t1) als\n# zusätzlichen Prädiktor aufnehmen, kontrollieren wir für die\n# individuelle WM-Kapazität. Wie verändert sich der Schlaf-Effekt?\nmodell2 <- lm(wm_score_t2 ~ sleep_hours_t2 + wm_score_t1, data = wm_daten)\nsummary(modell2)\n\n# --- Aufgabe 4: Residualdiagnostik ---\nplot(modell2)\n# Was sagen die Diagnostik-Plots über die Modellannahmen?","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Herunterladen der Datensätze\nbase_url <- \"https://unilu-vpf-statistik.github.io/uebung_statistik4/daten/\"\ndownload.file(paste0(base_url, \"WM_Fragebögen_NEU.csv\"), \"WM_Fragebögen_NEU.csv\")\ndownload.file(paste0(base_url, \"Lab_Kodierung_NEU.dat\"), \"Lab_Kodierung_NEU.dat\")\n\n# Laden der benötigten Pakete\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(stringr)\nlibrary(performance)\nlibrary(emmeans)\nlibrary(marginaleffects)\n\n# Daten einlesen und zusammenführen (wie in Übung 4 & 5 erarbeitet)\n# Pre/Post-Datensatz: _t1 = Baseline, _t2 = nach Intervention.\nwm_daten <- read.csv2(\"WM_Fragebögen_NEU.csv\")\nlab_daten <- read.table(\"Lab_Kodierung_NEU.dat\", header = TRUE, sep = \"\\t\")\n\nlab_daten <- lab_daten |>\n  mutate(\n    id = id_raw |>\n      trimws() |>\n      str_remove(\"ID-\") |>\n      str_remove(\"P\") |>\n      as.integer(),\n    gruppe = case_when(\n      group_raw %in% c(\"Kontrollgruppe\", \"Kontrolle\",\n                       \"CON\", \"control\", \"ctrl\") ~ \"KG\",\n      group_raw == \"Stress\"                      ~ \"Stress\",\n      .default = NA_character_\n    )\n  )\n\nwm_daten <- wm_daten |>\n  left_join(lab_daten |> select(id, gruppe), by = \"id\")\n\n# --- Aufgabe 1 ---\n# Fitten Sie ein Regressionsmodell, das die WM-Leistung zu T2 durch die\n# Schlafdauer zu T2 vorhersagt. Prüfen Sie welche Koeffizienten statistisch\n# bedeutsam sind und überlegen Sie wie sie inhaltlich zu interpretieren sind.\n\n\n# --- Aufgabe 2 ---\n# Kontrollieren Sie zusätzlich für die WM-Leistung zu T1.\n# Wie verändert sich der Effekt von Schlaf auf WM-Leistung zu T2?\n\n\n# --- Aufgabe 3 ---\n# Vergleichen Sie die beiden Modelle aus den ersten beiden Aufgaben,\n# um zu prüfen ob die Kontrolle der WM-Leistung zu T1 zusätzliche\n# Varianz aufklärt.\n\n\n# --- Aufgabe 4 ---\n# Prüfen Sie mit Hilfe von check_model() aus dem performance Paket\n# ob die Annahmen für die Regressionsanalyse erfüllt sind.","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# --- Bonus ---\n# Fitten Sie ein Regressionsmodell, das die Interaktion zwischen\n# Schlafdauer zu T2 und Gruppenzugehörigkeit testet.\n# Achten Sie auf die richtige Zentrierung der Prädiktoren.","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1821,10 +1821,13 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#wiederholung-vertiefung-regression-vorhersagen" id="toc-wiederholung-vertiefung-regression-vorhersagen" class="nav-link active" data-scroll-target="#wiederholung-vertiefung-regression-vorhersagen">Wiederholung &amp; Vertiefung: Regression &amp; Vorhersagen</a>
   <ul class="collapse">
   <li><a href="#das-lineare-modell" id="toc-das-lineare-modell" class="nav-link" data-scroll-target="#das-lineare-modell">Das lineare Modell</a></li>
-  <li><a href="#korrelation-kausalität" id="toc-korrelation-kausalität" class="nav-link" data-scroll-target="#korrelation-kausalität">Korrelation ≠ Kausalität</a></li>
-  <li><a href="#modellgüte-r²" id="toc-modellgüte-r²" class="nav-link" data-scroll-target="#modellgüte-r²">Modellgüte: R²</a></li>
-  <li><a href="#interaktion-moderation" id="toc-interaktion-moderation" class="nav-link" data-scroll-target="#interaktion-moderation">Interaktion (Moderation)</a></li>
-  <li><a href="#grenzen" id="toc-grenzen" class="nav-link" data-scroll-target="#grenzen">Grenzen</a></li>
+  <li><a href="#summarylm-lesen" id="toc-summarylm-lesen" class="nav-link" data-scroll-target="#summarylm-lesen"><code>summary(lm())</code> lesen</a></li>
+  <li><a href="#vom-differenzmodell-zur-ancova" id="toc-vom-differenzmodell-zur-ancova" class="nav-link" data-scroll-target="#vom-differenzmodell-zur-ancova">Vom Differenzmodell zur ANCOVA</a></li>
+  <li><a href="#modellvergleich-mit-anova" id="toc-modellvergleich-mit-anova" class="nav-link" data-scroll-target="#modellvergleich-mit-anova">Modellvergleich mit <code>anova()</code></a></li>
+  <li><a href="#interaktion-und-simple-slopes" id="toc-interaktion-und-simple-slopes" class="nav-link" data-scroll-target="#interaktion-und-simple-slopes">Interaktion und Simple Slopes</a></li>
+  <li><a href="#centering-koeffizienten-interpretierbar-machen" id="toc-centering-koeffizienten-interpretierbar-machen" class="nav-link" data-scroll-target="#centering-koeffizienten-interpretierbar-machen">Centering: Koeffizienten interpretierbar machen</a></li>
+  <li><a href="#annahmen-prüfen" id="toc-annahmen-prüfen" class="nav-link" data-scroll-target="#annahmen-prüfen">Annahmen prüfen</a></li>
+  <li><a href="#reproduzierbarer-regressions-workflow" id="toc-reproduzierbarer-regressions-workflow" class="nav-link" data-scroll-target="#reproduzierbarer-regressions-workflow">Reproduzierbarer Regressions-Workflow</a></li>
   </ul></li>
   <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
   </ul>
@@ -2175,7 +2178,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tr>
 </tbody>
 </table>
-<p>Der <strong>Fehler e</strong> lässt sich geometrisch zeigen: Für jeden Datenpunkt ist das <strong>Residuum</strong> der senkrechte Abstand zwischen dem beobachteten Wert und der Regressionslinie (dem vorhergesagten Wert). Die Regression wählt die Linie so, dass die Summe der quadrierten Residuen minimal wird (“Kleinste-Quadrate-Schätzung”). Das Verständnis dieser Abstände ist zentral für die spätere Modellprüfung in Aufgabe 4.</p>
+<p>Der <strong>Fehler e</strong> lässt sich geometrisch zeigen: Für jeden Datenpunkt ist das <strong>Residuum</strong> der senkrechte Abstand zwischen dem beobachteten Wert und der Regressionslinie (dem vorhergesagten Wert). Die Regression wählt die Linie so, dass die Summe der quadrierten Residuen minimal wird (“Kleinste-Quadrate-Schätzung”). Das Verständnis dieser Abstände ist zentral für die spätere Modellprüfung in Aufgabe 9.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-residuen" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatterplot mit 15 Datenpunkten, einer blauen Regressionslinie und gepunkteten roten senkrechten Linien von jedem Punkt zur Regressionslinie. Die roten Linien visualisieren die Residuen.">
@@ -2191,28 +2194,205 @@ Figure&nbsp;1: Residuen als senkrechte Abstände: Jeder Datenpunkt weicht um ein
 </div>
 </div>
 </section>
-<section id="korrelation-kausalität" class="level3">
-<h3 class="anchored" data-anchor-id="korrelation-kausalität">Korrelation ≠ Kausalität</h3>
-<p>Regression zeigt <strong>Zusammenhang</strong>, nicht <strong>Ursache-Wirkung</strong>. Ein signifikanter Koeffizient bedeutet nicht, dass x die Veränderung in y verursacht.</p>
-</section>
-<section id="modellgüte-r²" class="level3">
-<h3 class="anchored" data-anchor-id="modellgüte-r²">Modellgüte: R²</h3>
+<section id="summarylm-lesen" class="level3">
+<h3 class="anchored" data-anchor-id="summarylm-lesen"><code>summary(lm())</code> lesen</h3>
+<p>Der Output von <code>summary()</code> enthält zwei Kernsektionen:</p>
+<p><strong>Koeffizienten-Tabelle</strong> — eine Zeile pro Prädiktor:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Spalte</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Estimate</code></td>
+<td>Geschätzter Koeffizient b — Veränderung in y pro Einheit x</td>
+</tr>
+<tr class="even">
+<td><code>Std. Error</code></td>
+<td>Unsicherheit der Schätzung (nicht die SD der Variable!)</td>
+</tr>
+<tr class="odd">
+<td><code>t value</code></td>
+<td>= Estimate / Std. Error</td>
+</tr>
+<tr class="even">
+<td><code>Pr(&gt;|t|)</code></td>
+<td>p-Wert für H₀: b = 0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Modellgüte</strong> — unterhalb der Koeffizienten:</p>
 <ul>
-<li>R² = Anteil der Varianz in y, der durch das Modell erklärt wird</li>
-<li>In der Psychologie oft R² = .05–.30 (normal)</li>
-<li><strong>R² steigt mit jedem Prädiktor</strong> → adjustiertes R² oder Modellvergleich verwenden</li>
+<li><code>Multiple R-squared</code>: Anteil erklärter Varianz — in der Psychologie oft .05–.30</li>
+<li><code>Adjusted R-squared</code>: korrigiert R² für die Anzahl Prädiktoren — steigt <strong>nur</strong>, wenn ein Prädiktor echten Erklärungswert liefert (R² hingegen steigt immer, auch bei uninformativen Variablen)</li>
+<li>F-Statistik: prüft das Gesamtmodell (alle Prädiktoren zusammen)</li>
 </ul>
+<p>Konfidenzintervalle für Koeffizienten liefert <code>confint(modell)</code>.</p>
 </section>
-<section id="interaktion-moderation" class="level3">
-<h3 class="anchored" data-anchor-id="interaktion-moderation">Interaktion (Moderation)</h3>
-<p>Eine <strong>Interaktion</strong> bedeutet: Der Effekt von x₁ auf y ist unterschiedlich je nach x₂. Grafisch: <strong>nicht-parallele</strong> Regressionslinien.</p>
+<section id="vom-differenzmodell-zur-ancova" class="level3">
+<h3 class="anchored" data-anchor-id="vom-differenzmodell-zur-ancova">Vom Differenzmodell zur ANCOVA</h3>
+<p>Projektfrage Q2 fragt nach der Veränderung im WM-Score. Die intuitive Umsetzung: Differenzscore berechnen und vorhersagen.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wm_daten<span class="sc">$</span>wm_delta <span class="ot">&lt;-</span> wm_daten<span class="sc">$</span>wm_score_t2 <span class="sc">-</span> wm_daten<span class="sc">$</span>wm_score_t1</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wm_delta <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> gruppe, <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Mathematisch ist das äquivalent zu einem Modell, in dem der Baseline-Koeffizient <strong>fix auf 1 gesetzt</strong> ist. Die <strong>Kovarianzanalyse (ANCOVA)</strong> lässt diesen Koeffizienten von den Daten schätzen:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> wm_score_t1 <span class="sc">+</span> sleep_hours_t2 <span class="sc">+</span> gruppe, <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Wegen <em>Regression zur Mitte</em> liegt der tatsächliche Baseline-Koeffizient meist unter 1 (z.B. 0.6). Die ANCOVA nutzt diese Information → <strong>mehr statistische Power</strong> als das Differenzmodell.</p>
 </section>
-<section id="grenzen" class="level3">
-<h3 class="anchored" data-anchor-id="grenzen">Grenzen</h3>
-<ul>
-<li><strong>Extrapolation</strong>: Vorhersage ausserhalb des Datenbereichs ist unzuverlässig</li>
-<li><strong>Overfitting</strong>: Zu viele Prädiktoren bei wenig Daten → Modell passt auf Stichprobe, versagt bei neuen Daten</li>
-</ul>
+<section id="modellvergleich-mit-anova" class="level3">
+<h3 class="anchored" data-anchor-id="modellvergleich-mit-anova">Modellvergleich mit <code>anova()</code></h3>
+<p>R² steigt <strong>immer</strong>, wenn Prädiktoren hinzukommen — auch bei inhaltlich irrelevanten Variablen. Deshalb braucht es einen formalen F-Test:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1 <span class="sc">+</span> gruppe, <span class="at">data =</span> wm_daten)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Der Output zeigt in der letzten Spalte (<code>Pr(&gt;F)</code>), ob der Varianz-Zuwachs grösser ist als zufällig zu erwarten. <strong>Voraussetzung:</strong> Die Modelle müssen <em>ineinandergeschachtelt</em> sein und auf dem <em>gleichen Datensatz</em> (gleiches N) basieren.</p>
+</section>
+<section id="interaktion-und-simple-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="interaktion-und-simple-slopes">Interaktion und Simple Slopes</h3>
+<p>Projektfrage Q3 fragt, ob der Schlaf-Effekt in KG und Stressgruppe gleich stark ist. Das prüft ein <strong>Interaktionsterm</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> wm_score_t1 <span class="sc">+</span> sleep_hours_t2 <span class="sc">*</span> gruppe, <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>sleep * gruppe</code> ist eine Abkürzung für <code>sleep + gruppe + sleep:gruppe</code>. Im Output bedeuten die drei Terme:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sleep_hours_t2</code></td>
+<td>Schlaf-Effekt <strong>in der Referenzgruppe</strong> (KG)</td>
+</tr>
+<tr class="even">
+<td><code>gruppeStress</code></td>
+<td>Intercept-Differenz Stress vs.&nbsp;KG bei Schlaf = 0</td>
+</tr>
+<tr class="odd">
+<td><code>sleep_hours_t2:gruppeStress</code></td>
+<td><strong>Differenz der Steigungen</strong> — das ist der Interaktionsterm</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Referenzgruppe in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R wählt die Referenzgruppe <strong>automatisch alphabetisch</strong> (bzw. die erste Faktorstufe). Bei <code>gruppe</code> mit Werten <code>"KG"</code> und <code>"Stress"</code> ist <code>"KG"</code> die Referenz. Die Haupteffekte im Koeffizientenoutput beziehen sich immer auf diese Referenzgruppe — <strong>nicht</strong> auf den Durchschnitt aller Gruppen.</p>
+</div>
+</div>
+<p><strong>Häufige Fehlinterpretation:</strong> Haupteffekte im Interaktionsmodell sind <em>konditional</em> auf die Referenzgruppe — nicht gemittelt über alle Gruppen.</p>
+<p>Simple Slopes (Steigung pro Gruppe mit KI und p-Wert) liefert <code>emmeans::emtrends()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emtrends</span>(modell, pairwise <span class="sc">~</span> gruppe, <span class="at">var =</span> <span class="st">"sleep_hours_t2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Für die Visualisierung: <code>marginaleffects::plot_predictions()</code> zeigt die Vorhersagen aus dem <strong>tatsächlichen</strong> ANCOVA-Modell. <code>geom_smooth(method = "lm")</code> würde dagegen ein neues Modell ohne Baseline-Kontrolle fitten — was ein verzerrtes Bild ergibt.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(modell, <span class="at">condition =</span> <span class="fu">c</span>(<span class="st">"sleep_hours_t2"</span>, <span class="st">"gruppe"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="centering-koeffizienten-interpretierbar-machen" class="level3">
+<h3 class="anchored" data-anchor-id="centering-koeffizienten-interpretierbar-machen">Centering: Koeffizienten interpretierbar machen</h3>
+<p>Im Modell ohne Centering ist der Intercept der WM-Score bei <em>Schlaf = 0 Stunden</em> — inhaltlich sinnlos. Im Interaktionsmodell ist der Schlaf-Haupteffekt nur der Effekt <em>in der Referenzgruppe</em>. Centering löst beide Probleme:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wm_daten<span class="sc">$</span>sleep_c <span class="ot">&lt;-</span> wm_daten<span class="sc">$</span>sleep_hours_t2 <span class="sc">-</span> <span class="fu">mean</span>(wm_daten<span class="sc">$</span>sleep_hours_t2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Was ändert sich</th>
+<th>Was bleibt gleich</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept (= Wert bei durchschnittlichem Schlaf)</td>
+<td>Interaktionskoeffizient</td>
+</tr>
+<tr class="even">
+<td>Haupteffekte im Interaktionsmodell</td>
+<td>Steigungen, R², p-Wert des Modells</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Centering verändert den Interaktionskoeffizienten nicht
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Der Interaktionsterm (<code>sleep_hours_t2:gruppeStress</code>) bleibt durch Zentrierung <strong>invariant</strong> — er misst die Differenz der Steigungen zwischen den Gruppen, und die Steigungen ändern sich durch eine Verschiebung der Skala nicht. Centering verändert nur den Intercept und die Haupteffekte der zentrierten Variablen.</p>
+</div>
+</div>
+</section>
+<section id="annahmen-prüfen" class="level3">
+<h3 class="anchored" data-anchor-id="annahmen-prüfen">Annahmen prüfen</h3>
+<p>Dieselbe Funktion wie bei der ANOVA — weil es dasselbe lineare Modell ist:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Annahme</th>
+<th>Diagnostik-Plot</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linearität</td>
+<td>Residuen vs.&nbsp;Fitted</td>
+</tr>
+<tr class="even">
+<td>Homoskedastizität</td>
+<td>Scale-Location-Plot</td>
+</tr>
+<tr class="odd">
+<td>Normalverteilung der Residuen</td>
+<td>QQ-Plot</td>
+</tr>
+<tr class="even">
+<td>Einflusspunkte</td>
+<td>Influence-Plot (Cook’s Distance)</td>
+</tr>
+<tr class="odd">
+<td>Kollinearität (bei mehreren Prädiktoren)</td>
+<td>VIF-Plot</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reproduzierbarer-regressions-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="reproduzierbarer-regressions-workflow">Reproduzierbarer Regressions-Workflow</h3>
+<ol type="1">
+<li>Modell bauen mit <code>lm()</code></li>
+<li>Erweitern und vergleichen mit <code>anova()</code></li>
+<li>Interaktionen spezifizieren mit <code>*</code></li>
+<li>Centering für interpretierbare Haupteffekte</li>
+<li>Simple Slopes via <code>emtrends()</code></li>
+<li>Annahmen via <code>check_model()</code></li>
+</ol>
 </section>
 </section>
 <section id="übungen" class="level2">
@@ -2220,33 +2400,12 @@ Figure&nbsp;1: Residuen als senkrechte Abstände: Jeder Datenpunkt weicht um ein
 <p>Beantworten Sie die folgenden Fragen zu Regression und Vorhersagen.</p>
 <div class="webex-question">
 <div class="webex-check webex-box">
-<p>Sie führen eine einfache Regression für Projektfrage Q2 („Sagt Schlafdauer die WM-Leistung vorher?“) durch und erhalten folgenden <code>summary()</code>-Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre><code>Coefficients:
-                 Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)        42.31       6.14    6.89   &lt;.001 ***
-sleep_hours_t2      2.41       0.82    2.94    .004 **
----
-Residual standard error: 11.8 on 98 degrees of freedom
-Multiple R-squared: 0.081, Adjusted R-squared: 0.072</code></pre>
-<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
-<div id="webex-6f4186936a36a3892e2400e9ed27a7e1" class="webex-checkboxgroup" data-answer="bVcYABQHFQNr">
-<label><input type="checkbox" autocomplete="off" name="6f4186936a36a3892e2400e9ed27a7e1"><span>Die Zeile <code>sleep_hours_t2</code> zeigt: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Durchschnitt um 2.41 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .004).</span></label><label><input type="checkbox" autocomplete="off" name="6f4186936a36a3892e2400e9ed27a7e1"><span>Der Wert <code>Multiple R-squared: 0.081</code> bedeutet, dass das Modell 8.1% der Varianz im WM-Score (nach der Intervention) erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="6f4186936a36a3892e2400e9ed27a7e1"><span>Der <code>(Intercept)</code> von 42.31 ist der vorhergesagte WM-Score für eine Person mit <code>sleep_hours_t2 = 0</code> (also 0 Stunden Schlaf), was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="6f4186936a36a3892e2400e9ed27a7e1"><span>Der <code>Std. Error</code> von 0.82 für <code>sleep_hours_t2</code> gibt die Standardabweichung der Variable Schlafdauer im Datensatz an.</span></label>
-</div>
-</div>
-<div class="webex-solution">
-<p>Der Koeffizient <code>Estimate = 2.41</code> für <code>sleep_hours_t2</code> beschreibt die Steigung: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Schnitt um 2.41 Punkte. R² = .081 bedeutet, dass 8.1% der Varianz durch Schlaf allein erklärt werden — in der Psychologie ein plausibler Wert für einen einzelnen Prädiktor. Der Intercept (42.31) ist der vorhergesagte WM-Wert bei <code>sleep_hours_t2 = 0</code> — inhaltlich nicht sinnvoll, aber mathematisch notwendig; Centering des Schlaf-Prädiktors (S12 F17) würde den Intercept sinnvoller interpretierbar machen. Falsch ist hingegen: Der Standardfehler (<code>Std. Error = 0.82</code>) ist nicht die Streuung der Variable Schlafdauer, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 2.41 geschätzt wurde.</p>
-</div>
-</div>
-<div class="webex-question">
-<div class="webex-check webex-box">
 <p>Sie vergleichen ein einfaches und ein ANCOVA-artiges Regressionsmodell, um Projektfrage Q2 auch mit Baseline-Kontrolle zu beantworten:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1 <span class="sc">+</span> gruppe,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1 <span class="sc">+</span> gruppe,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> wm_daten)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>modell1</code> hat R² = .081, <code>modell2</code> hat R² = .152. Sie führen einen formalen Modellvergleich durch:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>Analysis of Variance Table
 Model 1: wm_score_t2 ~ sleep_hours_t2
 Model 2: wm_score_t2 ~ sleep_hours_t2 + wm_score_t1 + gruppe
@@ -2254,8 +2413,8 @@ Model 2: wm_score_t2 ~ sleep_hours_t2 + wm_score_t1 + gruppe
 1     98 13392
 2     96 11672   2    1720.0  7.07   .001 **</code></pre>
 <p>Was lässt sich aus diesem Vergleich schliessen?</p>
-<div id="webex-c4b3bfdad301e7cb2dc1c27d8fca3793" class="webex-checkboxgroup" data-answer="OAVOAk5XSFE5">
-<label><input type="checkbox" autocomplete="off" name="c4b3bfdad301e7cb2dc1c27d8fca3793"><span>Das erweiterte Modell erklärt signifikant mehr Varianz als das einfache Modell (p = .001) — die Aufnahme der Baseline-WM (<code>wm_score_t1</code>) und der Gruppenzugehörigkeit ist statistisch gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="c4b3bfdad301e7cb2dc1c27d8fca3793"><span>Da R² von .081 auf .152 gestiegen ist, hat sich die erklärte Varianz fast verdoppelt — <code>wm_score_t1</code> und <code>gruppe</code> tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="c4b3bfdad301e7cb2dc1c27d8fca3793"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — auch bei irrelevanten Variablen. Deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="c4b3bfdad301e7cb2dc1c27d8fca3793"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .152 immer noch niedrig ist.</span></label>
+<div id="webex-3a1cc5b40051e8ce6521ca7ed0141f83" class="webex-checkboxgroup" data-answer="aFAdUk8ETgRt">
+<label><input type="checkbox" autocomplete="off" name="3a1cc5b40051e8ce6521ca7ed0141f83"><span>Das erweiterte Modell erklärt signifikant mehr Varianz als das einfache Modell (p = .001) — die Aufnahme der Baseline-WM (<code>wm_score_t1</code>) und der Gruppenzugehörigkeit ist statistisch gerechtfertigt.</span></label><label><input type="checkbox" autocomplete="off" name="3a1cc5b40051e8ce6521ca7ed0141f83"><span>Da R² von .081 auf .152 gestiegen ist, hat sich die erklärte Varianz fast verdoppelt — <code>wm_score_t1</code> und <code>gruppe</code> tragen substanziell zur Vorhersage bei.</span></label><label><input type="checkbox" autocomplete="off" name="3a1cc5b40051e8ce6521ca7ed0141f83"><span>R² steigt immer, wenn Prädiktoren hinzugefügt werden — auch bei irrelevanten Variablen. Deshalb ist der formale Modellvergleich mit <code>anova()</code> nötig, um zu prüfen, ob der Zuwachs grösser ist als zufällig zu erwarten wäre.</span></label><label><input type="checkbox" autocomplete="off" name="3a1cc5b40051e8ce6521ca7ed0141f83"><span>Das einfache Modell sollte bevorzugt werden, weil ein R² von .152 immer noch niedrig ist.</span></label>
 </div>
 </div>
 <div class="webex-solution">
@@ -2265,9 +2424,9 @@ Model 2: wm_score_t2 ~ sleep_hours_t2 + wm_score_t1 + gruppe
 <div class="webex-question">
 <div class="webex-check webex-box">
 <p>Sie rechnen ein Interaktionsmodell für Projektfrage Q3 („Moderiert Stress den Schlaf-Effekt?“) und erhalten folgenden Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">*</span> gruppe <span class="sc">+</span> wm_score_t1,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> wm_daten)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">*</span> gruppe <span class="sc">+</span> wm_score_t1,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> wm_daten)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>Coefficients:
                              Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)                    13.45       6.12    2.20    .030 *
@@ -2276,16 +2435,54 @@ gruppeStress                    4.18       3.28    1.27    .207
 wm_score_t1                     0.61       0.09    6.78   &lt;.001 ***
 sleep_hours_t2:gruppeStress    -0.52       0.41   -1.27    .208</code></pre>
 <p>Welche Aussage zur Interpretation des <strong>Interaktionsterms</strong> <code>sleep_hours_t2:gruppeStress</code> ist korrekt?</p>
-<div id="webex-467472e66fdad39b241de425bd8e4e19" class="webex-radiogroup" data-answer="bwcbBBsCSQZr">
-<label><input type="radio" autocomplete="off" name="467472e66fdad39b241de425bd8e4e19"><span>Der Interaktionsterm ist nicht signifikant (p = .208). Der Zusammenhang zwischen Schlaf und WM-Score unterscheidet sich nicht bedeutsam zwischen KG und Stressgruppe — die beiden Steigungen sind statistisch vergleichbar.</span></label><label><input type="radio" autocomplete="off" name="467472e66fdad39b241de425bd8e4e19"><span>Der Koeffizient <code>sleep_hours_t2 = 2.02</code> ist der durchschnittliche Schlaf-Effekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="467472e66fdad39b241de425bd8e4e19"><span>Der negative Wert −0.52 zeigt, dass Schlaf in der Stressgruppe einen <em>negativen</em> Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="467472e66fdad39b241de425bd8e4e19"><span>Durch Centering von <code>sleep_hours_t2</code> um den Mittelwert würde sich der Interaktionskoeffizient <code>sleep_hours_t2:gruppeStress</code> ändern — erst dann wäre eine sinnvolle Interpretation möglich.</span></label>
+<div id="webex-fbbd047b184cd1f825de0b7db2426546" class="webex-radiogroup" data-answer="PVNOVBwEG1Js">
+<label><input type="radio" autocomplete="off" name="fbbd047b184cd1f825de0b7db2426546"><span>Der Interaktionsterm ist nicht signifikant (p = .208). Der Zusammenhang zwischen Schlaf und WM-Score unterscheidet sich nicht bedeutsam zwischen KG und Stressgruppe — die beiden Steigungen sind statistisch vergleichbar.</span></label><label><input type="radio" autocomplete="off" name="fbbd047b184cd1f825de0b7db2426546"><span>Der Koeffizient <code>sleep_hours_t2 = 2.02</code> ist der durchschnittliche Schlaf-Effekt über beide Gruppen gemittelt.</span></label><label><input type="radio" autocomplete="off" name="fbbd047b184cd1f825de0b7db2426546"><span>Der negative Wert −0.52 zeigt, dass Schlaf in der Stressgruppe einen <em>negativen</em> Zusammenhang mit dem WM-Score hat.</span></label><label><input type="radio" autocomplete="off" name="fbbd047b184cd1f825de0b7db2426546"><span>Durch Centering von <code>sleep_hours_t2</code> um den Mittelwert würde sich der Interaktionskoeffizient <code>sleep_hours_t2:gruppeStress</code> ändern — erst dann wäre eine sinnvolle Interpretation möglich.</span></label>
 </div>
 </div>
 <div class="webex-solution">
 <p>Der Interaktionsterm <code>sleep_hours_t2:gruppeStress</code> testet, ob sich die <em>Steigung</em> des Schlaf-Effekts zwischen KG und Stressgruppe unterscheidet. Bei p = .208 ist dieser Unterschied nicht signifikant — der Schlaf-Effekt ist in beiden Gruppen vergleichbar. Falsch ist: <code>sleep_hours_t2 = 2.02</code> ist nicht der Durchschnitt über beide Gruppen, sondern der Schlaf-Effekt in der Referenzgruppe (KG, da alphabetisch erste Gruppe). Ebenfalls falsch: Der Wert −0.52 zeigt keinen negativen Zusammenhang in der Stressgruppe — er ist die <em>Differenz</em> der Steigungen (Stress vs.&nbsp;KG). Der Effekt in der Stressgruppe beträgt 2.02 − 0.52 = 1.50 und bleibt positiv, nur schwächer. Falsch ist ausserdem: Centering verändert nur den Intercept und die Haupteffekte der zentrierten Variablen (S12 F17); der Interaktionskoeffizient bleibt identisch.</p>
 </div>
 </div>
+<div class="webex-question">
+<div class="webex-check webex-box">
+<p>Sie führen eine einfache Regression für Projektfrage Q2 („Sagt Schlafdauer die WM-Leistung vorher?“) durch und erhalten folgenden <code>summary()</code>-Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_daten)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)        42.31       6.14    6.89   &lt;.001 ***
+sleep_hours_t2      2.41       0.82    2.94    .004 **
+---
+Residual standard error: 11.8 on 98 degrees of freedom
+Multiple R-squared: 0.081, Adjusted R-squared: 0.072</code></pre>
+<p>Welche Aussagen zur <strong>Interpretation dieses Outputs</strong> sind korrekt?</p>
+<div id="webex-f974f280bd98a0d78171edc65023e02d" class="webex-checkboxgroup" data-answer="PQgbBUoDFAA/">
+<label><input type="checkbox" autocomplete="off" name="f974f280bd98a0d78171edc65023e02d"><span>Die Zeile <code>sleep_hours_t2</code> zeigt: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Durchschnitt um 2.41 Punkte, und dieser Zusammenhang ist statistisch signifikant (p = .004).</span></label><label><input type="checkbox" autocomplete="off" name="f974f280bd98a0d78171edc65023e02d"><span>Der Wert <code>Multiple R-squared: 0.081</code> bedeutet, dass das Modell 8.1% der Varianz im WM-Score (nach der Intervention) erklärt — der Rest wird durch andere, nicht im Modell enthaltene Faktoren beeinflusst.</span></label><label><input type="checkbox" autocomplete="off" name="f974f280bd98a0d78171edc65023e02d"><span>Der <code>(Intercept)</code> von 42.31 ist der vorhergesagte WM-Score für eine Person mit <code>sleep_hours_t2 = 0</code> (also 0 Stunden Schlaf), was in diesem Kontext inhaltlich wenig sinnvoll ist.</span></label><label><input type="checkbox" autocomplete="off" name="f974f280bd98a0d78171edc65023e02d"><span>Der <code>Std. Error</code> von 0.82 für <code>sleep_hours_t2</code> gibt die Standardabweichung der Variable Schlafdauer im Datensatz an.</span></label>
+</div>
+</div>
+<div class="webex-solution">
+<p>Der Koeffizient <code>Estimate = 2.41</code> für <code>sleep_hours_t2</code> beschreibt die Steigung: Pro zusätzliche Stunde Schlaf steigt der WM-Score im Schnitt um 2.41 Punkte. R² = .081 bedeutet, dass 8.1% der Varianz durch Schlaf allein erklärt werden — in der Psychologie ein plausibler Wert für einen einzelnen Prädiktor. Der Intercept (42.31) ist der vorhergesagte WM-Wert bei <code>sleep_hours_t2 = 0</code> — inhaltlich nicht sinnvoll, aber mathematisch notwendig; Centering des Schlaf-Prädiktors (S12 F17) würde den Intercept sinnvoller interpretierbar machen. Falsch ist hingegen: Der Standardfehler (<code>Std. Error = 0.82</code>) ist nicht die Streuung der Variable Schlafdauer, sondern die Unsicherheit der Schätzung des Koeffizienten — er zeigt, wie präzise der Wert 2.41 geschätzt wurde.</p>
+</div>
+</div>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Bonus: Interaktionsmodell mit Zentrierung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</div>
+</div>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
