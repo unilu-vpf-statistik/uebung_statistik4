@@ -322,3 +322,105 @@ ggsave("abbildungen/wm_boxplot.pdf",
 | `table(df$var)` | Häufigkeitstabelle (base R) |
 | `prop.table(table(df$var))` | Häufigkeitstabelle mit Anteilen (base R) |
 | `addmargins(table(df$var1, df$var2))` | Kreuztabelle mit Randsummen (base R) |
+
+---
+
+## Gruppenvergleiche & ANOVA
+
+Die ANOVA prüft, wie viel der Streuung in einer metrischen Variable durch Gruppenzugehörigkeit erklärt wird. Der Workflow folgt drei Schritten: **Modell anpassen** → **Annahmen prüfen** → **Post-hoc-Vergleiche** (wenn der Gesamttest signifikant ist und mehr als zwei Gruppen vorliegen).
+
+### `afex` Paket — ANOVA-Modell anpassen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `aov_ez(id, dv, between, data)` | ANOVA mit automatischer Berechnung von Effektgrössen | `aov_ez(id = "id", dv = "wm_score_t2", between = "gruppe", data = wm_daten)` |
+| `print(modell)` | Ergebnistabelle mit `df`, `MSE`, `F`, `ges` (generalisiertes η²) und `p` | `print(modell)` |
+| `nice(modell, es = "pes")` | Formatierte Tabelle, optional mit partial η² (`pes`) statt `ges` | `nice(modell, es = "pes")` |
+
+**Argumente von `aov_ez()`:** `id` = Spaltenname der Personen-ID, `dv` = abhängige Variable, `between` = Zwischensubjektfaktor(en), `within` = Innersubjektfaktor(en) für Messwiederholungen. Bei einfaktoriellen Between-Designs entspricht `ges` dem klassischen η² aus Statistik II.
+
+### `performance` Paket — Annahmen prüfen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `check_model(modell, check = ...)` | Diagnostik-Panels als Grafik | `check_model(modell, check = c("normality", "qq", "homogeneity"))` |
+| `check_homogeneity(modell)` | Levene-Test auf Varianzhomogenität als Zahl | `check_homogeneity(modell)` |
+
+Ein einziger `check_model()`-Aufruf liefert die wichtigsten Diagnostik-Panels: QQ-Plot (Normalverteilung der Residuen) und Homogeneity-Panel (Varianzhomogenität). Punkte nahe an der Linie im QQ-Plot und eine annähernd horizontale Linie im Homogeneity-Panel sprechen dafür, dass die Annahmen erfüllt sind.
+
+### `emmeans` Paket — Post-hoc-Vergleiche
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `emmeans(modell, ~ faktor)` | Schätzt Mittelwerte (Estimated Marginal Means) pro Gruppe | `emmeans(modell, ~ gruppe)` |
+| `pairs(emm, adjust = "tukey")` | Paarweise Vergleiche mit Adjustierung für multiples Testen | `pairs(emm, adjust = "tukey")` |
+
+Tukey ist Standard bei ANOVA mit mehreren Gruppen; Bonferroni ist konservativer und passt bei wenigen, gezielten Vergleichen. Der Output zeigt pro Gruppenpaar `estimate` (Mittelwertsdifferenz), `SE`, `t.ratio` und das adjustierte `p.value`.
+
+```r
+# Kompletter ANOVA-Workflow
+library(afex)
+library(performance)
+library(emmeans)
+
+# 1. Modell anpassen
+modell <- aov_ez(id = "id", dv = "wm_score_t2",
+                 between = "gruppe", data = wm_daten)
+print(modell)
+
+# 2. Annahmen prüfen
+check_model(modell, check = c("normality", "qq", "homogeneity"))
+check_homogeneity(modell)
+
+# 3. Post-hoc-Vergleiche
+emm <- emmeans(modell, ~ gruppe)
+pairs(emm, adjust = "tukey")
+```
+
+---
+
+## Lineare Regression & Modellvergleich
+
+Die lineare Regression sagt eine metrische Zielvariable aus einem oder mehreren Prädiktoren vorher (**y = b₀ + b₁·x + e**). ANOVA und Regression sind Spezialfälle desselben linearen Modells — die Diagnostik-Funktionen sind deshalb identisch.
+
+### Basis R — Modell anpassen
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `lm(y ~ x, data)` | Passt ein lineares Modell an (einfache Regression) | `lm(wm_score_t2 ~ sleep_hours_t2, data = wm_daten)` |
+| `summary(modell)` | Koeffizienten, Standardfehler, t-Tests, R², F-Statistik | `summary(modell)` |
+| `confint(modell)` | 95%-Konfidenzintervalle für die Koeffizienten | `confint(modell)` |
+
+**Interpretation der Koeffizienten:** Der `Intercept` (b₀) ist der vorhergesagte y-Wert bei x = 0. Der Steigungskoeffizient (b₁) ist die erwartete Veränderung in y pro Einheit x. `Pr(>|t|)` testet, ob der Koeffizient signifikant von 0 verschieden ist.
+
+### Multiple Regression & Modellvergleich
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `lm(y ~ x1 + x2, data)` | Multiple Regression mit mehreren Prädiktoren | `lm(wm_score_t2 ~ sleep_hours_t2 + wm_score_t1, data = wm_daten)` |
+| `anova(modell1, modell2)` | F-Test für geschachtelten Modellvergleich (Varianz-Zuwachs) | `anova(modell1, modell2)` |
+
+**Voraussetzung für `anova()`:** Beide Modelle müssen auf demselben N basieren — fehlende Werte dürfen nicht zwischen Modellen variieren. Lösung: vor der Modellierung mit `filter(complete.cases(...))` einen vollständigen Datensatz erzeugen.
+
+```r
+# Identische Fallzahl für alle Modelle sicherstellen
+wm_komplett <- wm_daten |>
+  filter(complete.cases(wm_score_t2, wm_score_t1, sleep_hours_t2))
+
+modell1 <- lm(wm_score_t2 ~ sleep_hours_t2, data = wm_komplett)
+modell2 <- lm(wm_score_t2 ~ sleep_hours_t2 + wm_score_t1, data = wm_komplett)
+
+# Lohnt sich der zusätzliche Prädiktor?
+anova(modell1, modell2)
+```
+
+**Hinweis zu R²:** R² steigt mechanisch mit jedem zusätzlichen Prädiktor. Der F-Test in `anova()` prüft, ob der Zuwachs grösser ist als zufällig zu erwarten.
+
+### Residualdiagnostik
+
+| Funktion | Beschreibung | Beispiel |
+|---|---|---|
+| `plot(modell)` | Vier Diagnostik-Plots: Residuals vs. Fitted, QQ, Scale-Location, Leverage | `plot(modell)` |
+| `check_model(modell, check = ...)` | Diagnostik-Panels via `performance` (gleiche Funktion wie bei ANOVA) | `check_model(modell, check = c("qq", "normality", "linearity", "homogeneity"))` |
+
+Die wichtigsten Diagnose-Panels: **Residuals vs. Fitted** prüft Linearität (sichtbarer Trend = Verletzung), **Scale-Location** prüft Homoskedastizität (Fächer-Form = Verletzung), **QQ-Plot** prüft Normalverteilung der Residuen (Abweichung von der Linie = Verletzung).

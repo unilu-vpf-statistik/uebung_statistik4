@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Funktionsübersicht – Übungen - VL: Statistik IV</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -68,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-89e0b2e130be7f0792bf1dcfa2d39495.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -305,6 +307,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#achsen-export" id="toc-achsen-export" class="nav-link" data-scroll-target="#achsen-export">Achsen &amp; Export</a></li>
   </ul></li>
   <li><a href="#nützliche-hilfsfunktionen" id="toc-nützliche-hilfsfunktionen" class="nav-link" data-scroll-target="#nützliche-hilfsfunktionen">Nützliche Hilfsfunktionen</a></li>
+  <li><a href="#gruppenvergleiche-anova" id="toc-gruppenvergleiche-anova" class="nav-link" data-scroll-target="#gruppenvergleiche-anova">Gruppenvergleiche &amp; ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#afex-paket-anova-modell-anpassen" id="toc-afex-paket-anova-modell-anpassen" class="nav-link" data-scroll-target="#afex-paket-anova-modell-anpassen"><code>afex</code> Paket — ANOVA-Modell anpassen</a></li>
+  <li><a href="#performance-paket-annahmen-prüfen" id="toc-performance-paket-annahmen-prüfen" class="nav-link" data-scroll-target="#performance-paket-annahmen-prüfen"><code>performance</code> Paket — Annahmen prüfen</a></li>
+  <li><a href="#emmeans-paket-post-hoc-vergleiche" id="toc-emmeans-paket-post-hoc-vergleiche" class="nav-link" data-scroll-target="#emmeans-paket-post-hoc-vergleiche"><code>emmeans</code> Paket — Post-hoc-Vergleiche</a></li>
+  </ul></li>
+  <li><a href="#lineare-regression-modellvergleich" id="toc-lineare-regression-modellvergleich" class="nav-link" data-scroll-target="#lineare-regression-modellvergleich">Lineare Regression &amp; Modellvergleich</a>
+  <ul class="collapse">
+  <li><a href="#basis-r-modell-anpassen" id="toc-basis-r-modell-anpassen" class="nav-link" data-scroll-target="#basis-r-modell-anpassen">Basis R — Modell anpassen</a></li>
+  <li><a href="#multiple-regression-modellvergleich" id="toc-multiple-regression-modellvergleich" class="nav-link" data-scroll-target="#multiple-regression-modellvergleich">Multiple Regression &amp; Modellvergleich</a></li>
+  <li><a href="#residualdiagnostik" id="toc-residualdiagnostik" class="nav-link" data-scroll-target="#residualdiagnostik">Residualdiagnostik</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -1255,8 +1269,235 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<hr>
+</section>
+<section id="gruppenvergleiche-anova" class="level2">
+<h2 class="anchored" data-anchor-id="gruppenvergleiche-anova">Gruppenvergleiche &amp; ANOVA</h2>
+<p>Die ANOVA prüft, wie viel der Streuung in einer metrischen Variable durch Gruppenzugehörigkeit erklärt wird. Der Workflow folgt drei Schritten: <strong>Modell anpassen</strong> → <strong>Annahmen prüfen</strong> → <strong>Post-hoc-Vergleiche</strong> (wenn der Gesamttest signifikant ist und mehr als zwei Gruppen vorliegen).</p>
+<section id="afex-paket-anova-modell-anpassen" class="level3">
+<h3 class="anchored" data-anchor-id="afex-paket-anova-modell-anpassen"><code>afex</code> Paket — ANOVA-Modell anpassen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>aov_ez(id, dv, between, data)</code></td>
+<td>ANOVA mit automatischer Berechnung von Effektgrössen</td>
+<td><code>aov_ez(id = "id", dv = "wm_score_t2", between = "gruppe", data = wm_daten)</code></td>
+</tr>
+<tr class="even">
+<td><code>print(modell)</code></td>
+<td>Ergebnistabelle mit <code>df</code>, <code>MSE</code>, <code>F</code>, <code>ges</code> (generalisiertes η²) und <code>p</code></td>
+<td><code>print(modell)</code></td>
+</tr>
+<tr class="odd">
+<td><code>nice(modell, es = "pes")</code></td>
+<td>Formatierte Tabelle, optional mit partial η² (<code>pes</code>) statt <code>ges</code></td>
+<td><code>nice(modell, es = "pes")</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Argumente von <code>aov_ez()</code>:</strong> <code>id</code> = Spaltenname der Personen-ID, <code>dv</code> = abhängige Variable, <code>between</code> = Zwischensubjektfaktor(en), <code>within</code> = Innersubjektfaktor(en) für Messwiederholungen. Bei einfaktoriellen Between-Designs entspricht <code>ges</code> dem klassischen η² aus Statistik II.</p>
+</section>
+<section id="performance-paket-annahmen-prüfen" class="level3">
+<h3 class="anchored" data-anchor-id="performance-paket-annahmen-prüfen"><code>performance</code> Paket — Annahmen prüfen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>check_model(modell, check = ...)</code></td>
+<td>Diagnostik-Panels als Grafik</td>
+<td><code>check_model(modell, check = c("normality", "qq", "homogeneity"))</code></td>
+</tr>
+<tr class="even">
+<td><code>check_homogeneity(modell)</code></td>
+<td>Levene-Test auf Varianzhomogenität als Zahl</td>
+<td><code>check_homogeneity(modell)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ein einziger <code>check_model()</code>-Aufruf liefert die wichtigsten Diagnostik-Panels: QQ-Plot (Normalverteilung der Residuen) und Homogeneity-Panel (Varianzhomogenität). Punkte nahe an der Linie im QQ-Plot und eine annähernd horizontale Linie im Homogeneity-Panel sprechen dafür, dass die Annahmen erfüllt sind.</p>
+</section>
+<section id="emmeans-paket-post-hoc-vergleiche" class="level3">
+<h3 class="anchored" data-anchor-id="emmeans-paket-post-hoc-vergleiche"><code>emmeans</code> Paket — Post-hoc-Vergleiche</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>emmeans(modell, ~ faktor)</code></td>
+<td>Schätzt Mittelwerte (Estimated Marginal Means) pro Gruppe</td>
+<td><code>emmeans(modell, ~ gruppe)</code></td>
+</tr>
+<tr class="even">
+<td><code>pairs(emm, adjust = "tukey")</code></td>
+<td>Paarweise Vergleiche mit Adjustierung für multiples Testen</td>
+<td><code>pairs(emm, adjust = "tukey")</code></td>
+</tr>
+</tbody>
+</table>
+<p>Tukey ist Standard bei ANOVA mit mehreren Gruppen; Bonferroni ist konservativer und passt bei wenigen, gezielten Vergleichen. Der Output zeigt pro Gruppenpaar <code>estimate</code> (Mittelwertsdifferenz), <code>SE</code>, <code>t.ratio</code> und das adjustierte <code>p.value</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kompletter ANOVA-Workflow</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Modell anpassen</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score_t2"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">data =</span> wm_daten)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modell)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Annahmen prüfen</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"normality"</span>, <span class="st">"qq"</span>, <span class="st">"homogeneity"</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">check_homogeneity</span>(modell)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Post-hoc-Vergleiche</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modell, <span class="sc">~</span> gruppe)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="lineare-regression-modellvergleich" class="level2">
+<h2 class="anchored" data-anchor-id="lineare-regression-modellvergleich">Lineare Regression &amp; Modellvergleich</h2>
+<p>Die lineare Regression sagt eine metrische Zielvariable aus einem oder mehreren Prädiktoren vorher (<strong>y = b₀ + b₁·x + e</strong>). ANOVA und Regression sind Spezialfälle desselben linearen Modells — die Diagnostik-Funktionen sind deshalb identisch.</p>
+<section id="basis-r-modell-anpassen" class="level3">
+<h3 class="anchored" data-anchor-id="basis-r-modell-anpassen">Basis R — Modell anpassen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lm(y ~ x, data)</code></td>
+<td>Passt ein lineares Modell an (einfache Regression)</td>
+<td><code>lm(wm_score_t2 ~ sleep_hours_t2, data = wm_daten)</code></td>
+</tr>
+<tr class="even">
+<td><code>summary(modell)</code></td>
+<td>Koeffizienten, Standardfehler, t-Tests, R², F-Statistik</td>
+<td><code>summary(modell)</code></td>
+</tr>
+<tr class="odd">
+<td><code>confint(modell)</code></td>
+<td>95%-Konfidenzintervalle für die Koeffizienten</td>
+<td><code>confint(modell)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation der Koeffizienten:</strong> Der <code>Intercept</code> (b₀) ist der vorhergesagte y-Wert bei x = 0. Der Steigungskoeffizient (b₁) ist die erwartete Veränderung in y pro Einheit x. <code>Pr(&gt;|t|)</code> testet, ob der Koeffizient signifikant von 0 verschieden ist.</p>
+</section>
+<section id="multiple-regression-modellvergleich" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-modellvergleich">Multiple Regression &amp; Modellvergleich</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lm(y ~ x1 + x2, data)</code></td>
+<td>Multiple Regression mit mehreren Prädiktoren</td>
+<td><code>lm(wm_score_t2 ~ sleep_hours_t2 + wm_score_t1, data = wm_daten)</code></td>
+</tr>
+<tr class="even">
+<td><code>anova(modell1, modell2)</code></td>
+<td>F-Test für geschachtelten Modellvergleich (Varianz-Zuwachs)</td>
+<td><code>anova(modell1, modell2)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Voraussetzung für <code>anova()</code>:</strong> Beide Modelle müssen auf demselben N basieren — fehlende Werte dürfen nicht zwischen Modellen variieren. Lösung: vor der Modellierung mit <code>filter(complete.cases(...))</code> einen vollständigen Datensatz erzeugen.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identische Fallzahl für alle Modelle sicherstellen</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>wm_komplett <span class="ot">&lt;-</span> wm_daten <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(wm_score_t2, wm_score_t1, sleep_hours_t2))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2, <span class="at">data =</span> wm_komplett)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_hours_t2 <span class="sc">+</span> wm_score_t1, <span class="at">data =</span> wm_komplett)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lohnt sich der zusätzliche Prädiktor?</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Hinweis zu R²:</strong> R² steigt mechanisch mit jedem zusätzlichen Prädiktor. Der F-Test in <code>anova()</code> prüft, ob der Zuwachs grösser ist als zufällig zu erwarten.</p>
+</section>
+<section id="residualdiagnostik" class="level3">
+<h3 class="anchored" data-anchor-id="residualdiagnostik">Residualdiagnostik</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Beschreibung</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>plot(modell)</code></td>
+<td>Vier Diagnostik-Plots: Residuals vs.&nbsp;Fitted, QQ, Scale-Location, Leverage</td>
+<td><code>plot(modell)</code></td>
+</tr>
+<tr class="even">
+<td><code>check_model(modell, check = ...)</code></td>
+<td>Diagnostik-Panels via <code>performance</code> (gleiche Funktion wie bei ANOVA)</td>
+<td><code>check_model(modell, check = c("qq", "normality", "linearity", "homogeneity"))</code></td>
+</tr>
+</tbody>
+</table>
+<p>Die wichtigsten Diagnose-Panels: <strong>Residuals vs.&nbsp;Fitted</strong> prüft Linearität (sichtbarer Trend = Verletzung), <strong>Scale-Location</strong> prüft Homoskedastizität (Fächer-Form = Verletzung), <strong>QQ-Plot</strong> prüft Normalverteilung der Residuen (Abweichung von der Linie = Verletzung).</p>
 
 
+</section>
 </section>
 </section>
 
