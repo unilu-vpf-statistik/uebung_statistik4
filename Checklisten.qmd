@@ -249,3 +249,178 @@ Eine explorative Grafik ist noch kein fertiges Ergebnis. Vor dem Einbinden in Be
 ggsave(here("abbildungen", "wm_boxplot.pdf"),
        width = 15, height = 10, units = "cm", dpi = 300)
 ```
+
+---
+
+## Checkliste 10: ANOVA durchführen
+
+Eine ANOVA klärt, ob sich Gruppen in einer metrischen Zielvariable systematisch unterscheiden. Der Workflow folgt fünf Schritten — vom Design bis zu Post-hoc-Vergleichen. Für die Funktionsdetails siehe Abschnitt *Gruppenvergleiche & ANOVA* in der [Funktionsübersicht](Funktionsübersicht.qmd).
+
+### Ebene 1: Experimentelles Design klären
+
+- [ ] **Forschungsfrage formulieren**: Welche Gruppen werden verglichen? Welche Zielvariable?
+- [ ] **Abhängige Variable identifizieren**: Metrische Variable (z. B. `wm_score_t2`)?
+- [ ] **Faktoren identifizieren**: Welche kategorialen Variablen unterscheiden die Gruppen?
+- [ ] **Personen-ID festlegen**: Welche Spalte identifiziert eine Person eindeutig (z. B. `id`)?
+- [ ] **Design-Typ bestimmen** (siehe Tabelle unten)
+
+| Design | Bedeutung | `aov_ez()`-Spezifikation |
+|---|---|---|
+| **Between-Subjects** | Jede Person in genau einer Gruppe | `between = "gruppe"` |
+| **Within-Subjects** | Jede Person durchläuft mehrere Bedingungen | `within = "zeitpunkt"` |
+| **Mixed** | Kombination beider | `between = "gruppe", within = "zeitpunkt"` |
+
+### Ebene 2: Daten ins Tidy-Format bringen
+
+- [ ] **Datenformat prüfen**: Liegt jede Beobachtung in einer eigenen Zeile? Siehe Checkliste 5.
+- [ ] **Wiederholte Messungen umformen**: Bei within- oder mixed-Designs `pivot_longer()` für `_t1`/`_t2`-Spalten
+- [ ] **Faktoren explizit kodieren**: `mutate(gruppe = factor(gruppe), zeitpunkt = factor(zeitpunkt))` — sonst werden Reihenfolgen alphabetisch gewählt
+- [ ] **Vollständige Fälle prüfen**: `aov_ez()` benötigt für alle Personen die Werte zu allen Within-Stufen
+
+```r
+# Beispiel: Wide → Long für mixed Design
+wm_long <- df_analyse |>
+  pivot_longer(
+    cols = c(wm_score_t1, wm_score_t2),
+    names_to = "zeitpunkt",
+    values_to = "wm_score"
+  ) |>
+  mutate(
+    zeitpunkt = factor(zeitpunkt, levels = c("wm_score_t1", "wm_score_t2"),
+                       labels = c("t1", "t2")),
+    gruppe = factor(gruppe)
+  )
+```
+
+### Ebene 3: ANOVA-Modell schätzen
+
+- [ ] **Pakete laden**: `library(afex)`
+- [ ] **Modell in Objekt speichern**: `modell <- aov_ez(...)` — wird in den nächsten Schritten weiterverwendet
+- [ ] **Argumente korrekt setzen**: `id`, `dv`, `between` und/oder `within` als **Strings** (Anführungszeichen!)
+- [ ] **Ergebnistabelle anzeigen**: `print(modell)` für Übersicht mit `df`, `MSE`, `F`, `ges`, `p`
+- [ ] **Effektgrösse berichten**: `nice(modell, es = "pes")` für partial η² alternativ zum default generalisierten η² (`ges`)
+- [ ] **Effekte inhaltlich zuordnen**: Welcher Effekt beantwortet die zentrale Forschungsfrage? Bei mixed Designs ist die Interaktion `gruppe:zeitpunkt` meist zentral, nicht die Haupteffekte.
+
+*Hinweis:* `summary(modell)` zeigt rohe Quadratsummen ohne Effektgrösse und ohne Sphärizitätskorrektur — für Berichte immer `print()` oder `nice()` nutzen.
+
+### Ebene 4: Annahmen prüfen
+
+- [ ] **Pakete laden**: `library(performance)`
+- [ ] **Visuelle Diagnostik**: `check_model(modell, check = c("normality", "qq", "homogeneity"))`
+- [ ] **QQ-Plot bewerten**: Punkte sollten entlang der Linie liegen → Normalverteilung der Residuen
+- [ ] **Homogeneity-Panel bewerten**: Referenzlinie sollte annähernd horizontal sein → Varianzhomogenität
+- [ ] **Optional Levene-Test**: `check_homogeneity(modell)` liefert die Varianzhomogenität als Zahl
+
+*Faustregel:* ANOVA ist robust gegenüber moderaten Annahmenverletzungen, wenn n ≥ 30 pro Gruppe und die Gruppen ähnlich gross sind. Visuell prüfen statt nur auf Signifikanz-Tests vertrauen — bei grossen N wird *jede* Abweichung signifikant, bei kleinen N fehlt dem Test die Power.
+
+### Ebene 5: Post-hoc-Vergleiche
+
+- [ ] **Notwendigkeit prüfen**: Post-hoc nur, wenn F-Test signifikant **und** mehr als zwei Gruppen oder eine signifikante Interaktion
+- [ ] **Pakete laden**: `library(emmeans)`
+- [ ] **Marginale Mittelwerte schätzen**: `emm <- emmeans(modell, ~ faktor)`
+- [ ] **Paarweise Vergleiche**: `pairs(emm, adjust = "tukey")` — Tukey-Standard bei mehreren Gruppen, Bonferroni bei wenigen gezielten Vergleichen
+- [ ] **Bei signifikanter Interaktion**: Bedingte Effekte via `emmeans(modell, ~ within | between)` — z. B. Effekt von `zeitpunkt` separat in jeder `gruppe`
+
+```r
+# Kompletter ANOVA-Workflow
+library(afex)
+library(performance)
+library(emmeans)
+
+# 1. Modell schätzen
+modell <- aov_ez(id = "id", dv = "wm_score",
+                 between = "gruppe", within = "zeitpunkt",
+                 data = wm_long)
+print(modell)
+
+# 2. Annahmen prüfen
+check_model(modell, check = c("normality", "qq", "homogeneity"))
+
+# 3. Post-hoc bei signifikanter Interaktion
+emm <- emmeans(modell, ~ zeitpunkt | gruppe)
+pairs(emm, adjust = "tukey")
+```
+
+---
+
+## Checkliste 11: Regression durchführen
+
+Die lineare Regression sagt eine metrische Zielvariable aus einem oder mehreren Prädiktoren vorher und ermöglicht Modellvergleiche, Kovariatenkontrolle und Interaktionen. ANOVA und Regression sind Spezialfälle desselben linearen Modells. Für die Funktionsdetails siehe Abschnitt *Lineare Regression & Modellvergleich* in der [Funktionsübersicht](Funktionsübersicht.qmd).
+
+### Ebene 1: Daten vorbereiten
+
+- [ ] **Forschungsfrage präzisieren**: Welche Variable wird vorhergesagt? Welche Prädiktoren?
+- [ ] **Variablentypen prüfen**: Kategoriale Prädiktoren als `factor()` kodieren, sonst werden Strings alphabetisch sortiert
+- [ ] **Vollständige Fälle für Modellvergleich erzeugen**: Wenn später `anova(modell1, modell2)` geplant ist, vor der Modellierung mit `filter(complete.cases(...))` einen Datensatz mit identischem N für alle Prädiktoren erstellen
+- [ ] **Optional Prädiktoren zentrieren**: Bei kontinuierlichen Prädiktoren oder bei Interaktionen `mutate(x_c = x - mean(x, na.rm = TRUE))` — macht den Intercept und Haupteffekte sinnvoll interpretierbar
+
+```r
+# Identische Fallzahl & zentrierte Prädiktoren
+df_analyse_complete <- df_analyse |>
+  filter(complete.cases(wm_score_t2, wm_score_t1,
+                        sleep_hours_t2, gruppe)) |>
+  mutate(
+    sleep_c = sleep_hours_t2 - mean(sleep_hours_t2),
+    wm_t1_c = wm_score_t1 - mean(wm_score_t1),
+    gruppe = factor(gruppe)
+  )
+```
+
+### Ebene 2: Modelle mit `lm()` spezifizieren
+
+- [ ] **Einfache Regression**: `lm(y ~ x, data)` — ein metrischer Prädiktor
+- [ ] **Multiple Regression**: `lm(y ~ x1 + x2, data)` — mehrere Prädiktoren, additiv
+- [ ] **Interaktion**: `lm(y ~ x1 * x2, data)` — expandiert zu `x1 + x2 + x1:x2`
+- [ ] **Kovarianzanalyse**: Statt Differenzscores (`y_post - y_pre`) den Baseline-Wert als Prädiktor aufnehmen: `lm(y_t2 ~ y_t1 + prädiktor + gruppe, data)` — höhere Power, freie Schätzung des Baseline-Koeffizienten
+- [ ] **Modelle in Objekten speichern**: `modell1 <- lm(...)`, `modell2 <- lm(...)` — für spätere Modellvergleiche
+
+### Ebene 3: Modelle vergleichen
+
+- [ ] **Nested-Eigenschaft prüfen**: Das kleinere Modell muss eine Teilmenge des grösseren sein (alle Prädiktoren des kleinen sind auch im grossen enthalten)
+- [ ] **Gleiches N sicherstellen**: Beide Modelle müssen auf demselben Datensatz beruhen — fehlende Werte dürfen nicht zwischen Modellen variieren
+- [ ] **F-Test ausführen**: `anova(modell1, modell2)` — testet, ob der R²-Zuwachs grösser ist als zufällig zu erwarten
+- [ ] **Ergebnis interpretieren**: Signifikantes `Pr(>F)` rechtfertigt die Erweiterung um zusätzliche Prädiktoren
+
+*Hinweis:* R² steigt mechanisch mit jedem zusätzlichen Prädiktor — auch bei irrelevanten. Der F-Test in `anova()` ist deshalb der korrekte Vergleichstest, nicht das blosse Ablesen von R².
+
+### Ebene 4: Parameter interpretieren
+
+- [ ] **Modell-Output anzeigen**: `summary(modell)` — Coefficients, Modelltest, Residuals
+- [ ] **Koeffizienten lesen**:
+  - **Intercept (b₀)**: Vorhergesagter y-Wert, wenn alle Prädiktoren = 0
+  - **Steigungskoeffizient (b₁)**: Erwartete Veränderung in y pro Einheit x, bei Kontrolle aller anderen Prädiktoren
+  - **Kategoriale Prädiktoren**: Differenz zur Referenzkategorie
+- [ ] **Konfidenzintervalle ausgeben**: `confint(modell)` — 95%-CIs für jeden Koeffizienten
+- [ ] **Bei Interaktionen — simple slopes**: `library(emmeans); emtrends(modell, pairwise ~ gruppe, var = "prädiktor")` zeigt die Steigung des Prädiktors getrennt pro Gruppe
+
+*Interpretationsfalle:* Koeffizienten sind immer **konditional** auf die Referenzkategorie und darauf, dass alle anderen Prädiktoren = 0 sind — nicht über die Daten gemittelt. Bei Interaktionen mit unzentrierten Prädiktoren sind die Haupteffekte oft inhaltlich kaum sinnvoll interpretierbar — Zentrierung in Ebene 1 löst das.
+
+### Ebene 5: Annahmen prüfen
+
+- [ ] **Pakete laden**: `library(performance)`
+- [ ] **Visuelle Diagnostik**: `check_model(modell, check = c("qq", "normality", "linearity", "homogeneity"))`
+- [ ] **Linearität prüfen**: Residuals-vs-Fitted-Panel — Referenzlinie sollte annähernd horizontal sein, kein systematischer Trend
+- [ ] **Homoskedastizität prüfen**: Homogeneity-Panel — keine Fächer- oder Trichterform der Residuen
+- [ ] **Normalverteilung der Residuen prüfen**: QQ-Plot — Punkte nahe an der Linie
+
+```r
+# Kompletter Regressions-Workflow
+library(performance)
+library(emmeans)
+
+# 1. Modelle spezifizieren (auf vollständigen Fällen)
+modell1 <- lm(wm_score_t2 ~ sleep_c, data = df_analyse_complete)
+modell2 <- lm(wm_score_t2 ~ sleep_c + wm_t1_c + gruppe,
+              data = df_analyse_complete)
+
+# 2. Modellvergleich
+anova(modell1, modell2)
+
+# 3. Parameter interpretieren
+summary(modell2)
+confint(modell2)
+
+# 4. Annahmen prüfen
+check_model(modell2,
+            check = c("qq", "normality", "linearity", "homogeneity"))
+```

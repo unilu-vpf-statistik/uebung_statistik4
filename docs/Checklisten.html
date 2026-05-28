@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Checklisten – Übungen - VL: Statistik IV</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -68,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-114842380e7e43a303b24dc40bbf8511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-89e0b2e130be7f0792bf1dcfa2d39495.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -295,6 +297,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ebene-2-facettierung-sinnvoll-einsetzen" id="toc-ebene-2-facettierung-sinnvoll-einsetzen" class="nav-link" data-scroll-target="#ebene-2-facettierung-sinnvoll-einsetzen">Ebene 2: Facettierung sinnvoll einsetzen</a></li>
   <li><a href="#ebene-3-beschriftung-farben" id="toc-ebene-3-beschriftung-farben" class="nav-link" data-scroll-target="#ebene-3-beschriftung-farben">Ebene 3: Beschriftung &amp; Farben</a></li>
   <li><a href="#ebene-4-theme-export" id="toc-ebene-4-theme-export" class="nav-link" data-scroll-target="#ebene-4-theme-export">Ebene 4: Theme &amp; Export</a></li>
+  </ul></li>
+  <li><a href="#checkliste-10-anova-durchführen" id="toc-checkliste-10-anova-durchführen" class="nav-link" data-scroll-target="#checkliste-10-anova-durchführen">Checkliste 10: ANOVA durchführen</a>
+  <ul class="collapse">
+  <li><a href="#ebene-1-experimentelles-design-klären" id="toc-ebene-1-experimentelles-design-klären" class="nav-link" data-scroll-target="#ebene-1-experimentelles-design-klären">Ebene 1: Experimentelles Design klären</a></li>
+  <li><a href="#ebene-2-daten-ins-tidy-format-bringen" id="toc-ebene-2-daten-ins-tidy-format-bringen" class="nav-link" data-scroll-target="#ebene-2-daten-ins-tidy-format-bringen">Ebene 2: Daten ins Tidy-Format bringen</a></li>
+  <li><a href="#ebene-3-anova-modell-schätzen" id="toc-ebene-3-anova-modell-schätzen" class="nav-link" data-scroll-target="#ebene-3-anova-modell-schätzen">Ebene 3: ANOVA-Modell schätzen</a></li>
+  <li><a href="#ebene-4-annahmen-prüfen" id="toc-ebene-4-annahmen-prüfen" class="nav-link" data-scroll-target="#ebene-4-annahmen-prüfen">Ebene 4: Annahmen prüfen</a></li>
+  <li><a href="#ebene-5-post-hoc-vergleiche" id="toc-ebene-5-post-hoc-vergleiche" class="nav-link" data-scroll-target="#ebene-5-post-hoc-vergleiche">Ebene 5: Post-hoc-Vergleiche</a></li>
+  </ul></li>
+  <li><a href="#checkliste-11-regression-durchführen" id="toc-checkliste-11-regression-durchführen" class="nav-link" data-scroll-target="#checkliste-11-regression-durchführen">Checkliste 11: Regression durchführen</a>
+  <ul class="collapse">
+  <li><a href="#ebene-1-daten-vorbereiten" id="toc-ebene-1-daten-vorbereiten" class="nav-link" data-scroll-target="#ebene-1-daten-vorbereiten">Ebene 1: Daten vorbereiten</a></li>
+  <li><a href="#ebene-2-modelle-mit-lm-spezifizieren" id="toc-ebene-2-modelle-mit-lm-spezifizieren" class="nav-link" data-scroll-target="#ebene-2-modelle-mit-lm-spezifizieren">Ebene 2: Modelle mit <code>lm()</code> spezifizieren</a></li>
+  <li><a href="#ebene-3-modelle-vergleichen" id="toc-ebene-3-modelle-vergleichen" class="nav-link" data-scroll-target="#ebene-3-modelle-vergleichen">Ebene 3: Modelle vergleichen</a></li>
+  <li><a href="#ebene-4-parameter-interpretieren" id="toc-ebene-4-parameter-interpretieren" class="nav-link" data-scroll-target="#ebene-4-parameter-interpretieren">Ebene 4: Parameter interpretieren</a></li>
+  <li><a href="#ebene-5-annahmen-prüfen" id="toc-ebene-5-annahmen-prüfen" class="nav-link" data-scroll-target="#ebene-5-annahmen-prüfen">Ebene 5: Annahmen prüfen</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -640,6 +658,210 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export mit definierten Massen und Auflösung</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"abbildungen"</span>, <span class="st">"wm_boxplot.pdf"</span>),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="checkliste-10-anova-durchführen" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-10-anova-durchführen">Checkliste 10: ANOVA durchführen</h2>
+<p>Eine ANOVA klärt, ob sich Gruppen in einer metrischen Zielvariable systematisch unterscheiden. Der Workflow folgt fünf Schritten — vom Design bis zu Post-hoc-Vergleichen. Für die Funktionsdetails siehe Abschnitt <em>Gruppenvergleiche &amp; ANOVA</em> in der <a href="./Funktionsübersicht.html">Funktionsübersicht</a>.</p>
+<section id="ebene-1-experimentelles-design-klären" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-1-experimentelles-design-klären">Ebene 1: Experimentelles Design klären</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Forschungsfrage formulieren</strong>: Welche Gruppen werden verglichen? Welche Zielvariable?</label></li>
+<li><label><input type="checkbox"><strong>Abhängige Variable identifizieren</strong>: Metrische Variable (z. B. <code>wm_score_t2</code>)?</label></li>
+<li><label><input type="checkbox"><strong>Faktoren identifizieren</strong>: Welche kategorialen Variablen unterscheiden die Gruppen?</label></li>
+<li><label><input type="checkbox"><strong>Personen-ID festlegen</strong>: Welche Spalte identifiziert eine Person eindeutig (z. B. <code>id</code>)?</label></li>
+<li><label><input type="checkbox"><strong>Design-Typ bestimmen</strong> (siehe Tabelle unten)</label></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Design</th>
+<th>Bedeutung</th>
+<th><code>aov_ez()</code>-Spezifikation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Between-Subjects</strong></td>
+<td>Jede Person in genau einer Gruppe</td>
+<td><code>between = "gruppe"</code></td>
+</tr>
+<tr class="even">
+<td><strong>Within-Subjects</strong></td>
+<td>Jede Person durchläuft mehrere Bedingungen</td>
+<td><code>within = "zeitpunkt"</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Mixed</strong></td>
+<td>Kombination beider</td>
+<td><code>between = "gruppe", within = "zeitpunkt"</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ebene-2-daten-ins-tidy-format-bringen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-2-daten-ins-tidy-format-bringen">Ebene 2: Daten ins Tidy-Format bringen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Datenformat prüfen</strong>: Liegt jede Beobachtung in einer eigenen Zeile? Siehe Checkliste 5.</label></li>
+<li><label><input type="checkbox"><strong>Wiederholte Messungen umformen</strong>: Bei within- oder mixed-Designs <code>pivot_longer()</code> für <code>_t1</code>/<code>_t2</code>-Spalten</label></li>
+<li><label><input type="checkbox"><strong>Faktoren explizit kodieren</strong>: <code>mutate(gruppe = factor(gruppe), zeitpunkt = factor(zeitpunkt))</code> — sonst werden Reihenfolgen alphabetisch gewählt</label></li>
+<li><label><input type="checkbox"><strong>Vollständige Fälle prüfen</strong>: <code>aov_ez()</code> benötigt für alle Personen die Werte zu allen Within-Stufen</label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispiel: Wide → Long für mixed Design</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wm_long <span class="ot">&lt;-</span> df_analyse <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(wm_score_t1, wm_score_t2),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"zeitpunkt"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"wm_score"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">zeitpunkt =</span> <span class="fu">factor</span>(zeitpunkt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"wm_score_t1"</span>, <span class="st">"wm_score_t2"</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"t1"</span>, <span class="st">"t2"</span>)),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">gruppe =</span> <span class="fu">factor</span>(gruppe)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ebene-3-anova-modell-schätzen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-3-anova-modell-schätzen">Ebene 3: ANOVA-Modell schätzen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Pakete laden</strong>: <code>library(afex)</code></label></li>
+<li><label><input type="checkbox"><strong>Modell in Objekt speichern</strong>: <code>modell &lt;- aov_ez(...)</code> — wird in den nächsten Schritten weiterverwendet</label></li>
+<li><label><input type="checkbox"><strong>Argumente korrekt setzen</strong>: <code>id</code>, <code>dv</code>, <code>between</code> und/oder <code>within</code> als <strong>Strings</strong> (Anführungszeichen!)</label></li>
+<li><label><input type="checkbox"><strong>Ergebnistabelle anzeigen</strong>: <code>print(modell)</code> für Übersicht mit <code>df</code>, <code>MSE</code>, <code>F</code>, <code>ges</code>, <code>p</code></label></li>
+<li><label><input type="checkbox"><strong>Effektgrösse berichten</strong>: <code>nice(modell, es = "pes")</code> für partial η² alternativ zum default generalisierten η² (<code>ges</code>)</label></li>
+<li><label><input type="checkbox"><strong>Effekte inhaltlich zuordnen</strong>: Welcher Effekt beantwortet die zentrale Forschungsfrage? Bei mixed Designs ist die Interaktion <code>gruppe:zeitpunkt</code> meist zentral, nicht die Haupteffekte.</label></li>
+</ul>
+<p><em>Hinweis:</em> <code>summary(modell)</code> zeigt rohe Quadratsummen ohne Effektgrösse und ohne Sphärizitätskorrektur — für Berichte immer <code>print()</code> oder <code>nice()</code> nutzen.</p>
+</section>
+<section id="ebene-4-annahmen-prüfen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-4-annahmen-prüfen">Ebene 4: Annahmen prüfen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Pakete laden</strong>: <code>library(performance)</code></label></li>
+<li><label><input type="checkbox"><strong>Visuelle Diagnostik</strong>: <code>check_model(modell, check = c("normality", "qq", "homogeneity"))</code></label></li>
+<li><label><input type="checkbox"><strong>QQ-Plot bewerten</strong>: Punkte sollten entlang der Linie liegen → Normalverteilung der Residuen</label></li>
+<li><label><input type="checkbox"><strong>Homogeneity-Panel bewerten</strong>: Referenzlinie sollte annähernd horizontal sein → Varianzhomogenität</label></li>
+<li><label><input type="checkbox"><strong>Optional Levene-Test</strong>: <code>check_homogeneity(modell)</code> liefert die Varianzhomogenität als Zahl</label></li>
+</ul>
+<p><em>Faustregel:</em> ANOVA ist robust gegenüber moderaten Annahmenverletzungen, wenn n ≥ 30 pro Gruppe und die Gruppen ähnlich gross sind. Visuell prüfen statt nur auf Signifikanz-Tests vertrauen — bei grossen N wird <em>jede</em> Abweichung signifikant, bei kleinen N fehlt dem Test die Power.</p>
+</section>
+<section id="ebene-5-post-hoc-vergleiche" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-5-post-hoc-vergleiche">Ebene 5: Post-hoc-Vergleiche</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Notwendigkeit prüfen</strong>: Post-hoc nur, wenn F-Test signifikant <strong>und</strong> mehr als zwei Gruppen oder eine signifikante Interaktion</label></li>
+<li><label><input type="checkbox"><strong>Pakete laden</strong>: <code>library(emmeans)</code></label></li>
+<li><label><input type="checkbox"><strong>Marginale Mittelwerte schätzen</strong>: <code>emm &lt;- emmeans(modell, ~ faktor)</code></label></li>
+<li><label><input type="checkbox"><strong>Paarweise Vergleiche</strong>: <code>pairs(emm, adjust = "tukey")</code> — Tukey-Standard bei mehreren Gruppen, Bonferroni bei wenigen gezielten Vergleichen</label></li>
+<li><label><input type="checkbox"><strong>Bei signifikanter Interaktion</strong>: Bedingte Effekte via <code>emmeans(modell, ~ within | between)</code> — z. B. Effekt von <code>zeitpunkt</code> separat in jeder <code>gruppe</code></label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kompletter ANOVA-Workflow</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Modell schätzen</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">"id"</span>, <span class="at">dv =</span> <span class="st">"wm_score"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">between =</span> <span class="st">"gruppe"</span>, <span class="at">within =</span> <span class="st">"zeitpunkt"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> wm_long)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(modell)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Annahmen prüfen</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"normality"</span>, <span class="st">"qq"</span>, <span class="st">"homogeneity"</span>))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Post-hoc bei signifikanter Interaktion</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modell, <span class="sc">~</span> zeitpunkt <span class="sc">|</span> gruppe)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm, <span class="at">adjust =</span> <span class="st">"tukey"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="checkliste-11-regression-durchführen" class="level2">
+<h2 class="anchored" data-anchor-id="checkliste-11-regression-durchführen">Checkliste 11: Regression durchführen</h2>
+<p>Die lineare Regression sagt eine metrische Zielvariable aus einem oder mehreren Prädiktoren vorher und ermöglicht Modellvergleiche, Kovariatenkontrolle und Interaktionen. ANOVA und Regression sind Spezialfälle desselben linearen Modells. Für die Funktionsdetails siehe Abschnitt <em>Lineare Regression &amp; Modellvergleich</em> in der <a href="./Funktionsübersicht.html">Funktionsübersicht</a>.</p>
+<section id="ebene-1-daten-vorbereiten" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-1-daten-vorbereiten">Ebene 1: Daten vorbereiten</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Forschungsfrage präzisieren</strong>: Welche Variable wird vorhergesagt? Welche Prädiktoren?</label></li>
+<li><label><input type="checkbox"><strong>Variablentypen prüfen</strong>: Kategoriale Prädiktoren als <code>factor()</code> kodieren, sonst werden Strings alphabetisch sortiert</label></li>
+<li><label><input type="checkbox"><strong>Vollständige Fälle für Modellvergleich erzeugen</strong>: Wenn später <code>anova(modell1, modell2)</code> geplant ist, vor der Modellierung mit <code>filter(complete.cases(...))</code> einen Datensatz mit identischem N für alle Prädiktoren erstellen</label></li>
+<li><label><input type="checkbox"><strong>Optional Prädiktoren zentrieren</strong>: Bei kontinuierlichen Prädiktoren oder bei Interaktionen <code>mutate(x_c = x - mean(x, na.rm = TRUE))</code> — macht den Intercept und Haupteffekte sinnvoll interpretierbar</label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identische Fallzahl &amp; zentrierte Prädiktoren</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_analyse_complete <span class="ot">&lt;-</span> df_analyse <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(wm_score_t2, wm_score_t1,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                        sleep_hours_t2, gruppe)) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_c =</span> sleep_hours_t2 <span class="sc">-</span> <span class="fu">mean</span>(sleep_hours_t2),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">wm_t1_c =</span> wm_score_t1 <span class="sc">-</span> <span class="fu">mean</span>(wm_score_t1),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">gruppe =</span> <span class="fu">factor</span>(gruppe)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ebene-2-modelle-mit-lm-spezifizieren" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-2-modelle-mit-lm-spezifizieren">Ebene 2: Modelle mit <code>lm()</code> spezifizieren</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Einfache Regression</strong>: <code>lm(y ~ x, data)</code> — ein metrischer Prädiktor</label></li>
+<li><label><input type="checkbox"><strong>Multiple Regression</strong>: <code>lm(y ~ x1 + x2, data)</code> — mehrere Prädiktoren, additiv</label></li>
+<li><label><input type="checkbox"><strong>Interaktion</strong>: <code>lm(y ~ x1 * x2, data)</code> — expandiert zu <code>x1 + x2 + x1:x2</code></label></li>
+<li><label><input type="checkbox"><strong>Kovarianzanalyse</strong>: Statt Differenzscores (<code>y_post - y_pre</code>) den Baseline-Wert als Prädiktor aufnehmen: <code>lm(y_t2 ~ y_t1 + prädiktor + gruppe, data)</code> — höhere Power, freie Schätzung des Baseline-Koeffizienten</label></li>
+<li><label><input type="checkbox"><strong>Modelle in Objekten speichern</strong>: <code>modell1 &lt;- lm(...)</code>, <code>modell2 &lt;- lm(...)</code> — für spätere Modellvergleiche</label></li>
+</ul>
+</section>
+<section id="ebene-3-modelle-vergleichen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-3-modelle-vergleichen">Ebene 3: Modelle vergleichen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Nested-Eigenschaft prüfen</strong>: Das kleinere Modell muss eine Teilmenge des grösseren sein (alle Prädiktoren des kleinen sind auch im grossen enthalten)</label></li>
+<li><label><input type="checkbox"><strong>Gleiches N sicherstellen</strong>: Beide Modelle müssen auf demselben Datensatz beruhen — fehlende Werte dürfen nicht zwischen Modellen variieren</label></li>
+<li><label><input type="checkbox"><strong>F-Test ausführen</strong>: <code>anova(modell1, modell2)</code> — testet, ob der R²-Zuwachs grösser ist als zufällig zu erwarten</label></li>
+<li><label><input type="checkbox"><strong>Ergebnis interpretieren</strong>: Signifikantes <code>Pr(&gt;F)</code> rechtfertigt die Erweiterung um zusätzliche Prädiktoren</label></li>
+</ul>
+<p><em>Hinweis:</em> R² steigt mechanisch mit jedem zusätzlichen Prädiktor — auch bei irrelevanten. Der F-Test in <code>anova()</code> ist deshalb der korrekte Vergleichstest, nicht das blosse Ablesen von R².</p>
+</section>
+<section id="ebene-4-parameter-interpretieren" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-4-parameter-interpretieren">Ebene 4: Parameter interpretieren</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Modell-Output anzeigen</strong>: <code>summary(modell)</code> — Coefficients, Modelltest, Residuals</label></li>
+<li><label><input type="checkbox"><strong>Koeffizienten lesen</strong>:</label>
+<ul>
+<li><strong>Intercept (b₀)</strong>: Vorhergesagter y-Wert, wenn alle Prädiktoren = 0</li>
+<li><strong>Steigungskoeffizient (b₁)</strong>: Erwartete Veränderung in y pro Einheit x, bei Kontrolle aller anderen Prädiktoren</li>
+<li><strong>Kategoriale Prädiktoren</strong>: Differenz zur Referenzkategorie</li>
+</ul></li>
+<li><label><input type="checkbox"><strong>Konfidenzintervalle ausgeben</strong>: <code>confint(modell)</code> — 95%-CIs für jeden Koeffizienten</label></li>
+<li><label><input type="checkbox"><strong>Bei Interaktionen — simple slopes</strong>: <code>library(emmeans); emtrends(modell, pairwise ~ gruppe, var = "prädiktor")</code> zeigt die Steigung des Prädiktors getrennt pro Gruppe</label></li>
+</ul>
+<p><em>Interpretationsfalle:</em> Koeffizienten sind immer <strong>konditional</strong> auf die Referenzkategorie und darauf, dass alle anderen Prädiktoren = 0 sind — nicht über die Daten gemittelt. Bei Interaktionen mit unzentrierten Prädiktoren sind die Haupteffekte oft inhaltlich kaum sinnvoll interpretierbar — Zentrierung in Ebene 1 löst das.</p>
+</section>
+<section id="ebene-5-annahmen-prüfen" class="level3">
+<h3 class="anchored" data-anchor-id="ebene-5-annahmen-prüfen">Ebene 5: Annahmen prüfen</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Pakete laden</strong>: <code>library(performance)</code></label></li>
+<li><label><input type="checkbox"><strong>Visuelle Diagnostik</strong>: <code>check_model(modell, check = c("qq", "normality", "linearity", "homogeneity"))</code></label></li>
+<li><label><input type="checkbox"><strong>Linearität prüfen</strong>: Residuals-vs-Fitted-Panel — Referenzlinie sollte annähernd horizontal sein, kein systematischer Trend</label></li>
+<li><label><input type="checkbox"><strong>Homoskedastizität prüfen</strong>: Homogeneity-Panel — keine Fächer- oder Trichterform der Residuen</label></li>
+<li><label><input type="checkbox"><strong>Normalverteilung der Residuen prüfen</strong>: QQ-Plot — Punkte nahe an der Linie</label></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kompletter Regressions-Workflow</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Modelle spezifizieren (auf vollständigen Fällen)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>modell1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_c, <span class="at">data =</span> df_analyse_complete)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wm_score_t2 <span class="sc">~</span> sleep_c <span class="sc">+</span> wm_t1_c <span class="sc">+</span> gruppe,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df_analyse_complete)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Modellvergleich</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modell1, modell2)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Parameter interpretieren</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell2)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modell2)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Annahmen prüfen</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(modell2,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"qq"</span>, <span class="st">"normality"</span>, <span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
